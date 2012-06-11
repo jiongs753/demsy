@@ -621,59 +621,23 @@ function setTargetStyle(style, value) {
 
 	}
 }
-function collapseSwitch(style) {
-	if (document.getElementById(style).style.visibility != "hidden") {
-		var st;
-		for (st in connectInstanceOverrideMap[style]) {
-			try {
-				connectInstanceMap[style].set("");
-			} catch (x) {
-				connectInstanceMap[style][0].set("");
-			}
-			document.getElementById(st).style.display = "";
-		}
-		document.getElementById(style + "#switch").src = QrXPCOM.designerPath + "/img/arrowopen.gif";
-		document.getElementById(style).style.visibility = "hidden";
-		try {
-			connectInstanceMap[style].set("");
-		} catch (x) {
-			connectInstanceMap[style][0].set("");
-		}
+function collapseSwitch(style,style1,style2,style3,style4) {
+	var $style = $("#"+style);
+	if ($style.attr("hide") != "1") {
+		$style.attr("hide", "1");
+		$("#"+style + "#switch").attr("src", QrXPCOM.designerPath + "/img/arrowopen.gif");
+		$("#"+style1).show();
+		$("#"+style2).show();
+		$("#"+style3).show();
+		$("#"+style4).show();
 	} else {
-		var st;
-		for (st in connectInstanceOverrideMap[style]) {
-			try {
-				connectInstanceMap[style].set("");
-			} catch (x) {
-				connectInstanceMap[style][0].set("");
-			}
-			document.getElementById(st).style.display = "none";
-		}
-		document.getElementById(style + "#switch").src = QrXPCOM.designerPath + "/img/arrowclose.gif";
-		document.getElementById(style).style.visibility = "";
-		try {
-			connectInstanceMap[style].set("");
-		} catch (x) {
-			connectInstanceMap[style][0].set("");
-		}
+		$style.attr("hide", "0");
+		$("#"+style + "#switch").attr("src", QrXPCOM.designerPath + "/img/arrowclose.gif");
+		$("#"+style1).hide();
+		$("#"+style2).hide();
+		$("#"+style3).hide();
+		$("#"+style4).hide();
 	}
-}
-
-function createTaniComponent(def) {
-	if (!def)
-		def = "px";
-	var tan = new QrPulldown(def, 3);
-	tan.render();
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> px = pixels", "px");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> pt = 1/72in", "pt");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> em = font-size", "em");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> ex = x-height of font", "ex");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> pc = 12pt", "pc");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> cm", "cm");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> mm", "mm");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> in", "in");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> %", "%");
-	return tan;
 }
 
 function innerset() {

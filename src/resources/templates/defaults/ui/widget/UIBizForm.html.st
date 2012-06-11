@@ -14,9 +14,11 @@
 					<td class="bzfld_head" valign="top" style="font-style: italic;text-align:left;" colspan=2>{$fld.label}</td>
 					</tr>{render ui=$fld uiRender=$uiRender}
 					{else}
+					{if $grp.shownFieldsSize > 1}
 					<td class="bzfld_head" valign="top">
 						{if $fld.mode == "M"}<span class="bzfld_M">&nbsp;</span>{/if}{$fld.label}
 					</td>
+					{/if}
 					<td class="bzfld_data"{if $fld.colSpan>1} colspan='{$fld.colSpan}'{/if}>
 						{render ui=$fld uiRender=$uiRender}
 						{if $fld.param.desc != null}<span class="bzfld_desc">{$fld.param.desc}</span>{/if}
@@ -51,7 +53,9 @@
 					<td class="bzfld_head" style="font-style: italic;text-align:left;" colspan=2>{$fld.label}</td>
 					</tr>{render ui=$fld uiRender=$uiRender}
 					{else}
+					{if $grp.shownFieldsSize > 1}
 					<td class="bzfld_head">{if $fld.mode == "M"}<span class="bzfld_M">&nbsp;</span>{/if}{$fld.label}</td>
+					{/if}
 					<td class="bzfld_data"{if $fld.colSpan>1} colspan='{$fld.colSpan}'{/if}>{render ui=$fld uiRender=$uiRender}</td>
 					{/if}
 				{if $fld.rowEnd}</tr>{/if}
