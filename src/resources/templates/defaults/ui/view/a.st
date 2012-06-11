@@ -1,0 +1,2 @@
+<a{if $href != null} href="{$href}"{/if}{if $target!=null} target="{$target}"{/if}{if $title!=null} title="{$title}"{/if}>
+{import file="img.st" img=$img imgDomain=$imgDomain}{if $name != null}{$name}{else}{/if}</a>

@@ -1,0 +1,18 @@
+<script src="{$scriptPath}/demsy.tree.js" type="text/javascript"></script>
+<link href="{$stylePath}/jquery.tree.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="{$scriptPath}/demsy.bizmodule.js" type="text/javascript"></script>
+
+<div id="{$ui.uiid}"></div>
+<script type="text/javascript">
+bizmodule.addNaviMenu({
+	uiid: "{$ui.uiid}",
+	moduleID: "{$moduleID}",{if $comboboxID != null}
+	comboboxID: "{$comboboxID}",
+	comboboxType: "{$comboboxType}",{/if}
+	showcheck: true,
+	cbiconpath: '{$imagePath}/tree',{if $data != null}
+	data: {import file="BizNavi.json.st" data=$data},{else}
+	url: '{$ui.dataUrl}',{/if}
+	complete: false
+});
+</script>

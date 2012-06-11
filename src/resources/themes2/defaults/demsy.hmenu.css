@@ -1,0 +1,155 @@
+@charset "utf-8";
+
+.rootloading {
+	width: 25px;
+	height: 25px;
+	background: url(menu/menu_loading.gif) no-repeat;
+}
+
+.hide {
+	display: none;
+}
+.hmenu_panel {
+	background: url(menu/hmenu_bg.gif) repeat-x;
+	border: solid 1px #A4BED4;
+	overflow: hidden;
+	position: absolute;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+}
+
+.hmenu_mover {
+	width: 5000px;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+li.hmenu_item {
+	padding: 3px 1px 3px 1px;
+	float: left;
+	position: relative;
+	list-style-type: none;
+}
+
+table.hmenu_item {
+	cursor: pointer;
+	color: #333;
+}
+
+.hmenu_item_title {
+	margin: 0;
+	height: 21px;
+}
+
+.hmenu_item_icon {
+	padding-left: 20px;
+}
+
+.hmenu_item_text {
+	position: relative;
+	color: #2e6e9e;
+	height: 19px;
+	line-height: 19px;
+	padding: 0 3px 0 0;
+}
+
+.hmenu_item_arrow {
+	background: url(menu/hmenu_arrow.gif) right no-repeat;
+	padding-right: 10px;
+	height: 19px;
+}
+
+.hmenu_item_loading {
+	background: url(menu/menu_loading.gif) right no-repeat;
+	padding-right: 18px;
+	height: 19px;
+}
+
+.hmenu_item_text_over,.hmenu_item_text_active {
+	color: #23508E;
+}
+
+.hmenu_item_dis,.hmenu_item_dis .hmenu_item_text {
+	filter: alpha(opacity =     40);
+	-moz-opacity: 0.4;
+	opacity: 0.4;
+	cursor: default;
+}
+
+.hmenu_itemL,.hmenu_itemR {
+	width: 3px;
+}
+
+.hmenu_itemL_over {
+	background: url(menu/menu_button.gif) no-repeat 0 0;
+}
+
+.hmenu_itemR_over {
+	background: url(menu/menu_button.gif) no-repeat 0 -21px;
+}
+
+.hmenu_itemC_over {
+	background: url(menu/menu_button.gif) repeat-x 0 -42px;
+}
+
+.hmenu_itemL_active {
+	background: url(menu/menu_button.gif) no-repeat 0 -63px;
+}
+
+.hmenu_itemR_active {
+	background: url(menu/menu_button.gif) no-repeat 0 -84px;
+}
+
+.hmenu_itemC_active {
+	background: url(menu/menu_button.gif) repeat-x 0 -105px;
+}
+
+span.hmenu_split {
+	background: url(menu/menu/hmenu_split.gif) center no-repeat;
+	display: block;
+	height: 20px;
+	width: 2px;
+}
+
+.hmenu_scrollL {
+	background: url(menu/hmenu_scroll_l.gif) no-repeat 0px 0;
+	border-bottom: solid 1px #8DB2E3;
+	border-left: solid 1px #8DB2E3;
+	position: absolute;
+	width: 18px;
+	height: 22px;
+	left: -1px;
+	top: 1px;
+	cursor: pointer;
+}
+
+.hmenu_scrollR {
+	background: url(menu/hmenu_scroll_r.gif) no-repeat 0 0;
+	border-right: solid 1px #8DB2E3;
+	border-bottom: solid 1px #8DB2E3;
+	position: absolute;
+	width: 18px;
+	height: 22px;
+	right: -1px;
+	top: 1px;
+	cursor: pointer;
+}
+
+.hmenu_scrollL_dis,.hmenu_scrollR_dis {
+	display: none;
+}
+
+.hmenu_scrollL_over,.hmenu_scrollR_over {
+	background-position: -18px 0;
+}
+
+.hmenu_fix {
+	height: 6px;
+	position: absolute;
+	border-left: 1px solid #8DB2E3;
+	border-right: 1px solid #8DB2E3;
+	background: url(menu/hmenu_fix_bg.gif) repeat-x;
+}

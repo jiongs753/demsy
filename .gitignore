@@ -1,0 +1,13 @@
+/3th
+/build
+/docs
+/test
+/web
+/bin
+/patch
+/.settings
+.classpath
+.project
+/.project
+/.DS_Store
+/.classpath

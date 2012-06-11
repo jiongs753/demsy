@@ -1,0 +1,1 @@
+{foreach from=$nodes item="item"}{key bean=$item.params prop=$keyProp assign="itemValue"}{if $fieldValue == $itemValue}{$item.name}{break}{/if}{/foreach}

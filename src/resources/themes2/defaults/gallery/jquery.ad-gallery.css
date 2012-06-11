@@ -1,0 +1,251 @@
+.ad-gallery {
+}
+
+.ad-gallery-btns {
+    text-align: center;
+}
+
+.ad-gallery,.ad-gallery * {
+    margin: 0;
+    padding: 0;
+}
+
+.ad-gallery .ad-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #abd1f8;
+}
+
+.ad-gallery .ad-image-wrapper .ad-loader {
+    position: absolute;
+    z-index: 10;
+    top: 48%;
+    left: 48%;
+    border: 1px solid #737373;
+}
+
+.ad-gallery .ad-image-wrapper .ad-next {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 25%;
+    height: 100%;
+    cursor: pointer;
+    display: block;
+    z-index: 100;
+}
+
+.ad-gallery .ad-image-wrapper .ad-prev {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 25%;
+    height: 100%;
+    cursor: pointer;
+    display: block;
+    z-index: 100;
+}
+
+.ad-gallery .ad-image-wrapper .ad-prev,.ad-gallery .ad-image-wrapper .ad-next {
+    background: url(non-existing.jpg) \9
+}
+
+.ad-gallery .ad-image-wrapper .ad-prev .ad-prev-image,.ad-gallery .ad-image-wrapper .ad-next .ad-next-image {
+    background: url(ad_prev.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #ffffff;
+    width: 20px;
+    height: 35px;
+    display: none;
+    position: absolute;
+    top: 47%;
+    left: 0;
+    z-index: 101;
+}
+
+.ad-gallery .ad-image-wrapper .ad-next .ad-next-image {
+    background: url(ad_next.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #ffffff;
+    width: 20px;
+    height: 35px;
+    right: 0;
+    left: auto;
+}
+
+.ad-gallery .ad-image-wrapper .ad-image {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: 9;
+}
+
+.ad-gallery .ad-image-wrapper .ad-image .ad-image-description {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 5px;
+    margin: 0 1px 1px 1px;
+    text-align: center;
+    width: 100%;
+    z-index: 9999;
+    background: url(bg11.png);
+    font-size: 12px;
+    color: #ffffff;
+}
+
+.ad-gallery .ad-image-wrapper .ad-image .ad-image-description .ad-description-title {
+    width: 100%;
+    display: block;
+}
+
+.ad-gallery .ad-image-src {
+    align: center;
+    width: 100%;
+    text-align: center;
+}
+
+.ad-gallery .ad-image-src a {
+    color: #ffffff;
+}
+
+.ad-gallery .ad-controls {
+    height: 20px;
+    padding: 5px 0 0 0 ;
+}
+
+.ad-gallery .ad-info {
+    float: left;
+}
+
+.ad-gallery .ad-slideshow-controls {
+    float: right;
+}
+
+.ad-gallery .ad-slideshow-controls .ad-slideshow-start,.ad-gallery .ad-slideshow-controls .ad-slideshow-stop {
+    padding-left: 5px;
+    cursor: pointer;
+}
+
+.ad-gallery .ad-slideshow-controls .ad-slideshow-countdown {
+    padding-left: 5px;
+    font-size: 0.9em;
+}
+
+.ad-gallery .ad-slideshow-running .ad-slideshow-start {
+    cursor: default;
+    font-style: italic;
+}
+
+.ad-gallery .ad-nav {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #abd1f8;
+    margin-left: 5px;
+}
+
+.ad-gallery .ad-forward,.ad-gallery .ad-back {
+    width: 100%;
+    z-index: 10;
+}
+
+* html .ad-gallery .ad-forward,.ad-gallery .ad-back {
+    width: 100%;
+}
+
+.ad-gallery .ad-back {
+    cursor: pointer;
+    display: block;
+    height: 18px;
+    background-image: url(ad_top.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #abd1f8;
+    margin: 1px 1px 1px 1px;
+}
+
+.ad-gallery .ad-back-logo {
+    cursor: pointer;
+    display: block;
+    height: 22px;
+    background-image: url(ad_top.png);
+    background-repeat: no-repeat;
+}
+
+.ad-gallery .ad-forward {
+    cursor: pointer;
+    display: block;
+    height: 22px;
+    background-image: url(ad_bottom.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: #abd1f8;
+    margin: 1px 1px 1px 1px;
+}
+
+.ad-gallery .ad-forward-logo {
+    cursor: pointer;
+    display: block;
+    height: 22px;
+    background-image: url(ad_bottom.png);
+    background-repeat: no-repeat;
+}
+
+.ad-gallery .ad-nav .ad-thumbs {
+    overflow: hidden;
+    padding: 2px 2px 2px 3px; 
+}
+
+.ad-gallery .ad-thumbs .ad-thumb-list {
+    height: 9000px;
+    list-style: none;
+}
+
+.ad-gallery .ad-thumbs li {
+    
+}
+
+.ad-gallery .ad-thumbs li a {
+    outline: none;
+    display: block;
+}
+
+.ad-gallery .ad-thumbs li a img {
+    margin: 5px 0 5px 0;
+    padding: 2px;
+    display: block;
+}
+
+.ad-gallery .ad-thumbs li a.ad-active div {
+    position: absolute;
+    display: block;
+    background-color: #ffffff;
+    left: 5px;
+    top: 49%;
+    width: 13px;
+    height: 13px;
+    z-index: 999;
+    background-image: url(ad_left.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.ad-gallery .ad-thumbs li a.ad-active img {
+}
+
+.ad-preloads {
+    position: absolute;
+    left: -9000px;
+    top: -9000px;
+}
+.ad-gallery .voteagree{
+	padding-left: 18px;
+	background: url(zc.gif) no-repeat;
+}
+.ad-gallery .voteoppose{
+	padding-left: 18px;
+	background: url(fd.gif) no-repeat;
+}

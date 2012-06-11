@@ -1,0 +1,2 @@
+{if $img != null}{if $block.imageWidth !=null && $block.imageHeight != null}{thumbs assign="logoimg" src=$img width=$block.imageWidth height=$block.imageHeight autoCut=$block.autoCutImage}{/if}
+<img src="{if $imgDomain !=null}{$imgDomain}{/if}{if $logoimg!=null}{$logoimg}{else}{$img}{/if}" />{/if}

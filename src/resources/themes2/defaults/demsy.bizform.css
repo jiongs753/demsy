@@ -1,0 +1,175 @@
+form.bzsys {
+	padding: 5px;
+	margin: 0px;
+	BORDER-COLLAPSE: collapse;
+}
+.bzsys_head{
+	padding: 5px;
+	border: 1px solid #79b7e7;
+	background: #5c9ccc;
+	text-align: center;
+	font-weight: bold;
+	font-size: 14px;
+	color: #ffffff;
+}
+/*业务分组TABLE*/
+.bzgrp {
+	width: 100%;
+	border: 1px solid #79b7e7;
+	background-color: transparent;
+	margin: 5px 0 5px 0;
+	BORDER-COLLAPSE: collapse;
+	padding: 1px;
+}
+.bzgrp_head {
+	padding: 5px;
+	border: 1px solid #79b7e7;
+	background: #5c9ccc;
+	text-align: center;
+	font-weight: bold;
+	font-size: 14px;
+	color: #ffffff;
+	margin-bottom: 1px;
+}
+/*业务字段名称TD*/
+.bzfld_head {
+	width: 120px;
+	height: 22px;
+	white-space: nowrap;
+	background-color: #dfeffc;
+	border: 1px solid #c5dbec;
+	color: #1d5987;
+	text-align: right;
+	padding: 8px 4px;
+	font-weight: bold;
+}
+/*业务字段输入框TD*/
+.bzfld_data {
+	background-color: #fcfdfd;
+	border: 1px solid #c5dbec;
+	padding: 4px;
+}
+/*INPUT/SELECT/TEXTAREA等输入框*/
+.bzfld_data .input,.bzfld_data .select,.bzfld_data textarea.textarea {
+	width: 200px;
+	height: 18px;
+	margin: 0;
+	border: 1px solid #999999;
+	padding: 1px;
+	font-family: "Lucida Grande", "Arial", "Lucida", "Verdana", "Helvetica", "宋体", "sans-serif";
+}
+
+.bzfld_data .select {
+	width: 205px;
+	height: 23px;
+	font-size: 12px;
+}
+
+.bzfld_data .select option {
+	height: 19px;
+}
+.bzfld_desc{
+	color: gray;
+}
+.bzfld_data textarea.textarea {
+	width: 100%;
+	height: 60px;
+	overflow: auto;
+}
+
+.bzfld_data div.textarea {
+	margin-right: 4px;
+	width: auto;
+}
+/*COMBOBOX下拉框*/
+.Combobox {
+	position: relative;
+	left: 0;
+	top: 0;
+	width: 204px;
+}
+
+.Combobox .ui-icon, .Combobox .logo{
+	position: absolute;
+	right: 1px;
+	top: 4px;
+	width: 16px;
+	height: 16px;
+	z-index: 10;
+	background-color: #ffffff;
+}
+
+.Combobox .progress {
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 0;
+	z-index: 100;
+}
+
+.bzgrp_H {
+	display: none;
+}
+
+.bzfld_M {
+	padding: 0 14px 0 0;
+	margin: 0 2px 0 0;
+	width: 14px;
+	height: 14px;
+	background-image: url(../images/required.gif);
+	background-position: center bottom;
+	background-repeat: no-repeat;
+}
+/*业务系统按钮*/
+.bzsys_btns {
+	padding: 5px 0 5px 0;
+	text-align: center;
+	height: 25px;
+}
+/*业务表单里面包含的子系统表格*/
+.bzsubsys_container{
+	border: 1px solid #79b7e7;
+    padding: 2px;
+}
+.bzsubfld_head, .bzsubfld_head_check, .bzsubsys_btns {
+	width: 204px;
+	white-space: nowrap;
+	background-color: #dfeffc;
+	border: 1px solid #c5dbec;
+	color: #1d5987;
+	text-align: center;
+	padding: 2px;
+	font-weight: bold;
+}
+.bzsubsys_btns{
+	white-space: nowrap;
+	text-align: right;
+}
+.bzsubfld_data, .bzsubfld_data_check, .bzsubfld_data_btns{
+	background-color: #fcfdfd;
+	border: 1px solid #c5dbec;
+	padding: 2px;
+	white-space: nowrap;
+}
+.bzsubfld_head_check, .bzsubfld_data_check, .bzsubfld_head_btns{
+	width: 30px;
+	text-align: left;
+	white-space: nowrap;
+}
+.bzsubsys_btns a, .bzsubfld_data_btns a{
+	text-decoration: none;
+	padding: 2px;
+	margin: 0 2px 0 2px;
+	font-size: 18px;
+	font-weight: bold;
+} 
+a.op_btn_add {
+	font-size: 20px;
+} 
+.bzfld_data .bzsubfld_data .input,.bzfld_data .bzsubfld_data .select,.bzfld_data .bzsubfld_data textarea.textarea {
+}
+.bzfld_data .bzsubfld_data textarea.textarea {
+    width: 400px;
+    height: 60px;
+}

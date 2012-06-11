@@ -1,0 +1,84 @@
+.vtabs {
+	position: relative;
+}
+
+.vtabs .vtabs-tab-column {
+	position: absolute;
+	left: 0;
+	margin: 0;
+	width: 80px;
+	min-width: 80px;
+	cursor: pointer;
+}
+
+.vtabs .vtabs-tab-column ul {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.vtabs .vtabs-tab-column ul li.open,.vtabs .vtabs-tab-column ul li.closed
+	{
+	background-color: #ffffff;
+	margin: 0px;
+	padding-left: 7px;
+	padding-right: 5px;
+	padding-bottom: 6px;
+	padding-top: 6px;
+	margin-bottom: 1px;
+	/* round corners do not work in IE */
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	border-top: 1px solid #79b7e7;
+	border-bottom: 1px solid #79b7e7;
+	border-left: 1px solid #79b7e7;
+	min-height: 15px;
+	z-index: 10;
+	font-weight: bold;
+}
+
+.vtabs .vtabs-tab-column ul li.closed {
+	background-color: #dfeffc;
+	border-right: 1px solid #79b7e7;
+	background-repeat: repeat-x;
+}
+
+.vtabs .vtabs-tab-column ul li:hover {
+	background-color: #ffffff;
+	background-repeat: repeat-x;
+}
+
+.vtabs .vtabs-tab-column ul li a.open,.vtabs .vtabs-tab-column ul li a.closed
+	{
+	margin: 0px;
+	padding: 0px;
+	text-decoration: none;
+	color: #e17009;
+}
+
+.vtabs .vtabs-tab-column ul li a.closed {
+	color: #2e6e9e;
+}
+
+.vtabs .vtabs-content-column {
+	padding: 0px;
+	margin: 0px;
+}
+
+.vtabs .vtabs-content-column .vtabs-content-panel {
+	background-color: #ffffff;
+	padding-left: 7px;
+	padding-right: 7px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	margin: 0px;
+	-moz-border-radius-topright: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	border: 1px solid #79b7e7;
+}

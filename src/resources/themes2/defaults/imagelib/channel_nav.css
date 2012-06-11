@@ -1,0 +1,198 @@
+.NTES_sec_ {
+	BORDER-BOTTOM: #dcdddd 1px solid
+}
+.NTES_nav_ {
+	TEXT-ALIGN: left; LINE-HEIGHT: 30px; MARGIN: 0px auto; WIDTH: 960px; HEIGHT: 30px
+}
+.NTES_bg_ {
+	BACKGROUND: url(ntes_bg.jpg) repeat-x left bottom; HEIGHT: 35px
+}
+.NTES_nav_ .NTES_logo {
+	MARGIN: 5px 5px 0px; DISPLAY: inline; FLOAT: left
+}
+.NTES_nav_ .nav_link {
+	FLOAT: left; COLOR: #b3b3b3
+}
+.nav_link A {
+	COLOR: #2b2b2b
+}
+.nav_link A:visited {
+	COLOR: #2b2b2b
+}
+.nav_link A:hover {
+	COLOR: #ba2636
+}
+.NTES_link A {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 3px; PADDING-RIGHT: 2px; COLOR: #1e50a2; PADDING-TOP: 0px
+}
+.NTES_link A:visited {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 3px; PADDING-RIGHT: 2px; COLOR: #1e50a2; PADDING-TOP: 0px
+}
+.NTES_nav_ .nav_link A:hover {
+	COLOR: #ba2636
+}
+.NTES_nav_ .rightCon {
+	FLOAT: right
+}
+.NTES_nav_ .rightCon .rss {
+	MARGIN: 8px 6px 0px; DISPLAY: inline; FLOAT: right
+}
+.NTES_bg_ .nav_link {
+	MARGIN-TOP: 2px
+}
+.NTES_nav_ .nav_link A {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; PADDING-TOP: 0px
+}
+.NTES_nav_ .hidden {
+	DISPLAY: none
+}
+.top_search {
+	MARGIN: 9px 0px 0px; DISPLAY: inline; FLOAT: right
+}
+.top_search .select_box {
+	POSITION: relative; BORDER-BOTTOM-STYLE: none; TEXT-ALIGN: left; BORDER-RIGHT-STYLE: none; WIDTH: 45px; BORDER-TOP-STYLE: none; BACKGROUND: url(ntes_nav_img.gif) no-repeat left -56px; FLOAT: left; HEIGHT: 18px; BORDER-LEFT-STYLE: none; CURSOR: pointer; MARGIN-RIGHT: 4px
+}
+.top_search .select_box .select_list {
+	POSITION: absolute; LINE-HEIGHT: 19px; WIDTH: 3em; DISPLAY: none; BACKGROUND: #fff; TOP: 0px; LEFT: 0px
+}
+.top_search .select_box .search_site {
+	LINE-HEIGHT: 20px; PADDING-LEFT: 6px; FLOAT: left; HEIGHT: 18px; OVERFLOW: hidden
+}
+.top_search .select_box .select_list {
+	BORDER-BOTTOM: #b4b4b4 1px solid; BORDER-LEFT: #b4b4b4 1px solid; WIDTH: 43px; BORDER-TOP: #b4b4b4 1px solid; BORDER-RIGHT: #b4b4b4 1px solid
+}
+.top_search .select_box {
+	WIDTH: 45px
+}
+.top_search .select_box A {
+	TEXT-INDENT: 5px; DISPLAY: block; HEIGHT: 18px
+}
+.top_search .select_box A:hover {
+	DISPLAY: block; BACKGROUND: #1e50a2; HEIGHT: 18px; COLOR: #fff; TEXT-DECORATION: none
+}
+.top_search .select_box A.active {
+	DISPLAY: block; BACKGROUND: #1e50a2; HEIGHT: 18px; COLOR: #fff; TEXT-DECORATION: none
+}
+.top_search .textBox {
+	BORDER-BOTTOM-STYLE: none; LINE-HEIGHT: 18px; BORDER-RIGHT-STYLE: none; TEXT-INDENT: 3px; WIDTH: 119px; BORDER-TOP-STYLE: none; BACKGROUND: url(enterinput.gif) no-repeat left top; FLOAT: left; HEIGHT: 18px; COLOR: #7b7c7d; BORDER-LEFT-STYLE: none
+}
+.top_search .btn {
+	BORDER-BOTTOM-STYLE: none; LINE-HEIGHT: 19px; BORDER-RIGHT-STYLE: none; WIDTH: 41px; BORDER-TOP-STYLE: none; BACKGROUND: url(ntes_nav_img.gif) no-repeat left -28px; FLOAT: left; HEIGHT: 18px; FONT-SIZE: 12px; BORDER-LEFT-STYLE: none; OVERFLOW: hidden; CURSOR: pointer
+}
+.top_search FORM {
+	FLOAT: left
+}
+.select_goahead {
+	POSITION: relative; MARGIN: 5px 0px 0px; WIDTH: 150px; DISPLAY: block; BACKGROUND: url(endnav_bg1001.jpg) no-repeat 141px -204px; HEIGHT: 21px
+}
+.select_goahead .loginName {
+	TEXT-ALIGN: right; LINE-HEIGHT: 21px; WIDTH: 140px; DISPLAY: block; HEIGHT: 21px; COLOR: #727171; OVERFLOW: hidden; CURSOR: pointer; FONT-WEIGHT: bold
+}
+.select_goahead .loginName:hover {
+	COLOR: #ba2636
+}
+.select_goahead .select_box {
+	BORDER-BOTTOM: #dcdddd 1px solid; POSITION: absolute; TEXT-ALIGN: left; BORDER-LEFT: #dcdddd 1px solid; LINE-HEIGHT: 18px; WIDTH: 91px; DISPLAY: none; BACKGROUND: #fff; COLOR: #2b2b2b; OVERFLOW: hidden; BORDER-TOP: #dcdddd 1px solid; TOP: 21px; RIGHT: 0px; BORDER-RIGHT: #dcdddd 1px solid; _left: 0
+}
+select_goahead .select_box A {
+	LINE-HEIGHT: 18px; TEXT-INDENT: 6px; WIDTH: 91px; DISPLAY: block; HEIGHT: 18px; COLOR: #2b2b2b; CLEAR: both; FONT-WEIGHT: normal
+}
+select_goahead .select_box A:visited {
+	COLOR: #2b2b2b
+}
+select_goahead .select_box .dotLine {
+	MARGIN: 2px 0px
+}
+.select_passport .select_list A {
+	TEXT-INDENT: 2px; WIDTH: 110px; DISPLAY: block; BACKGROUND: #fff; HEIGHT: 18px; COLOR: #2b2b2b; CLEAR: both; CURSOR: pointer
+}
+.select_passport .select_list A:visited {
+	COLOR: #2b2b2b
+}
+.select_goahead .select_box A:hover {
+	BACKGROUND: #85b6ea; COLOR: #fff; TEXT-DECORATION: none
+}
+.select_goahead .select_box A.active {
+	BACKGROUND: #85b6ea; COLOR: #fff; TEXT-DECORATION: none
+}
+#divSelect {
+	FLOAT: left
+}
+.NTES_nav_ .top_search {
+	MARGIN: 6px 6px 0px 0px; DISPLAY: inline; FLOAT: right
+}
+.NTES_bg_ .top_search {
+	MARGIN-TOP: 8px
+}
+.NTES_nav_ .top_search .select_box {
+	Z-INDEX: 1000; POSITION: relative; BORDER-BOTTOM-STYLE: none; TEXT-ALIGN: left; BORDER-RIGHT-STYLE: none; WIDTH: 45px; BORDER-TOP-STYLE: none; BACKGROUND: url(ntes_nav_img.gif) no-repeat left -56px; FLOAT: left; HEIGHT: 18px; BORDER-LEFT-STYLE: none; CURSOR: pointer; MARGIN-RIGHT: 4px
+}
+.NTES_nav_ .top_search .select_box .select_list {
+	POSITION: absolute; LINE-HEIGHT: 19px; WIDTH: 3em; DISPLAY: none; BACKGROUND: #fff; TOP: 0px; LEFT: 0px
+}
+.NTES_nav_ .top_search .select_box .search_site {
+	LINE-HEIGHT: 20px; PADDING-LEFT: 6px; FLOAT: left; HEIGHT: 18px; OVERFLOW: hidden
+}
+.NTES_nav_ .top_search .select_box .select_list {
+	BORDER-BOTTOM: #b4b4b4 1px solid; BORDER-LEFT: #b4b4b4 1px solid; WIDTH: 43px; BORDER-TOP: #b4b4b4 1px solid; BORDER-RIGHT: #b4b4b4 1px solid
+}
+.NTES_nav_ .top_search .select_box {
+	WIDTH: 45px
+}
+.NTES_nav_ .top_search .select_box A {
+	TEXT-INDENT: 5px; DISPLAY: block; HEIGHT: 18px
+}
+.NTES_nav_ .top_search .select_box A:hover {
+	DISPLAY: block; BACKGROUND: #1e50a2; HEIGHT: 18px; COLOR: #fff; TEXT-DECORATION: none
+}
+.NTES_nav_ .top_search .select_box A.active {
+	DISPLAY: block; BACKGROUND: #1e50a2; HEIGHT: 18px; COLOR: #fff; TEXT-DECORATION: none
+}
+.NTES_nav_ .top_search .textBox {
+	BORDER-BOTTOM-STYLE: none; LINE-HEIGHT: 18px; BORDER-RIGHT-STYLE: none; TEXT-INDENT: 3px; WIDTH: 88px; BORDER-TOP-STYLE: none; BACKGROUND: url(ntes_nav_img.gif) no-repeat left top; FLOAT: left; HEIGHT: 18px; COLOR: #7b7c7d; BORDER-LEFT-STYLE: none
+}
+.NTES_nav_ .top_search .btn {
+	BORDER-BOTTOM-STYLE: none; LINE-HEIGHT: 19px; BORDER-RIGHT-STYLE: none; WIDTH: 41px; BORDER-TOP-STYLE: none; BACKGROUND: url(ntes_nav_img.gif) no-repeat left -28px; FLOAT: left; HEIGHT: 18px; FONT-SIZE: 12px; BORDER-LEFT-STYLE: none; OVERFLOW: hidden; CURSOR: pointer
+}
+.NTES_nav_ .top_search FORM {
+	FLOAT: left
+}
+.NTES_nav_ .top_search .rss {
+	MARGIN: 2px 0px 0px 6px; FLOAT: left
+}
+.nav_channel_end {
+	LINE-HEIGHT: 38px; MARGIN: 0px auto; WIDTH: 960px; BACKGROUND: url(endnav_bg1001.jpg) left -67px; HEIGHT: 37px; OVERFLOW: hidden
+}
+.nav_channel_end .rightS {
+	WIDTH: 8px; DISPLAY: block; BACKGROUND: url(endnav_bg1001.jpg) no-repeat right -141px; FLOAT: right; HEIGHT: 37px; OVERFLOW: hidden
+}
+.nav_channel_end .nav {
+	LINE-HEIGHT: 38px; BACKGROUND: url(endnav_bg1001.jpg) no-repeat left -30px; FLOAT: left; HEIGHT: 37px; COLOR: #1e50a2; OVERFLOW: hidden
+}
+.nav_channel_end .nav A {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FLOAT: none; PADDING-TOP: 0px
+}
+.nav_channel_end .nav .firstNode {
+	BACKGROUND: none transparent scroll repeat 0% 0%; MARGIN-LEFT: 8px
+}
+.nav_channel_end .goHome {
+	TEXT-ALIGN: left; LINE-HEIGHT: 19px; TEXT-INDENT: 10px; MARGIN: 10px 5px 0px 0px; WIDTH: 77px; BACKGROUND: url(endnav_bg1001.jpg) no-repeat left -178px; FLOAT: right; HEIGHT: 18px; OVERFLOW: hidden
+}
+.nav_channel_end .nav A {
+	COLOR: #1e50a2
+}
+.nav_channel_end .nav A:visited {
+	COLOR: #1e50a2
+}
+.nav_channel_end .nav A:hover {
+	COLOR: #ba2636
+}
+.nav_channel_end .search {
+	MARGIN: 8px 13px 0px 0px; WIDTH: 128px; DISPLAY: inline; FLOAT: right; HEIGHT: 20px; OVERFLOW: hidden
+}
+.nav_channel_end .search .textBox {
+	BORDER-BOTTOM-STYLE: none; PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; BORDER-RIGHT-STYLE: none; TEXT-INDENT: 4px; PADDING-LEFT: 0px; WIDTH: 106px; PADDING-RIGHT: 0px; BORDER-TOP-STYLE: none; BACKGROUND: url(endnav_bg.jpg) no-repeat right -202px; FLOAT: left; HEIGHT: 20px; COLOR: #727171; BORDER-LEFT-STYLE: none; PADDING-TOP: 2px
+}
+.nav_channel_end .search .btn {
+	BORDER-BOTTOM-STYLE: none; BORDER-RIGHT-STYLE: none; TEXT-INDENT: -100em; WIDTH: 22px; BORDER-TOP-STYLE: none; BACKGROUND: url(endnav_bg.jpg) no-repeat left -178px; FLOAT: left; HEIGHT: 20px; BORDER-LEFT-STYLE: none; CURSOR: pointer
+}

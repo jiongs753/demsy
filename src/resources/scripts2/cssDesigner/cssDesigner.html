@@ -1,0 +1,1241 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css" href="cssDesigner.css">
+<SCRIPT language="JavaScript" type="text/javascript" src="cssDesigner2.js"></SCRIPT>
+<SCRIPT language="JavaScript" type="text/javascript">
+QrXPCOM.designerPath = ".";
+</SCRIPT>
+<table class="Tabwidth" border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+        <td valign="top" class="main"><div style="width: 350px;">
+                <center>
+                    <h2>CSS 样式在线编辑器</h2>
+                </center>
+                <div style="background-image: url('img/grid.gif'); padding: 20px; margin: 10px; width: 310px;">
+                    <div id="target">
+                        <UL>
+                            <LI>文本内容1</LI>
+                            <LI>文本内容2</LI>
+                            <LI>文本内容3</LI>
+                        </UL>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <TEXTAREA id="output" rows="7" style="margin: 10px; width: 350px; border: 1px solid gray;"></TEXTAREA>
+            </div>
+            <div style="width: 280px;">
+                <div style="background-image: url('img/grid.gif'); padding: 20px; margin: 10px; width: 310px;">
+                    <div id="target2">abcdefgdadfsadfsdf<br/>
+                            文本内容1<br/>
+                            文本内容2<br/>
+                            文本内容3<br/>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <TEXTAREA id="output2" rows="7" style="margin: 10px; width: 350px; border: 1px solid gray;"></TEXTAREA>
+            </div>
+            <div style="width: 280px;">
+                <div style="background-image: url('img/grid.gif'); padding: 20px; margin: 10px; width: 310px;">
+                    <UL id="target3">
+                        <LI>文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容1</LI>
+                        <LI>文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容2</LI>
+                        <LI>文本内容文本内容文本内容文本内容文本内容文本内容文本内容文本内容3</LI>
+                    </UL>
+                </div>
+            </div></td>
+        <td valign="top" width="350">
+            <table border="0" cellpadding="1" cellspacing="1" class="QrCSSDesignerPad" width="350">
+                <tr>
+                    <td colspan="3" align="center">边框<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td><img id="border-width#switch" src="img/arrowclose.gif" onClick="collapseSwitch('border-width');"></td>
+                    <td class="QrCSSDesignerPadLeft">边框宽度：</td>
+                    <td><span id="border-width"><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner(null, null, "borderWidth");
+pl.render();
+var override = new Array;
+override["border-top-width"]   = "";
+override["border-left-width"]   = "";
+override["border-right-width"]   = "";
+override["border-bottom-width"]   = "";
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"border-width",override);
+--></SCRIPT></span></td>
+                </tr>
+                <tr id="border-top-width" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">上边宽度：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"border-top-width");
+--></SCRIPT></span></td>
+                </tr>
+                <tr id="border-left-width" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">左边宽度：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"border-left-width");
+--></SCRIPT></td>
+                </tr>
+                <tr id="border-right-width" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">右边宽度：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"border-right-width");
+--></SCRIPT></td>
+                </tr>
+                <tr id="border-bottom-width" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">底边宽度：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"border-bottom-width");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td><img id="border-style#switch" src="img/arrowclose.gif" onClick="collapseSwitch('border-style');"></td>
+                    <td class="QrCSSDesignerPadLeft">边框样式：</td>
+                    <td><span id="border-style"><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addStyle(style){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:10px;height:10px;border-width:3px;border-style:"+style+";border-color:red' align='middle'/> "+style,style);
+}
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;border-width:3px;border-style:none;border-color:red;' align='middle'/> none","none");
+addStyle("solid");
+addStyle("double");
+addStyle("groove");
+addStyle("ridge");
+addStyle("inset");
+addStyle("outset");
+addStyle("dashed");
+addStyle("dotted");
+var override = new Array;
+override["border-top-style"]   = "";
+override["border-left-style"]   = "";
+override["border-right-style"]   = "";
+override["border-bottom-style"]   = "";
+connectCSS(pl,"border-style", override);
+--></SCRIPT></span></td>
+                </tr>
+                <tr id="border-top-style" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">上边样式：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addStyle(style){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:10px;height:10px;border-width:3px;border-style:"+style+";border-color:red' align='middle'/> "+style,style);
+}
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;border-width:3px;border-style:none;border-color:red;' align='middle'/> none","none");
+addStyle("solid");
+addStyle("double");
+addStyle("groove");
+addStyle("ridge");
+addStyle("inset");
+addStyle("outset");
+addStyle("dashed");
+addStyle("dotted");
+connectCSS(pl,"border-top-style");
+--></SCRIPT></td>
+                </tr>
+                <tr id="border-left-style" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">左边样式：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addStyle(style){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:10px;height:10px;border-width:3px;border-style:"+style+";border-color:red' align='middle'/> "+style,style);
+}
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;border-width:3px;border-style:none;border-color:red;' align='middle'/> none","none");
+addStyle("solid");
+addStyle("double");
+addStyle("groove");
+addStyle("ridge");
+addStyle("inset");
+addStyle("outset");
+addStyle("dashed");
+addStyle("dotted");
+connectCSS(pl,"border-left-style");
+--></SCRIPT></td>
+                </tr>
+                <tr id="border-right-style" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">右边样式：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">
+var pl = new QrPulldown;
+pl.render();
+
+function addStyle(style){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:10px;height:10px;border-width:3px;border-style:"+style+";border-color:red' align='middle'/> "+style,style);
+}
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;border-width:3px;border-style:none;border-color:red;' align='middle'/> none","none");
+addStyle("solid");
+addStyle("double");
+addStyle("groove");
+addStyle("ridge");
+addStyle("inset");
+addStyle("outset");
+addStyle("dashed");
+addStyle("dotted");
+connectCSS(pl,"border-right-style");
+--></SCRIPT></td>
+                </tr>
+                <tr id="border-bottom-style" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">底边样式：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addStyle(style){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:10px;height:10px;border-width:3px;border-style:"+style+";border-color:red' align='middle'/> "+style,style);
+}
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;border-width:3px;border-style:none;border-color:red;' align='middle'/> none","none");
+addStyle("solid");
+addStyle("double");
+addStyle("groove");
+addStyle("ridge");
+addStyle("inset");
+addStyle("outset");
+addStyle("dashed");
+addStyle("dotted");
+connectCSS(pl,"border-bottom-style");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td><img id="border-color#switch" src="img/arrowclose.gif" onClick="collapseSwitch('border-color');"></td>
+                    <td class="QrCSSDesignerPadLeft">边框颜色：</td>
+                    <td><span id="border-color"><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+var override = new Array;
+override["border-top-color"]   = "";
+override["border-left-color"]   = "";
+override["border-right-color"]   = "";
+override["border-bottom-color"]   = "";
+connectCSS(cp,"border-color",override);
+--></SCRIPT></span></td>
+                </tr>
+                <tr id="border-top-color" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">上边颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"border-top-color");
+--></SCRIPT></td>
+                </tr>
+                <tr id="border-left-color" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">左边颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"border-left-color");
+--></SCRIPT></td>
+                </tr>
+                <tr id="border-right-color" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">右边颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"border-right-color");
+--></SCRIPT></td>
+                </tr>
+                <tr id="border-bottom-color" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">底边颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"border-bottom-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">边距<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td><img src="img/arrowclose.gif" id="padding#switch" onClick="collapseSwitch('padding');"></td>
+                    <td class="QrCSSDesignerPadLeft">内侧边距：</td>
+                    <td><span id="padding"><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+var override = new Array;
+override["padding-top"]   = "";
+override["padding-left"]   = "";
+override["padding-right"]   = "";
+override["padding-bottom"]   = "";
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"padding",override);
+--></SCRIPT></span></td>
+                </tr>
+                <tr id="padding-top" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">上内边距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"padding-top");
+--></SCRIPT></td>
+                </tr>
+                <tr id="padding-left" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">左内边距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"padding-left");
+--></SCRIPT></td>
+                </tr>
+                <tr id="padding-right" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">右内边距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"padding-right");
+--></SCRIPT></td>
+                </tr>
+                <tr id="padding-bottom" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">底内边距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"padding-bottom");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td><img id="margin#switch" src="img/arrowclose.gif" onClick="collapseSwitch('margin');"></td>
+                    <td class="QrCSSDesignerPadLeft">外侧边距：</td>
+                    <td><span id="margin"><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+var override = new Array;
+override["margin-top"]   = "";
+override["margin-left"]   = "";
+override["margin-right"]   = "";
+override["margin-bottom"]   = "";
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"margin",override);
+--></SCRIPT></span></td>
+                </tr>
+                <tr id="margin-top" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">上外边距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"margin-top");
+--></SCRIPT></td>
+                </tr>
+                <tr id="margin-left" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">左外边距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"margin-left");
+--></SCRIPT></td>
+                </tr>
+                <tr id="margin-right" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">右外边距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"margin-right");
+--></SCRIPT></td>
+                </tr>
+                <tr id="margin-bottom" style="display: none;">
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">底外边距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"margin-bottom");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">字体<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">字体系列：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addFont(fontname){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/><font style='font-family:"+fontname+"'>"+fontname+"</font>",fontname);
+}
+addFont("宋体","SimSun");
+addFont("黑体","SimHei");
+addFont("微软雅黑");
+addFont("微软正黑体");
+addFont("新宋体");
+addFont("新细明体");
+addFont("细明体");
+addFont("标楷体");
+addFont("仿宋");
+addFont("楷体");
+addFont("仿宋_GB2312");
+addFont("楷体_GB2312");
+addFont("Arial");
+addFont("Arial Black");
+addFont("Arial Narrow");
+addFont("Brush Script MT");
+addFont("Century Gothic");
+addFont("Comic Sans MS");
+addFont("Courier");
+addFont("Courier New");
+addFont("Tahoma");
+addFont("Times New Roman");
+addFont("Verdana");
+connectCSS(pl,"font-family");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">字体大小：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addFont(fontname,value){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/>"+fontname,value);
+}
+addFont("10","10px");
+addFont("11","11px");
+addFont("12","12px");
+addFont("13","13px");
+addFont("14","14px");
+addFont("15","15px");
+addFont("\u5c0f\u4e09","16px");
+addFont("\u4e09\u53f7","18px");
+addFont("\u5c0f\u4e8c","20px");
+addFont("\u4e8c\u53f7","22px");
+addFont("\u5c0f\u4e00","24px");
+addFont("\u4e00\u53f7","26px");
+addFont("\u5c0f\u521d","36px");
+addFont("\u521d\u53f7", "42px");
+connectCSS(pl,"font-size");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">字体粗细：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/><font style='font-weight:"+fontname+"'>"+fontname+"</font>",fontname);
+}
+addItem("normal");
+addItem("bold");
+addItem("bolder");
+addItem("lighter");
+addItem("100");
+addItem("200");
+addItem("300");
+addItem("400");
+addItem("500");
+addItem("600");
+addItem("700");
+addItem("800");
+addItem("900");
+connectCSS(pl,"font-weight");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">字体样式：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/><span style='font-style:"+fontname+"'>"+fontname+"</font>",fontname);
+}
+addItem("normal");
+addItem("italic");
+addItem("oblique");
+connectCSS(pl,"font-style");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">字体变量：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+fontname,fontname);
+}
+addItem("normal");
+addItem("small-caps");
+connectCSS(pl,"font-variant");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">文本<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td width="20"></td>
+                    <td class="QrCSSDesignerPadLeft">文本颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("#000000");
+cp.render();
+connectCSS(cp,"color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">水平对齐：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("left");
+addItem("right");
+addItem("center");
+addItem("justify");
+connectCSS(pl,"text-align");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">垂直对齐：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("baseline");
+addItem("top");
+addItem("middle");
+addItem("bottom");
+addItem("text-top");
+addItem("text-bottom");
+addItem("super");
+addItem("sub");
+addItem("3em");
+addItem("30%");
+connectCSS(pl,"vertical-align");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">文本修饰：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("none");
+addItem("underline");
+addItem("overline");
+addItem("underline overline");
+addItem("line-through");
+addItem("blink");
+connectCSS(pl,"text-decoration");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">书写方向：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("ltr");
+addItem("rtl");
+connectCSS(pl,"direction");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">首行缩进：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent("em");
+connectCSS2(pl,tan,"text-indent");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">文本行高：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent("px");
+connectCSS2(pl,tan,"line-height");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">字母间距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent("px");
+connectCSS2(pl,tan,"letter-spacing");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">单词间距：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent("px");
+connectCSS2(pl,tan,"word-spacing");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">文本转换：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("none");
+addItem("capitalize");
+addItem("lowercase");
+addItem("uppercase");
+connectCSS(pl,"text-transform");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">文本空白：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("normal");
+addItem("pre");
+addItem("nowrap");
+addItem("pre-wrap");
+addItem("pre-line");
+connectCSS(pl,"white-space");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">背景<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">背景颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"background-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">背景图片：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("url(img/resize-box.gif)");
+connectCSS(pl,"background-image");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">背景拉伸：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("repeat");
+addItem("repeat-x");
+addItem("repeat-y");
+addItem("no-repeat");
+connectCSS(pl,"background-repeat");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">背景定位：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("left");
+addItem("right");
+addItem("top");
+addItem("left top");
+addItem("right bottom");
+addItem("30% 50%");
+connectCSS(pl,"background-position");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">附加属性：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("fixed");
+addItem("scroll");
+connectCSS(pl,"background-attachment");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">表格<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">边框折叠：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("separate");
+addItem("collapse");
+connectCSS(pl,"border-collapse");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">边框间歇：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"border-spacing");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">标题位置：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("top");
+addItem("bottom");
+addItem("left");
+addItem("right ");
+connectCSS(pl,"caption-side");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">空单元格：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("hide");
+addItem("show");
+connectCSS(pl,"empty-cells");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">表格布局：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("auto");
+addItem("fixed");
+connectCSS(pl,"table-layout");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">列表<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">列表样式：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("none");
+addItem("disc");
+addItem("circle");
+addItem("square");
+addItem("decimal");
+addItem("lower-roman");
+addItem("upper-roman");
+addItem("lower-alpha");
+addItem("upper-alpha");
+connectCSS(pl,"list-style-type");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">标记位置：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("inside");
+addItem("outside");
+connectCSS(pl,"list-style-position");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">标记图片：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("url(img/arrowclose.gif)");
+connectCSS(pl,"list-style-image");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">定位<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">资源定位：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+fontname,fontname);
+}
+addItem("static");
+addItem("relative");
+addItem("absolute");
+addItem("fixed");
+connectCSS(pl,"position");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">优先等级：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+connectCSS(pl,"z-index");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">距离顶部：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent("px");
+connectCSS2(pl,tan,"top");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">距离左边：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent("px");
+connectCSS2(pl,tan,"left");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">距离右边：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent("px");
+connectCSS2(pl,tan,"right");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">距离底边：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent("px");
+connectCSS2(pl,tan,"bottom");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">布局<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">整体宽度：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"width");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">整体高度：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"height");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">溢出选项：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addItem(fontname){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+fontname,fontname);
+}
+addItem("visible");
+addItem("hidden");
+addItem("scroll");
+addItem("auto");
+connectCSS(pl,"overflow");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">显示属性：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+fontname,fontname);
+}
+addItem("");
+addItem("none");
+addItem("block");
+addItem("inline");
+addItem("run-in");
+addItem("compact");
+addItem("list-item");
+addItem("marker");
+connectCSS(pl,"display");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">是否可见：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+fontname,fontname);
+}
+addItem("");
+addItem("visible");
+addItem("hidden");
+connectCSS(pl,"visibility");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">浮动属性：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+fontname,fontname);
+}
+addItem("left");
+addItem("right");
+addItem("none");
+connectCSS(pl,"float");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">清除属性：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+fontname,fontname);
+}
+addItem("left");
+addItem("right");
+addItem("both");
+addItem("none");
+connectCSS(pl,"clear");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">滚动条<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">基准颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"scrollbar-base-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">前景颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"scrollbar-face-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">箭头颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"scrollbar-arrow-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">背景颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"scrollbar-track-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">左/上边框：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"scrollbar-3d-light-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">左/上背景：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"scrollbar-highlight-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">右/下边框：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"scrollbar-dark-shadow-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">右/下背景：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"scrollbar-shadow-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">其他<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">鼠标指针：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+	pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+fontname,fontname);
+}
+addItem("crosshair");
+addItem("default");
+addItem("hand");
+addItem("pointer");
+addItem("move");
+addItem("text");
+addItem("wait");
+addItem("help");
+addItem("n-resize");
+addItem("s-resize");
+addItem("w-resize");
+addItem("e-resize");
+addItem("ne-resize");
+addItem("nw-resize");
+addItem("se-resize");
+addItem("sw-resize");
+connectCSS(pl,"cursor");
+-->
+</SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">行为组件：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("url(xxxx.htc)");
+connectCSS(pl,"behavior");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">滤镜效果：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(html, value){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+html,value||html);
+}
+addItem("Alpha", "Alpha(Opacity=0～100,　FinishOpacity=目标值，Style=1|2|3,　StartX=startX，StartY=startY，FinishX=finishX，FinishY=finishY)");
+addItem("Blur", "Blur(Add=0|1, Direction=0～315(步长45),Strength=5)");
+addItem("Chroma", "Chroma(Color=#rrggbb)");
+addItem("DropShadow", "DropShadow(Color=#rrggbb,OffX=5,OffY=5,Positive=0|1)");
+addItem("FlipH");
+addItem("FlipV");
+addItem("Glow", "Glow(Color=发光颜色, Strength=0～100)");
+addItem("Gray");
+addItem("invert");
+addItem("Mask", "Mask(Color=#rrggbb)");
+addItem("Shadow", "Shadow(Color=#rrggbb, Direction==0～315(步长45))");
+addItem("wave", "wave(Add=0, Phase=4, Freq=5, LightStrength=5, Strength=2)");
+addItem("Xray");
+connectCSS(pl,"filter");
+-->
+</SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">高级（某些浏览器不支持）<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center">轮廓<hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">轮廓宽度：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrSpinner;
+pl.render();
+--></SCRIPT> <SCRIPT language="JavaScript" type="text/javascript">var tan = createTaniComponent();
+connectCSS2(pl,tan,"outline-width");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">轮廓样式：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addStyle(style){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:10px;height:10px;border-width:3px;border-style:"+style+";border-color:red' align='middle'/> "+style,style);
+}
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;border-width:3px;border-style:none;border-color:red;' align='middle'/> none","none");
+addStyle("solid");
+addStyle("double");
+addStyle("groove");
+addStyle("ridge");
+addStyle("inset");
+addStyle("outset");
+addStyle("dashed");
+addStyle("dotted");
+connectCSS(pl,"outline-style");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">轮廓颜色：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var cp = new QrColorPicker("transparent");
+cp.render();
+connectCSS(cp,"outline-color");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td colspan="3" align="center"><hr size="1" width="100%" color="#A5BAC6"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">字体变形：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(fontname){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+fontname,fontname);
+}
+addItem("normal");
+addItem("wider");
+addItem("narrower");
+addItem("ultra-condensed");
+addItem("extra-condensed");
+addItem("condensed");
+addItem("semi-condensed");
+addItem("semi-expanded");
+addItem("expanded");
+addItem("extra-expanded");
+addItem("ultra-expanded");
+connectCSS(pl,"font-stretch");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">溢出选项：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("clip");
+addItem("ellipsis");
+connectCSS(pl,"text-overflow");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">阴影效果：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("none|<length>none|[<shadow>,] * <shadow> 或none | <color> [, <color> ]");
+addItem("5px 2px 6px #000");
+connectCSS(pl,"text-shadow");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">unicode-bidi：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("normal");
+addItem("embed");
+addItem("bidi-override");
+connectCSS(pl,"unicode-bidi");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">layout-flow：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("horizontal");
+addItem("vertical-ideographic");
+connectCSS(pl,"layout-flow");
+--></SCRIPT></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">书写方式：</td>
+                    <td><SCRIPT language="JavaScript" type="text/javascript">var pl = new QrPulldown;
+pl.render();
+function addItem(item){
+    pl.addItem("<img src='img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> "+item,item);
+}
+addItem("lr-tb");
+addItem("tb-rl");
+connectCSS(pl,"writing-mode");
+--></SCRIPT></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>

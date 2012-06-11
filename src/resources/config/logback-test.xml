@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<appender name="System.out" class="ch.qos.logback.core.ConsoleAppender">
+		<Target>System.out</Target>
+		<encoder>
+			<pattern>[%t]%caller{1}【%5p】%m%n</pattern>
+		</encoder>
+	</appender>
+	<!-- 错误日志文件 -->
+	<appender name="error.log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<File>${log.path}/error.log</File>
+		<append>true</append>
+		<encoder>
+			<pattern>[%d{MM-dd HH:mm:ss.SSS}][%t]- %m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>10</maxIndex>
+			<FileNamePattern>${log.path}/error.%i.log</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<!-- 信息日志文件 -->
+	<appender name="info.log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<File>${log.path}/info.log</File>
+		<append>true</append>
+		<encoder>
+			<pattern>[%d{MM-dd HH:mm:ss.SSS}][%t]- %m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>10</maxIndex>
+			<FileNamePattern>${log.path}/info.%i.log</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<!-- 调试日志文件 -->
+	<appender name="debug.log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<File>${log.path}/debug.log</File>
+		<append>true</append>
+		<encoder>
+			<pattern>[%d{MM-dd HH:mm:ss.SSS}][%t]- %m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>10</maxIndex>
+			<FileNamePattern>${log.path}/debug.%i.log</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<!-- 跟踪日志文件 -->
+	<appender name="trace.log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>TRACE</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<File>${log.path}/trace.log</File>
+		<append>true</append>
+		<encoder>
+			<pattern>[%d{MM-dd HH:mm:ss.SSS}][%t]- %m%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>10</maxIndex>
+			<FileNamePattern>${log.path}/trace.%i.log</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<!-- TEST -->
+	<appender name="test.log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.path}/test.log</File>
+		<append>false</append>
+		<encoder>
+			<pattern>[%d{MM-dd HH:mm:ss.SSS}][%t]- %m [%logger{1}.%M:%L]%n%</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>20</maxIndex>
+			<FileNamePattern>${log.path}/test.%i.log</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<!-- 日志级别设置 -->
+
+	<!-- INFO -->
+	<logger name="com.kmetop.demsy" level="INFO"></logger>
+	<logger name="com.sft" level="INFO"></logger>
+	<logger name="demsy" level="INFO"></logger>
+	<logger name="demsy2" level="INFO"></logger>
+
+	<!-- TEST -->
+	<logger name="demsy.plugins" level="ERROR"></logger>
+	<logger name="com.kmetop.demsy.mvc" level="INFO"></logger>
+	<logger name="com.kmetop.demsy.biz.action" level="ALL"></logger>
+	<logger name="com.kmetop.demsy.mvc.DemsyFilterProxy" level="DEBUG"></logger>
+	<logger name="com.kmetop.demsy.orm.nutz.impl.Cnds" level="INFO"></logger>
+
+	<root level="ERROR">
+		<appender-ref ref="test.log" />
+		<appender-ref ref="debug.log" />
+		<appender-ref ref="info.log" />
+		<appender-ref ref="error.log" />
+		<appender-ref ref="System.out" />
+	</root>
+</configuration>
