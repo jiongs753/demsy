@@ -40,14 +40,14 @@ form.bzsys {
 	border: 1px solid #c5dbec;
 	color: #1d5987;
 	text-align: right;
-	padding: 8px 4px;
+	padding: 2px;
 	font-weight: bold;
 }
 /*业务字段输入框TD*/
 .bzfld_data {
 	background-color: #fcfdfd;
 	border: 1px solid #c5dbec;
-	padding: 4px;
+	padding: 2px;
 }
 /*INPUT/SELECT/TEXTAREA等输入框*/
 .bzfld_data .input,.bzfld_data .select,.bzfld_data textarea.textarea {
@@ -91,7 +91,7 @@ form.bzsys {
 
 .Combobox .ui-icon, .Combobox .logo{
 	position: absolute;
-	right: 1px;
+	right: -3px;
 	top: 4px;
 	width: 16px;
 	height: 16px;

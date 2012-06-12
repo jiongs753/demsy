@@ -1,9 +1,10 @@
-<nobr><span class="QrPulldown" id="{$name}"><input class="QrPulldownInput" name="{$name}" value="{$value}" size="{$size}" id="{$name}#input" onkeyup="QrPulldown.onKeyup('{$name}');" /><span class="QrPulldownButton" id="{$name}#button" onmousedown="QrPulldown.onClick('{$name}');"><img src="{$designerPath}/img/pulldown-normal.gif" align="top" id="{$name}#img" onmouseover="QrPulldown.onButtonHover('{$name}');" onmouseout="QrPulldown.onButtonOut('{$name}');" /></span></span></nobr>
-<DIV class="QrPulldownMenu" style="display: none;" id="{$name}#menu" onclick="QrXPCOM.onPopup();"><DIV style="margin: 2px;" id="{$name}#menuinner">
-{foreach from=$options item="item" key="itemId"}
+<DIV style="position: relative;"><nobr><span class="QrPulldown" id="{$name}"><input class="QrPulldownInput" name="{$name}" value="{$value}" styleName="{$style}" style="{tostring bean=$cssStyle}" id="{$name}#input" onkeyup="QrPulldown.onKeyup('{$name}');" /><span class="QrPulldownButton" id="{$name}#button" onmousedown="QrPulldown.onClick('{$name}');"><img src="{$designerPath}/img/pulldown-normal.gif" align="top" id="{$name}#img" onmouseover="QrPulldown.onButtonHover('{$name}');" onmouseout="QrPulldown.onButtonOut('{$name}');" /></span></span></nobr>
+<div style="position: relative;top: -1px;left: 0px;">
+<DIV class="QrPulldownMenu" style="display: none;" id="{$name}#menu" onclick="QrXPCOM.onPopup();"><DIV style="margin: 2px;" id="{$name}#menuinner">{foreach from=$options item="item" key="itemId"}
 <DIV class="QrPulldownItem" id="{$name}#item{$itemId}" onmouseover="QrPulldown.onHover('{$name}', '{$name}#item{$itemId}', '{$item}');" onmouseout="QrPulldown.onOut('{$name}', '{$name}#item{$itemId}');" onclick="QrPulldown.onSelect('{$name}','{$item}');"><img src="{$designerPath}/img/transparentpixel.gif" style="width:16px;height:16px;" align="middle"/>{$item}</DIV>
- {/foreach}
-</DIV></DIV>
+{/foreach}</DIV></DIV>
+</div>
 <script>
-connectCSS(new QrPulldown("{$name}"), "{$style}");
+CssDesigner.connectCSS(new QrPulldown("{$name}"), "{$style}");
 </script>
+</DIV>

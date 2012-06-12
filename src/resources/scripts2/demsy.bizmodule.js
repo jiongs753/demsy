@@ -621,18 +621,15 @@ var SubModule = function($table, config) {
 		$(".check", self.$table).each(function() {
 			if (this.checked) {
 				var $item = $(this).parent().parent();
-				// 不支持直接删除子系统数据
-				// var status = $(".statusForJsonData", $item);
-				// if (status.length > 0) {
-				// $item.hide();
-				// status.val("1");
-				// } else {
-				// $item.remove();
-				// }
+
+				if (self.config.onDelItem) {
+					self.config.onDelItem(self, $item);
+				}
+
 				$item.remove();
 			}
 		});
-
+		
 		self.eval();
 	}
 	// 上下移动对记录进行排序
@@ -765,7 +762,7 @@ var SubModule = function($table, config) {
 	// 初始化
 	this.init = function() {
 		self.bindEval($table, true);
-		$(".submitButton", $($(".op_btn_add", $table).get(0).form)).click(self.eval);
+		$(".submitButton").click(self.eval);
 		$(".op_btn_add", $table).click(self.addItem);
 		$(".op_btn_del", $table).click(self.delItem);
 		$(".op_btn_up", $table).click(self.moveUpItem);
