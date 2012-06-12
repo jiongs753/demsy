@@ -2,7 +2,7 @@
 {assign var="mode" value=$ui.mode}
 
 {if $mode == "H"}
-<input id="fld{$ui.id}" name="{$ui.name}" value="{$value}" type="hidden" />
+<textarea id="{$ui.uiid}" name="{$ui.name}" style="display:none;">{tostring bean=$value}</textarea>
 {else}
 {prop bean=$data name=$ui.propName assign="subSystemObj"}
 {if $mode == "M" || $mode == "E"}

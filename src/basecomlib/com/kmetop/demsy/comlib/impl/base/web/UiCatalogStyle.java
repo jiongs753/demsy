@@ -23,11 +23,9 @@ import com.kmetop.demsy.orm.ann.Prop;
 
 @Entity
 @BzSys(name = "样式管理", code = BIZSYS_UIUDF_STYLE, catalog = BIZCATA_UDF_CONSOLE, orderby = ORDER_UIUDF_CATALOG_STYLE//
-, layout = 1, actions = {
-		@BzAct(name = "新增样式", typeCode = TYPE_BZFORM_NEW, mode = "c", plugin = "com.kmetop.demsy.plugins.web.SaveCatalogStyle")//
+, layout = 1, actions = { @BzAct(name = "新增样式", typeCode = TYPE_BZFORM_NEW, mode = "c", plugin = "com.kmetop.demsy.plugins.web.SaveCatalogStyle")//
 		// , @BzAct(name = "批量修改", typeCode = TYPE_BZFORM_EDIT_N, mode = "bu")//
-		,
-		@BzAct(name = "编辑", typeCode = TYPE_BZFORM_EDIT, mode = "e", plugin = "com.kmetop.demsy.plugins.web.SaveCatalogStyle") //
+		, @BzAct(name = "编辑", typeCode = TYPE_BZFORM_EDIT, mode = "e", plugin = "com.kmetop.demsy.plugins.web.SaveCatalogStyle") //
 		, @BzAct(name = "删除", typeCode = TYPE_BZ_DEL, mode = "d") //
 		, @BzAct(name = "查看", typeCode = TYPE_BZFORM_EDIT, mode = "v") //
 }//
@@ -41,8 +39,8 @@ import com.kmetop.demsy.orm.ann.Prop;
 		, @BzFld(property = "detailState") //
 		, @BzFld(property = "usage") //
 }), // end groups
-		@BzGrp(name = "样式设计器", code = "cssDesigner"//
-		, fields = { @BzFld(property = "desc", name = "样式设计器", gridField = false, cascadeMode = "detailState:1:N", uiTemplate="ui.widget.ext.cssDesigner") //
+		@BzGrp(name = "样式编辑器", code = "cssDesigner"//
+		, fields = { @BzFld(property = "items") //
 		}), // end groups
 		@BzGrp(name = "整体样式", code = "box"//
 		, fields = { @BzFld(property = "box") //
@@ -111,7 +109,7 @@ public class UiCatalogStyle extends BaseStyle {
 	@OneToMany(mappedBy = "parent")
 	protected List<UiCatalogStyle> children;
 
-	@Transient
+	@BzFld(name = "CSS样式", gridField = false, cascadeMode = "detailState:1:N", uiTemplate = "ui.widget.ext.cssDesigner")
 	protected FakeSubSystem<StyleItem> items;
 
 	public UiCatalog getCatalog() {
@@ -139,10 +137,11 @@ public class UiCatalogStyle extends BaseStyle {
 	}
 
 	public FakeSubSystem<StyleItem> getItems() {
-		if (items == null)
-			items = new FakeSubSystem(getDesc(), StyleItem.class);
-
 		return items;
+	}
+
+	public void setItems(FakeSubSystem<StyleItem> items) {
+		this.items = items;
 	}
 
 }

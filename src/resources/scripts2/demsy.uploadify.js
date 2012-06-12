@@ -428,7 +428,7 @@ if (jQuery)
 			var acceptType = $this.attr("acceptType");
 			var stylePath = $this.attr("stylePath");
 			var queueID = $(".progress", $this).attr("id");
-			if ($("object", $this.parent()).length == 0) {
+			if ($("object", $this).length == 0) {
 				$(".uploadify", $this).uploadify({
 					'script' : uploadUrl,
 					'uploader' : stylePath + '/uploadify/uploadify.swf',

@@ -129,178 +129,6 @@ QrXPCOM.getBodySize = function() {
 }
 
 // www.kmetop.com Edit 2012-6-8
-function QrColorPicker(id) {
-	this.id = id;
-	QrXPCOM.init();
-	QrColorPicker.instanceMap[id] = this;
-}
-
-QrColorPicker.prototype.set = function(color) {
-	if (QrColorPicker.instanceMap[this.id].onChange) {
-		QrColorPicker.instanceMap[this.id].onChange(color);
-	}
-	if (color == "")
-		color = "transparent";
-	document.getElementById(this.id + "#input").value = color;
-	document.getElementById(this.id + "#text").innerHTML = color;
-	document.getElementById(this.id + "#color").style.background = color;
-}
-
-QrColorPicker.prototype.get = function() {
-	return document.getElementById(this.id + "#input").value;
-}
-
-QrColorPicker.instanceMap = new Array;
-QrColorPicker.restorePool = new Array;
-
-QrColorPicker.transparent = function(id) {
-	QrColorPicker.instanceMap[id].set("transparent");
-	document.getElementById(id + "#menu").style.display = "none";
-	if (QrColorPicker.instanceMap[id].onChange) {
-		QrColorPicker.instanceMap[id].onChange("transparent");
-	}
-}
-
-QrColorPicker.popupPicker = function(id) {
-	var pop = document.getElementById(id);
-	var p = QrXPCOM.getDivPoint(pop);
-	QrXPCOM.setDivPoint(document.getElementById(id + "#menu"), p.x, p.y + 20);
-
-	document.getElementById(id + "#menu").style.display = "";
-	QrXPCOM.onPopup(document.getElementById(id + "#menu"));
-}
-
-QrColorPicker.setColor = function(event, id) {
-	if (!QrColorPicker.restorePool[id])
-		QrColorPicker.restorePool[id] = document.getElementById(id + "#input").value;
-
-	var d = QrXPCOM.getMousePoint(event, document.getElementById(id + "#menu"));
-	var picked = QrColorPicker.colorpicker(d.x, d.y).toUpperCase();
-
-	document.getElementById(id + "#input").value = picked;
-	document.getElementById(id + "#text").innerHTML = picked;
-	document.getElementById(id + "#color").style.background = picked;
-	if (QrColorPicker.instanceMap[id].onChange) {
-		QrColorPicker.instanceMap[id].onChange(picked);
-	}
-	return picked;
-};
-
-QrColorPicker.keyColor = function(id) {
-	try {
-		document.getElementById(id + "#color").style.background = document.getElementById(id + "#input").value;
-		QrColorPicker.restorePool[id] = document.getElementById(id + "#input").value;
-		document.getElementById(id + "#text").innerHTML = QrColorPicker.restorePool[id];
-	} catch (e) {
-	}
-};
-
-QrColorPicker.selectColor = function(event, id) {
-	var picked = QrColorPicker.setColor(event, id);
-
-	document.getElementById(id + "#menu").style.display = "none";
-	QrColorPicker.restorePool[id] = picked;
-	if (QrColorPicker.instanceMap[id].onSelect) {
-		QrColorPicker.instanceMap[id].onSelect(picked);
-	}
-};
-
-QrColorPicker.restoreColor = function(id) {
-	if (QrColorPicker.restorePool[id]) {
-		document.getElementById(id + "#input").value = QrColorPicker.restorePool[id];
-		document.getElementById(id + "#text").innerHTML = QrColorPicker.restorePool[id];
-		document.getElementById(id + "#color").style.background = QrColorPicker.restorePool[id];
-		if (QrColorPicker.instanceMap[id].onChange) {
-			QrColorPicker.instanceMap[id].onChange(QrColorPicker.restorePool[id]);
-		}
-		QrColorPicker.restorePool[id] = null;
-	}
-};
-
-QrColorPicker.colorpicker = function(prtX, prtY) {
-	var colorR = 0;
-	var colorG = 0;
-	var colorB = 0;
-
-	if (prtX < 32) {
-		colorR = 256;
-		colorG = prtX * 8;
-		colorB = 1;
-	}
-	if (prtX >= 32 && prtX < 64) {
-		colorR = 256 - (prtX - 32) * 8;
-		colorG = 256;
-		colorB = 1;
-	}
-	if (prtX >= 64 && prtX < 96) {
-		colorR = 1;
-		colorG = 256;
-		colorB = (prtX - 64) * 8;
-	}
-	if (prtX >= 96 && prtX < 128) {
-		colorR = 1;
-		colorG = 256 - (prtX - 96) * 8;
-		colorB = 256;
-	}
-	if (prtX >= 128 && prtX < 160) {
-		colorR = (prtX - 128) * 8;
-		colorG = 1;
-		colorB = 256;
-	}
-	if (prtX >= 160) {
-		colorR = 256;
-		colorG = 1;
-		colorB = 256 - (prtX - 160) * 8;
-	}
-
-	if (prtY < 64) {
-		colorR = colorR + (256 - colorR) * (64 - prtY) / 64;
-		colorG = colorG + (256 - colorG) * (64 - prtY) / 64;
-		colorB = colorB + (256 - colorB) * (64 - prtY) / 64;
-	}
-	if (prtY > 64 && prtY <= 128) {
-		colorR = colorR - colorR * (prtY - 64) / 64;
-		colorG = colorG - colorG * (prtY - 64) / 64;
-		colorB = colorB - colorB * (prtY - 64) / 64;
-	}
-	if (prtY > 128) {
-		colorR = 256 - (prtX / 192 * 256);
-		colorG = 256 - (prtX / 192 * 256);
-		colorB = 256 - (prtX / 192 * 256);
-	}
-
-	colorR = parseInt(colorR);
-	colorG = parseInt(colorG);
-	colorB = parseInt(colorB);
-
-	if (colorR >= 256) {
-		colorR = 255;
-	}
-	if (colorG >= 256) {
-		colorG = 255;
-	}
-	if (colorB >= 256) {
-		colorB = 255;
-	}
-
-	colorR = colorR.toString(16);
-	colorG = colorG.toString(16);
-	colorB = colorB.toString(16);
-
-	if (colorR.length < 2) {
-		colorR = 0 + colorR;
-	}
-	if (colorG.length < 2) {
-		colorG = 0 + colorG;
-	}
-	if (colorB.length < 2) {
-		colorB = 0 + colorB;
-	}
-
-	return "#" + colorR + colorG + colorB;
-}
-
-// www.kmetop.com Edit 2012-6-8
 function QrPulldown(id) {
 	this.id = id;
 	QrXPCOM.init();
@@ -358,10 +186,6 @@ QrPulldown.onButtonHover = function(id) {
 QrPulldown.onClick = function(id) {
 	var p = QrXPCOM.getDivPoint(document.getElementById(id));
 	var r = QrXPCOM.getDivSize(document.getElementById(id));
-	if (QrXPCOM.isIE())
-		QrXPCOM.setDivPoint(document.getElementById(id + "#menu"), p.x + 1, p.y + 22);
-	else
-		QrXPCOM.setDivPoint(document.getElementById(id + "#menu"), p.x + 1, p.y + 22 - 1);
 
 	document.getElementById(id + "#menu").style.display = "";
 	QrXPCOM.onPopup(document.getElementById(id + "#menu"));
@@ -408,11 +232,10 @@ QrSpinner.instanceMap = new Array;
 QrSpinner.onHover = function(e, id) {
 	var p = QrXPCOM.getMousePoint(e);
 	var d = QrXPCOM.getDivPoint(document.getElementById(id + "#button"));
-
-	if ((p.y - d.y) < 10) {
+	if ((p.y - d.y) < 8) {
 		document.getElementById(id + "#button").src = QrXPCOM.designerPath + "/img/spinner-updown.gif";
 	}
-	if ((p.y - d.y) > 10) {
+	if ((p.y - d.y) > 8) {
 		document.getElementById(id + "#button").src = QrXPCOM.designerPath + "/img/spinner-downdown.gif";
 	}
 }
@@ -431,17 +254,28 @@ QrSpinner.onDown = function(e, id) {
 	var p = QrXPCOM.getMousePoint(e);
 	var d = QrXPCOM.getDivPoint(document.getElementById(id + "#button"));
 
-	var v = parseInt(document.getElementById(id + "#input").value);
+	var $input = $(document.getElementById(id + "#input"));
+
+	var uom = $input.attr("uom") || "";
+	var vStr = $input.val();
+	var v = parseInt(vStr);
 	if (!v)
 		v = 0;
-	if ((p.y - d.y) < 10) {
-		document.getElementById(id + "#input").value = ++v;
+	else {
+		var l = ("" + v).length;
+		if (l < vStr.length) {
+			uom = vStr.substring(l);
+		}
 	}
-	if ((p.y - d.y) > 10) {
-		document.getElementById(id + "#input").value = --v;
+
+	if ((p.y - d.y) < 8) {
+		$input.val("" + (++v) + uom);
+	}
+	if ((p.y - d.y) > 8) {
+		$input.val("" + (--v) + uom);
 	}
 	if (QrSpinner.instanceMap[id].onChange) {
-		QrSpinner.instanceMap[id].onChange(v);
+		QrSpinner.instanceMap[id].onChange($input.val());
 	}
 }
 
@@ -561,123 +395,125 @@ QrXPCOM.cssToJsMap["border-spacing"] = "borderSpacing";
 QrXPCOM.cssToJsMap["empty-cells"] = "emptyCells";
 QrXPCOM.cssToJsMap["caption-side"] = "captionSide";
 QrXPCOM.cssToJsMap["table-layout"] = "tableLayout";
-var connectInstanceMap = new Array;
-var connectInstanceOverrideMap = new Array;
-var styles = new Array;
-function connectCSS(obj, style, override) {
-	connectInstanceMap[style] = obj;
-	connectInstanceOverrideMap[style] = override;
-	obj.onChange = function(value) {
-		setTargetStyle(style, value);
-	}
-}
-function connectCSS2(obj, objB, style, override) {
-	connectInstanceMap[style] = new Array;
-	connectInstanceMap[style][0] = obj;
-	connectInstanceMap[style][1] = objB;
-	connectInstanceOverrideMap[style] = override;
-	obj.onChange = function(value) {
-		value = value + objB.get();
-		setTargetStyle(style, value);
-	}
-	objB.onChange = function(value) {
-		value = obj.get() + value;
-		setTargetStyle(style, value);
-	}
-}
-function setTargetStyle(style, value) {
-	try {
-		document.getElementById("target").style[QrXPCOM.cssToJsMap[style]] = value;
-		document.getElementById("target2").style[QrXPCOM.cssToJsMap[style]] = value;
-		document.getElementById("target3").style[QrXPCOM.cssToJsMap[style]] = value;
-		styles[style] = value;
-	} catch (e) {
-		try {
-			document.getElementById("target").style[QrXPCOM.cssToJsMap[style]] = "";
-			document.getElementById("target2").style[QrXPCOM.cssToJsMap[style]] = "";
-			document.getElementById("target3").style[QrXPCOM.cssToJsMap[style]] = "";
-			styles[style] = null;
-		} catch (e) {
-		}
-	}
-	try {
-		var st;
-		var cssstr = ".someclass {\n";
-		for (st in styles) {
-			if (styles[st])
-				cssstr += "\t" + st + " : " + styles[st] + ";\n";
-		}
-		cssstr += "}\n";
-		document.getElementById("output").value = cssstr;
 
-		var divstr = "<DIV style=\"";
-		for (st in styles) {
-			if (styles[st])
-				divstr += st + ":" + styles[st] + "; ";
-		}
-		divstr += "\">\n\n</DIV>";
-		document.getElementById("output2").value = divstr;
-	} catch (e) {
+function CssDesigner($pad) {
+	$(".CssColorInput", $pad).each(function() {
+		var ths = $(this);
+		ths.css("background-color", ths.val());
+	}).ColorPicker({
+		zIndex : 99999,
+		onSubmit : function(hsb, hex, rgb, el) {
+			var v = "#" + hex;
+			var $el = $(el);
+			var styleName = $el.attr("styleName");
+			$el.css("background-color", v).val(v);
+			$el.ColorPickerHide();
 
+			CssDesigner.setTargetStyle(styleName, v);
+		},
+		onChange: function(hsb, hex, rgb, el){
+			var v = "#" + hex;
+			var $el = $(el);
+			var styleName = $el.attr("styleName");
+
+			CssDesigner.setTargetStyle(styleName, v);
+		},
+		onBeforeShow : function() {
+			$(this).ColorPickerSetColor(this.value);
+		}
+	}).bind("keyup", function() {
+		var ths = $(this);
+		ths.css("background-color", ths.val());
+		ths.ColorPickerSetColor(ths.val());
+	}).blur(function(){
+		var $this=$(this);
+		var styleName = $this.attr("styleName");
+		CssDesigner.setTargetStyle(styleName, $this.val());
+	});
+
+	$(".CssUpload", $pad).each(function() {
+		var $this = $(this);
+		var $input = $(".CssUploadInput", $this);
+		var uploadUrl = $this.attr("uploadUrl");
+		var acceptType = $this.attr("acceptType");
+		var stylePath = $this.attr("stylePath");
+		var queueID = $(".CssUploadProgress", $this).attr("id");
+		if ($("object", $this).length == 0) {
+			$(".CssUploadFile", $this).uploadify({
+				'script' : uploadUrl,
+				'uploader' : stylePath + '/uploadify/uploadify.swf',
+				'cancelImg' : stylePath + '/uploadify/cancel.png',
+				'auto' : true,
+				'fileDesc' : acceptType,
+				'fileExt' : acceptType,
+				'queueID' : queueID,
+				'fileDataName' : 'upload',
+				'multi' : false,
+				'queueSizeLimit' : 1,
+				height : 14,
+				width : 16,
+				'sizeLimit' : '512000000',
+				'buttonImg' : stylePath + '/uploadify/uploadify.gif',
+				'simUploadLimit' : 1,
+				'onComplete' : function(event, queueID, fileObj, response, data) {
+					var json = window["eval"]("(" + response + ")");
+					if (json.success) {
+						$input.val("url("+json.fileUrl+")");
+						var styleName = $input.attr("styleName");
+						CssDesigner.setTargetStyle(styleName, $input.val());
+					} else {
+						alert(json.customMsg);
+					}
+					return true;
+				},
+				'onError' : function(event, queueID, fileObj, errorObj) {
+					alert(errorObj.type + ' Error: ' + errorObj.info);
+					return true;
+				},
+				'onCancel' : function(event, queueID, fileObj) {
+					return true;
+				},
+				wmode : "transparent"
+
+			});
+		}
+	});
+}
+CssDesigner.connectInstanceMap = new Array;
+CssDesigner.target = null;
+CssDesigner.output = null;
+CssDesigner.styles = new Array;
+CssDesigner.connectCSS = function(obj, style) {
+	CssDesigner.connectInstanceMap[style] = obj;
+	obj.onChange = function(value) {
+		CssDesigner.setTargetStyle(style, value);
 	}
 }
-function collapseSwitch(style) {
-	if (document.getElementById(style).style.visibility != "hidden") {
-		var st;
-		for (st in connectInstanceOverrideMap[style]) {
-			try {
-				connectInstanceMap[style].set("");
-			} catch (x) {
-				connectInstanceMap[style][0].set("");
-			}
-			document.getElementById(st).style.display = "";
-		}
-		document.getElementById(style + "#switch").src = QrXPCOM.designerPath + "/img/arrowopen.gif";
-		document.getElementById(style).style.visibility = "hidden";
-		try {
-			connectInstanceMap[style].set("");
-		} catch (x) {
-			connectInstanceMap[style][0].set("");
-		}
+CssDesigner.switchCSS = function(e, selector2) {
+	var switcher = $(e.srcElement || e.target);
+	if (switcher.attr("src").indexOf("arrowclose.gif") > -1) {
+		switcher.attr("src", QrXPCOM.designerPath + "/img/arrowopen.gif");
+
+		$(selector2).show();
 	} else {
-		var st;
-		for (st in connectInstanceOverrideMap[style]) {
-			try {
-				connectInstanceMap[style].set("");
-			} catch (x) {
-				connectInstanceMap[style][0].set("");
-			}
-			document.getElementById(st).style.display = "none";
-		}
-		document.getElementById(style + "#switch").src = QrXPCOM.designerPath + "/img/arrowclose.gif";
-		document.getElementById(style).style.visibility = "";
-		try {
-			connectInstanceMap[style].set("");
-		} catch (x) {
-			connectInstanceMap[style][0].set("");
-		}
+		switcher.attr("src", QrXPCOM.designerPath + "/img/arrowclose.gif");
+
+		$(selector2).hide();
 	}
 }
-
-function createTaniComponent(def) {
-	if (!def)
-		def = "px";
-	var tan = new QrPulldown(def, 3);
-	tan.render();
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> px = pixels", "px");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> pt = 1/72in", "pt");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> em = font-size", "em");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> ex = x-height of font", "ex");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> pc = 12pt", "pc");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> cm", "cm");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> mm", "mm");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> in", "in");
-	tan.addItem("<img src='" + QrXPCOM.designerPath + "/img/transparentpixel.gif' style='width:16px;height:16px;' align='middle'/> %", "%");
-	return tan;
-}
-
-function innerset() {
-	document.getElementById("target").innerHTML = document.getElementById("innerset").value;
-	document.getElementById("target2").innerHTML = document.getElementById("innerset").value;
-	document.getElementById("target3").innerHTML = document.getElementById("innerset").value;
+CssDesigner.setTargetStyle = function(style, value) {
+	$(CssDesigner.target).each(function() {
+		try {
+			this.style[QrXPCOM.cssToJsMap[style]] = value;
+		} catch (e) {
+			this.style[QrXPCOM.cssToJsMap[style]] = "";
+		}
+	});
+	CssDesigner.styles[style] = value;
+	var styleText = "";
+	for (st in CssDesigner.styles) {
+		if (CssDesigner.styles[st] && CssDesigner.styles[st].length > 0)
+			styleText += st + ":" + CssDesigner.styles[st] + "; ";
+	}
+	$(CssDesigner.output).val(styleText);
 }

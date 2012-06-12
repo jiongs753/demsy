@@ -91,7 +91,7 @@ form.bzsys {
 
 .Combobox .ui-icon, .Combobox .logo{
 	position: absolute;
-	right: 1px;
+	right: -3px;
 	top: 4px;
 	width: 16px;
 	height: 16px;
