@@ -6,12 +6,9 @@ import static com.kmetop.demsy.comlib.LibConst.BIZSYS_BZUDF_FIELD_GROUP;
 import static com.kmetop.demsy.comlib.LibConst.BIZSYS_BZUDF_SYSTEM;
 import static com.kmetop.demsy.comlib.LibConst.ORDER_BZUDF_FIELD_GROUP;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.kmetop.demsy.comlib.biz.IBizFieldGroup;
 import com.kmetop.demsy.comlib.biz.ann.BzAct;

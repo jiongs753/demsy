@@ -346,8 +346,10 @@ var DemsyUIManager = function() {
 	this.edit = function(loadUrl, saveUrl, dataID, params, type, blockID) {
 		var self = this;
 		var dialog = $("#dialog");
-		dialog.load(loadUrl + "?dialog=true", params).dialog({
-			width : 450,
+		dialog.load(loadUrl + "?dialog=true", params, function() {
+			CssDesigner.instance.target = "#block"+blockID;
+		}).dialog({
+			width : 500,
 			zIndex : 9999,
 			position : [ "left", 1 ],
 			buttons : {

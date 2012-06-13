@@ -41,6 +41,7 @@ import com.kmetop.demsy.comlib.biz.ann.BzFld;
 import com.kmetop.demsy.comlib.biz.ann.BzSubFld;
 import com.kmetop.demsy.comlib.biz.field.CssPosition;
 import com.kmetop.demsy.comlib.biz.field.Dataset;
+import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
 import com.kmetop.demsy.comlib.biz.field.IExtField;
 import com.kmetop.demsy.comlib.entity.IDemsySoft;
 import com.kmetop.demsy.comlib.security.IAction;
@@ -48,6 +49,7 @@ import com.kmetop.demsy.comlib.security.IModule;
 import com.kmetop.demsy.comlib.ui.IPage;
 import com.kmetop.demsy.comlib.ui.IPageBlock;
 import com.kmetop.demsy.comlib.ui.IStyle;
+import com.kmetop.demsy.comlib.ui.IStyleItem;
 import com.kmetop.demsy.comlib.ui.IUIViewType;
 import com.kmetop.demsy.comlib.web.IStatistic;
 import com.kmetop.demsy.comlib.web.IWebContentCatalog;
@@ -1081,18 +1083,10 @@ public class UiEngine implements IUiEngine, MvcConst {
 				if (style != null) {
 					pageView.addStyle(style);
 				}
-				// FakeSubSystem idStyle = block.getCssStyle();
-				// if (idStyle != null) {
-				// List<? extends IStyle> styles = idStyle.getList();
-				// if (styles != null) {
-				// for (IStyle s : styles) {
-				// String code = s.getCode();
-				// s.setCode("#block" + block.getId() + " " + (code == null ? ""
-				// : code));
-				// pageView.addStyle(s);
-				// }
-				// }
-				// }
+				FakeSubSystem<? extends IStyleItem> styleItems = block.getStyleItems();
+				IStyle styleObj = this.makeStyle("#block" + block.getId(), styleItems);
+				if (styleObj != null)
+					pageView.addStyle(styleObj);
 			}
 			if (Str.isEmpty(page.getPageHeight()) && relativeHeight == 0)
 				pageView.setHeight(absoluteHeight + "px");
@@ -1104,6 +1098,45 @@ public class UiEngine implements IUiEngine, MvcConst {
 		pageView.adjust();
 
 		return pageView;
+	}
+
+	private IStyle makeStyle(final String cssClassName, FakeSubSystem<? extends IStyleItem> itemsObj) {
+		IStyle style = null;
+		if (itemsObj != null) {
+			List<? extends IStyleItem> items = itemsObj.getList();
+			if (items != null && items.size() > 0) {
+				final StringBuffer sb = new StringBuffer();
+				for (IStyleItem s : items) {
+					String code = s.getCode();
+					String desc = s.getDesc();
+					if (!Str.isEmpty(desc)) {
+						if (Str.isEmpty(code))
+							code = "";
+						sb.append("\n").append(cssClassName).append(" ").append(code).append("{").append(desc)
+								.append("}");
+					}
+				}
+				if (sb.length() > 0) {
+					style = new IStyle() {
+
+						public String getCssClass() {
+							return cssClassName;
+						}
+
+						public String getCssStyle() {
+							return sb.substring(1);
+						}
+
+						@Override
+						public Long getId() {
+							return null;
+						}
+					};
+				}
+			}
+		}
+
+		return style;
 	}
 
 	public UIBlockViewModel makeBlockView(IPageBlock pageBlock, Long dynamicModuleID, Long dynamicDataID,
@@ -1513,7 +1546,8 @@ public class UiEngine implements IUiEngine, MvcConst {
 			List<IStyle> uiStyleList = Demsy.orm().query(bizEngine.getStaticType(BIZSYS_UIUDF_STYLE),
 					Expr.asc(F_ORDER_BY));
 			for (IStyle ele : uiStyleList) {
-				this.styleCache.put(ele.getId(), ele);
+				if (ele.getId() != null)
+					this.styleCache.put(ele.getId(), ele);
 			}
 		}
 	}

@@ -1,34 +1,19 @@
 package com.kmetop.demsy.comlib.ui;
 
-import com.kmetop.demsy.comlib.entity.IBizComponent;
+public interface IStyle {
+	public Long getId();
 
-public interface IStyle extends IBizComponent {
-	//
-	// public CssBox getBox();
-	//
-	// public CssBox getTop();
-	//
-	// public CssBox getTopL();
-	//
-	// public CssBox getTopT();
-	//
-	// public CssBox getTopR();
-	//
-	// public CssBox getData();
-	//
-	// public CssBox getItem();
-	//
-	// public CssBox getItemL();
-	//
-	// public CssBox getItemT();
-	//
-	// public CssBox getItemR();
-
+	/**
+	 * 获取样式名字，用作html元素的class属性
+	 * 
+	 * @return
+	 */
 	public String getCssClass();
 
+	/**
+	 * 获取样式内容，用于生成&lt;style&gt;...&lt;style&gt;的内容部分。
+	 * 
+	 * @return
+	 */
 	public String getCssStyle();
-
-	public IStyle getParent();
-
-	public void setCode(String code);
 }

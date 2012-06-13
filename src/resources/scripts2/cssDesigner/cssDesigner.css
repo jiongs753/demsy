@@ -1,33 +1,51 @@
 /*www.kmetop.com Edit 2012-6-8*/
+.CssDesignerDemoContainer {
+	background-image: url(img/grid.gif);
+	padding-top: 5px;
+	width:350px;
+	display:none;
+}
+
+.CssDesignerPad .tabsBoxItem {
+	padding: 5px;
+}
+
 .QrPulldown,.QrSpinner,.CssColor,.CssUpload {
 	PADDING: 1px;
 }
-.CssUpload{
+
+.CssUpload {
 	width: 96px;
 }
+
 .QrSpinnerInput,.QrPulldownInput,.CssColorInput,.CssUploadInput {
 	height: 20px;
 	border: 1px solid #999999;
 	font-weight: bold;
 	font-size: 12px;
 	line-height: 14px;
-	font-family: "Lucida Grande", "Arial", "Lucida", "Verdana", "Helvetica", "宋体", "sans-serif";
+	font-family: "Lucida Grande", "Arial", "Lucida", "Verdana", "Helvetica",
+		"宋体", "sans-serif";
 	height: 18px;
 	padding: 2px 0 0 2px;
 }
-.QrSpinnerInput{
-	width: 40px;
+
+.QrSpinnerInput {
+	width: 60px;
 	border-right: 0;
 }
-.QrPulldownInput{
-	width: 170px;
+
+.QrPulldownInput {
+	width: 60px;
 	border-right: 0;
 }
-.CssUploadInput{
-	width: 170px;
+
+.CssUploadInput {
+	width: 60px;
 }
-.CssColorInput{
-	width: 50px;
+
+.CssColorInput {
+	width: 60px;
 }
 
 .QrPulldownButton,.QrSpinnerButton {
@@ -50,12 +68,12 @@
 .QrPulldownMenu {
 	BORDER: gray 1px solid;
 	BACKGROUND-IMAGE: url(img/pulldown-back.gif);
-	WIDTH: 200px;
+	WIDTH: 150px;
 	POSITION: absolute;
 	BACKGROUND-COLOR: #eee;
-	z-index:99999; 
-	top:0px; 
-	left:0px;
+	z-index: 99999;
+	top: 0px;
+	left: 0px;
 }
 
 .QrPulldownItemHover {
@@ -63,7 +81,7 @@
 	PADDING: 3px;
 	BACKGROUND-COLOR: #F3F8FC;
 	cursor: pointer;
-	z-index:99999; 
+	z-index: 99999;
 }
 
 .QrPulldownItem {
@@ -71,7 +89,7 @@
 	PADDING: 3px;
 	WIDTH: 95%;
 	cursor: pointer;
-	z-index:99999; 
+	z-index: 99999;
 }
 
 .QrComponent img {
@@ -83,11 +101,10 @@
 }
 
 .QrCSSDesignerPadLeft {
-	width: 100px;
+	width: 80px;
 	color: #50576B;
 	font-size: 12px;
 	line-height: 18px;
 	white-space: nowrap;
 	text-align: right;
-	padding-left: 8px;
 }

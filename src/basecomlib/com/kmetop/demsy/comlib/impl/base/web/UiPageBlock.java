@@ -16,6 +16,7 @@ import com.kmetop.demsy.comlib.biz.ann.BzGrp;
 import com.kmetop.demsy.comlib.biz.ann.BzSys;
 import com.kmetop.demsy.comlib.biz.field.CssPosition;
 import com.kmetop.demsy.comlib.biz.field.Dataset;
+import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
 import com.kmetop.demsy.comlib.impl.BizComponent;
 import com.kmetop.demsy.comlib.impl.base.lib.UiModelLib;
 import com.kmetop.demsy.comlib.ui.IPageBlock;
@@ -35,15 +36,17 @@ import com.kmetop.demsy.orm.ann.Prop;
 				, @BzFld(property = "page", gridOrder = 8) //
 				, @BzFld(property = "viewType", gridOrder = 4) //
 				, @BzFld(property = "parent", gridOrder = 7) //
+				, @BzFld(property = "style")//
 				, @BzFld(property = "name", name = "板块名称", gridOrder = 1)//
 				, @BzFld(property = "dataset") //
-				, @BzFld(property = "dataset.rules2", name = "展现数据", mode = "*:N", isTransient = true, gridOrder = 2) //
+				, @BzFld(property = "dataset.rules2", name = "数据源", mode = "*:N", isTransient = true, gridOrder = 2) //
 		}),
-		@BzGrp(name = "样式设置", code = "position"//
-		, fields = { @BzFld(property = "style") //
-				, @BzFld(property = "inlineStyle") //
-				// , @BzFld(property = "cssStyle") //
+		@BzGrp(name = "板块布局", code = "inlineStyle"//
+		, fields = { @BzFld(property = "inlineStyle") //
 				, @BzFld(property = "position") //
+		}),
+		@BzGrp(name = "样式设置", code = "styles"//
+		, fields = { @BzFld(property = "styleItems") //
 		}),
 		@BzGrp(name = "图片设置", code = "image"//
 		, fields = { @BzFld(property = "imageWidth") //
@@ -206,9 +209,9 @@ public class UiPageBlock extends BizComponent implements IPageBlock {
 	@Prop("uiStyle")
 	protected UiCatalogStyle style;
 
-	// @Column(length = 2000)
-	// @BzFld(name = "CSS样式", gridField = false, refrenceFields = "code,desc")
-	// protected FakeSubSystem<UiCatalogStyle> cssStyle;
+	@Column(length = 2000)
+	@BzFld(name = "CSS样式", gridField = false, uiTemplate = "ui.widget.ext.cssDesigner")
+	protected FakeSubSystem<StyleItem> styleItems;
 
 	@Column(length = 512)
 	@BzFld(name = "行内样式", mode = "c1:E")
@@ -535,12 +538,12 @@ public class UiPageBlock extends BizComponent implements IPageBlock {
 		this.viewExpression = viewExpression;
 	}
 
-	// public FakeSubSystem<UiCatalogStyle> getCssStyle() {
-	// return cssStyle;
-	// }
-	//
-	// public void setCssStyle(FakeSubSystem<UiCatalogStyle> cssStyle) {
-	// this.cssStyle = cssStyle;
-	// }
+	public FakeSubSystem<StyleItem> getStyleItems() {
+		return styleItems;
+	}
+
+	public void setStyleItems(FakeSubSystem<StyleItem> styleItems) {
+		this.styleItems = styleItems;
+	}
 
 }

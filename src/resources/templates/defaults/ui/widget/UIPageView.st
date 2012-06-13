@@ -9,6 +9,7 @@
 <link href="{$stylePath}/jquery.ui.theme.css" rel="stylesheet" type="text/css" media="screen" />
 
 <script src="{$scriptPath}/jquery.js" type="text/javascript"></script>
+<script src="{$scriptPath}/demsy.utils.js" type="text/javascript"></script>
 <script src="{$scriptPath}/demsy.ui.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.ui.core.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.ui.widget.js" type="text/javascript"></script>

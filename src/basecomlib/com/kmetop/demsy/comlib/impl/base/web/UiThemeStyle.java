@@ -11,6 +11,7 @@ import com.kmetop.demsy.comlib.biz.ann.BzAct;
 import com.kmetop.demsy.comlib.biz.ann.BzFld;
 import com.kmetop.demsy.comlib.biz.ann.BzGrp;
 import com.kmetop.demsy.comlib.biz.ann.BzSys;
+import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
 import com.kmetop.demsy.comlib.ui.IStyle;
 import com.kmetop.demsy.orm.ann.Prop;
 
@@ -125,6 +126,11 @@ public class UiThemeStyle extends BaseStyle {
 
 	@Override
 	public IStyle getParent() {
+		return null;
+	}
+
+	@Override
+	public FakeSubSystem<StyleItem> getItems() {
 		return null;
 	}
 }

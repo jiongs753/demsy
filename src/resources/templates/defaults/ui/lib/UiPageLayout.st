@@ -7,6 +7,7 @@
 <link href="{$stylePath}/demsy.ui.css" rel="stylesheet" type="text/css" media="screen" />
 
 <script src="{$scriptPath}/jquery.js" type="text/javascript"></script>
+<script src="{$scriptPath}/demsy.utils.js" type="text/javascript"></script>
 <script src="{$scriptPath}/demsy.ui.js" type="text/javascript"></script>
 
 <!-- 排版必须 -->
