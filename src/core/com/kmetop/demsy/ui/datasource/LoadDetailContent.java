@@ -59,7 +59,7 @@ public class LoadDetailContent extends UiRecord {
 		Integer cpage = maker.get("commentPage");
 		if (cpage != null) {
 			IModule commentMdl = maker.get("commentMdl");
-			Pager pager = new Pager(bizEngine.getType(moduleEngine.getBizSystem(commentMdl)));
+			Pager pager = new Pager(bizEngine.getType(moduleEngine.getSystem(commentMdl)));
 			CndExpr expr = Expr.eq("status", Comment.STATUS_SHOWN);
 			if (info != null) {
 				expr = expr.and(Expr.eq("subjectID", info)).and(Expr.eq("module", maker.getModule()));

@@ -61,7 +61,7 @@ public class LoadBlogTopic extends UiRecord {
 			cpage = 1;
 		}
 		IModule commentMdl = maker.get("commentMdl");
-		Pager pager = new Pager(bizEngine.getType(moduleEngine.getBizSystem(commentMdl)));
+		Pager pager = new Pager(bizEngine.getType(moduleEngine.getSystem(commentMdl)));
 		// CndExpr expr = Expr.ne("hide", 1);
 		// if (info != null) {
 		// expr = expr.and(Expr.eq("post", info));

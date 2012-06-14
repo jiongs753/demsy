@@ -30,73 +30,55 @@ import com.kmetop.demsy.orm.ann.Prop;
 		, @BzAct(jsonData = "CommonBizAction.data.js") //
 		, @BzAct(name = "排版", typeCode = TYPE_BZFORM_NEW, mode = "c1", disabled = true) //
 }//
-, groups = {
-		@BzGrp(name = "基本信息", code = "basic"//
-		, fields = { @BzFld(property = "catalog") //
-				, @BzFld(property = "page", gridOrder = 8) //
-				, @BzFld(property = "viewType", gridOrder = 4) //
-				, @BzFld(property = "parent", gridOrder = 7) //
-				, @BzFld(property = "style")//
-				, @BzFld(property = "name", name = "板块名称", gridOrder = 1)//
-				, @BzFld(property = "dataset") //
-				, @BzFld(property = "dataset.rules2", name = "数据源", mode = "*:N", isTransient = true, gridOrder = 2) //
-		}),
-		@BzGrp(name = "板块布局", code = "inlineStyle"//
-		, fields = { @BzFld(property = "inlineStyle") //
-				, @BzFld(property = "position") //
-		}),
-		@BzGrp(name = "样式设置", code = "styles"//
-		, fields = { @BzFld(property = "styleItems") //
-		}),
-		@BzGrp(name = "图片设置", code = "image"//
-		, fields = { @BzFld(property = "imageWidth") //
-				, @BzFld(property = "imageHeight") //
-				, @BzFld(property = "allowEmptyImg") //
-				, @BzFld(property = "autoCutImage", name = "剪切图片", disabledNavi = true, options = "1:自动剪切,0:不剪切") //
-		}),
-		@BzGrp(name = "列表设置", code = "table"//
-		, fields = {
-				@BzFld(property = "titleEnabled") //
-				,
-				@BzFld(property = "titleLink") //
-				,
-				@BzFld(property = "titleLinkTarget")//
-				,
-				@BzFld(property = "link")//
-				,
-				@BzFld(property = "linkTarget")//
-				,
-				@BzFld(property = "titleLength")//
-				,
-				@BzFld(property = "horizontal")//
-				,
-				@BzFld(property = "cellCount")//
-				,
-				@BzFld(property = "scrollDirection") //
-				,
-				@BzFld(property = "naviButton") //
-				,
-				@BzFld(property = "showMoreBtn", name = "更多按钮", disabledNavi = true, options = "1:显示,0:隐藏", desc = "用于列表板块，判断是否在标题后面显示“更多...”按钮？") //
-				,
-				@BzFld(property = "fillBlank", name = "填充空白", disabledNavi = true, desc = "用于列表类板块，判断实际数据行数小于列表所需行数时是否用空白行填充列表？") //
-		}), @BzGrp(name = "高级特性", code = "ext"//
-		, fields = { @BzFld(property = "viewController") //
-				, @BzFld(property = "viewTemplate") //
-				, @BzFld(property = "viewExpression") //
-				, @BzFld(property = "viewPage") //
-		}), @BzGrp(name = "其他属性", code = "others"//
-		, fields = { @BzFld(property = "placeHolder", name = "占位符", disabledNavi = true, mode = "*:N")//
-				, @BzFld(property = "params") //
-				, @BzFld(property = "ajaxLoad") //
-				, @BzFld(name = "停用状态", property = "disabled", disabledNavi = true, options = "1:停用,0:启用") //
-				, @BzFld(property = "type") //
-				, @BzFld(name = "排列顺序", property = "orderby", uiTemplate = "ui.widget.field.Spinner", mode = "*:N") //
-				, @BzFld(name = "内置状态", property = "buildin", disabledNavi = true, mode = "*:N") //
-				, @BzFld(name = "创建时间", property = "created", mode = "*:N v:P") //
-				, @BzFld(name = "更新时间", property = "updated", mode = "*:N v:P") //
-				, @BzFld(name = "创建帐号", property = "createdBy", mode = "*:N v:P") //
-				, @BzFld(name = "更新帐号", property = "updatedBy", mode = "*:N v:P") //
-		}) // end group
+, groups = { @BzGrp(name = "基本信息", code = "basic"//
+, fields = { @BzFld(property = "catalog") //
+		, @BzFld(property = "page", gridOrder = 8) //
+		, @BzFld(property = "viewType", gridOrder = 4) //
+		, @BzFld(property = "parent", gridOrder = 7) //
+		, @BzFld(property = "style")//
+		, @BzFld(property = "name", name = "板块名称", gridOrder = 1)//
+		, @BzFld(property = "dataset") //
+		, @BzFld(property = "dataset.rules2", name = "数据源", mode = "*:N", isTransient = true, gridOrder = 2) //
+}), @BzGrp(name = "图片设置", code = "image"//
+, fields = { @BzFld(property = "imageWidth") //
+		, @BzFld(property = "imageHeight") //
+		, @BzFld(property = "allowEmptyImg") //
+		, @BzFld(property = "autoCutImage", name = "剪切图片", disabledNavi = true, options = "1:自动剪切,0:不剪切") //
+}), @BzGrp(name = "列表设置", code = "table"//
+, fields = { @BzFld(property = "titleEnabled") //
+		, @BzFld(property = "titleLink") //
+		, @BzFld(property = "titleLinkTarget")//
+		, @BzFld(property = "link")//
+		, @BzFld(property = "linkTarget")//
+		, @BzFld(property = "titleLength")//
+		, @BzFld(property = "horizontal")//
+		, @BzFld(property = "cellCount")//
+		, @BzFld(property = "scrollDirection") //
+		, @BzFld(property = "naviButton") //
+		, @BzFld(property = "showMoreBtn", name = "更多按钮", disabledNavi = true, options = "1:显示,0:隐藏", desc = "用于列表板块，判断是否在标题后面显示“更多...”按钮？") //
+		, @BzFld(property = "fillBlank", name = "填充空白", disabledNavi = true, desc = "用于列表类板块，判断实际数据行数小于列表所需行数时是否用空白行填充列表？") //
+}), @BzGrp(name = "板块布局", code = "inlineStyle"//
+, fields = { @BzFld(property = "inlineStyle") //
+		, @BzFld(property = "position") //
+}), @BzGrp(name = "其他属性", code = "others"//
+, fields = { @BzFld(property = "viewController") //
+		, @BzFld(property = "viewTemplate") //
+		, @BzFld(property = "viewExpression") //
+		, @BzFld(property = "viewPage") //
+		, @BzFld(property = "placeHolder", name = "占位符", disabledNavi = true, mode = "*:N")//
+		, @BzFld(property = "params") //
+		, @BzFld(property = "ajaxLoad") //
+		, @BzFld(name = "停用状态", property = "disabled", disabledNavi = true, options = "1:停用,0:启用") //
+		, @BzFld(property = "type") //
+		, @BzFld(name = "排列顺序", property = "orderby", uiTemplate = "ui.widget.field.Spinner", mode = "*:N") //
+		, @BzFld(name = "内置状态", property = "buildin", disabledNavi = true, mode = "*:N") //
+		, @BzFld(name = "创建时间", property = "created", mode = "*:N v:P") //
+		, @BzFld(name = "更新时间", property = "updated", mode = "*:N v:P") //
+		, @BzFld(name = "创建帐号", property = "createdBy", mode = "*:N v:P") //
+		, @BzFld(name = "更新帐号", property = "updatedBy", mode = "*:N v:P") //
+}), @BzGrp(name = "样式设置", code = "styles"//
+, fields = { @BzFld(property = "styleItems") //
+}) // end group
 }// end groups
 )
 public class UiPageBlock extends BizComponent implements IPageBlock {

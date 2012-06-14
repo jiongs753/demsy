@@ -9,7 +9,7 @@ import com.kmetop.demsy.comlib.entity.IBizComponent;
  * @author yongshan.ji
  * 
  */
-public interface IUIViewType extends IBizComponent {
+public interface IUIViewComponent extends IBizComponent {
 
 	public String getViewTemplate();
 
@@ -17,7 +17,7 @@ public interface IUIViewType extends IBizComponent {
 
 	public String getViewController();
 
-	public IUIViewType getParent();
+	public IUIViewComponent getParent();
 
 	public Upload getImage();
 

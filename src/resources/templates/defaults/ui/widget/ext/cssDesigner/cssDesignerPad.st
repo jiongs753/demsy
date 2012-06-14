@@ -81,8 +81,6 @@
 					<td class="QrCSSDesignerPadLeft">右：</td>
 					<td>{import file="spinner.st" name="paddingRight" style="padding-right" value="" uom="px"}</td>
 				</tr>
-			</table>
-			<table>
 				<tr>
 					<td><img src="{$designerPath}/img/arrowclose.gif" onClick="CssDesigner.switchCSS(event,'.tr_margin');"></td>
 					<td class="QrCSSDesignerPadLeft" style="text-align: left;">外侧边距</td>
@@ -102,27 +100,32 @@
 					<td class="QrCSSDesignerPadLeft">右：</td>
 					<td>{import file="spinner.st" name="marginRight" style="margin-right" value="" uom="px"}</td>
 				</tr>
-			</table>
-			<table>
 				<tr>
-					<td><img src="{$designerPath}/img/arrowclose.gif" onClick="CssDesigner.switchCSS(event,'.tr_bgimg');"></td>
+					<td><img src="{$designerPath}/img/arrowopen.gif" onClick="CssDesigner.switchCSS(event,'.tr_bgimg');"></td>
 					<td class="QrCSSDesignerPadLeft" style="text-align: left;">背景颜色</td>
 					<td>{import file="color.st" name="backgroundColor" style="background-color" value=""}</td>
 				</tr>
-				<tr class="tr_bgimg" style="display: none;">
+				<tr class="tr_bgimg">
 					<td></td>
 					<td class="QrCSSDesignerPadLeft">背景图片：</td>
 					<td>{import file="upload.st" name="backgroundImage" style="background-image" value=""}</td>
 					<td class="QrCSSDesignerPadLeft">图片伸展：</td>
 					<td>{assign var="backgroundRepeatOptions" value=",repeat,repeat-x,repeat-y,no-repeat" delimiter=","} {import file="pulldown.st" name="backgroundRepeat" style="background-repeat" value="" options=$backgroundRepeatOptions}</td>
 				</tr>
-				<tr class="tr_bgimg" style="display: none;">
+				<tr class="tr_bgimg">
 					<td></td>
 					<td class="QrCSSDesignerPadLeft">图片定位：</td>
 					<td>{assign var="backgroundPositionOptions" value=",left,right,top,left top,right bottom,30% 50%,10px 20px" delimiter=","} {import file="pulldown.st" name="backgroundPosition" style="background-position" value="" options=$backgroundPositionOptions}</td>
 					<td class="QrCSSDesignerPadLeft">附加属性：</td>
 					<td>{assign var="backgroundAttachmentOptions" value=",fixed,scroll" delimiter=","} {import file="pulldown.st" name="backgroundAttachment" style="background-attachment" value="" options=$backgroundAttachmentOptions}</td>
 				</tr>
+                <tr>
+                    <td></td>
+                    <td class="QrCSSDesignerPadLeft">元素宽度：</td>
+                    <td>{import file="spinner.st" name="width" style="width" value="" uom="px"}</td>
+                    <td class="QrCSSDesignerPadLeft">元素高度：</td>
+                    <td>{import file="spinner.st" name="height" style="height" value="" uom="px"}</td>
+                </tr>
 			</table>
 			<hr size="1" width="100%" color="#A5BAC6">
 			<span><img src="{$designerPath}/img/arrowclose.gif" onClick="CssDesigner.switchCSS(event,'#CssDesignerDemoContainer_Border');" /> CSS效果及说明</span>
@@ -309,12 +312,6 @@
 					<td colspan=4>
 						<hr size="1" width="100%" color="#A5BAC6">
 					</td>
-				</tr>
-				<tr>
-					<td class="QrCSSDesignerPadLeft">整体宽度：</td>
-					<td>{import file="spinner.st" name="width" style="width" value="" uom="px"}</td>
-					<td class="QrCSSDesignerPadLeft">整体高度：</td>
-					<td>{import file="spinner.st" name="height" style="height" value="" uom="px"}</td>
 				</tr>
 				<tr>
 					<td class="QrCSSDesignerPadLeft">显示属性：</td>

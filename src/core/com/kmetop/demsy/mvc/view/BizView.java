@@ -51,7 +51,7 @@ public class BizView extends AbstractView {
 					String dacorator = (String) dataModel.getDacorator();
 					// 装饰器为空串——表示不使用装饰器
 					if (dacorator == null || dacorator.trim().length() > 0) {
-						UIPageView pageUI = Demsy.uiEngine.makePageUI(dacorator);
+						UIPageView pageUI = Demsy.uiEngine.makePageView(dacorator);
 						// pageUI.setPlaceholder(dataModel);
 						pageUI.addBlock("", dataModel);
 						pageUI.set("title", dataModel.getName());

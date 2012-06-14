@@ -24,7 +24,7 @@ import com.kmetop.demsy.comlib.entity.IBizEntity;
 import com.kmetop.demsy.comlib.security.IModule;
 import com.kmetop.demsy.comlib.ui.IPage;
 import com.kmetop.demsy.comlib.ui.IPageBlock;
-import com.kmetop.demsy.comlib.ui.IUIViewType;
+import com.kmetop.demsy.comlib.ui.IUIViewComponent;
 import com.kmetop.demsy.comlib.web.IWebContent;
 import com.kmetop.demsy.comlib.web.IWebContentCatalog;
 import com.kmetop.demsy.lang.Dates;
@@ -332,7 +332,7 @@ public class UIBlockContext {
 		// 解析数据源模块
 		String moduleGuid = datasource.getModuleGuid();
 		module = moduleEngine.getModule(moduleGuid);
-		system = moduleEngine.getBizSystem(module);
+		system = moduleEngine.getSystem(module);
 		dataClass = bizEngine.getType(system);
 
 		// 解析排序字段
@@ -371,7 +371,7 @@ public class UIBlockContext {
 				// 栏目模块解析成功
 				if (catalogField != null && bizEngine.isSystemFK(catalogField)) {
 					catalogModule = moduleEngine.getModule(Demsy.me().getSoft(), catalogField.getRefrenceSystem());
-					catalogSystem = moduleEngine.getBizSystem(catalogModule);
+					catalogSystem = moduleEngine.getSystem(catalogModule);
 					catalogClass = bizEngine.getType(catalogSystem);
 
 					break;
@@ -397,7 +397,7 @@ public class UIBlockContext {
 				} else if (catalogModule == null) {
 					// 全动态：数据源中没有指定外键字段，运行时自动获取外键字段
 					catalogModule = dModule;
-					catalogSystem = moduleEngine.getBizSystem(catalogModule);
+					catalogSystem = moduleEngine.getSystem(catalogModule);
 					catalogClass = bizEngine.getType(catalogSystem);
 
 					isDynaCatalogModule = true;
@@ -412,7 +412,7 @@ public class UIBlockContext {
 			// 添加全动态外键字段作为板块数据集查询条件
 			if (isFullDynaCatalogModule) {
 				List<? extends IBizField> fields = bizEngine.getFieldsOfEnabled(system);
-				IBizSystem refSystem = moduleEngine.getBizSystem(catalogModule);
+				IBizSystem refSystem = moduleEngine.getSystem(catalogModule);
 				Class refType = bizEngine.getType(refSystem);
 				for (IBizField fld : fields) {
 					if (bizEngine.getType(fld).equals(refType)) {
@@ -426,7 +426,7 @@ public class UIBlockContext {
 			// 按上级板块过滤数据集：即查询主从属表
 			if (this.isInherit() && parent.module != null && parent.itemObjs != null && parent.itemObjs.size() > 0) {
 				List<? extends IBizField> fields = bizEngine.getFieldsOfEnabled(system);
-				IBizSystem parentSystem = moduleEngine.getBizSystem(parent.module);
+				IBizSystem parentSystem = moduleEngine.getSystem(parent.module);
 				Class parentType = bizEngine.getType(parentSystem);
 				for (IBizField fld : fields) {
 					if (bizEngine.getType(fld).equals(parentType)) {
@@ -528,7 +528,7 @@ public class UIBlockContext {
 
 	public String getImageField() {
 		if (imageFld == null) {
-			IUIViewType ui = block.getViewType();
+			IUIViewComponent ui = block.getViewType();
 
 			if (ui == null || !ui.isImageOptions()) {
 				imageFld = "";

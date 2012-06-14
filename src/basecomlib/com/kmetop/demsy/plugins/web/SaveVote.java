@@ -20,7 +20,7 @@ public class SaveVote extends BizPlugin {
 			IOrm orm = event.getOrm();
 
 			IModule module = Demsy.moduleEngine.getModule(vote.getModuleID());
-			Object subject = orm.load(Demsy.bizEngine.getType(Demsy.moduleEngine.getBizSystem(module)), vote.getSubjectID());
+			Object subject = orm.load(Demsy.bizEngine.getType(Demsy.moduleEngine.getSystem(module)), vote.getSubjectID());
 			// vote.setName(subject.toString());
 			// IUser user = Demsy.me().loginUser();
 

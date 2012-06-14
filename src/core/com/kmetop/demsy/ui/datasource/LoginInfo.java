@@ -21,7 +21,7 @@ public class LoginInfo extends UiBaseDataSource {
 
 		ILogin login = Demsy.me().login();
 		if (login == null) {
-			data.put("realmNodes", moduleEngine.makeRealmNodes(Demsy.me().getSoft()));
+			data.put("realmNodes", moduleEngine.makeNodesByRealm(Demsy.me().getSoft()));
 		} else {
 			data.put("login", login);
 			data.put("user", Demsy.me().loginUser());

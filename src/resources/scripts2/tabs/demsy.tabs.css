@@ -24,14 +24,13 @@
 	BACKGROUND: #dfeffc url(img/mbox-tbg.png) no-repeat right top;
 	HEIGHT: 25px;
 	CLEAR: both;
-	OVERFLOW: hidden;
-	padding-right: 2px;
+	white-space: nowrap;
 }
 
 .tabs .tabsMenu STRONG {
 	LINE-HEIGHT: 25px;
-	PADDING-LEFT: 10px;
-	PADDING-RIGHT: 4px;
+	PADDING-LEFT: 2px;
+	PADDING-RIGHT: 2px;
 	DISPLAY: block;
 	BACKGROUND: url(img/mbox-tbg.png) no-repeat left top;
 	FLOAT: left;
@@ -50,12 +49,12 @@
 	BORDER-LEFT: #bfd4e0 1px solid;
 	PADDING-BOTTOM: 0px;
 	LINE-HEIGHT: 23px;
-	PADDING-LEFT: 10px;
-	PADDING-RIGHT: 10px;
+	PADDING-LEFT: 5px;
+	PADDING-RIGHT: 5px;
 	DISPLAY: block;
 	FLOAT: left;
 	LETTER-SPACING: 1px;
-	HEIGHT: 25px;
+	HEIGHT: 24px;
 	COLOR: #1d5987;
 	OVERFLOW: hidden;
 	TEXT-DECORATION: none;

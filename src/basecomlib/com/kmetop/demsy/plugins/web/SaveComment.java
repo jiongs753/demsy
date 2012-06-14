@@ -20,7 +20,7 @@ public class SaveComment extends BizPlugin {
 		} else {// 评论
 			IOrm orm = event.getOrm();
 
-			Object subject = orm.load(Demsy.bizEngine.getType(Demsy.moduleEngine.getBizSystem(comment.getModule())), comment.getSubjectID());
+			Object subject = orm.load(Demsy.bizEngine.getType(Demsy.moduleEngine.getSystem(comment.getModule())), comment.getSubjectID());
 			comment.setName(subject.toString());
 			IUser user = Demsy.me().loginUser();
 			if (user != null) {

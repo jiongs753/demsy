@@ -5,7 +5,7 @@ import java.util.List;
 import com.kmetop.demsy.comlib.entity.IDemsySoft;
 import com.kmetop.demsy.comlib.security.IAction;
 import com.kmetop.demsy.comlib.security.IModule;
-import com.kmetop.demsy.comlib.ui.IUIViewType;
+import com.kmetop.demsy.comlib.ui.IUIViewComponent;
 import com.kmetop.demsy.comlib.ui.IPage;
 import com.kmetop.demsy.comlib.ui.IPageBlock;
 import com.kmetop.demsy.comlib.ui.IStyle;
@@ -33,31 +33,40 @@ public interface IUiEngine {
 	 */
 	public void clearCache();
 
-	public UIPageView makePageUI(String pageID);
+	public UIPageView makePageView(String pageID);
 
 	/**
-	 * 获取功能模块菜单数据模型
+	 * 创建模块功能菜单
 	 * 
 	 * @param module
 	 * @return
 	 * @throws DemsyException
 	 */
-	public UIWidgetModel makeModuleMenuUI(IDemsySoft soft) throws DemsyException;
-
-	public UIBizModule makeBizModuleUI(IModule module, String gridColumns, String idField) throws DemsyException;
+	public UIWidgetModel makeFunctionMenuView(IDemsySoft soft) throws DemsyException;
 
 	/**
-	 * 获取模块主界面
+	 * 创建模块主界面
+	 * 
+	 * @param module
+	 * @param gridColumns
+	 * @param idField
+	 * @return
+	 * @throws DemsyException
+	 */
+	public UIBizModule makeModuleView(IModule module, String gridColumns, String idField) throws DemsyException;
+
+	/**
+	 * 创建系统主界面
 	 * 
 	 * @param module
 	 *            业务模块
 	 * @return 业务模块主界面
 	 * @throws DemsyException
 	 */
-	public UIBizSystem makeSystemUI(IModule module, String gridColumns, String idField) throws DemsyException;
+	public UIBizSystem makeSystemView(IModule module, String gridColumns, String idField) throws DemsyException;
 
 	/**
-	 * 获取模块数据网格
+	 * 获取系统数据网格
 	 * 
 	 * @param module
 	 *            业务模块
@@ -66,25 +75,26 @@ public interface IUiEngine {
 	 * @return 业务模块主界面
 	 * @throws DemsyException
 	 */
-	public UIBizGridModel makeGridUI(IModule module, String gridColumns, String idField, boolean existNaviTree) throws DemsyException;
+	public UIBizGridModel makeSystemGridView(IModule module, String gridColumns, String idField, boolean existNaviTree) throws DemsyException;
 
 	/**
+	 * 创建系统数据分类导航菜单
 	 * 
 	 * @param module
 	 *            业务模块
 	 * @return 业务模块导航菜单
 	 * @throws DemsyException
 	 */
-	public UIBizNaviModel makeNaviUI(IModule module) throws DemsyException;
+	public UIBizNaviModel makeSystemNaviView(IModule module) throws DemsyException;
 
 	/**
-	 * 获取模块工具栏惨淡
+	 * 获取系统工具栏操作菜单
 	 * 
 	 * @param module
 	 * @return
 	 * @throws DemsyException
 	 */
-	public UIBizMenuModel<UIToolbarMenu> makeToolbarUI(IModule module) throws DemsyException;
+	public UIBizMenuModel<UIToolbarMenu> makeSystemActionView(IModule module) throws DemsyException;
 
 	/**
 	 * 获取子模块界面
@@ -103,7 +113,7 @@ public interface IUiEngine {
 	 * @return
 	 * @throws DemsyException
 	 */
-	public UIBizFormModel makeFormUI(IModule module, IAction action, Object data) throws DemsyException;
+	public UIBizFormModel makeSystemFormView(IModule module, IAction action, Object data) throws DemsyException;
 
 	/*
 	 * 获取内置模块业务窗体模型
@@ -128,7 +138,7 @@ public interface IUiEngine {
 
 	public List<? extends IPageBlock> loadPageBlocks(Long pageID);
 
-	public IUIViewType loadViewType(Long id);
+	public IUIViewComponent loadViewComponent(Long id);
 
 	public IUIViewController getUIController(String classname);
 
@@ -158,11 +168,11 @@ public interface IUiEngine {
 
 	public IStyle loadStyle(Long styleID);
 
-	public Nodes makeViewTypeNodes(Long blockID);
+	public Nodes makeNodesOfViewCompnents(Long blockID);
 
-	public IWebContentCatalog loadWebInfoCatalog(Long catalogID);
+	public IWebContentCatalog loadWebContentCatalog(Long catalogID);
 
-	public IWebContentCatalog loadWebInfoCatalog(String catalogGuid);
+	public IWebContentCatalog loadWebContentCatalog(String catalogGuid);
 
 	public IPage loadIndexPage();
 

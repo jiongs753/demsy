@@ -130,10 +130,10 @@ public class IndexActions extends ModuleActions implements MvcConst {
 		try {
 			security.checkLogin(IUserRole.ROLE_ADMIN_USER);
 
-			UIWidgetModel modelUI = uiEngine.makeModuleMenuUI(me().getSoft());
+			UIWidgetModel modelUI = uiEngine.makeFunctionMenuView(me().getSoft());
 			modelUI.setDacorator(null);
 
-			modelUI.setData(moduleEngine.makeModuleNodes(me().getSoft()));
+			modelUI.setData(moduleEngine.makeNodesByModule(me().getSoft()));
 			modelUI.set("target", "body");
 
 			log.debugf("%s成功.", title);

@@ -54,7 +54,7 @@ public interface IPageBlock extends IBizComponent {
 	 * 
 	 * @return
 	 */
-	IUIViewType getViewType();
+	IUIViewComponent getViewType();
 
 	/**
 	 * 自定义视图模版

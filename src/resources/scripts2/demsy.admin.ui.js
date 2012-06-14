@@ -15,6 +15,7 @@ var DemsyUIManager = function() {
 		var $b = $(ui.draggable);
 		var viewTypeID = parseInt($b.attr("dataID"));
 		var viewExpr = $(".expr", $b).val();
+		var moduleGuid = $(".moduleGuid", $b).val();
 		var type = $b.attr("type");
 		var w = $b.attr("defaultWidth");
 		var h = $b.attr("defaultHeight");
@@ -34,6 +35,7 @@ var DemsyUIManager = function() {
 			"data.viewType.id" : viewTypeID,
 			"data.parent.id" : pid,
 			"data.viewExpression" : viewExpr,
+			"data.dataset.moduleGuid" : moduleGuid,
 			"data.position.area" : $parent.attr("id"),
 			"data.position.position" : "absolute",
 			"data.position.left" : parseInt(offset.left - pageOffset.left),
@@ -52,7 +54,7 @@ var DemsyUIManager = function() {
 					dialog.block();
 					dialog.load(self.options.loadUilibUrl, "").dialog({
 						title : "选择板块视图",
-						width : 320,
+						width : 310,
 						position : [ "right", 0 ],
 						close : function() {
 							$(this).dialog("destroy");
@@ -62,7 +64,7 @@ var DemsyUIManager = function() {
 					if (self.$droppable)
 						self.$droppable.droppable("destroy").removeClass("ui-droppable");
 					self.$droppable = $(".droppable").droppable({
-						accept : ".uimodellib",
+						accept : ".viewComponent",
 						drop : function(event, ui) {
 							self.drop(event, ui, $(this));
 						}
@@ -118,12 +120,10 @@ var DemsyUIManager = function() {
 			$area.height(maxh);
 		});
 	};
-	this.setupUiLib = function() {
+	this.setupViewComponent = function() {
 		var self = this;
-		var tabs = $("#tabsUiLib").tabs({
-			cache : true
-		});
-		var a = $(".uimodellib", tabs).disableSelection().css({
+		var viewComponents = $("#viewComponents").accordion();
+		var a = $(".viewComponent", viewComponents).disableSelection().css({
 			"cursor" : "move"
 		}).hover(function() {
 			var me = $(this);
@@ -198,7 +198,7 @@ var DemsyUIManager = function() {
 					dialog.block();
 					dialog.load(self.options.loadUilibUrl + dataID, "").dialog({
 						title : "选择板块视图",
-						width : 330,
+						width : 310,
 						position : [ "right", 0 ],
 						close : function() {
 							$(this).dialog("destroy");
@@ -211,7 +211,7 @@ var DemsyUIManager = function() {
 					self.$droppable = me.droppable({
 						activeClass : "droppable-active",
 						hoverClass : "droppable-hover",
-						accept : ".uimodellib",
+						accept : ".viewComponent",
 						drop : function(event, ui) {
 							self.drop(event, ui, $(this));
 						}
@@ -331,7 +331,9 @@ var DemsyUIManager = function() {
 			}
 
 			if (type == 0) {
-				self.reloadBlock(blockID, $form);
+				var block = $("#block" + blockID);
+				if (block.length == 0)
+					self.reloadBlock(blockID, $form);
 			} else if (type == 1) {
 				self.reloadStyle(newStyleID);
 				if (blockID.length > 0 && oldStyleID.length == 0) {
@@ -347,7 +349,7 @@ var DemsyUIManager = function() {
 		var self = this;
 		var dialog = $("#dialog");
 		dialog.load(loadUrl + "?dialog=true", params, function() {
-			CssDesigner.instance.target = "#block"+blockID;
+			CssDesigner.instance.target = "#block" + blockID;
 		}).dialog({
 			width : 500,
 			zIndex : 9999,

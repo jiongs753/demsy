@@ -12,8 +12,8 @@
     <tr>
         <td class="bzsubsys_container"><table id="bzsubsys_{$ui.uiid}" class="bzsubsys">
             <tr>
-                <th class="bzsubfld_head" style="width:88px;">CSS名称</th>
-                <th class="bzsubfld_head" style="width:258px;">CSS内容</th>
+                <th class="bzsubfld_head" style="width:138px;">CSS名称</th>
+                <th class="bzsubfld_head" style="width:208px;">CSS内容</th>
                 <th class="bzsubfld_head_check">
                     {if $mode == "M" || $mode == "E"}
                      <a href="#" class="op_btn_del" title="删除" alt="删除" style="font-size: 17px;">×</a>
@@ -23,8 +23,8 @@
             </tr>
             {foreach from=$subSystemObj.list item="subData" key="row"}
             <tr class="bzsubsys_item">
-                <td class="bzsubfld_data" valign="top"><input type="text" style="width:80px;height: 18px;" class="input" name="code" value="{tostring bean=$subData.value}" /></td>
-                <td class="bzsubfld_data" valign="top"><textarea name="desc" style="width:250px;height: 20px;" class="textarea">{tostring bean=$subData.value}</textarea></td>
+                <td class="bzsubfld_data" valign="top" style="padding: 4px;"><select style="width:130px;height: 22px;" class="input" name="code"><option value="{tostring bean=$subData.code}" selected>{tostring bean=$subData.code}</option></select></td>
+                <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" style="width:200px;height: 20px;" class="textarea">{tostring bean=$subData.desc}</textarea></td>
                 <td class="bzsubfld_data_check" valign="top">
                     <input type="checkbox" class="check" />
                     <input name="id" type="hidden" value="{tostring bean=$subData.id}"/>
@@ -39,8 +39,8 @@
 {if $mode == "M" || $mode == "E"}
 <table id="bzsubsys_tpl_{$ui.uiid}" style="display:none;">
     <tr class="bzsubsys_item">
-        <td class="bzsubfld_data" valign="top"><input type="text" style="width:80px;height: 18px;" class="input" name="code" value="" /></td>
-        <td class="bzsubfld_data" valign="top"><textarea name="desc" style="width:250px;height: 20px;" class="textarea"></textarea></td>
+        <td class="bzsubfld_data" valign="top" style="padding: 4px;"><select style="width:130px;height: 22px;" class="input" name="code"><option value="" selected>默认</option></select></td>
+        <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" style="width:200px;height: 20px;" class="textarea"></textarea></td>
         <td class="bzsubfld_data_check" valign="top">
             <input type="checkbox" class="check" />
             <input name="id" type="hidden" />
@@ -70,10 +70,14 @@ $(function(){
 		//reset
 		if(checked){
 			var output = $(".textarea", $item);
+			var cssClass = $(".input", $item);
+			
 			designer.output = output.get(0);
+			designer.cssClass = cssClass.val();
 			designer.$pad.show();
 		}else{
     		designer.output = null;
+    		designer.cssClass = null;
     		designer.$pad.hide();
 		}
 		designer.reset();
@@ -84,18 +88,29 @@ $(function(){
         itemTemplate: $("#bzsubsys_tpl_{$ui.uiid}"),
         onAddItem: function(self, $item, json){
             $(".check", $item).click(selectItem);
-            $(".input", $item).click(selectItem);
             $(".textarea", $item).click(selectItem);
+            
+            var select = $(".input", $item).get(0);
+            var options=select.options;
+            
+            //生成CSS名称下拉项
+            var items = designer.makeCssOptions();
+            for(item in items){
+            	var option = new Option();
+            	option.value = item;
+            	option.text = items[item];
+            	options.add(option);
+            }
         },
         onDelItem: function(self, $item){
     		designer.output = null;
+    		designer.cssClass = null;
     		designer.reset();
     		designer.$pad.hide();
         }
     });
     
     $(".check", $bzsys).click(selectItem);
-    $(".input", $bzsys).click(selectItem);
     $(".textarea", $bzsys).click(selectItem);
 });
 </script>

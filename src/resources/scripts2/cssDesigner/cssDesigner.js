@@ -48,7 +48,8 @@ QrXPCOM.isIE = function() {
 }
 
 QrXPCOM.isImageFile = function(src) {
-	if (src.substring(src.lastIndexOf(".")).toLowerCase() == ".gif" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".bmp" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpeg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".png") {
+	if (src.substring(src.lastIndexOf(".")).toLowerCase() == ".gif" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".bmp"
+			|| src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpeg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".png") {
 		return true;
 	} else {
 		return false;
@@ -284,6 +285,7 @@ function CssDesigner($pad) {
 	this.connectInstanceMap = new Array;
 	this.target = null;
 	this.output = null;
+	this.cssClass = null;
 	var self = this;
 	$(".CssColorInput", $pad).each(function() {
 		var ths = $(this);
@@ -408,6 +410,34 @@ CssDesigner.getInlineStyles = function($target) {
 	}
 	return new Array;
 }
+CssDesigner.prototype.makeCssOptions = function(element) {
+	var self = this;
+	if (!element)
+		element = this.target;
+
+	var options = new Array;
+	$(element).children().each(function() {
+		var classNames = $(this).attr("class");
+		if (classNames && classNames.trim().length > 0) {
+			classNames = classNames.trim().split(" ");
+			for (i = 0; i < classNames.length; i++) {
+				var name = classNames[i].trim();
+				if (name.length > 0)
+					options["." + name] = "." + name;
+			}
+		} else {
+			options[this.tagName] = this.tagName;
+		}
+		var nextOptions = self.makeCssOptions(this);
+		for (o in nextOptions) {
+			v = nextOptions[o];
+			options[o] = v;
+		}
+	});
+
+	return options;
+
+}
 CssDesigner.prototype.reset = function() {
 	$("input", this.$pad).val("");
 	if (this.output) {
@@ -428,20 +458,25 @@ CssDesigner.prototype.reset = function() {
 	var $targets = $(this.target);
 	if ($targets.length == 0)
 		$targets = $(".CssDesignerDemo", this.$pad);
+	if (this.cssClass != null && this.cssClass.trim().length > 0)
+		$targets = $(this.cssClass, $targets);
+
 	var $styles = $("input", this.$pad);
 	$targets.each(function() {
 		var target = this;
 
+		// 优先锁定行内样式
+		var inlineStyles = CssDesigner.getInlineStyles($(target));
 		$styles.each(function() {
 			var $input = $(this);
 			var style = $input.attr("styleName");
-			try {
-				target.style[style.toProp()] = "";
-			} catch (e) {
+			if (style && !inlineStyles[style]) {
+				try {
+					target.style[style.toProp()] = "";
+				} catch (e) {
+				}
 			}
 		});
-		// 优先锁定行内样式
-		var inlineStyles = CssDesigner.getInlineStyles($(target));
 		$styles.each(function() {
 			var $input = $(this);
 			var style = $input.attr("styleName");
@@ -468,9 +503,12 @@ CssDesigner.prototype.setTargetStyle = function(style, value) {
 	var $targets = $(this.target);
 	if ($targets.length == 0)
 		$targets = $(".CssDesignerDemo", this.$pad);
+	if (this.cssClass != null && this.cssClass.length > 0)
+		$targets = $(this.cssClass, $targets);
+
 	$targets.each(function() {
 		var inlineStyles = CssDesigner.getInlineStyles($(this));
-		if (!inlineStyles[style]) {
+		if (style && !inlineStyles[style]) {
 			try {
 				this.style[style.toProp()] = value;
 			} catch (e) {
@@ -487,6 +525,7 @@ CssDesigner.prototype.setTargetStyle = function(style, value) {
 			styleText += styleName + ": " + v + "; ";
 		}
 	});
-	if (this.output)
-		$(this.output).val(styleText);
+	if (this.output){
+		$(this.output).val(styleText).change();
+	}
 }

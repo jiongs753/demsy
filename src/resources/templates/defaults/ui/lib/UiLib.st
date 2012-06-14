@@ -1,14 +1,9 @@
-<div id="tabsUiLib">
-<ul>
-	{foreach from=$modelLibNodes.children item="item"}
-	<li><a href="#uilib_{$item.id}">{$item.name}</a></li> {/foreach}
-</ul>
-{foreach from=$modelLibNodes.children item="item"}
-<div id="uilib_{$item.id}">{import file="_UiLib.st" children=$item.children}</div>
-{/foreach}
-</div>
+<div id="viewComponents" class="accordion">{foreach from=$viewComponentNodes.children item="item"}
+    <div class="menu"><span href="#viewcomponent_{$item.id}">{$item.name}</span></div>
+    <div class="content" id="viewcomponent_{$item.id}">{import file="_UiLib.st" children=$item.children}</div>
+{/foreach}</div>
 <script type="text/javascript">
 $(function(){
-demsyUIManager.setupUiLib();
+	demsyUIManager.setupViewComponent();
 });
 </script>

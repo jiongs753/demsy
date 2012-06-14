@@ -24,7 +24,7 @@ public class MyInfo extends UiBaseDataSource {
 		IModule module = parser.getModule();
 		IUser user = Demsy.me().loginUser();
 
-		Class type = Demsy.bizEngine.getType(Demsy.moduleEngine.getBizSystem(module));
+		Class type = Demsy.bizEngine.getType(Demsy.moduleEngine.getSystem(module));
 		if (type == null || !Cls.getType(type).getName().equals(Cls.getType(user.getClass()).getName())) {
 			return ctx;
 		}

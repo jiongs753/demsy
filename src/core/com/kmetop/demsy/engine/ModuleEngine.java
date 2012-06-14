@@ -93,7 +93,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 	// }
 
 	@Override
-	public IBizSystem getBizSystem(IModule module) {
+	public IBizSystem getSystem(IModule module) {
 		if (module != null && module.getType() == IModule.TYPE_BIZ) {
 			return bizEngine.getSystem(module.getRefID());
 		}
@@ -186,10 +186,10 @@ public abstract class ModuleEngine implements IModuleEngine {
 	}
 
 	@Override
-	public List<IModule> getSlaveModules(IModule module) {
+	public List<IModule> getSubModules(IModule module) {
 		List<IModule> modules = new LinkedList();
 
-		List<? extends IBizSystem> slaveSystems = bizEngine.getSystemsOfSlave(getBizSystem(module));
+		List<? extends IBizSystem> slaveSystems = bizEngine.getSystemsOfSlave(getSystem(module));
 		for (IBizSystem sys : slaveSystems) {
 			IModule slaveModule = this.getModule(module.getSoftID(), sys);
 			if (slaveModule != null) {
@@ -204,9 +204,9 @@ public abstract class ModuleEngine implements IModuleEngine {
 	public IAction getAction(IModule mdl, Serializable opID) {
 		if (mdl.getType() == IModule.TYPE_BIZ) {
 			if (opID instanceof String)
-				return ((BizEngine) bizEngine).biz(getBizSystem(mdl).getId()).action((String) opID);
+				return ((BizEngine) bizEngine).biz(getSystem(mdl).getId()).action((String) opID);
 			else if (opID instanceof Number)
-				return ((BizEngine) bizEngine).biz(getBizSystem(mdl).getId()).action(((Number) opID).longValue());
+				return ((BizEngine) bizEngine).biz(getSystem(mdl).getId()).action(((Number) opID).longValue());
 			else
 				return null;
 		}
@@ -216,7 +216,17 @@ public abstract class ModuleEngine implements IModuleEngine {
 	}
 
 	@Override
-	public Nodes makeModuleNodes(IDemsySoft soft) {
+	public List<? extends IModule> getModules(IDemsySoft soft) {
+		return soft(soft.getId()).modules();
+	}
+
+	@Override
+	public Nodes makeNodesByModule(IDemsySoft soft) {
+		return this.makeNodesByModule(soft, Demsy.me().login().getRoleType());
+	}
+
+	@Override
+	public Nodes makeNodesByModule(IDemsySoft soft, byte role) {
 		Assert.notNull(soft, "没有指定应用软件，不能获取模块功能菜单!");
 
 		List<? extends IModule> modules = soft(soft.getId()).modules();
@@ -235,11 +245,11 @@ public abstract class ModuleEngine implements IModuleEngine {
 		SortUtils.sort(root.getChildren(), "order", true);
 
 		// 非超级用户不能访问“平台管理”功能
-		if (Demsy.me().login().getRoleType() != IUserRole.ROLE_DEVELOPER) {
+		if (role != IUserRole.ROLE_DEVELOPER) {
 			List<Node> list = root.getChildren();
 			for (int i = list.size() - 1; i >= 0; i--) {
 				Node node = list.get(i);
-				String code = node.get("code");
+				String code = (String) node.get("code");
 				if (code != null)
 					code = code.trim();
 				if (LibConst.BIZCATA_DEMSY_ADMIN.equals(code)) {
@@ -268,6 +278,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 		// node.setParams(module);
 		node.setOrder(module.getOrderby());
 		node.set("code", module.getCode());
+		node.set("module", module);
 
 		node.setName(module.getName());
 		switch (module.getType()) {
@@ -285,9 +296,9 @@ public abstract class ModuleEngine implements IModuleEngine {
 	}
 
 	@Override
-	public Nodes makeActionNodes(IModule mdl) {
+	public Nodes makeNodesByAction(IModule mdl) {
 		if (mdl.getType() == IModule.TYPE_BIZ) {
-			IBizSystem sys = getBizSystem(mdl);
+			IBizSystem sys = getSystem(mdl);
 			Nodes root = makeActionNodes(mdl, sys);
 
 			// List<Node> list = root.getChildren();
@@ -377,8 +388,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 							continue;
 						}
 
-						Node item = root.addNode(unknownItem.getId(), unknownItem.getId() + "_" + (count++)).setName(
-								unknownItem.getName() + fld.getName());
+						Node item = root.addNode(unknownItem.getId(), unknownItem.getId() + "_" + (count++)).setName(unknownItem.getName() + fld.getName());
 						item.set("mode", unknownItem.get("mode"));
 
 						if (!bizEngine.isSystemFK(fld)) {
@@ -478,8 +488,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 				Class type = bizEngine.getType(refSys);
 
 				if (orm.count(type, null) < 10) {
-					List<? extends IBizEntity> datas = orm.query(type,
-							bizEngine.hasField(klass, F_ORDER_BY) ? CndExpr.asc(F_ORDER_BY) : null);
+					List<? extends IBizEntity> datas = orm.query(type, bizEngine.hasField(klass, F_ORDER_BY) ? CndExpr.asc(F_ORDER_BY) : null);
 					for (IBizEntity data : datas) {
 						Node node = root.addNode(item.getId(), item.getId() + "_" + fld.getId() + "_" + data.getId());
 						node.setName(data.toString());
@@ -528,7 +537,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 			return parent + "." + id + ".";
 	}
 
-	public Nodes makeSoftNodes() {
+	public Nodes makeNodesByCurrentSoft() {
 
 		Nodes root = Nodes.make();
 		try {
@@ -551,7 +560,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 		return root;
 	}
 
-	public Nodes makeRealmNodes(IDemsySoft soft) {
+	public Nodes makeNodesByRealm(IDemsySoft soft) {
 		return makeComNodes(this.getRealms(soft));
 	}
 
@@ -624,7 +633,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 		return this.soft(softObj.getId()).realm(realmCode);
 	}
 
-	public IAction getActionLib(Long id) {
+	public IAction getActionComponent(Long id) {
 		if (this.actionLibCache.size() == 0) {
 			List<IAction> list = Demsy.orm().query(bizEngine.getStaticType(BIZSYS_DEMSY_LIB_ACTION));
 			for (IAction ele : list) {

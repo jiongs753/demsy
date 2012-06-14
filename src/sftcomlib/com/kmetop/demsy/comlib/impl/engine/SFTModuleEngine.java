@@ -92,7 +92,7 @@ public class SFTModuleEngine extends ModuleEngine {
 	}
 
 	@Override
-	public synchronized void upgradeWebInfo(final IDemsySoft s) {
+	public synchronized void upgradeWebContent(final IDemsySoft s) {
 		Trans.exec(new Atom() {
 			public void run() {
 				int size;

@@ -1,13 +1,13 @@
 /*www.kmetop.com Edit 2012-6-8*/
 .CssDesignerDemoContainer {
 	background-image: url(img/grid.gif);
-	padding-top: 5px;
+	padding: 10px;
 	width:350px;
 	display:none;
 }
 
 .CssDesignerPad .tabsBoxItem {
-	padding: 5px;
+	padding: 5px 2px 5px 2px;
 }
 
 .QrPulldown,.QrSpinner,.CssColor,.CssUpload {
