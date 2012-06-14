@@ -1,13 +1,17 @@
 package com.kmetop.demsy.comlib.impl.base.web;
 
+import java.util.List;
+
 import javax.persistence.Column;
 
 import com.kmetop.demsy.Demsy;
 import com.kmetop.demsy.comlib.biz.ann.BzFld;
 import com.kmetop.demsy.comlib.biz.field.CssBox;
 import com.kmetop.demsy.comlib.biz.field.CssLink;
+import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
 import com.kmetop.demsy.comlib.impl.BizComponent;
 import com.kmetop.demsy.comlib.ui.IStyle;
+import com.kmetop.demsy.comlib.ui.IStyleItem;
 import com.kmetop.demsy.lang.Str;
 
 public abstract class BaseStyle extends BizComponent implements IStyle {
@@ -85,6 +89,11 @@ public abstract class BaseStyle extends BizComponent implements IStyle {
 	@BzFld(name = "底部-链接", gridField = false, cascadeMode = "detailState:1:E")
 	protected CssLink bottomLink;
 
+	@BzFld(name = "CSS样式", gridField = false, cascadeMode = "detailState:1:N", uiTemplate = "ui.widget.ext.cssDesigner")
+	protected FakeSubSystem<StyleItem> items;
+
+	public abstract IStyle getParent();
+
 	public String getCssClass() {
 		return "css_" + getId();
 	}
@@ -108,6 +117,23 @@ public abstract class BaseStyle extends BizComponent implements IStyle {
 			name = "body";
 		} else {
 			name = "." + cssClass;
+		}
+
+		// 转换CSS设计器的内容
+		FakeSubSystem<StyleItem> itemsObj = this.getItems();
+		if (itemsObj != null) {
+			List<? extends IStyleItem> items = itemsObj.getList();
+			if (items != null && items.size() > 0) {
+				for (IStyleItem s : items) {
+					String code = s.getCode();
+					String desc = s.getDesc();
+					if (!Str.isEmpty(desc)) {
+						if (Str.isEmpty(code))
+							code = "";
+						sb.append("\n").append(name).append(" ").append(code).append("{").append(desc).append("}");
+					}
+				}
+			}
 		}
 
 		makeCssStyle(box, name, sb, true);
@@ -347,4 +373,13 @@ public abstract class BaseStyle extends BizComponent implements IStyle {
 	public void setBottomLink(CssLink bottomLink) {
 		this.bottomLink = bottomLink;
 	}
+
+	public FakeSubSystem<StyleItem> getItems() {
+		return items;
+	}
+
+	public void setItems(FakeSubSystem<StyleItem> items) {
+		this.items = items;
+	}
+
 }

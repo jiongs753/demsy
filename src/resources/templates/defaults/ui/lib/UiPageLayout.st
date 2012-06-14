@@ -7,6 +7,7 @@
 <link href="{$stylePath}/demsy.ui.css" rel="stylesheet" type="text/css" media="screen" />
 
 <script src="{$scriptPath}/jquery.js" type="text/javascript"></script>
+<script src="{$scriptPath}/demsy.utils.js" type="text/javascript"></script>
 <script src="{$scriptPath}/demsy.ui.js" type="text/javascript"></script>
 
 <!-- 排版必须 -->
@@ -20,7 +21,7 @@
 <link href="{$stylePath}/jquery-jvert-tabs.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="{$stylePath}/demsy.bizform.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="{$stylePath}/demsy.colorpicker.css" rel="stylesheet" type="text/css" media="screen" />
-<link href="{$stylePath}/jquery.ui.tabs.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="{$scriptPath}/accordion/demsy.accordion.css" rel="stylesheet" type="text/css" media="screen" />
 
 <script src="{$scriptPath}/jquery.ui.core.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.ui.widget.js" type="text/javascript"></script>
@@ -31,7 +32,7 @@
 <script src="{$scriptPath}/jquery.ui.resizable.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.ui.dialog.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.ui.button.js" type="text/javascript"></script>
-<script src="{$scriptPath}/jquery.ui.tabs.js" type="text/javascript"></script>
+<script src="{$scriptPath}/accordion/demsy.accordion.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.ui.spinner.js" type="text/javascript"></script>
 <script src="{$scriptPath}/demsy.colorpicker.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.contextmenu.js" type="text/javascript"></script>
@@ -45,7 +46,7 @@
 <body pageID="{$ui.id}" styleID="{if $ui.param.style != null}{$ui.param.style.id}{/if}">
 <!-- style -->
 {foreach from=$ui.styles item="style"}
-<div id="style{$style.id}" dataID="{$style.id}">
+<div id="style{if $style.id != null}{$style.id}{else}{$style.cssClass}{/if}" dataID="{if $style.id != null}{$style.id}{else}{$style.cssClass}{/if}">
 {import file="Style.st" style=$style}</div>{/foreach}
 
 <style>
@@ -109,14 +110,14 @@
 </div>
 <div style="display:none;z-index:9999;" id="pageContextMenu">
 	<ul>
-    	<li id="editPage"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑模版</li>
-    	<li id="editStyle"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑模版样式</li>
         <li id="createBlock"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加板块</li>
-        <li id="showBox"><img src='{$contextPath}/themes2/images/actionlib/layout.gif' />显示板块边框</li>
-        <li id="hideBox"><img src='{$contextPath}/themes2/images/actionlib/layout.gif' />隐藏板块边框</li>
+        <li id="showBox"><img src='{$contextPath}/themes2/images/actionlib/layout.gif' />显示边框</li>
+        <li id="hideBox"><img src='{$contextPath}/themes2/images/actionlib/layout.gif' />隐藏边框</li>
+    	<li id="editPage"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑模版</li>
+    	<li id="editStyle"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑样式</li>
         <li id="createStyle"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加样式</li>
-    	<li id="createWebCata"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加网站栏目</li>
-    	<li id="createWebCont"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;录入栏目信息</li>
+    	<li id="createWebCata"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加栏目</li>
+    	<li id="createWebCont"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;录入信息</li>
     </ul>
 </div>
 

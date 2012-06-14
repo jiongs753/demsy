@@ -4,6 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>{$title}</title>
 <script src="{$scriptPath}/jquery.js" type="text/javascript"></script>
+<script src="{$scriptPath}/demsy.utils.js" type="text/javascript"></script>
 <script type="text/javascript">
 try {
 	var doc=window.parent.document;

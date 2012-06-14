@@ -69,7 +69,7 @@ public class LoadBbsTopic extends UiRecord {
 		IOrm orm = Demsy.orm();
 		// 查询论坛回帖
 		Integer cpage = me.param("page", Integer.class, 1);
-		Pager pager = new Pager(bizEngine.getType(moduleEngine.getBizSystem(commentMdl)));
+		Pager pager = new Pager(bizEngine.getType(moduleEngine.getSystem(commentMdl)));
 		CndExpr expr = Expr.asc(LibConst.F_CREATED);// = Expr.eq("hide",
 													// 0).or(Expr.isNull("hide"));
 		if (record != null) {
@@ -89,7 +89,7 @@ public class LoadBbsTopic extends UiRecord {
 			usernames.add(topic.getCreatedBy());
 		}
 		Map<String, IUser> usermap = new HashMap();
-		Class memType = bizEngine.getType(moduleEngine.getBizSystem(memberMdl));
+		Class memType = bizEngine.getType(moduleEngine.getSystem(memberMdl));
 		if (memType != null) {
 			List<IUser> users = orm.query(memType, Expr.in(LibConst.F_CODE, usernames));
 			for (IUser user : users) {

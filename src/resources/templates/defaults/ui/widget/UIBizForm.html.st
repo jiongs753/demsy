@@ -55,8 +55,10 @@
 					{else}
 					{if $grp.shownFieldsSize > 1}
 					<td class="bzfld_head">{if $fld.mode == "M"}<span class="bzfld_M">&nbsp;</span>{/if}{$fld.label}</td>
-					{/if}
 					<td class="bzfld_data"{if $fld.colSpan>1} colspan='{$fld.colSpan}'{/if}>{render ui=$fld uiRender=$uiRender}</td>
+					{else}
+					<td style="border: 1px solid transparent;" {if $fld.colSpan>1} colspan='{$fld.colSpan}'{/if}>{render ui=$fld uiRender=$uiRender}</td>
+					{/if}
 					{/if}
 				{if $fld.rowEnd}</tr>{/if}
 			{/foreach}

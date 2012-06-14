@@ -43,7 +43,7 @@ public class SecurityActions extends ModuleActions {
 		IDemsySoft soft = ctx.getSoft();
 
 		if (soft != null) {
-			context.put("realmNodes", moduleEngine.makeRealmNodes(soft));
+			context.put("realmNodes", moduleEngine.makeNodesByRealm(soft));
 			context.put("title", soft.getName() + "——登录");
 		} else {
 			context.put("title", "登录");
@@ -104,7 +104,7 @@ public class SecurityActions extends ModuleActions {
 		IDemsySoft soft = ctx.getSoft();
 
 		if (soft != null) {
-			context.put("realmNodes", moduleEngine.makeRealmNodes(soft));
+			context.put("realmNodes", moduleEngine.makeNodesByRealm(soft));
 			context.put("title", soft.getName() + "——修改密码");
 		} else {
 			context.put("title", "修改密码");

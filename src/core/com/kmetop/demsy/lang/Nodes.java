@@ -250,7 +250,7 @@ public final class Nodes implements IDynamic {
 
 		protected Integer maskValue;
 
-		protected Properties dynamicProps = new Properties();
+		protected Map dynamicProps = new HashMap();
 
 		private Node(Serializable id) {
 			this.id = id;
@@ -383,7 +383,7 @@ public final class Nodes implements IDynamic {
 		}
 
 		@Override
-		public Properties getDynaProp() {
+		public Map getDynaProp() {
 			return dynamicProps;
 		}
 
@@ -392,18 +392,16 @@ public final class Nodes implements IDynamic {
 		}
 
 		@Override
-		public String get(String key) {
-			return (String) dynamicProps.get(key);
+		public Object get(String key) {
+			return dynamicProps.get(key);
 		}
 
 		@Override
 		public void set(String key, Object value) {
 			if (value == null) {
 				dynamicProps.remove(key);
-			} else if (value instanceof String) {
-				dynamicProps.put(key, value);
 			} else {
-				dynamicProps.put(key, value.toString());
+				dynamicProps.put(key, value);
 			}
 		}
 

@@ -104,7 +104,7 @@ public class UiActions extends ModuleActions {
 		if (mid != null && mid > 0) {
 			if (did != null && did >= 0) {
 				pathModule = moduleEngine.getModule(mid);
-				IBizSystem pathSystem = moduleEngine.getBizSystem(pathModule);
+				IBizSystem pathSystem = moduleEngine.getSystem(pathModule);
 				pathData = Demsy.orm().load(bizEngine.getType(pathSystem), Expr.eq(F_ID, did));
 			}
 		}
@@ -228,8 +228,8 @@ public class UiActions extends ModuleActions {
 			blockID = Long.parseLong(strBlockID);
 		}
 
-		Nodes modelLibNodes = uiEngine.makeViewTypeNodes(blockID);
-		dataModel.set("modelLibNodes", modelLibNodes);
+		Nodes viewComponentNodes = uiEngine.makeNodesOfViewCompnents(blockID);
+		dataModel.set("viewComponentNodes", viewComponentNodes);
 
 		return dataModel;
 	}

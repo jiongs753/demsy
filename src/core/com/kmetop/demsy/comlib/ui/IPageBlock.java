@@ -2,6 +2,7 @@ package com.kmetop.demsy.comlib.ui;
 
 import com.kmetop.demsy.comlib.biz.field.CssPosition;
 import com.kmetop.demsy.comlib.biz.field.Dataset;
+import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
 import com.kmetop.demsy.comlib.entity.IBizComponent;
 
 public interface IPageBlock extends IBizComponent {
@@ -53,7 +54,7 @@ public interface IPageBlock extends IBizComponent {
 	 * 
 	 * @return
 	 */
-	IUIViewType getViewType();
+	IUIViewComponent getViewType();
 
 	/**
 	 * 自定义视图模版
@@ -111,5 +112,5 @@ public interface IPageBlock extends IBizComponent {
 
 	public String getParams();
 
-	// FakeSubSystem getCssStyle();
+	FakeSubSystem<? extends IStyleItem> getStyleItems();
 }

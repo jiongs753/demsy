@@ -86,7 +86,7 @@ public class ConfigActions implements MvcConst {
 		ret.put("db", dataSource);
 		ret.put("app", appconfig);
 		ret.put("uploadUrl", MvcUtil.contextPath(URL_UPLOAD, ""));
-		ret.put("softNodes", moduleEngine.makeSoftNodes());
+		ret.put("softNodes", moduleEngine.makeNodesByCurrentSoft());
 
 		ret.put("projects", Str.toList((String) devcfg.get("projects"), ","));
 		List list = Str.toList((String) devcfg.get("databases"), ",");
@@ -275,7 +275,7 @@ public class ConfigActions implements MvcConst {
 		try {
 			security.checkLogin(IUserRole.ROLE_DEVELOPER);
 
-			moduleEngine.upgradeWebInfo(getSoft(softID));
+			moduleEngine.upgradeWebContent(getSoft(softID));
 
 			log.debugf("升级网站栏目信息成功.");
 			return new Status(true, "升级网站栏目信息成功.");

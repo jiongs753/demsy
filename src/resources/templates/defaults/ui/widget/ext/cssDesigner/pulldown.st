@@ -4,7 +4,4 @@
 <DIV class="QrPulldownItem" id="{$name}#item{$itemId}" onmouseover="QrPulldown.onHover('{$name}', '{$name}#item{$itemId}', '{$item}');" onmouseout="QrPulldown.onOut('{$name}', '{$name}#item{$itemId}');" onclick="QrPulldown.onSelect('{$name}','{$item}');"><img src="{$designerPath}/img/transparentpixel.gif" style="width:16px;height:16px;" align="middle"/>{$item}</DIV>
 {/foreach}</DIV></DIV>
 </div>
-<script>
-CssDesigner.connectCSS(new QrPulldown("{$name}"), "{$style}");
-</script>
 </DIV>

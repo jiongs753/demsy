@@ -21,7 +21,7 @@ import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
 import com.kmetop.demsy.comlib.biz.field.Upload;
 import com.kmetop.demsy.comlib.impl.BizComponent;
 import com.kmetop.demsy.comlib.impl.sft.system.AbstractSystemData;
-import com.kmetop.demsy.comlib.ui.IUIViewType;
+import com.kmetop.demsy.comlib.ui.IUIViewComponent;
 import com.kmetop.demsy.orm.ann.Prop;
 
 @Entity
@@ -45,7 +45,7 @@ import com.kmetop.demsy.orm.ann.Prop;
 }) }// end groups
 , jsonData = "UiModelLib.data.js"//
 )
-public class UiModelLib extends BizComponent implements IUIViewType, IRuntimeConfigable {
+public class UiModelLib extends BizComponent implements IUIViewComponent, IRuntimeConfigable {
 
 	@ManyToOne
 	@BzFld(name = "上级分类", options = "['type in 1']")

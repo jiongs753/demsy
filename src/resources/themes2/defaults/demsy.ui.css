@@ -49,25 +49,23 @@ a{}
 	font-weight: bold;
 }
 /*UI模型库*/
-.uimodellib{
-	padding: 2px;
+.viewComponent{
+	padding: 1px;
 	border: 1px solid #d2d2d2;
-	font-size: 11px;
+	font-size: 12px;
 	height: 50px;
 	width: 50px;
-	overflow: hidden;
-	margin: 3px;
-	float: left;
+	margin: 2px;
 }
-.uimodellib .marquee{
+.viewComponent .marquee{
 	height: 100px;
 	width: 100px;
 	overflow: hidden;
 }
-.uimodellib .t, .uimodellib .i, .uimodellib .tt, .uimodellib .it{
+.viewComponent .t, .viewComponent .i, .viewComponent .tt, .viewComponent .it{
 	padding: 1px;
 }
-.uimodellib .t img,.uimodellib .i img{
+.viewComponent .t img,.viewComponent .i img{
 	height: 14px;
 }
 
