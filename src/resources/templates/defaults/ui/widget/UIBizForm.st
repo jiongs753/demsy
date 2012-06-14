@@ -5,8 +5,8 @@
 
 {if $ui.size == 1 || $ui.hasRichText}
 {else}
-<script src="{$scriptPath}/jquery-jvert-tabs.js" type="text/javascript"></script>
-<link href="{$stylePath}/jquery-jvert-tabs.css" rel="stylesheet" type="text/css" media="screen" />
+<script src="{$scriptPath}/accordion/demsy.accordion.js" type="text/javascript"></script>
+<link href="{$scriptPath}/accordion/demsy.accordion.css" rel="stylesheet" type="text/css" media="screen" />
 {/if}
 {if $ui.hasCombobox}
 <script src="{$scriptPath}/jquery.popup.js" type="text/javascript"></script>

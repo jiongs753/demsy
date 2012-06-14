@@ -31,23 +31,15 @@
 		{/if}
 	{/foreach}
 {else}
-<div id="tabs_{$ui.uiid}" style="visibility: hidden;">
-	<div>
-		<ul>{foreach from=$ui.groups item="grp"}
-			{if $grp.mode != "N" && $grp.shownFieldsSize > 0}
-			<li><a href="#tab_{$grp.uiid}">{$grp.name}</a></li>{/if}
-			{/foreach}			
-		</ul>
-	</div>
-	<div>
+<div id="system_{$ui.uiid}" class="accordion" >
 	{foreach from=$ui.groups item="grp"}
 		{foreach from=$grp.hiddenFields item="fld"}
 			{render ui=$fld uiRender=$uiRender}
 		{/foreach}
 		{if $grp.mode != "N" && $grp.shownFieldsSize > 0}
-		<div id="tab_{$grp.uiid}" style="display:none;">
-		<table class="bzgrp" border="0" valign="top" cellpadding="0" cellspacing="0" width="100%" >
-			{foreach from=$grp.shownFields item="fld" key="key"}
+		<div class="menu"><span href="#tab_{$grp.uiid}">{$grp.name}</span></div>
+		<div class="content" id="tab_{$grp.uiid}">
+			<table class="bzgrp" border="0" valign="top" cellpadding="0" cellspacing="0" width="100%" >{foreach from=$grp.shownFields item="fld" key="key"}
 				{if $fld.rowBegin}<tr class="bzrow {if $key==0}bzfirstrow{/if}">{/if}
 					{if $fld.shownFieldsSize > 0}
 					<td class="bzfld_head" style="font-style: italic;text-align:left;" colspan=2>{$fld.label}</td>
@@ -61,13 +53,11 @@
 					{/if}
 					{/if}
 				{if $fld.rowEnd}</tr>{/if}
-			{/foreach}
-		</table>
+			{/foreach}</table>
 		</div>{/if}
 	{/foreach}
-	</div>
 </div>
 <script>
-$("#tabs_{$ui.uiid}").jVertTabs().css("visibility", "visible");
+$("#system_{$ui.uiid}").accordion();
 </script>
 {/if}

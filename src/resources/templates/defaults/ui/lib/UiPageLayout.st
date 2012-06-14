@@ -104,8 +104,9 @@
 	<ul>
         <li id="createBlock"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加板块</li>
     	<li id="editBlock"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑板块</li>
+    	<li id="edit1Block"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑样式</li>
         <li id="deleteBlock"><img src='{$contextPath}/themes2/images/actionlib/d.gif' />&nbsp;删除板块</li>
-        <li id="editStyle"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑样式</li>
+        <li id="editStyle"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑引用样式</li>
     </ul>
 </div>
 <div style="display:none;z-index:9999;" id="pageContextMenu">
@@ -114,10 +115,11 @@
         <li id="showBox"><img src='{$contextPath}/themes2/images/actionlib/layout.gif' />显示边框</li>
         <li id="hideBox"><img src='{$contextPath}/themes2/images/actionlib/layout.gif' />隐藏边框</li>
     	<li id="editPage"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑模版</li>
-    	<li id="editStyle"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑样式</li>
-        <li id="createStyle"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加样式</li>
-    	<li id="createWebCata"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加栏目</li>
-    	<li id="createWebCont"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;录入信息</li>
+    	<li id="edit1Page"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑样式</li>
+    	<li id="editStyle"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑引用样式</li>
+        <li id="createStyle"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加引用样式</li>
+    	<li id="createWebCata"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加网站栏目</li>
+    	<li id="createWebCont"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;录入栏目内容</li>
     </ul>
 </div>
 
@@ -134,6 +136,7 @@ $(function(){
 		//block
 		createUrl: "{$createUrl}",
 		editUrl: "{$editUrl}",
+		edit1Url: "{$edit1Url}",
 		saveUrl: "{$saveUrl}",
 		deleteUrl: "{$deleteUrl}",
 		loadUrl: "{$loadUrl}",
@@ -144,6 +147,7 @@ $(function(){
 		saveStyleUrl: "{$saveStyleUrl}",
 		//page
 		editPageUrl: "{$editPageUrl}",
+		edit1PageUrl: "{$edit1PageUrl}",
 		savePageUrl: "{$savePageUrl}",
 		//web
 		createWebCataUrl: "{$createWebCataUrl}",

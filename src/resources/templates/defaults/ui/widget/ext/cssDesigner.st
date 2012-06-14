@@ -12,8 +12,8 @@
     <tr>
         <td class="bzsubsys_container"><table id="bzsubsys_{$ui.uiid}" class="bzsubsys">
             <tr>
-                <th class="bzsubfld_head" style="width:138px;">CSS名称</th>
-                <th class="bzsubfld_head" style="width:208px;">CSS内容</th>
+                <th class="bzsubfld_head" style="width:140px;">CSS名称</th>
+                <th class="bzsubfld_head" style="width:290px;">CSS内容</th>
                 <th class="bzsubfld_head_check">
                     {if $mode == "M" || $mode == "E"}
                      <a href="#" class="op_btn_del" title="删除" alt="删除" style="font-size: 17px;">×</a>
@@ -23,8 +23,8 @@
             </tr>
             {foreach from=$subSystemObj.list item="subData" key="row"}
             <tr class="bzsubsys_item">
-                <td class="bzsubfld_data" valign="top" style="padding: 4px;"><select style="width:130px;height: 22px;" class="input" name="code"><option value="{tostring bean=$subData.code}" selected>{tostring bean=$subData.code}</option></select></td>
-                <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" style="width:200px;height: 20px;" class="textarea">{tostring bean=$subData.desc}</textarea></td>
+                <td class="bzsubfld_data" valign="top" style="padding: 4px;"><input style="width:130px;height: 18px;" class="input" name="code" type="text" value="{tostring bean=$subData.code}" /></td>
+                <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" style="width:280px;height: 20px;" class="textarea">{tostring bean=$subData.desc}</textarea></td>
                 <td class="bzsubfld_data_check" valign="top">
                     <input type="checkbox" class="check" />
                     <input name="id" type="hidden" value="{tostring bean=$subData.id}"/>
@@ -32,15 +32,23 @@
                 </td>
             </tr>{/foreach}
         </table>
-        {import file="cssDesigner/cssDesignerPad.st"}
         </td>
     </tr>
 </table>
 {if $mode == "M" || $mode == "E"}
 <table id="bzsubsys_tpl_{$ui.uiid}" style="display:none;">
     <tr class="bzsubsys_item">
-        <td class="bzsubfld_data" valign="top" style="padding: 4px;"><select style="width:130px;height: 22px;" class="input" name="code"><option value="" selected>默认</option></select></td>
-        <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" style="width:200px;height: 20px;" class="textarea"></textarea></td>
+        <td class="bzsubfld_data" valign="top" style="padding: 4px;">
+        	<div style="position:relative;width:132px;">
+        	<div style="position:absolute;top:1px;left:1px;z-index:1;">
+        	<select style="width:132px;height: 22px;" class="select"><option value="" selected>默认</option></select>
+        	</div>
+        	<div style="position:absolute;top:1px;left:1px;z-index:2;">
+        	<input style="width:110px;height: 18px;border-right:0;" class="input" name="code" type="text" />
+        	</div>
+        	</div>
+        </td>
+        <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" style="width:280px;height: 20px;" class="textarea"></textarea></td>
         <td class="bzsubfld_data_check" valign="top">
             <input type="checkbox" class="check" />
             <input name="id" type="hidden" />
@@ -48,6 +56,7 @@
         </td>
     </tr>
 </table>
+{import file="cssDesigner/cssDesignerPad.st"}
 {/if}
 
 <script type="text/javascript">
@@ -90,8 +99,12 @@ $(function(){
             $(".check", $item).click(selectItem);
             $(".textarea", $item).click(selectItem);
             
-            var select = $(".input", $item).get(0);
-            var options=select.options;
+            var $sel=$(".select", $item).change(function(){
+            	var ths=$(this);
+            	$(".input",$item).val(ths.val());
+            });
+            var sel = $sel.get(0);
+            var options=sel.options;
             
             //生成CSS名称下拉项
             var items = designer.makeCssOptions();

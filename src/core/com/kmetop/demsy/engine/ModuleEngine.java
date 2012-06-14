@@ -249,7 +249,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 			List<Node> list = root.getChildren();
 			for (int i = list.size() - 1; i >= 0; i--) {
 				Node node = list.get(i);
-				String code = (String) node.get("code");
+				String code = (String) node.getString("code");
 				if (code != null)
 					code = code.trim();
 				if (LibConst.BIZCATA_DEMSY_ADMIN.equals(code)) {
@@ -389,7 +389,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 						}
 
 						Node item = root.addNode(unknownItem.getId(), unknownItem.getId() + "_" + (count++)).setName(unknownItem.getName() + fld.getName());
-						item.set("mode", unknownItem.get("mode"));
+						item.set("mode", unknownItem.getString("mode"));
 
 						if (!bizEngine.isSystemFK(fld)) {
 							makeUpdateMenu(mdl, fld, root, item);
@@ -495,7 +495,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 						node.setType(TYPE_BZ_SAVE);
 						node.setParams(prop + ".id=" + data.getId());
 						node.set("moduleID", mdl.getId());
-						node.set("mode", item.get("mode"));
+						node.set("mode", item.getString("mode"));
 					}
 				}
 
@@ -511,7 +511,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 				node.setType(TYPE_BZ_SAVE);
 				node.setParams(prop + post + "=" + option.getValue());
 				node.set("moduleID", mdl.getId());
-				node.set("mode", item.get("mode"));
+				node.set("mode", item.getString("mode"));
 			}
 		}
 	}

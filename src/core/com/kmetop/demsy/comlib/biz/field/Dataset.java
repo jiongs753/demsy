@@ -59,7 +59,7 @@ public class Dataset extends JsonField<Dataset> {
 	@BzFld(name = "动态数据", order = 8, options = "0:固定,1:动态参数")
 	private boolean dynamic;
 
-	@BzFld(name = "共享数据", order = 9, options = "0:不共享,1:共享上级板块数据集")
+	@BzFld(name = "上级板块数据", order = 9, options = "0:不继承,1:继承")
 	private boolean inherit;
 
 	@Override

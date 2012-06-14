@@ -48,8 +48,7 @@ QrXPCOM.isIE = function() {
 }
 
 QrXPCOM.isImageFile = function(src) {
-	if (src.substring(src.lastIndexOf(".")).toLowerCase() == ".gif" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".bmp"
-			|| src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpeg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".png") {
+	if (src.substring(src.lastIndexOf(".")).toLowerCase() == ".gif" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".bmp" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpeg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".png") {
 		return true;
 	} else {
 		return false;
@@ -410,28 +409,50 @@ CssDesigner.getInlineStyles = function($target) {
 	}
 	return new Array;
 }
-CssDesigner.prototype.makeCssOptions = function(element) {
+CssDesigner.prototype.makeCssOptions = function(element, tagCssPrefix, displayPrefix) {
 	var self = this;
+
 	if (!element)
 		element = this.target;
+	if (!tagCssPrefix)
+		tagCssPrefix = "";
+	if (!displayPrefix)
+		displayPrefix = "";
 
 	var options = new Array;
 	$(element).children().each(function() {
-		var classNames = $(this).attr("class");
-		if (classNames && classNames.trim().length > 0) {
-			classNames = classNames.trim().split(" ");
-			for (i = 0; i < classNames.length; i++) {
-				var name = classNames[i].trim();
-				if (name.length > 0)
-					options["." + name] = "." + name;
+		var ths = $(this);
+		if (!ths.hasClass("droppable") && !ths.hasClass("ui-resizable-handle") && !ths.hasClass("blank")) {
+			// 元素tag作为css名
+			var tagCssName = this.tagName;
+			var displayName = this.tagName;
+
+			// 查找元素class
+			var cssName = null;
+			var cssNames = ths.attr("class");
+			if (cssNames && cssNames.trim().length > 0) {
+				cssNames = cssNames.trim().split(" ");
+				if (cssNames.length > 0) {
+					cssName = "." + cssNames[0];
+					displayName = this.tagName + "." + cssNames[0];
+				}
 			}
-		} else {
-			options[this.tagName] = this.tagName;
-		}
-		var nextOptions = self.makeCssOptions(this);
-		for (o in nextOptions) {
-			v = nextOptions[o];
-			options[o] = v;
+
+			if (tagCssPrefix.length > 0)
+				tagCssName = tagCssPrefix + " " + tagCssName;
+			if (displayPrefix.length > 0)
+				displayName = displayPrefix + " > " + displayName;
+
+			if (cssName == null)
+				options[tagCssName] = displayName;
+			else
+				options[cssName] = displayName;
+			// 查找子元素
+			var nextOptions = self.makeCssOptions(this, tagCssName, displayName);
+			for (o in nextOptions) {
+				v = nextOptions[o];
+				options[o] = v;
+			}
 		}
 	});
 
@@ -525,7 +546,7 @@ CssDesigner.prototype.setTargetStyle = function(style, value) {
 			styleText += styleName + ": " + v + "; ";
 		}
 	});
-	if (this.output){
+	if (this.output) {
 		$(this.output).val(styleText).change();
 	}
 }

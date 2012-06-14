@@ -74,6 +74,10 @@ var DemsyUIManager = function() {
 					var pageID = $("body").attr("pageID");
 					self.edit(self.options.editPageUrl + pageID, self.options.savePageUrl, pageID, "", 2, pageID);
 				},
+				edit1Page : function(t) {
+					var pageID = $("body").attr("pageID");
+					self.edit(self.options.edit1PageUrl + pageID, self.options.savePageUrl, pageID, "", 2, pageID);
+				},
 				createStyle : function(t) {
 					var $body = $("body");
 					var pageID = $body.attr("pageID");
@@ -222,6 +226,11 @@ var DemsyUIManager = function() {
 					var dataID = me.attr("dataID");
 					self.edit(self.options.editUrl + dataID, self.options.saveUrl, dataID, "", 0, dataID);
 				},
+				edit1Block : function(t) {
+					var me = $(t);
+					var dataID = me.attr("dataID");
+					self.edit(self.options.edit1Url + dataID, self.options.saveUrl, dataID, "", 0, dataID);
+				},
 				deleteBlock : function(t) {
 					var me = $(t);
 					var dataID = me.attr("dataID");
@@ -315,11 +324,14 @@ var DemsyUIManager = function() {
 
 			var oldStyleID = "";
 			var newStyleID = "";
-			if (type == 0) {
-				blockID = "" + jsonObj.data;
-				newStyleID = $form[0].elements["data.style.id"].value;
-			} else if (type == 1) {
-				newStyleID = jsonObj.data;
+			try {
+				if (type == 0) {
+					blockID = "" + jsonObj.data;
+					newStyleID = $form[0].elements["data.style.id"].value;
+				} else if (type == 1) {
+					newStyleID = jsonObj.data;
+				}
+			} catch (e) {
 			}
 
 			if (blockID.length > 0) {

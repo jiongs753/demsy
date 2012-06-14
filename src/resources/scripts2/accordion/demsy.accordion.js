@@ -5,14 +5,18 @@
 		menu.click(function() {
 			var ths = $(this);
 			var href = $("span", ths).attr("href");
-			
-			menu.removeClass("currentmenu");
+
+			menu.removeClass("menuCurrent");
 			$(".content", self).hide();
 			$(href, self).show();
-			
-			ths.addClass("currentmenu");
-			
+
+			ths.addClass("menuCurrent");
+
 			return false;
+		}).hover(function() {
+			$(this).addClass("menuHover");
+		}, function() {
+			$(this).removeClass("menuHover");
 		});
 
 		$(menu.get(0)).click();

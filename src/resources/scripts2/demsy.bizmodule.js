@@ -75,7 +75,7 @@ var BizModule = function() {
 
 		//
 		var rows = "";
-		var target = null;//_blank
+		var target = "_blank";
 		if (typeof item.target != "undefined" && item.target.length > 0) {
 			target = item.target;
 		}

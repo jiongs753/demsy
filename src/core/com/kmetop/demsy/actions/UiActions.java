@@ -191,11 +191,13 @@ public class UiActions extends ModuleActions {
 
 		long pageMdl = moduleEngine.getModule(me.getSoft(), bizEngine.getSystem(BIZSYS_UIUDF_PAGE)).getId();
 		ui.set("editPageUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, pageMdl + ":", "e:"));
+		ui.set("edit1PageUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, pageMdl + ":", "e1:"));
 		ui.set("savePageUrl", MvcUtil.contextPath(URL_BZ_SAVE, pageMdl, "e:"));
 
 		long blockMdl = moduleEngine.getModule(me.getSoft(), bizEngine.getSystem(BIZSYS_UIUDF_PAGE_BLOCK)).getId();
 		ui.set("createUrl", MvcUtil.contextPath(URL_BZFORM_ADD, blockMdl + ":", "c1"));
 		ui.set("editUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, blockMdl + ":", "e:"));
+		ui.set("edit1Url", MvcUtil.contextPath(URL_BZFORM_EDIT, blockMdl + ":", "e1:"));
 		ui.set("saveUrl", MvcUtil.contextPath(URL_BZ_SAVE, blockMdl, "e:"));
 		ui.set("loadUrl", MvcUtil.contextPath(URL_UI_BLOCK, ""));
 

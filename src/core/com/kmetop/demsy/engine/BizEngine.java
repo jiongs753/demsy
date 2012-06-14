@@ -1818,7 +1818,7 @@ public abstract class BizEngine implements IBizEngine {
 			// 如果只有一个分组则移除
 			if (result.size() == 1) {
 				Node item = result.get(0);
-				if (!Boolean.parseBoolean((String) item.get("isSelf"))) {
+				if (!Boolean.parseBoolean((String) item.getString("isSelf"))) {
 					List<Node> list = root.getChildren();
 					if (node != null) {
 						list = node.getChildren();

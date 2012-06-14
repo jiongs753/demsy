@@ -382,7 +382,6 @@ public final class Nodes implements IDynamic {
 			this.parent = parent;
 		}
 
-		@Override
 		public Map getDynaProp() {
 			return dynamicProps;
 		}
@@ -391,12 +390,15 @@ public final class Nodes implements IDynamic {
 			dynamicProps = props;
 		}
 
-		@Override
+		public String getString(String key) {
+			Object obj = dynamicProps.get(key);
+			return obj == null ? null : obj.toString();
+		}
+
 		public Object get(String key) {
 			return dynamicProps.get(key);
 		}
 
-		@Override
 		public void set(String key, Object value) {
 			if (value == null) {
 				dynamicProps.remove(key);
@@ -420,7 +422,6 @@ public final class Nodes implements IDynamic {
 			}
 		}
 
-		@Override
 		public boolean is(byte index) {
 			int MASK = new Double(Math.pow(2, new Double(index - 1))).intValue();
 			if (maskValue == null) {

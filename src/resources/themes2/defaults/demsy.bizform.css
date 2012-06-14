@@ -6,7 +6,7 @@ form.bzsys {
 .bzsys_head{
 	padding: 5px;
 	border: 1px solid #79b7e7;
-	background: #5c9ccc;
+	background: #cae4f7;
 	text-align: center;
 	font-weight: bold;
 	font-size: 14px;
@@ -23,25 +23,25 @@ form.bzsys {
 }
 .bzgrp_head {
 	padding: 5px;
-	border: 1px solid #79b7e7;
-	background: #5c9ccc;
+	border: 1px solid #bfd4e0;
+	background: #cae4f7;
 	text-align: center;
 	font-weight: bold;
 	font-size: 14px;
-	color: #ffffff;
+	color: #1d5987;
 	margin-bottom: 1px;
 }
 /*业务字段名称TD*/
 .bzfld_head {
-	width: 120px;
+	width: 80px;
 	height: 22px;
 	white-space: nowrap;
-	background-color: #dfeffc;
+	background-color: #edf6fc;
 	border: 1px solid #c5dbec;
-	color: #1d5987;
+	color: #05538a;
 	text-align: right;
 	padding: 5px;
-	font-weight: bold;
+	font-weight: normal;
 }
 /*业务字段输入框TD*/
 .bzfld_data {
@@ -129,18 +129,18 @@ form.bzsys {
 }
 /*业务表单里面包含的子系统表格*/
 .bzsubsys_container{
-	border: 1px solid #79b7e7;
+	border: 0px solid #79b7e7;
     padding: 2px;
 }
 .bzsubfld_head, .bzsubfld_head_check, .bzsubsys_btns {
 	width: 204px;
 	white-space: nowrap;
-	background-color: #dfeffc;
+	background-color: #edf6fc;
 	border: 1px solid #c5dbec;
-	color: #1d5987;
+	color: #05538a;
 	text-align: center;
 	padding: 2px;
-	font-weight: bold;
+	font-weight: normal;
 }
 .bzsubsys_btns{
 	white-space: nowrap;
@@ -162,7 +162,7 @@ form.bzsys {
 	padding: 2px;
 	margin: 0 2px 0 2px;
 	font-size: 18px;
-	font-weight: bold;
+	font-weight: normal;
 } 
 a.op_btn_add {
 	font-size: 20px;

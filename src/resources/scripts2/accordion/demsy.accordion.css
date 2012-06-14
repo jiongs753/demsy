@@ -3,15 +3,19 @@
 	padding: 6px;
 	margin: 2px 0 2px 0;
 	cursor: pointer;
-	color: #1d5987;
-	background-color: #dfeffc;
+	color: #05538a;
+	background-color: #cae4f7;
 	font-weight: bold;
 }
 
-.accordion .currentmenu {
+.accordion .menuHover {
+	color: #05538a;
+}
+
+.accordion .menuCurrent {
 	border-bottom: 0px solid #bfd4e0;
 	margin: 2px 0 0 0;
-	color: #f6052f;
+	color: #05538a;
 }
 
 .accordion .menu span {
@@ -22,7 +26,7 @@
 	padding-left: 20px;
 }
 
-.accordion .currentmenu span {
+.accordion .menuCurrent span {
 	background-image: url(arrowopen.gif);
 }
 
@@ -30,5 +34,5 @@
 	display: none;
 	border: 1px solid #bfd4e0;
 	border-top: 0;
-	padding: 2px;
+	padding: 4px;
 }
