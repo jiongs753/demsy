@@ -219,7 +219,7 @@ public class UIPageView implements IUIView, MvcConst {
 	}
 
 	public void addStyle(IStyle style) {
-		if (!styles.contains(style)) {
+		if (!styles.contains(style) || style.getId() == null) {
 			styles.add(style);
 		}
 	}

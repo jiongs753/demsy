@@ -1,0 +1,84 @@
+﻿<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+
+
+<SCRIPT language=javascript src="../jquery.js"></SCRIPT>
+<script src="{$scriptPath}/demsy.utils.js" type="text/javascript"></script>
+
+<LINK rel=stylesheet type=text/css href="demsy.tabs.css" media=screen>
+<SCRIPT language=javascript type=text/javascript src="demsy.tabs.js"></SCRIPT>
+
+<DIV id=ex02 class="tabs">
+	<DIV class="tabsMenu">
+		<STRONG>我是菜单名称</STRONG>
+		<UL>
+			<LI><SPAN>供应</SPAN></LI>
+			<LI><SPAN>采购</SPAN></LI>
+			<LI><SPAN>采购ddd</SPAN></LI>
+			<LI><SPAN>你好</SPAN></LI>
+		</UL>
+	</DIV>
+	<DIV class="tabsBox">
+		<DIV >
+			水帘峡风景区天使在唱歌活动,即将于本周日<BR>(3月28日)在水帘峡温馨上演.<BR>这是2010年最受妈妈喜爱的春季亲子游活动.<BR>水帘峡风景区市场部经理郑灿轩,是天使在唱歌活动的打造者.之
+		</DIV>
+		<DIV >
+			笔者从威海赤山景区获悉，该景<BR>区将与刘公岛<BR>风景名胜区首<BR>次强强联合，
+		</DIV>
+		<DIV >
+			333<BR>333<BR>33<BR>333<BR>3
+		</DIV>
+		<DIV >
+			笔者从威海dddddddddddd赤山景区获悉，该景<BR>区将与刘公岛<BR>风景名胜区首<BR>次强强联合，
+		</DIV>
+	</DIV>
+</DIV>
+<DIV id=ex01 class="tabs2">
+	<DIV class="tabsMenu" style="WIDTH: 610px; OVERFLOW: hidden">
+		<UL>
+			<LI><SPAN>供应</SPAN></LI>
+			<LI><SPAN>采购</SPAN></LI>
+		</UL>
+	</DIV>
+	<DIV class="tabsBox">
+		<DIV class=ContactTxt>
+			<DIV class=exContent2>
+				<DIV style="WIDTH: 592px; OVERFLOW: hidden">
+					<UL class="ContactMenu2 ">
+						<LI><SPAN>产品订货会</SPAN></LI>
+						<LI><SPAN>新品发布会</SPAN></LI>
+						<LI><SPAN>国际供应特点</SPAN></LI>
+					</UL>
+				</DIV>
+				<DIV class=ContactBox2>
+					<DIV class=ContactTxt2>
+						<TABLE border=0 cellSpacing=10 cellPadding=0 width="100%">
+							<TBODY>
+								<TR>
+									<TD><STRONG>1、迅速提高成效率</STRONG>
+										<P>买家和卖家能够面对面进行交流，促进买卖双方的意向，真正做到有的放矢，从而提高成交率。</P></TD>
+								</TR>
+								<TR>
+									<TD><STRONG>2、提高产品的竞争力和企业知名度：</STRONG>
+										<P>通过面对面的交流甚至是现场交流，企业可以更好传达品牌、产品，迅速提高产品的竞争力和企业知名度。</P></TD>
+								</TR>
+								<TR>
+									<TD><STRONG>3、提供丰富的增值服务：</STRONG>
+										<P>提供增值服务，为企业找分销、找代理，找渠道，让贸易更加轻松。</P></TD>
+								</TR>
+							</TBODY>
+						</TABLE>
+					</DIV>
+					<DIV class=ContactTxt2>1.2</DIV>
+					<DIV class=ContactTxt2>1.3</DIV>
+				</DIV>
+			</DIV>
+		</DIV>
+		<DIV class=ContactTxt>2</DIV>
+	</DIV>
+</DIV>
+<script>
+$(document).ready(function() {
+    $("#ex01").tabs({ currentTab: 0, switchingMode: 'o' });
+    $("#ex02").tabs({ currentTab: 1, isAutoPlay: true, switchingMode: 'c' });
+});
+</script>

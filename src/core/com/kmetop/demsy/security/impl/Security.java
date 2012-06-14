@@ -151,7 +151,7 @@ public class Security implements ISecurity {
 		} else {
 			IRealm realm = moduleEngine.getRealm(soft, realmCode);
 			if (realm != null) {
-				IBizSystem sys = moduleEngine.getBizSystem(realm.getUserModule());
+				IBizSystem sys = moduleEngine.getSystem(realm.getUserModule());
 				if (sys != null) {
 					Class type = bizEngine.getType(sys);
 					if (!IUser.class.isAssignableFrom(type)) {

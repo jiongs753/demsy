@@ -151,7 +151,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 					throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
-				UIBizModule mainUI = uiEngine.makeBizModuleUI(masterModule, getGridColumns(), idfld);
+				UIBizModule mainUI = uiEngine.makeModuleView(masterModule, getGridColumns(), idfld);
 
 				if (mainUI.getMaster() != null) {
 					Nodes masterRoot = Nodes.make();
@@ -160,14 +160,14 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 					mainUI.getMaster().setData(masterRoot);
 				} else {
 					if (mainUI.getNaviMenu() != null) {
-						Nodes naviData = bizEngine.makeNaviNodes(moduleEngine.getBizSystem(masterModule), idfld);
+						Nodes naviData = bizEngine.makeNaviNodes(moduleEngine.getSystem(masterModule), idfld);
 						if (naviData.getSize() > 0) {
 							mainUI.getNaviMenu().setData(naviData);
 						} else {
 							mainUI.setNaviMenu(null);
 						}
 					}
-					mainUI.getToolbarMenu().setData(moduleEngine.makeActionNodes(masterModule));
+					mainUI.getToolbarMenu().setData(moduleEngine.makeNodesByAction(masterModule));
 				}
 
 				// 主系统和从系统分属不同的TABS中
@@ -204,14 +204,14 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 					throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
-				UIBizSystem modelUI = uiEngine.makeSystemUI(mdl, getGridColumns(), idfld);
+				UIBizSystem modelUI = uiEngine.makeSystemView(mdl, getGridColumns(), idfld);
 
 				UIBizGrid grid = modelUI.getGrid().getModel();
 				grid.setRownumbers(false);
 				grid.setSearch(false);
 				grid.setRowList(null);
 
-				Nodes naviData = bizEngine.makeNaviNodes(moduleEngine.getBizSystem(mdl), idfld);
+				Nodes naviData = bizEngine.makeNaviNodes(moduleEngine.getSystem(mdl), idfld);
 				if (naviData.getSize() > 0) {
 					modelUI.getNaviMenu().setData(naviData);
 				} else {
@@ -242,14 +242,14 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 					throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
-				UIBizSystem modelUI = uiEngine.makeSystemUI(mdl, getGridColumns(), idfld);
+				UIBizSystem modelUI = uiEngine.makeSystemView(mdl, getGridColumns(), idfld);
 
 				UIBizGrid grid = modelUI.getGrid().getModel();
 				grid.setRownumbers(false);
 				grid.setSearch(false);
 				grid.setRowList(null);
 
-				Nodes naviData = bizEngine.makeNaviNodes(moduleEngine.getBizSystem(mdl), idfld);
+				Nodes naviData = bizEngine.makeNaviNodes(moduleEngine.getSystem(mdl), idfld);
 				if (naviData.getSize() > 0) {
 					modelUI.getNaviMenu().setData(naviData);
 				} else {
@@ -290,15 +290,15 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 					throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
-				UIBizSystem modelUI = uiEngine.makeSystemUI(mdl, getGridColumns(), idfld);
+				UIBizSystem modelUI = uiEngine.makeSystemView(mdl, getGridColumns(), idfld);
 
-				Nodes naviData = bizEngine.makeNaviNodes(moduleEngine.getBizSystem(mdl), idfld);
+				Nodes naviData = bizEngine.makeNaviNodes(moduleEngine.getSystem(mdl), idfld);
 				if (naviData.getSize() > 0) {
 					modelUI.getNaviMenu().setData(naviData);
 				} else {
 					modelUI.setNaviMenu(null);
 				}
-				modelUI.getToolbarMenu().setData(moduleEngine.makeActionNodes(mdl));
+				modelUI.getToolbarMenu().setData(moduleEngine.makeNodesByAction(mdl));
 
 				String queryString = MvcUtil.requestQueryJsonString(Demsy.me().request());
 				if (!Str.isEmpty(queryString)) {
@@ -360,11 +360,11 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 					throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
-				UIBizGridModel dataModel = uiEngine.makeGridUI(mdl, getGridColumns(), idfld, false).setDacorator(pageID)
+				UIBizGridModel dataModel = uiEngine.makeSystemGridView(mdl, getGridColumns(), idfld, false).setDacorator(pageID)
 						.setAjaxData(ajaxData);
 
 				if (ajaxData) {
-					Class bizClass = bizEngine.getType(moduleEngine.getBizSystem(mdl));
+					Class bizClass = bizEngine.getType(moduleEngine.getSystem(mdl));
 					log.tracef("获取业务类 [%s]", bizClass);
 
 					Pager pager = new Pager(bizClass);
@@ -400,10 +400,10 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 					throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
-				UIBizNaviModel dataModel = uiEngine.makeNaviUI(mdl);
+				UIBizNaviModel dataModel = uiEngine.makeSystemNaviView(mdl);
 				if (dataModel != null) {
 					dataModel.setDacorator(pageID).setAjaxData(ajaxData);
-					dataModel.setData(bizEngine.makeNaviNodes(moduleEngine.getBizSystem(mdl), idfld));
+					dataModel.setData(bizEngine.makeNaviNodes(moduleEngine.getSystem(mdl), idfld));
 				}
 
 				return dataModel;
@@ -422,10 +422,10 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 		return (UIBizMenuModel<UIToolbarMenu>) buildModel("工具栏菜单", moduleParam, new WidgetBuilder() {
 			public UIWidgetModel build(IBizManager manager, IModule mdl, String pageID, boolean ajaxData)
 					throws DemsyException {
-				UIBizMenuModel<UIToolbarMenu> dataModel = uiEngine.makeToolbarUI(mdl).setDacorator(pageID)
+				UIBizMenuModel<UIToolbarMenu> dataModel = uiEngine.makeSystemActionView(mdl).setDacorator(pageID)
 						.setAjaxData(ajaxData);
 
-				dataModel.setData(moduleEngine.makeActionNodes(mdl));
+				dataModel.setData(moduleEngine.makeNodesByAction(mdl));
 
 				return dataModel;
 			}
@@ -453,7 +453,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 			IAction action = moduleEngine.getAction(mdl, actionID);
 			log.tracef("获取模块操作 [actionMode=%s]", actionID);
 
-			Class bizClass = bizEngine.getType(moduleEngine.getBizSystem(mdl));
+			Class bizClass = bizEngine.getType(moduleEngine.getSystem(mdl));
 			log.tracef("获取业务类 [%s]", bizClass);
 
 			Mirror mirror = Mirror.me(bizClass);
@@ -484,11 +484,11 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 			}
 			if (dataNode != null)
 				data = dataNode.inject(mirror, data, null);
-			bizEngine.loadFieldValue(data, moduleEngine.getBizSystem(mdl));
+			bizEngine.loadFieldValue(data, moduleEngine.getSystem(mdl));
 
 			log.tracef("加载并注入业务数据 [dataID=%s]", dataID);
 
-			UIBizFormModel dataModel = uiEngine.makeFormUI(mdl, action, data).setDacorator(pageID).setAjaxData(ajaxData);
+			UIBizFormModel dataModel = uiEngine.makeSystemFormView(mdl, action, data).setDacorator(pageID).setAjaxData(ajaxData);
 			if (action != null) {
 				dataModel.setTemplate(action.getTemplate());
 				dataModel.getModel().setName(action.getDesc());
@@ -584,7 +584,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 			}
 			log.tracef("获取模块操作 [actionID=%s]", actionID);
 
-			Class bizClass = bizEngine.getType(moduleEngine.getBizSystem(mdl));
+			Class bizClass = bizEngine.getType(moduleEngine.getSystem(mdl));
 			log.tracef("获取业务类 [%s]", bizClass);
 
 			Mirror mirror = Mirror.me(bizClass);
@@ -631,7 +631,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 			}
 			if (list == null || list.size() == 0) {
 				data = dataNode.inject(mirror, null, fieldMode);
-				bizEngine.loadFieldValue(data, moduleEngine.getBizSystem(mdl));
+				bizEngine.loadFieldValue(data, moduleEngine.getSystem(mdl));
 
 				bizEngine.validate(bizManager.getSystem(), action, data, fieldMode);
 
@@ -751,7 +751,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 				}
 				log.tracef("获取模块操作 [actionID=%s]", actionID);
 
-				Class bizClass = bizEngine.getType(moduleEngine.getBizSystem(mdl));
+				Class bizClass = bizEngine.getType(moduleEngine.getSystem(mdl));
 				log.tracef("获取业务类 [%s]", bizClass);
 
 				SystemExcel excel = new SystemExcel(bizManager.getSystem(), moduleEngine.getAction(mdl, "c"),
@@ -892,7 +892,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 			}
 			log.tracef("获取模块操作 [actionID=%s]", actionID);
 
-			Class bizClass = bizEngine.getType(moduleEngine.getBizSystem(mdl));
+			Class bizClass = bizEngine.getType(moduleEngine.getSystem(mdl));
 			log.tracef("获取业务类 [%s]", bizClass);
 
 			List list = null;
@@ -903,7 +903,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 				list = this.list(bizManager, bizClass, dataID, actionID, CndExpr.make(params));
 			}
 
-			UIBizFormModel dataModel = uiEngine.makeFormUI(mdl, action, null).setDacorator("").setAjaxData(ajaxData);
+			UIBizFormModel dataModel = uiEngine.makeSystemFormView(mdl, action, null).setDacorator("").setAjaxData(ajaxData);
 			String submitUrl = MvcUtil.contextPath(URL_BZ_SAVE, moduleParam, actionID + ":");
 			dataModel.set("nextToken", Demsy.me().addToken());
 			dataModel.set("submitUrl", submitUrl);

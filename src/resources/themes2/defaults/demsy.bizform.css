@@ -40,7 +40,7 @@ form.bzsys {
 	border: 1px solid #c5dbec;
 	color: #1d5987;
 	text-align: right;
-	padding: 2px;
+	padding: 5px;
 	font-weight: bold;
 }
 /*业务字段输入框TD*/
@@ -91,7 +91,7 @@ form.bzsys {
 
 .Combobox .ui-icon, .Combobox .logo{
 	position: absolute;
-	right: -3px;
+	right: 1px;
 	top: 4px;
 	width: 16px;
 	height: 16px;
@@ -149,7 +149,7 @@ form.bzsys {
 .bzsubfld_data, .bzsubfld_data_check, .bzsubfld_data_btns{
 	background-color: #fcfdfd;
 	border: 1px solid #c5dbec;
-	padding: 2px;
+	padding: 4px;
 	white-space: nowrap;
 }
 .bzsubfld_head_check, .bzsubfld_data_check, .bzsubfld_head_btns{
@@ -167,7 +167,8 @@ form.bzsys {
 a.op_btn_add {
 	font-size: 20px;
 } 
-.bzfld_data .bzsubfld_data .input,.bzfld_data .bzsubfld_data .select,.bzfld_data .bzsubfld_data textarea.textarea {
+.bzsubfld_data .input, .bzsubfld_data .select, .bzsubfld_data textarea.textarea {
+	border: 1px solid #999999;
 }
 .bzfld_data .bzsubfld_data textarea.textarea {
     width: 400px;

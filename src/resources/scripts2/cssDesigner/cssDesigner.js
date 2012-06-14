@@ -279,128 +279,13 @@ QrSpinner.onDown = function(e, id) {
 	}
 }
 
-// ====================================
-QrXPCOM.cssToJsMap = new Array;
-QrXPCOM.cssToJsMap["background"] = "background";
-QrXPCOM.cssToJsMap["background-attachment"] = "backgroundAttachment";
-QrXPCOM.cssToJsMap["background-color"] = "backgroundColor";
-QrXPCOM.cssToJsMap["background-image"] = "backgroundImage";
-QrXPCOM.cssToJsMap["background-position"] = "backgroundPosition";
-QrXPCOM.cssToJsMap["background-position-x"] = "backgroundPositionX";
-QrXPCOM.cssToJsMap["background-position-y"] = "backgroundPositionY";
-QrXPCOM.cssToJsMap["background-repeat"] = "backgroundRepeat";
-QrXPCOM.cssToJsMap["behavior"] = "behavior";
-QrXPCOM.cssToJsMap["border"] = "border";
-QrXPCOM.cssToJsMap["border-bottom"] = "borderBottom";
-QrXPCOM.cssToJsMap["border-bottom-color"] = "borderBottomColor";
-QrXPCOM.cssToJsMap["border-bottom-style"] = "borderBottomStyle";
-QrXPCOM.cssToJsMap["border-bottom-width"] = "borderBottomWidth";
-QrXPCOM.cssToJsMap["border-color"] = "borderColor";
-QrXPCOM.cssToJsMap["border-left"] = "borderLeft";
-QrXPCOM.cssToJsMap["border-left-color"] = "borderLeftColor";
-QrXPCOM.cssToJsMap["border-left-style"] = "borderLeftStyle";
-QrXPCOM.cssToJsMap["border-left-width"] = "borderLeftWidth";
-QrXPCOM.cssToJsMap["border-right"] = "borderRight";
-QrXPCOM.cssToJsMap["border-right-color"] = "borderRightColor";
-QrXPCOM.cssToJsMap["border-right-style"] = "borderRightStyle";
-QrXPCOM.cssToJsMap["border-right-width"] = "borderRightWidth";
-QrXPCOM.cssToJsMap["border-style"] = "borderStyle";
-QrXPCOM.cssToJsMap["border-top"] = "borderTop";
-QrXPCOM.cssToJsMap["border-top-color"] = "borderTopColor";
-QrXPCOM.cssToJsMap["border-top-style"] = "borderTopStyle";
-QrXPCOM.cssToJsMap["border-top-width"] = "borderTopWidth";
-QrXPCOM.cssToJsMap["border-width"] = "borderWidth";
-QrXPCOM.cssToJsMap["bottom"] = "bottom";
-QrXPCOM.cssToJsMap["clear"] = "clear";
-QrXPCOM.cssToJsMap["clip"] = "clip";
-QrXPCOM.cssToJsMap["color"] = "color";
-QrXPCOM.cssToJsMap["cursor"] = "cursor";
-QrXPCOM.cssToJsMap["direction"] = "direction";
-QrXPCOM.cssToJsMap["display"] = "display";
-QrXPCOM.cssToJsMap["filter"] = "filter";
-QrXPCOM.cssToJsMap["font"] = "font";
-QrXPCOM.cssToJsMap["font-family"] = "fontFamily";
-QrXPCOM.cssToJsMap["font-size"] = "fontSize";
-QrXPCOM.cssToJsMap["font-style"] = "fontStyle";
-QrXPCOM.cssToJsMap["font-variant"] = "fontVariant";
-QrXPCOM.cssToJsMap["font-weight"] = "fontWeight";
-QrXPCOM.cssToJsMap["font-stretch"] = "fontStretch";
-QrXPCOM.cssToJsMap["height"] = "height";
-QrXPCOM.cssToJsMap["layout-flow"] = "layoutFlow";
-QrXPCOM.cssToJsMap["layout-grid"] = "layoutGrid";
-QrXPCOM.cssToJsMap["layout-grid-char"] = "layoutGridChar";
-QrXPCOM.cssToJsMap["layout-grid-line"] = "layoutGridLine";
-QrXPCOM.cssToJsMap["layout-grid-mode"] = "layoutGridMode";
-QrXPCOM.cssToJsMap["layout-grid-type"] = "layoutGridType";
-QrXPCOM.cssToJsMap["left"] = "left";
-QrXPCOM.cssToJsMap["letter-spacing"] = "letterSpacing";
-QrXPCOM.cssToJsMap["line-break"] = "lineBreak";
-QrXPCOM.cssToJsMap["line-height"] = "lineHeight";
-QrXPCOM.cssToJsMap["margin"] = "margin";
-QrXPCOM.cssToJsMap["margin-bottom"] = "marginBottom";
-QrXPCOM.cssToJsMap["margin-left"] = "marginLeft";
-QrXPCOM.cssToJsMap["margin-right"] = "marginRight";
-QrXPCOM.cssToJsMap["margin-top"] = "marginTop";
-QrXPCOM.cssToJsMap["overflow"] = "overflow";
-QrXPCOM.cssToJsMap["overflow-x"] = "overflowX";
-QrXPCOM.cssToJsMap["overflow-y"] = "overflowY";
-QrXPCOM.cssToJsMap["padding"] = "padding";
-QrXPCOM.cssToJsMap["padding-bottom"] = "paddingBottom";
-QrXPCOM.cssToJsMap["padding-left"] = "paddingLeft";
-QrXPCOM.cssToJsMap["padding-right"] = "paddingRight";
-QrXPCOM.cssToJsMap["padding-top"] = "paddingTop";
-QrXPCOM.cssToJsMap["page-break-after"] = "pageBreakAfter";
-QrXPCOM.cssToJsMap["page-break-before"] = "pageBreakBefore";
-QrXPCOM.cssToJsMap["position"] = "position";
-QrXPCOM.cssToJsMap["right"] = "right";
-QrXPCOM.cssToJsMap["scrollbar-3dlight-color"] = "scrollbar3dLightColor";
-QrXPCOM.cssToJsMap["scrollbar-arrow-color"] = "scrollbarArrowColor";
-QrXPCOM.cssToJsMap["scrollbar-base-color"] = "scrollbarBaseColor";
-QrXPCOM.cssToJsMap["scrollbar-darkshadow-color"] = "scrollbarDarkShadowColor";
-QrXPCOM.cssToJsMap["scrollbar-face-color"] = "scrollbarFaceColor";
-QrXPCOM.cssToJsMap["scrollbar-highlight-color"] = "scrollbarHighlightColor";
-QrXPCOM.cssToJsMap["scrollbar-shadow-color"] = "scrollbarShadowColor";
-QrXPCOM.cssToJsMap["scrollbar-track-color"] = "scrollbarTrackColor";
-QrXPCOM.cssToJsMap["float"] = "styleFloat";
-QrXPCOM.cssToJsMap["text-align"] = "textAlign";
-QrXPCOM.cssToJsMap["text-align-last"] = "textAlignLast";
-QrXPCOM.cssToJsMap["text-autospace"] = "textAutospace";
-QrXPCOM.cssToJsMap["text-decoration"] = "textDecoration";
-QrXPCOM.cssToJsMap["text-indent"] = "textIndent";
-QrXPCOM.cssToJsMap["text-justify"] = "textJustify";
-QrXPCOM.cssToJsMap["text-kashida-space"] = "textKashidaSpace";
-QrXPCOM.cssToJsMap["text-overflow"] = "textOverflow";
-QrXPCOM.cssToJsMap["text-transform"] = "textTransform";
-QrXPCOM.cssToJsMap["text-underline-position"] = "textUnderlinePosition";
-QrXPCOM.cssToJsMap["text-shadow"] = "textShadow";
-QrXPCOM.cssToJsMap["top"] = "top";
-QrXPCOM.cssToJsMap["unicode-bidi"] = "unicodeBidi";
-QrXPCOM.cssToJsMap["visibility"] = "visibility";
-QrXPCOM.cssToJsMap["white-space"] = "whiteSpace";
-QrXPCOM.cssToJsMap["width"] = "width";
-QrXPCOM.cssToJsMap["word-break"] = "wordBreak";
-QrXPCOM.cssToJsMap["word-spacing"] = "wordSpacing";
-QrXPCOM.cssToJsMap["word-wrap"] = "wordWrap";
-QrXPCOM.cssToJsMap["writing-mode"] = "writingMode";
-QrXPCOM.cssToJsMap["z-index"] = "zIndex";
-QrXPCOM.cssToJsMap["zoom"] = "zoom";
-QrXPCOM.cssToJsMap["list-style-type"] = "listStyleType";
-QrXPCOM.cssToJsMap["list-style-position"] = "listStylePosition";
-QrXPCOM.cssToJsMap["list-style-image"] = "listStyleImage";
-QrXPCOM.cssToJsMap["outline-color"] = "outlineColor";
-QrXPCOM.cssToJsMap["outline-style"] = "outlineStyle";
-QrXPCOM.cssToJsMap["outline-width"] = "outlineWidth";
-QrXPCOM.cssToJsMap["border-collapse"] = "borderCollapse";
-QrXPCOM.cssToJsMap["border-spacing"] = "borderSpacing";
-QrXPCOM.cssToJsMap["empty-cells"] = "emptyCells";
-QrXPCOM.cssToJsMap["caption-side"] = "captionSide";
-QrXPCOM.cssToJsMap["table-layout"] = "tableLayout";
-
 function CssDesigner($pad) {
+	CssDesigner.instance = this;
 	this.$pad = $pad;
 	this.connectInstanceMap = new Array;
 	this.target = null;
 	this.output = null;
+	this.cssClass = null;
 	var self = this;
 	$(".CssColorInput", $pad).each(function() {
 		var ths = $(this);
@@ -502,6 +387,57 @@ CssDesigner.switchCSS = function(e, selector2) {
 		$(selector2).hide();
 	}
 }
+// 获取行内样式
+CssDesigner.inlineStyles = new Array;
+CssDesigner.getInlineStyles = function($target) {
+	if ($target.length > 0) {
+		var ele = $target.get(0);
+		var ret = CssDesigner.inlineStyles[ele];
+		if (!ret) {
+			ret = new Array;
+			CssDesigner.inlineStyles[ele] = ret;
+			var styles = $target.attr("style").split(";");
+			for ( var i = 0; i < styles.length; i++) {
+				var st = styles[i];
+				var kv = st.split(":");
+				if (kv.length == 2) {
+					ret[kv[0].trim()] = kv[1].trim();
+				}
+			}
+		}
+
+		return ret;
+	}
+	return new Array;
+}
+CssDesigner.prototype.makeCssOptions = function(element) {
+	var self = this;
+	if (!element)
+		element = this.target;
+
+	var options = new Array;
+	$(element).children().each(function() {
+		var classNames = $(this).attr("class");
+		if (classNames && classNames.trim().length > 0) {
+			classNames = classNames.trim().split(" ");
+			for (i = 0; i < classNames.length; i++) {
+				var name = classNames[i].trim();
+				if (name.length > 0)
+					options["." + name] = "." + name;
+			}
+		} else {
+			options[this.tagName] = this.tagName;
+		}
+		var nextOptions = self.makeCssOptions(this);
+		for (o in nextOptions) {
+			v = nextOptions[o];
+			options[o] = v;
+		}
+	});
+
+	return options;
+
+}
 CssDesigner.prototype.reset = function() {
 	$("input", this.$pad).val("");
 	if (this.output) {
@@ -510,13 +446,50 @@ CssDesigner.prototype.reset = function() {
 			var st = styles[i];
 			var kv = st.split(":");
 			if (kv.length == 2) {
-				$("input[styleName='" + kv[0] + "']").val(kv[1]);
+				$("input[styleName='" + kv[0].trim() + "']").val(kv[1].trim());
 			}
 		}
 	}
 	$(".CssColorInput", this.$pad).each(function() {
 		var ths = $(this);
 		ths.css("background-color", ths.val());
+	});
+
+	var $targets = $(this.target);
+	if ($targets.length == 0)
+		$targets = $(".CssDesignerDemo", this.$pad);
+	if (this.cssClass != null && this.cssClass.trim().length > 0)
+		$targets = $(this.cssClass, $targets);
+
+	var $styles = $("input", this.$pad);
+	$targets.each(function() {
+		var target = this;
+
+		// 优先锁定行内样式
+		var inlineStyles = CssDesigner.getInlineStyles($(target));
+		$styles.each(function() {
+			var $input = $(this);
+			var style = $input.attr("styleName");
+			if (style && !inlineStyles[style]) {
+				try {
+					target.style[style.toProp()] = "";
+				} catch (e) {
+				}
+			}
+		});
+		$styles.each(function() {
+			var $input = $(this);
+			var style = $input.attr("styleName");
+			if (style && !inlineStyles[style]) {
+				var value = $input.val();
+				if (value && value.trim().length > 0) {
+					try {
+						target.style[style.toProp()] = value;
+					} catch (e) {
+					}
+				}
+			}
+		});
 	});
 }
 CssDesigner.prototype.connectCSS = function(obj, style) {
@@ -527,11 +500,20 @@ CssDesigner.prototype.connectCSS = function(obj, style) {
 	}
 }
 CssDesigner.prototype.setTargetStyle = function(style, value) {
-	$(this.target).each(function() {
-		try {
-			this.style[QrXPCOM.cssToJsMap[style]] = value;
-		} catch (e) {
-			this.style[QrXPCOM.cssToJsMap[style]] = "";
+	var $targets = $(this.target);
+	if ($targets.length == 0)
+		$targets = $(".CssDesignerDemo", this.$pad);
+	if (this.cssClass != null && this.cssClass.length > 0)
+		$targets = $(this.cssClass, $targets);
+
+	$targets.each(function() {
+		var inlineStyles = CssDesigner.getInlineStyles($(this));
+		if (style && !inlineStyles[style]) {
+			try {
+				this.style[style.toProp()] = value;
+			} catch (e) {
+				this.style[style.toProp()] = "";
+			}
 		}
 	});
 	var styleText = "";
@@ -540,9 +522,10 @@ CssDesigner.prototype.setTargetStyle = function(style, value) {
 		var styleName = $me.attr("styleName");
 		var v = $me.val();
 		if (styleName && v.length > 0) {
-			styleText += styleName + ":" + v + ";";
+			styleText += styleName + ": " + v + "; ";
 		}
 	});
-	if (this.output)
-		$(this.output).val(styleText);
+	if (this.output){
+		$(this.output).val(styleText).change();
+	}
 }

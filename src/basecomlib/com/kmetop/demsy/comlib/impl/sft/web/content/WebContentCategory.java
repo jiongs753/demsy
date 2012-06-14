@@ -15,7 +15,6 @@ import com.kmetop.demsy.comlib.biz.ann.BzFld;
 import com.kmetop.demsy.comlib.biz.ann.BzGrp;
 import com.kmetop.demsy.comlib.biz.ann.BzSys;
 import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
-import com.kmetop.demsy.comlib.biz.field.SubSystem;
 import com.kmetop.demsy.comlib.biz.field.Upload;
 import com.kmetop.demsy.comlib.impl.sft.SFTBizComponent;
 import com.kmetop.demsy.comlib.impl.sft.system.AbstractSystemData;

@@ -24,7 +24,7 @@ import com.kmetop.demsy.orm.IOrm;
 public interface IModuleEngine {
 	public void clearCache();
 
-	Nodes makeSoftNodes();
+	Nodes makeNodesByCurrentSoft();
 
 	/**
 	 * 获取平台默认企业用户
@@ -46,11 +46,19 @@ public interface IModuleEngine {
 
 	IDemsySoft getSoft(Long id);
 
+	List<? extends IModule> getModules(IDemsySoft soft);
+
 	/**
-	 * 获取功能模块
+	 * 根据功能模块ID获取功能模块
 	 */
 	IModule getModule(Long moduleID);
 
+	/**
+	 * 根据功能模块GUID获取功能模块
+	 * 
+	 * @param moduleGuid
+	 * @return
+	 */
 	IModule getModule(String moduleGuid);
 
 	/**
@@ -68,7 +76,7 @@ public interface IModuleEngine {
 	 * @param module
 	 * @return
 	 */
-	List<IModule> getSlaveModules(IModule module);
+	List<IModule> getSubModules(IModule module);
 
 	/**
 	 * 获取模块操作
@@ -86,7 +94,9 @@ public interface IModuleEngine {
 	 * @param optimize
 	 * @return
 	 */
-	Nodes makeModuleNodes(IDemsySoft soft);
+	Nodes makeNodesByModule(IDemsySoft soft);
+	
+	Nodes makeNodesByModule(IDemsySoft soft, byte role);
 
 	/**
 	 * 创建模块操作菜单
@@ -94,7 +104,7 @@ public interface IModuleEngine {
 	 * @param module
 	 * @return
 	 */
-	Nodes makeActionNodes(IModule module);
+	Nodes makeNodesByAction(IModule module);
 
 	/**
 	 * 获取模块业务系统
@@ -102,7 +112,7 @@ public interface IModuleEngine {
 	 * @param module
 	 * @return
 	 */
-	IBizSystem getBizSystem(IModule module);
+	IBizSystem getSystem(IModule module);
 
 	/**
 	 * 升级软件功能模块
@@ -111,7 +121,7 @@ public interface IModuleEngine {
 	 */
 	void upgradeModules(IDemsySoft soft);
 
-	void upgradeWebInfo(IDemsySoft soft);
+	void upgradeWebContent(IDemsySoft soft);
 
 	/**
 	 * 安装软件功能模块
@@ -122,7 +132,7 @@ public interface IModuleEngine {
 
 	ISoftConfig getSoftConfig(String key);
 
-	Nodes makeRealmNodes(IDemsySoft soft);
+	Nodes makeNodesByRealm(IDemsySoft soft);
 
 	List<? extends IRealm> getRealms(IDemsySoft softObj);
 
@@ -130,19 +140,19 @@ public interface IModuleEngine {
 
 	IModule getModule(Long softID, IBizSystem refrenceSystem);
 
-	public IAction getActionLib(Long actionLib);
+	IAction getActionComponent(Long actionLib);
 
-	public IDataSource getDataSource(Long dataSource);
+	IDataSource getDataSource(Long dataSource);
 
-	public IModule makeModule(IOrm orm, IDemsySoft soft, IBizCatalog catalog);
+	IModule makeModule(IOrm orm, IDemsySoft soft, IBizCatalog catalog);
 
-	public IModule makeModule(IOrm orm, IDemsySoft soft, IBizSystem system);
+	IModule makeModule(IOrm orm, IDemsySoft soft, IBizSystem system);
 
-	public void increase(IOrm orm, Object obj, String field);
+	void increase(IOrm orm, Object obj, String field);
 
-	public void decrease(IOrm orm, Object obj, String field);
+	void decrease(IOrm orm, Object obj, String field);
 
-	public void increase(IOrm orm, Object obj, String field, int value);
+	void increase(IOrm orm, Object obj, String field, int value);
 
-	public void decrease(IOrm orm, Object obj, String field, int value);
+	void decrease(IOrm orm, Object obj, String field, int value);
 }

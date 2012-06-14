@@ -2,6 +2,7 @@
 <html>
 <head>
 <script src="{$scriptPath}/jquery.js" type="text/javascript"></script>
+<script src="{$scriptPath}/demsy.utils.js" type="text/javascript"></script>
 <script language="javascript" src="/scripts2/plugins/LodopFuncs.js"></script>
 <style>
 #body {

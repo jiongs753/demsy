@@ -102,7 +102,8 @@ public class SFTBizEngine extends BizEngine {
 
 	@Override
 	public String getTargetPropName(IBizField field) {
-		return ("childrenMapping_" + Integer.toHexString(field.getSystem().getCode().hashCode()) + "_" + getPropName(field)).toLowerCase();
+		return ("childrenMapping_" + Integer.toHexString(field.getSystem().getCode().hashCode()) + "_" + getPropName(field))
+				.toLowerCase();
 	}
 
 	protected Option[] geDicOptions(IBizField field) {
@@ -139,7 +140,6 @@ public class SFTBizEngine extends BizEngine {
 		return setupSystemFromClass(soft.getId(), klass, true);
 	}
 
-	@SuppressWarnings("unused")
 	private IBizSystem setupSystemFromClass(Long soft, Class klass, boolean autoUpdate) throws DemsyException {
 		Map<String, IBizFieldType> fieldLibs = this.getFieldTypes();
 		if (klass == null) {
@@ -207,7 +207,8 @@ public class SFTBizEngine extends BizEngine {
 				if (fldanns != null) {
 					for (int j = 0; j < fldanns.length; j++) {
 						BzFld fldann = fldanns[j];
-						AbstractSystemData field = this.parseBizField(orm, soft, me, system, group, fldann, gridOrder++, fieldOrder++, fieldLibs);
+						AbstractSystemData field = this.parseBizField(orm, soft, me, system, group, fldann,
+								gridOrder++, fieldOrder++, fieldLibs);
 						orm.save(field);
 						newFields.add(field);
 					}
@@ -290,7 +291,8 @@ public class SFTBizEngine extends BizEngine {
 				if (fldanns != null) {
 					for (int j = 0; j < fldanns.length; j++) {
 						BzFld fldann = fldanns[j];
-						AbstractSystemData field = this.parseBizField(orm, soft, me, system, group, fldann, gridOrder++, fieldOrder++, fieldLibs);
+						AbstractSystemData field = this.parseBizField(orm, soft, me, system, group, fldann,
+								gridOrder++, fieldOrder++, fieldLibs);
 						orm.save(field);
 						newFields.add(field);
 					}
@@ -299,7 +301,8 @@ public class SFTBizEngine extends BizEngine {
 		}
 	}
 
-	private SFTSystem parseSystem(IOrm orm, Long soft, Class klass, SFTSystem system, BzSys sysann, int sysOrder, String code) {
+	private SFTSystem parseSystem(IOrm orm, Long soft, Class klass, SFTSystem system, BzSys sysann, int sysOrder,
+			String code) {
 		if (system == null) {
 			system = new SFTSystem();
 		}
@@ -362,10 +365,12 @@ public class SFTBizEngine extends BizEngine {
 		return obj;
 	}
 
-	private AbstractSystemData parseBizField(IOrm orm, Long soft, Mirror me, IBizSystem system, SystemDataGroup group, BzFld fldann, int gridOrder, int fieldOrder, Map fieldLibs) {
+	private AbstractSystemData parseBizField(IOrm orm, Long soft, Mirror me, IBizSystem system, SystemDataGroup group,
+			BzFld fldann, int gridOrder, int fieldOrder, Map fieldLibs) {
 		String prop = fldann.property();
 
-		AbstractSystemData field = (AbstractSystemData) orm.load(AbstractSystemData.class, CndExpr.eq(F_PROP_NAME, prop).and(CndExpr.eq(F_SYSTEM, system)));
+		AbstractSystemData field = (AbstractSystemData) orm.load(AbstractSystemData.class, CndExpr
+				.eq(F_PROP_NAME, prop).and(CndExpr.eq(F_SYSTEM, system)));
 		field = (AbstractSystemData) this.parseBizField(soft, me, prop, system, field);
 		field.setDataGroup(group);
 
@@ -377,7 +382,8 @@ public class SFTBizEngine extends BizEngine {
 		if (f == null || f.getAnnotation(BzFld.class) == null) {
 			copyProperties(fldann, field);
 			if (!Str.isEmpty(fldann.refrenceSystem())) {
-				field.setRefrenceSystem((SFTSystem) setupSystemFromClass(soft, getStaticType(fldann.refrenceSystem()), false));
+				field.setRefrenceSystem((SFTSystem) setupSystemFromClass(soft, getStaticType(fldann.refrenceSystem()),
+						false));
 				field.setType((SystemDataType) fieldLibs.get("System"));
 			}
 		}
@@ -399,7 +405,8 @@ public class SFTBizEngine extends BizEngine {
 	}
 
 	private SystemDataGroup parseBizGroup(IOrm orm, Long soft, IBizSystem system, BzGrp grpann, int groupOrder) {
-		SystemDataGroup group = (SystemDataGroup) orm.load(SystemDataGroup.class, CndExpr.eq(F_CODE, grpann.code()).and(CndExpr.eq(F_SYSTEM, system)));
+		SystemDataGroup group = (SystemDataGroup) orm.load(SystemDataGroup.class, CndExpr.eq(F_CODE, grpann.code())
+				.and(CndExpr.eq(F_SYSTEM, system)));
 		if (group == null) {
 			group = new SystemDataGroup();
 		}
@@ -417,7 +424,10 @@ public class SFTBizEngine extends BizEngine {
 	}
 
 	private BizAction parseBizAction(IOrm orm, Long soft, IBizSystem system, BzAct actann, int actionOrder) {
-		BizAction action = (BizAction) orm.load(BizAction.class, CndExpr.eq(F_TYPE_CODE, actann.typeCode()).and(CndExpr.eq(F_MODE, actann.mode())).and(CndExpr.eq(F_SYSTEM, system.getId())));
+		BizAction action = (BizAction) orm.load(
+				BizAction.class,
+				CndExpr.eq(F_TYPE_CODE, actann.typeCode()).and(CndExpr.eq(F_MODE, actann.mode()))
+						.and(CndExpr.eq(F_SYSTEM, system.getId())));
 		if (action == null) {
 			action = new BizAction();
 		}
@@ -459,9 +469,12 @@ public class SFTBizEngine extends BizEngine {
 		return ret;
 	}
 
-	private void parseBizAction(List<BizAction> list, IOrm orm, Long soft, IBizSystem system, BizAction newAction, BizAction parentAction, int actionOrder) {
-		BizAction action = (BizAction) orm.load(BizAction.class, CndExpr.eq(F_TYPE_CODE, newAction.getTypeCode()).and(CndExpr.eq(F_MODE, newAction.getMode()))
-				.and(CndExpr.eq(F_SYSTEM, system.getId())));
+	private void parseBizAction(List<BizAction> list, IOrm orm, Long soft, IBizSystem system, BizAction newAction,
+			BizAction parentAction, int actionOrder) {
+		BizAction action = (BizAction) orm.load(
+				BizAction.class,
+				CndExpr.eq(F_TYPE_CODE, newAction.getTypeCode()).and(CndExpr.eq(F_MODE, newAction.getMode()))
+						.and(CndExpr.eq(F_SYSTEM, system.getId())));
 		if (action == null) {
 			action = newAction;
 		}
@@ -500,7 +513,8 @@ public class SFTBizEngine extends BizEngine {
 			}
 	}
 
-	public IBizField parseBizField(Long soft, Mirror entityObj, String fldProp, IBizSystem bzSystem, IBizField oldBzField) {
+	public IBizField parseBizField(Long soft, Mirror entityObj, String fldProp, IBizSystem bzSystem,
+			IBizField oldBzField) {
 		Map<String, IBizFieldType> fieldLibs = this.getFieldTypes();
 
 		AbstractSystemData newBzField = (AbstractSystemData) oldBzField;
@@ -567,7 +581,8 @@ public class SFTBizEngine extends BizEngine {
 			// 解析字段类型
 			IBizFieldType fieldLib;
 			if (annBzFld != null && !Str.isEmpty(annBzFld.refrenceSystem())) {
-				newBzField.setRefrenceSystem((SFTSystem) setupSystemFromClass(soft, getStaticType(annBzFld.refrenceSystem()), false));
+				newBzField.setRefrenceSystem((SFTSystem) setupSystemFromClass(soft,
+						getStaticType(annBzFld.refrenceSystem()), false));
 				fieldLib = fieldLibs.get("System");
 			} else if (manyToOne != null) {
 				newBzField.setRefrenceSystem((SFTSystem) setupSystemFromClass(soft, type, false));
@@ -590,12 +605,14 @@ public class SFTBizEngine extends BizEngine {
 			int dot = fldProp.indexOf(".");
 			if (dot > 0) {
 				String parentProp = fldProp.substring(0, dot);
-				AbstractSystemData parentField = (AbstractSystemData) orm().load(AbstractSystemData.class, CndExpr.eq(F_PROP_NAME, parentProp).and(CndExpr.eq(F_SYSTEM, bzSystem)));
+				AbstractSystemData parentField = (AbstractSystemData) orm().load(AbstractSystemData.class,
+						CndExpr.eq(F_PROP_NAME, parentProp).and(CndExpr.eq(F_SYSTEM, bzSystem)));
 
 				SFTSystem refSystem = parentField.getRefrenceSystem();
 				String refProp = fldProp.substring(dot + 1);
 				newBzField.setRefrenceSystem(refSystem);
-				newBzField.setRefrenceData((AbstractSystemData) orm().load(AbstractSystemData.class, CndExpr.eq(F_PROP_NAME, refProp).and(CndExpr.eq(F_SYSTEM, refSystem))));
+				newBzField.setRefrenceData((AbstractSystemData) orm().load(AbstractSystemData.class,
+						CndExpr.eq(F_PROP_NAME, refProp).and(CndExpr.eq(F_SYSTEM, refSystem))));
 			}
 
 			newBzField.setType((SystemDataType) fieldLib);
