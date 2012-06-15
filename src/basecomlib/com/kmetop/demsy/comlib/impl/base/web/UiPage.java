@@ -25,8 +25,7 @@ import com.kmetop.demsy.orm.ann.Prop;
 
 @Entity
 @BzSys(name = "页面自定义", code = BIZSYS_UIUDF_PAGE, catalog = BIZCATA_UDF_CONSOLE, orderby = ORDER_UIUDF_TEMPLATE//
-, actions = {
-		@BzAct(name = "排版", typeCode = TYPE_BZFORM_EDIT, mode = "layout", targetWindow = "_blank", targetUrl = MvcConst.URL_ADMIN_UI) //
+, actions = { @BzAct(name = "排版", typeCode = TYPE_BZFORM_EDIT, mode = "layout", targetWindow = "_blank", targetUrl = MvcConst.URL_ADMIN_UI) //
 		, @BzAct(name = "新增页面", typeCode = TYPE_BZFORM_NEW, mode = "c")//
 		, @BzAct(name = "编辑样式", typeCode = TYPE_BZFORM_EDIT, mode = "e1") //
 		, @BzAct(jsonData = "CommonBizAction.data.js") //
@@ -61,11 +60,11 @@ public class UiPage extends BizComponent implements IPage {
 	protected UiPage parent;
 
 	@ManyToOne
-	@BzFld(name = "样式名称", disabledNavi = true, cascadeMode = "catalog:*:catalog", mode = "e1:N")
+	@BzFld(name = "引用样式", disabledNavi = true, cascadeMode = "catalog:*:catalog", mode = "e1:H")
 	protected UiCatalogStyle style;
 
 	@Column(length = 2000)
-	@BzFld(name = "CSS样式", gridField = false, uiTemplate = "ui.widget.ext.cssDesigner", mode = "*:N e:E e1:E v:S")
+	@BzFld(name = "CSS样式", gridField = false, uiTemplate = "ui.widget.ext.cssDesigner", mode = "*:N e:H e1:E v:S")
 	protected FakeSubSystem<StyleItem> styleItems;
 
 	@BzFld(name = "页面类型", disabledNavi = true, options = "0:模版,1:分类,2:板块引用", mode = "c:M e:M e1:N")

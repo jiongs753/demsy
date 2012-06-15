@@ -391,7 +391,7 @@ public abstract class BizEngine implements IBizEngine {
 	public List<? extends IBizField> getFieldsOfSystemFK(IBizSystem system) {
 		List<IBizField> ret = new LinkedList();
 
-		List<? extends IBizField> fields = getFields(system);
+		List<? extends IBizField> fields = this.getFieldsOfEnabled(system);
 		if (fields != null) {
 			for (IBizField field : fields) {
 				if (this.isSystemFK(field)) {
@@ -407,7 +407,7 @@ public abstract class BizEngine implements IBizEngine {
 	public List<? extends IBizField> getFieldsOfSystemFK(IBizSystem system, Class fkType) {
 		List<IBizField> ret = new LinkedList();
 
-		List<? extends IBizField> fields = getFields(system);
+		List<? extends IBizField> fields = getFieldsOfEnabled(system);
 		if (fields != null) {
 			for (IBizField field : fields) {
 				if (this.isSystemFK(field)) {
@@ -477,7 +477,7 @@ public abstract class BizEngine implements IBizEngine {
 	public List<? extends IBizField> getFieldsOfFK(IBizSystem system) {
 		List<IBizField> ret = new LinkedList();
 
-		List<? extends IBizField> fields = getFields(system);
+		List<? extends IBizField> fields = getFieldsOfEnabled(system);
 		if (fields != null) {
 			for (IBizField field : fields) {
 				if (this.isSystemFK(field) || this.isV1Dic(field))
@@ -782,7 +782,7 @@ public abstract class BizEngine implements IBizEngine {
 
 	@Override
 	public Map<String, String> getMode(IBizSystem system, IAction action, Object data) {
-		List<? extends IBizField> fields = this.getFields(system);
+		List<? extends IBizField> fields = this.getFieldsOfEnabled(system);
 		Map<String, String> fieldMode = new HashMap();
 		for (IBizField field : fields) {
 			String mode = this.getMode(field, action, true, null);
@@ -1091,7 +1091,7 @@ public abstract class BizEngine implements IBizEngine {
 		String version = system.getVersion();
 		if (version == null) {
 			long v = system.getUpdated().getTime();
-			List<? extends IBizField> fields = this.getFields(system);
+			List<? extends IBizField> fields = this.getFieldsOfEnabled(system);
 			for (IBizField f : fields) {
 				Date d = f.getUpdated();
 				if (d != null && d.getTime() > v) {
@@ -1522,7 +1522,7 @@ public abstract class BizEngine implements IBizEngine {
 		}
 
 		if (props.size() > 0) {
-			Map<String, IBizField> map = this.getFieldsMap(this.getFields(system));
+			Map<String, IBizField> map = this.getFieldsMap(this.getFieldsOfEnabled(system));
 			StringBuffer sb = new StringBuffer();
 			for (String prop : props) {
 				sb.append(",").append(map.get(prop).getName());
@@ -1532,7 +1532,7 @@ public abstract class BizEngine implements IBizEngine {
 	}
 
 	private IBizField getField(IBizSystem system, String prop) {
-		return this.getFieldsMap(this.getFields(system)).get(prop);
+		return this.getFieldsMap(this.getFieldsOfEnabled(system)).get(prop);
 	}
 
 	@Override

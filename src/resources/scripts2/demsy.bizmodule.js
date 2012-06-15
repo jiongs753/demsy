@@ -75,7 +75,7 @@ var BizModule = function() {
 
 		//
 		var rows = "";
-		var target = "_blank";
+		var target = null;// "_blank";
 		if (typeof item.target != "undefined" && item.target.length > 0) {
 			target = item.target;
 		}
@@ -629,7 +629,7 @@ var SubModule = function($table, config) {
 				$item.remove();
 			}
 		});
-		
+
 		self.eval();
 	}
 	// 上下移动对记录进行排序
@@ -704,9 +704,6 @@ var SubModule = function($table, config) {
 	}
 	// 绑定触发字段计算的输入框事件
 	this.bindEval = function($item, igloreUpload) {
-		$(".input", $item).blur(self.eval);
-		$(".select", $item).blur(self.eval);
-		$(".textarea", $item).blur(self.eval);
 		$(".input", $item).change(self.eval);
 		$(".select", $item).change(self.eval);
 		$(".textarea", $item).change(self.eval);

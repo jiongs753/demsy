@@ -13,7 +13,9 @@ String.prototype.toProp = function() {
 
 	return this;
 }
-// 扩展后支持参数传递的的定时调度函数
+/*
+ * 扩展后支持参数传递的的定时调度函数
+ */
 var __sti = setInterval;
 window.setInterval = function(callback, timeout, param) {
 	var args = Array.prototype.slice.call(arguments, 2);

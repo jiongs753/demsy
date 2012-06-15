@@ -147,16 +147,14 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	public UIWidgetModel<UIBizModule, Object> tabs(final String moduleParam) throws DemsyException {
 		return (UIWidgetModel<UIBizModule, Object>) buildModel("TABS界面", moduleParam, new WidgetBuilder() {
-			public UIWidgetModel build(IBizManager manager, IModule masterModule, String pageID, boolean ajaxData)
-					throws DemsyException {
+			public UIWidgetModel build(IBizManager manager, IModule masterModule, String pageID, boolean ajaxData) throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
 				UIBizModule mainUI = uiEngine.makeModuleView(masterModule, getGridColumns(), idfld);
 
 				if (mainUI.getMaster() != null) {
 					Nodes masterRoot = Nodes.make();
-					masterRoot.addNode(null, masterModule.getId()).setName(masterModule.getName())
-							.setParams(MvcUtil.contextPath(URL_BZSYS, masterModule.getId()));
+					masterRoot.addNode(null, masterModule.getId()).setName(masterModule.getName()).setParams(MvcUtil.contextPath(URL_BZSYS, masterModule.getId()));
 					mainUI.getMaster().setData(masterRoot);
 				} else {
 					if (mainUI.getNaviMenu() != null) {
@@ -200,8 +198,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	@At(URL_BZSYS_COMB_EXPR)
 	public UIWidgetModel<UIBizSystem, Object> systemCombExpr(String moduleParam, final String dataID) throws DemsyException {
 		return (UIWidgetModel<UIBizSystem, Object>) buildModel("系统条件引用", moduleParam, new WidgetBuilder() {
-			public UIWidgetModel build(IBizManager manager, IModule mdl, String comboboxFieldID, boolean ajaxData)
-					throws DemsyException {
+			public UIWidgetModel build(IBizManager manager, IModule mdl, String comboboxFieldID, boolean ajaxData) throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
 				UIBizSystem modelUI = uiEngine.makeSystemView(mdl, getGridColumns(), idfld);
@@ -238,8 +235,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	@At(URL_BZSYS_COMB_FK)
 	public UIWidgetModel<UIBizSystem, Object> systemCombFK(String moduleParam, final String dataID) throws DemsyException {
 		return (UIWidgetModel<UIBizSystem, Object>) buildModel("系统外键引用", moduleParam, new WidgetBuilder() {
-			public UIWidgetModel build(IBizManager manager, IModule mdl, String comboboxFieldID, boolean ajaxData)
-					throws DemsyException {
+			public UIWidgetModel build(IBizManager manager, IModule mdl, String comboboxFieldID, boolean ajaxData) throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
 				UIBizSystem modelUI = uiEngine.makeSystemView(mdl, getGridColumns(), idfld);
@@ -286,8 +282,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	@At(URL_BZSYS)
 	public UIWidgetModel<UIBizSystem, Object> system(String moduleParam) throws DemsyException {
 		return (UIWidgetModel<UIBizSystem, Object>) buildModel("系统主界面", moduleParam, new WidgetBuilder() {
-			public UIWidgetModel build(IBizManager manager, IModule mdl, String pageID, boolean ajaxData)
-					throws DemsyException {
+			public UIWidgetModel build(IBizManager manager, IModule mdl, String pageID, boolean ajaxData) throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
 				UIBizSystem modelUI = uiEngine.makeSystemView(mdl, getGridColumns(), idfld);
@@ -356,12 +351,10 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	@At(URL_BZGRID)
 	public UIBizGridModel grid(String moduleParam) throws DemsyException {
 		return (UIBizGridModel) buildModel("数据网格", moduleParam, new WidgetBuilder() {
-			public UIWidgetModel build(IBizManager manager, IModule mdl, String pageID, boolean ajaxData)
-					throws DemsyException {
+			public UIWidgetModel build(IBizManager manager, IModule mdl, String pageID, boolean ajaxData) throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
-				UIBizGridModel dataModel = uiEngine.makeSystemGridView(mdl, getGridColumns(), idfld, false).setDacorator(pageID)
-						.setAjaxData(ajaxData);
+				UIBizGridModel dataModel = uiEngine.makeSystemGridView(mdl, getGridColumns(), idfld, false).setDacorator(pageID).setAjaxData(ajaxData);
 
 				if (ajaxData) {
 					Class bizClass = bizEngine.getType(moduleEngine.getSystem(mdl));
@@ -376,8 +369,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 					manager.query(pager, null);
 					if (log.isTraceEnabled())
-						log.tracef("查询数据 [index=%s/%s, size=%s, sum=%s]", pager.getPageIndex(), pager.getTotalPage(),
-								pager.getPageSize(), pager.getTotalRecord());
+						log.tracef("查询数据 [index=%s/%s, size=%s, sum=%s]", pager.getPageIndex(), pager.getTotalPage(), pager.getPageSize(), pager.getTotalRecord());
 
 					dataModel.setData(pager);
 				}
@@ -396,8 +388,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	@At(URL_BZNAVI)
 	public UIBizNaviModel navi(String moduleParam) throws DemsyException {
 		return (UIBizNaviModel) buildModel("导航菜单", moduleParam, new WidgetBuilder() {
-			public UIWidgetModel build(IBizManager manager, IModule mdl, String pageID, boolean ajaxData)
-					throws DemsyException {
+			public UIWidgetModel build(IBizManager manager, IModule mdl, String pageID, boolean ajaxData) throws DemsyException {
 				String idfld = getIdField(manager.getType());
 
 				UIBizNaviModel dataModel = uiEngine.makeSystemNaviView(mdl);
@@ -420,10 +411,8 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	@At(URL_BZMENU)
 	public UIBizMenuModel<UIToolbarMenu> tmenu(String moduleParam) throws DemsyException {
 		return (UIBizMenuModel<UIToolbarMenu>) buildModel("工具栏菜单", moduleParam, new WidgetBuilder() {
-			public UIWidgetModel build(IBizManager manager, IModule mdl, String pageID, boolean ajaxData)
-					throws DemsyException {
-				UIBizMenuModel<UIToolbarMenu> dataModel = uiEngine.makeSystemActionView(mdl).setDacorator(pageID)
-						.setAjaxData(ajaxData);
+			public UIWidgetModel build(IBizManager manager, IModule mdl, String pageID, boolean ajaxData) throws DemsyException {
+				UIBizMenuModel<UIToolbarMenu> dataModel = uiEngine.makeSystemActionView(mdl).setDacorator(pageID).setAjaxData(ajaxData);
 
 				dataModel.setData(moduleEngine.makeNodesByAction(mdl));
 
@@ -432,8 +421,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 		});
 	}
 
-	public static UIBizFormModel buildForm(String title, final String moduleParam, final String actionParam,
-			final ObjcetNaviNode dataNode, String submitUrl) throws DemsyException {
+	public static UIBizFormModel buildForm(String title, final String moduleParam, final String actionParam, final ObjcetNaviNode dataNode, String submitUrl) throws DemsyException {
 		log.debugf("创建业务表单<%s>...[module=%s, action=%s]", title, moduleParam, actionParam);
 
 		try {
@@ -507,8 +495,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 				int actionIdx = reloadUrl.indexOf(URL_PREFIX_BZ) + URL_PREFIX_BZ.length();
 				int slashIdx = reloadUrl.substring(actionIdx).indexOf("/") + 1;
 				int dataIdx = actionIdx + slashIdx;
-				dataModel.set("reloadUrl",
-						reloadUrl.substring(0, dataIdx) + MvcConst.URL_PREFIX_AJAX + reloadUrl.substring(dataIdx));
+				dataModel.set("reloadUrl", reloadUrl.substring(0, dataIdx) + MvcConst.URL_PREFIX_AJAX + reloadUrl.substring(dataIdx));
 			}
 			dataModel.set("mode", actionID);
 			boolean dialog = Demsy.me().param("dialog", Boolean.class, false);
@@ -525,12 +512,11 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 			log.debugf("创建业务表单<%s>失败! %s", title, msg);
 
-			throw new DemsyException(msg);
+			throw new DemsyException(e);
 		}
 	}
 
-	private List list(IBizManager bizManager, Class bizClass, String dataID, String actionID, CndExpr expr)
-			throws DemsyException {
+	private List list(IBizManager bizManager, Class bizClass, String dataID, String actionID, CndExpr expr) throws DemsyException {
 		List idList = Str.toList(dataID, ",");
 		if (idList != null && idList.size() > 0) {
 			if (expr == null)
@@ -551,8 +537,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 		return bizManager.query(actionID, expr);
 	}
 
-	private Status exec(String title, final String moduleParam, final String actionParam, ObjcetNaviNode dataNode,
-			LogicExecutor executor) throws DemsyException {
+	private Status exec(String title, final String moduleParam, final String actionParam, ObjcetNaviNode dataNode, LogicExecutor executor) throws DemsyException {
 		log.debugf("执行业务逻辑<%s>...[module=%s, action=%s]", title, moduleParam, actionParam);
 
 		StringBuffer errorInfo = new StringBuffer();
@@ -699,14 +684,12 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	}
 
 	@At(URL_BZFORM_ADD)
-	public UIBizFormModel add(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public UIBizFormModel add(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		return buildForm("新增", moduleParam, actionParam, dataNode, URL_BZ_SAVE);
 	}
 
 	@At(URL_BZFORM_IMPORT_XLS)
-	public UIBizFormModel prepareImportFromXls(final String moduleParam, final String actionParam, @Param("::"
-			+ UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public UIBizFormModel prepareImportFromXls(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		UIBizFormModel form = buildForm("准备从XLS导入", moduleParam, actionParam, dataNode, URL_BZ_IMPORT_XLS);
 
 		return form;
@@ -714,8 +697,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	@At(URL_BZ_IMPORT_XLS)
 	@AdaptBy(type = DemsyUploadAdaptor.class)
-	public UIBizFormModel importFromXls(@Param("upload") TempFile tmpfile, final String moduleParam,
-			final String actionParam, final String token) throws DemsyException {
+	public UIBizFormModel importFromXls(@Param("upload") TempFile tmpfile, final String moduleParam, final String actionParam, final String token) throws DemsyException {
 		StringBuffer info = new StringBuffer();
 		if (!Demsy.me().existToken(token)) {
 			info.append("不允许重复提交数据，请刷新页面后重试！");
@@ -754,8 +736,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 				Class bizClass = bizEngine.getType(moduleEngine.getSystem(mdl));
 				log.tracef("获取业务类 [%s]", bizClass);
 
-				SystemExcel excel = new SystemExcel(bizManager.getSystem(), moduleEngine.getAction(mdl, "c"),
-						tmpfile.getFile());
+				SystemExcel excel = new SystemExcel(bizManager.getSystem(), moduleEngine.getAction(mdl, "c"), tmpfile.getFile());
 				excel.save();
 
 				info.append("从Excel导入数据成功！");
@@ -775,8 +756,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	}
 
 	@At(URL_BZFORM_EXPORT_XLS)
-	public UIBizFormModel prepareExportToXls(final String moduleParam, final String actionParam, @Param("::"
-			+ UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public UIBizFormModel prepareExportToXls(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		UIBizFormModel form = buildForm("准备导出到XLS", moduleParam, actionParam, dataNode, URL_BZ_EXPORT_XLS);
 
 		Demsy ctx = Demsy.me();
@@ -793,8 +773,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	}
 
 	@At(URL_BZ_EXPORT_XLS)
-	public void exportToXls(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public void exportToXls(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 
 		exec("导出数据到Excel", moduleParam, actionParam, dataNode, new LogicExecutor() {
 			public Object exec(IBizManager manager, Object obj, IAction action) throws DemsyException {
@@ -848,20 +827,17 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	}
 
 	@At(URL_BZFORM_EDIT)
-	public UIBizFormModel edit(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public UIBizFormModel edit(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		return buildForm("编辑", moduleParam, actionParam, dataNode, URL_BZ_SAVE);
 	}
 
 	@At(URL_BZFORM_EDIT_N)
-	public UIBizFormModel editn(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public UIBizFormModel editn(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		return buildForm("批量修改", moduleParam, actionParam, dataNode, URL_BZ_SAVE);
 	}
 
 	@At(URL_BZFORM_PRINT)
-	public UIBizFormModel print(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public UIBizFormModel print(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		StringBuffer errorInfo = new StringBuffer();
 		try {
 			boolean ajaxData = isAjaxParam(moduleParam);
@@ -933,8 +909,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	@At(URL_BZ_SAVE)
 	@Ok("json")
-	public Status save(final String moduleParam, final String actionParam, final String token, @Param("::"
-			+ UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public Status save(final String moduleParam, final String actionParam, final String token, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		if (!Demsy.me().existToken(token)) {
 			return new Status(false, "不允许重复提交数据，请先刷新页面！");
 		}
@@ -975,8 +950,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	@At(URL_BZ_DEL)
 	@Ok("json")
-	public Status del(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public Status del(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		// security.checkLogin(IUserRole.ROLE_USER);
 
 		final StringBuffer fkerror = new StringBuffer();
@@ -1009,8 +983,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 					return manager.delete(list, action.getMode());
 				} catch (Throwable e) {
 					if (fkerror.length() > 0) {
-						throw new DemsyException("正在删除的数据可能被【" + fkerror.toString() + "】等字段引用! 错误详情:\n"
-								+ Ex.msg(e));
+						throw new DemsyException("正在删除的数据可能被【" + fkerror.toString() + "】等字段引用! 错误详情:\n" + Ex.msg(e));
 					} else {
 						throw new DemsyException(Ex.msg(e));
 					}
@@ -1021,8 +994,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	@At(URL_BZ_CLEAR)
 	@Ok("json")
-	public Status clear(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public Status clear(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		// security.checkLogin(IUserRole.ROLE_USER);
 
 		return exec("清空", moduleParam, actionParam, dataNode, new LogicExecutor() {
@@ -1049,8 +1021,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	@At(URL_BZ_ORDERBY_UP)
 	@Ok("json")
-	public Status orderUp(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public Status orderUp(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		// security.checkLogin(IUserRole.ROLE_USER);
 
 		return exec("上移排序", moduleParam, actionParam, dataNode, new LogicExecutor() {
@@ -1077,8 +1048,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	@At(URL_BZ_ORDERBY_CANCEL)
 	@Ok("json")
-	public Status orderByCancel(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public Status orderByCancel(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		// security.checkLogin(IUserRole.ROLE_USER);
 
 		return exec("取消排序", moduleParam, actionParam, dataNode, new LogicExecutor() {
@@ -1104,8 +1074,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	@At(URL_BZ_ORDERBY_DOWN)
 	@Ok("json")
-	public Status orderDown(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public Status orderDown(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		// security.checkLogin(IUserRole.ROLE_USER);
 
 		return exec("下移排序", moduleParam, actionParam, dataNode, new LogicExecutor() {
@@ -1133,8 +1102,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	@At(URL_BZ_ORDERBY_REVERSE)
 	@Ok("json")
-	public Status orderReverse(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public Status orderReverse(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		// security.checkLogin(IUserRole.ROLE_USER);
 
 		return exec("颠倒排序", moduleParam, actionParam, dataNode, new LogicExecutor() {
@@ -1245,15 +1213,13 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	}
 
 	@At(URL_BZFORM_EXEC_SYNC)
-	public UIBizFormModel execForm(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public UIBizFormModel execForm(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		return buildForm("同步业务表单", moduleParam, actionParam, dataNode, URL_BZ_EXEC_SYNC);
 	}
 
 	@At(URL_BZ_EXEC_SYNC)
 	@Ok("json")
-	public Status exec(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public Status exec(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		// security.checkLogin(IUserRole.ROLE_USER);
 
 		return exec("同步执行", moduleParam, actionParam, dataNode, new LogicExecutor() {
@@ -1265,15 +1231,13 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	}
 
 	@At(URL_BZFORM_EXEC_ASYN)
-	public UIBizFormModel asynExecForm(final String moduleParam, final String actionParam, @Param("::"
-			+ UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public UIBizFormModel asynExecForm(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		return buildForm("异步业务表单", moduleParam, actionParam, dataNode, URL_BZ_EXEC_ASYN);
 	}
 
 	@At(URL_BZ_EXEC_ASYN)
 	@Ok("json")
-	public Status asynExec(final String moduleParam, final String actionParam,
-			@Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
+	public Status asynExec(final String moduleParam, final String actionParam, @Param("::" + UI_BZFORM_PREFIX) ObjcetNaviNode dataNode) throws DemsyException {
 		// security.checkLogin(IUserRole.ROLE_USER);
 
 		return exec("异步执行", moduleParam, actionParam, dataNode, new LogicExecutor() {

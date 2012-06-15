@@ -281,8 +281,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 	// }
 
 	@Override
-	public UIBizGridModel makeSystemGridView(IModule mdl, String colNames, String idField, boolean existNaviTree)
-			throws DemsyException {
+	public UIBizGridModel makeSystemGridView(IModule mdl, String colNames, String idField, boolean existNaviTree) throws DemsyException {
 		UIBizGrid grid = cached("BizGrid", mdl.getId());
 		if (grid == null) {
 			grid = cache("BizGrid", new UIBizGrid(globalVariables, mdl.getId()));
@@ -450,8 +449,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 		// 获取运行时自定义字段
 		List<IBizField> customFields = new LinkedList();
 		Map<String, IBizField> customFieldsMap = new HashMap();
-		List<IBizField> fkFieldsOfRuntimeCustom = (List<IBizField>) bizEngine.getFieldsOfSystemFK(sys,
-				IRuntimeConfigable.class);
+		List<IBizField> fkFieldsOfRuntimeCustom = (List<IBizField>) bizEngine.getFieldsOfSystemFK(sys, IRuntimeConfigable.class);
 		List<String> fkPropsOfRuntimeCustom = new ArrayList();
 		for (IBizField fld : fkFieldsOfRuntimeCustom) {
 			String propname = bizEngine.getPropName(fld);
@@ -502,8 +500,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 					}
 					// END: 用运行时自定义字段覆盖物理字段
 
-					UIBizFld uiField = this.convertFld(module, form, bzField, action, null, data,
-							String.class.equals(bizEngine.getType(bzField)) ? F_GUID : F_ID);
+					UIBizFld uiField = this.convertFld(module, form, bzField, action, null, data, String.class.equals(bizEngine.getType(bzField)) ? F_GUID : F_ID);
 					if (uiField != null) {
 						uiGroup.addChild(uiField, data);
 						uiFieldMap.put(uiField.getPropName(), uiField);
@@ -579,8 +576,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 	}
 
 	@SuppressWarnings("deprecation")
-	private UIBizFld convertFld(IModule module, UIBizForm form, IBizField bzField, IAction action, String defaultMode,
-			Object data, String idField) {
+	private UIBizFld convertFld(IModule module, UIBizForm form, IBizField bzField, IAction action, String defaultMode, Object data, String idField) {
 
 		String[] cascade = bizEngine.getCascadeMode(bzField, data);
 		String mode = bizEngine.getMode(bzField, action, false, defaultMode);
@@ -614,12 +610,10 @@ public class UiEngine implements IUiEngine, MvcConst {
 		Class bzFieldType = bizEngine.getType(bzField);
 		// ui model
 		if (bizEngine.isBoolean(bzField)) {// boolean
-			uiField = new UIBoolFld(null, bzField.getId()).setOptionNode(bizEngine.makeOptionNodes(bzField, mode, data,
-					idField));
+			uiField = new UIBoolFld(null, bzField.getId()).setOptionNode(bizEngine.makeOptionNodes(bzField, mode, data, idField));
 		} else if (bizEngine.isUpload(bzField)) {// upload
-			uiField = new UIUploadFld(null, bzField.getId())
-					.setUploadUrl(contextPath(URL_UPLOAD, module.getId(), bzField.getId()))
-					.setUploadType(bzField.getUploadType()).setContext(form.getContext());
+			uiField = new UIUploadFld(null, bzField.getId()).setUploadUrl(contextPath(URL_UPLOAD, module.getId(), bzField.getId())).setUploadType(bzField.getUploadType())
+					.setContext(form.getContext());
 			isUpload = true;
 		} else if (bizEngine.isRichText(bzField)) {// richtext
 			uiField = new UIRichTextFld(null, bzField.getId());
@@ -628,12 +622,10 @@ public class UiEngine implements IUiEngine, MvcConst {
 			uiField = new UITextFld(null, bzField.getId());
 		} else if (bizEngine.getOptions(bzField).length > 0) {// auto dic
 			if (bizEngine.isManyToMany(bzField)) {
-				uiField = new UIDicManyFld(null, bzField.getId()).setOptionNode(bizEngine.makeOptionNodes(bzField,
-						mode, data, idField));
+				uiField = new UIDicManyFld(null, bzField.getId()).setOptionNode(bizEngine.makeOptionNodes(bzField, mode, data, idField));
 				form.setHasMultiSelect(true);
 			} else {
-				uiField = new UIDicFld(null, bzField.getId()).setOptionNode(bizEngine.makeOptionNodes(bzField, mode,
-						data, idField));
+				uiField = new UIDicFld(null, bzField.getId()).setOptionNode(bizEngine.makeOptionNodes(bzField, mode, data, idField));
 			}
 		} else if (bizEngine.isDate(bzField)) {// date
 			uiField = new UIDateFld(null, bzField.getId());
@@ -682,8 +674,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 					}
 					naviRules.append("]");
 				}
-				String url = MvcUtil.contextPath(MvcConst.URL_BZSYS_COMB_FK,
-						(refModule == null ? 0 : refModule.getId()) + ":") + "?gridColumns=3";
+				String url = MvcUtil.contextPath(MvcConst.URL_BZSYS_COMB_FK, (refModule == null ? 0 : refModule.getId()) + ":") + "?gridColumns=3";
 				if (type.equals(String.class)) {
 					uiField.setKeyProp(LibConst.F_GUID);
 					url += "&idField=" + LibConst.F_GUID;
@@ -699,9 +690,8 @@ public class UiEngine implements IUiEngine, MvcConst {
 		} else if (bizEngine.isFieldRef(bzField)) {// iglore field refrence
 			return null;
 		} else if (bizEngine.isSubSystem(bzField)) {
-			uiField = new UISubSystemFld(null, bzField.getId())
-					.setUploadUrl(contextPath(URL_UPLOAD, module.getId(), bzField.getId()))
-					.setUploadType(bzField.getUploadType()).setContext(form.getContext());
+			uiField = new UISubSystemFld(null, bzField.getId()).setUploadUrl(contextPath(URL_UPLOAD, module.getId(), bzField.getId())).setUploadType(bzField.getUploadType())
+					.setContext(form.getContext());
 			UISubSystemFld uiSubSysFld = (UISubSystemFld) uiField;
 
 			IBizSystem refSystem = bzField.getRefrenceSystem();
@@ -781,8 +771,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 		return uiField;
 	}
 
-	private void convertSubFields(IModule module, UIBizForm form, IAction action, Object data, IBizField bzfld,
-			UIBizFld uifld) {
+	private void convertSubFields(IModule module, UIBizForm form, IAction action, Object data, IBizField bzfld, UIBizFld uifld) {
 		Class proptype = bizEngine.getType(bzfld);
 		if (proptype == null || !IExtField.class.isAssignableFrom(proptype)) {
 			return;
@@ -813,8 +802,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 		}
 		if (subanns != null && subanns.length > 0) {
 			for (BzSubFld ann : subanns) {
-				IBizField fld = ((BizEngine) bizEngine).parseBizField(module.getSoftID(), propme, ann.property(),
-						bzfld.getSystem(), null);
+				IBizField fld = ((BizEngine) bizEngine).parseBizField(module.getSoftID(), propme, ann.property(), bzfld.getSystem(), null);
 				fld.setId(count++);
 				fld.setPropName(prop + "." + fld.getPropName());
 				if (!Str.isEmpty(ann.cascadeMode()))
@@ -829,8 +817,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 		} else {
 			Field[] fields = propme.getFields(BzFld.class);
 			for (Field f : fields) {
-				IBizField fld = ((BizEngine) bizEngine).parseBizField(module.getSoftID(), propme, f.getName(),
-						bzfld.getSystem(), null);
+				IBizField fld = ((BizEngine) bizEngine).parseBizField(module.getSoftID(), propme, f.getName(), bzfld.getSystem(), null);
 				fld.setId(count++);
 				fld.setPropName(prop + "." + fld.getPropName());
 
@@ -905,10 +892,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 
 	@Override
 	public IPage loadIndexPage() {
-		return (IPage) Demsy.orm().load(
-				bizEngine.getStaticType(BIZSYS_UIUDF_PAGE),
-				Expr.eq(F_USAGE, IPage.USAGE_IDX).and(Expr.eq(F_SOFT_ID, Demsy.me().getSoft()))
-						.setFieldRexpr("id", true));
+		return (IPage) Demsy.orm().load(bizEngine.getStaticType(BIZSYS_UIUDF_PAGE), Expr.eq(F_USAGE, IPage.USAGE_IDX).and(Expr.eq(F_SOFT_ID, Demsy.me().getSoft())).setFieldRexpr("id", true));
 	}
 
 	protected CacheWeb webInfoCatalog(Long id) {
@@ -941,8 +925,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 	public IPageBlock loadPageBlock(Long blockID) {
 		IPageBlock block = pageBlockCache.get(blockID);
 		if (block == null) {
-			return (IPageBlock) Demsy.orm().load(bizEngine.getStaticType(BIZSYS_UIUDF_PAGE_BLOCK),
-					Expr.eq(F_ID, blockID));
+			return (IPageBlock) Demsy.orm().load(bizEngine.getStaticType(BIZSYS_UIUDF_PAGE_BLOCK), Expr.eq(F_ID, blockID));
 		}
 		return block;
 	}
@@ -954,8 +937,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 
 	private void loadViewComponents() {
 		if (this.viewComponentList.size() == 0 || !Demsy.appconfig.isProductMode()) {
-			viewComponentList = Demsy.orm().query(bizEngine.getStaticType(BIZSYS_DEMSY_LIB_UIMODEL),
-					Expr.asc(F_ORDER_BY));
+			viewComponentList = Demsy.orm().query(bizEngine.getStaticType(BIZSYS_DEMSY_LIB_UIMODEL), Expr.asc(F_ORDER_BY));
 			for (IUIViewComponent ele : viewComponentList) {
 				this.viewTypeIdCache.put(ele.getId(), ele);
 			}
@@ -990,9 +972,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 	}
 
 	public UIPageView makePageView(Long pageID, Long dynamicBlockID, Long dynamicModuleID, Long dynamicDataID) {
-		return makePageView(loadPageTemplate(pageID),
-				dynamicBlockID != null && dynamicBlockID > 0 ? loadPageBlock(dynamicBlockID) : null, dynamicModuleID,
-				dynamicDataID);
+		return makePageView(loadPageTemplate(pageID), dynamicBlockID != null && dynamicBlockID > 0 ? loadPageBlock(dynamicBlockID) : null, dynamicModuleID, dynamicDataID);
 	}
 
 	public UIPageView makePageView(IPage page, IPageBlock dynamicBlock, Long dynamicModuleID, Long dynamicDataID) {
@@ -1004,11 +984,8 @@ public class UiEngine implements IUiEngine, MvcConst {
 		pageView.setId(page.getId());
 		pageView.setParam(page);
 		pageView.setTemplate("ui.lib.UiPage");
-		IStyle style = page.getStyle();
-		if (style != null) {
-			pageView.setCssClass(style.getCssClass());
-			pageView.addStyle(style);
-		}
+		pageView.addStyle(this.makeStyle("body", page.getStyleItems()));
+		pageView.addStyle(page.getStyle());
 		pageView.setWidth(page.getPageWidth());
 		if (!Str.isEmpty(page.getUiTemplate())) {
 			pageView.setTemplate(page.getUiTemplate());
@@ -1050,8 +1027,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 					block = dynamicBlock;
 				}
 
-				UIBlockViewModel blockView = makeBlockViewWithParent(pageView, cachedBlockViews, cachedBlocks, null,
-						block, dynamicModuleID, dynamicDataID, pathModule, pathData);
+				UIBlockViewModel blockView = makeBlockViewWithParent(pageView, cachedBlockViews, cachedBlocks, null, block, dynamicModuleID, dynamicDataID, pathModule, pathData);
 
 				CssPosition pos = block.getPosition();
 				String area = "page";
@@ -1082,14 +1058,8 @@ public class UiEngine implements IUiEngine, MvcConst {
 				pageView.addBlock(area, blockView);
 
 				// 计算样式
-				style = block.getStyle();
-				if (style != null) {
-					pageView.addStyle(style);
-				}
-				FakeSubSystem<? extends IStyleItem> styleItems = block.getStyleItems();
-				IStyle styleObj = this.makeStyle("#block" + block.getId(), styleItems);
-				if (styleObj != null)
-					pageView.addStyle(styleObj);
+				pageView.addStyle(makeStyle("#block" + block.getId(), block.getStyleItems()));
+				pageView.addStyle(block.getStyle());
 			}
 			if (Str.isEmpty(page.getPageHeight()) && relativeHeight == 0)
 				pageView.setHeight(absoluteHeight + "px");
@@ -1103,7 +1073,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 		return pageView;
 	}
 
-	private IStyle makeStyle(final String cssClassName, FakeSubSystem<? extends IStyleItem> itemsObj) {
+	public IStyle makeStyle(final String cssClassName, FakeSubSystem<? extends IStyleItem> itemsObj) {
 		IStyle style = null;
 		if (itemsObj != null) {
 			List<? extends IStyleItem> items = itemsObj.getList();
@@ -1115,8 +1085,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 					if (!Str.isEmpty(desc)) {
 						if (Str.isEmpty(code))
 							code = "";
-						sb.append("\n").append(cssClassName).append(" ").append(code).append("{").append(desc)
-								.append("}");
+						sb.append("\n").append(cssClassName).append(" ").append(code).append("{").append(desc).append("}");
 					}
 				}
 				if (sb.length() > 0) {
@@ -1128,31 +1097,25 @@ public class UiEngine implements IUiEngine, MvcConst {
 		return style;
 	}
 
-	public UIBlockViewModel makeBlockView(IPageBlock pageBlock, Long dynamicModuleID, Long dynamicDataID,
-			IModule pathModule, Object pathData) {
+	public UIBlockViewModel makeBlockView(IPageBlock pageBlock, Long dynamicModuleID, Long dynamicDataID, IModule pathModule, Object pathData) {
 		Map<Long, UIBlockViewModel> cachedBlockViews = new HashMap();
 		Map<Long, IPageBlock> cachedBlocks = new HashMap();
 
-		return this.makeBlockViewWithChilren(cachedBlockViews, cachedBlocks, null, pageBlock, dynamicModuleID,
-				dynamicDataID, pathModule, pathData);
+		return this.makeBlockViewWithChilren(cachedBlockViews, cachedBlocks, null, pageBlock, dynamicModuleID, dynamicDataID, pathModule, pathData);
 	}
 
-	private UIBlockViewModel makeBlockViewWithChilren(Map<Long, UIBlockViewModel> cachedBlockViews,
-			Map<Long, IPageBlock> cachedBlocks, IPageBlock defaultParentBlock, IPageBlock pageBlock,
+	private UIBlockViewModel makeBlockViewWithChilren(Map<Long, UIBlockViewModel> cachedBlockViews, Map<Long, IPageBlock> cachedBlocks, IPageBlock defaultParentBlock, IPageBlock pageBlock,
 			Long dynamicModuleID, Long dynamicDataID, IModule pathModule, Object pathData) {
 
-		UIBlockViewModel ret = this.makeBlockViewWithParent(null, cachedBlockViews, cachedBlocks, null, pageBlock,
-				dynamicModuleID, dynamicDataID, pathModule, pathData);
+		UIBlockViewModel ret = this.makeBlockViewWithParent(null, cachedBlockViews, cachedBlocks, null, pageBlock, dynamicModuleID, dynamicDataID, pathModule, pathData);
 
-		List<IPageBlock> children = Demsy.orm().query(bizEngine.getStaticType(BIZSYS_UIUDF_PAGE_BLOCK),
-				Expr.eq(F_PARENT, pageBlock).and(Expr.eq(F_DISABLED, false)).addAsc(F_ORDER_BY));
+		List<IPageBlock> children = Demsy.orm().query(bizEngine.getStaticType(BIZSYS_UIUDF_PAGE_BLOCK), Expr.eq(F_PARENT, pageBlock).and(Expr.eq(F_DISABLED, false)).addAsc(F_ORDER_BY));
 		for (IPageBlock b : children) {
 			if (!cachedBlocks.containsKey(b.getId()))
 				cachedBlocks.put(b.getId(), b);
 		}
 		for (IPageBlock b : children) {
-			ret.addChild(makeBlockViewWithChilren(cachedBlockViews, cachedBlocks, defaultParentBlock, b,
-					dynamicModuleID, dynamicDataID, pathModule, pathData));
+			ret.addChild(makeBlockViewWithChilren(cachedBlockViews, cachedBlocks, defaultParentBlock, b, dynamicModuleID, dynamicDataID, pathModule, pathData));
 		}
 
 		return ret;
@@ -1182,9 +1145,8 @@ public class UiEngine implements IUiEngine, MvcConst {
 	 *            URL路径中指定的数据对象
 	 * @return
 	 */
-	private UIBlockViewModel makeBlockViewWithParent(UIPageView pageView, Map<Long, UIBlockViewModel> cachedBlockViews,
-			Map<Long, IPageBlock> cachedBlocks, IPageBlock defaultParentBlock, IPageBlock block, Long dynamicModuleID,
-			Long dynamicDataID, IModule pathModule, Object pathData) {
+	private UIBlockViewModel makeBlockViewWithParent(UIPageView pageView, Map<Long, UIBlockViewModel> cachedBlockViews, Map<Long, IPageBlock> cachedBlocks, IPageBlock defaultParentBlock,
+			IPageBlock block, Long dynamicModuleID, Long dynamicDataID, IModule pathModule, Object pathData) {
 
 		UIBlockViewModel blockView = cachedBlockViews.get(block.getId());
 
@@ -1202,12 +1164,10 @@ public class UiEngine implements IUiEngine, MvcConst {
 			if (parentBlock != null) {
 				UIBlockViewModel parentBlockView = cachedBlockViews.get(parentBlock.getId());
 				if (parentBlockView == null) {
-					parentBlockView = makeBlockViewWithParent(pageView, cachedBlockViews, cachedBlocks,
-							defaultParentBlock, parentBlock, dynamicModuleID, dynamicDataID, pathModule, pathData);
+					parentBlockView = makeBlockViewWithParent(pageView, cachedBlockViews, cachedBlocks, defaultParentBlock, parentBlock, dynamicModuleID, dynamicDataID, pathModule, pathData);
 				}
 
-				blockView = makeBlockView(pageView, parentBlockView, block, dynamicModuleID, dynamicDataID, pathModule,
-						pathData);
+				blockView = makeBlockView(pageView, parentBlockView, block, dynamicModuleID, dynamicDataID, pathModule, pathData);
 				blockView.setParent(parentBlock.getId());
 			} else {
 				blockView = makeBlockView(pageView, null, block, dynamicModuleID, dynamicDataID, pathModule, pathData);
@@ -1230,26 +1190,11 @@ public class UiEngine implements IUiEngine, MvcConst {
 					cachedBlocks.put(child.getId(), child);
 				}
 				for (IPageBlock childBlock : childrenBlocks) {
-					blockView.addChild(makeBlockViewWithParent(pageView, cachedBlockViews, cachedBlocks, block,
-							childBlock, dynamicModuleID, dynamicDataID, pathModule, pathData));
+					blockView.addChild(makeBlockViewWithParent(pageView, cachedBlockViews, cachedBlocks, block, childBlock, dynamicModuleID, dynamicDataID, pathModule, pathData));
 
 					if (pageView != null) {
-						IStyle childStyle = childBlock.getStyle();
-						if (childStyle != null && pageView != null) {
-							pageView.addStyle(childStyle);
-						}
-						// FakeSubSystem idStyle = childBlock.getCssStyle();
-						// if (idStyle != null) {
-						// List<? extends IStyle> styles = idStyle.getList();
-						// if (styles != null) {
-						// for (IStyle s : styles) {
-						// String code = childBlock.getCode();
-						// s.setCode("#block" + childBlock.getId() + " " + (code
-						// == null ? "" : code));
-						// pageView.addStyle(s);
-						// }
-						// }
-						// }
+						pageView.addStyle(makeStyle("#block" + childBlock.getId(), childBlock.getStyleItems()));
+						pageView.addStyle(childBlock.getStyle());
 					}
 				}
 				blockView.adjust();
@@ -1259,8 +1204,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 		return blockView;
 	}
 
-	private UIBlockViewModel makeBlockView(UIPageView pageView, UIBlockViewModel parentBlockView, IPageBlock block,
-			Long dynamicModuleID, Long dynamicDataID, IModule pathModule, Object pathData) {
+	private UIBlockViewModel makeBlockView(UIPageView pageView, UIBlockViewModel parentBlockView, IPageBlock block, Long dynamicModuleID, Long dynamicDataID, IModule pathModule, Object pathData) {
 
 		UIBlockView expr = new UIBlockView(MvcUtil.globalVariables, block.getId());
 		if (Demsy.me().login() != null) {
@@ -1361,8 +1305,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 			if (parentBlockView != null) {
 				parentBlockContext = (UIBlockContext) parentBlockView.get("ctx");
 			}
-			UIBlockContext blockContext = new UIBlockContext(pageView, parentBlockContext, block, dynamicModuleID,
-					dynamicDataID);
+			UIBlockContext blockContext = new UIBlockContext(pageView, parentBlockContext, block, dynamicModuleID, dynamicDataID);
 			try {
 
 				blockView.setData(controller.process(blockContext));
@@ -1405,28 +1348,24 @@ public class UiEngine implements IUiEngine, MvcConst {
 
 		StringBuffer expr = new StringBuffer();
 		if (bizEngine.isImage(field)) {
-			expr.append("{import file=\"a.st\" href=$").append(var).append(".href target=$").append(var)
-					.append(".target img=$").append(var).append(".obj.").append(propName).append("}");
+			expr.append("{import file=\"a.st\" href=$").append(var).append(".href target=$").append(var).append(".target img=$").append(var).append(".obj.").append(propName).append("}");
 			fnode.set("expr", expr.toString());
 		} else if (bizEngine.isNumber(field) && !bizEngine.isInteger(field)) {
 			String pattern = field.getPattern();
 			if (Str.isEmpty(pattern)) {
 				pattern = "#,##0.00";
 			}
-			expr.append("{tostring bean=$").append(var).append(".obj.").append(propName).append(" pattern=\"")
-					.append(pattern).append("\"}");
+			expr.append("{tostring bean=$").append(var).append(".obj.").append(propName).append(" pattern=\"").append(pattern).append("\"}");
 			fnode.set("expr", expr.toString());
 		} else if (bizEngine.isDate(field)) {
 			String pattern = field.getPattern();
 			if (Str.isEmpty(pattern)) {
 				pattern = "yyyy-MM-dd HH:mm";
 			}
-			expr.append("{tostring bean=$").append(var).append(".obj.").append(propName).append(" pattern=\"")
-					.append(pattern).append("\"}");
+			expr.append("{tostring bean=$").append(var).append(".obj.").append(propName).append(" pattern=\"").append(pattern).append("\"}");
 			fnode.set("expr", expr.toString());
 		} else if ("name".equals(propName)) {
-			expr.append("{import file=\"a.st\" href=$").append(var).append(".href target=$").append(var)
-					.append(".target title=$").append(var).append(".title name=$").append(var).append(".name}");
+			expr.append("{import file=\"a.st\" href=$").append(var).append(".href target=$").append(var).append(".target title=$").append(var).append(".title name=$").append(var).append(".name}");
 			fnode.set("expr", expr.toString());
 		} else {
 			expr.append("{tostring bean=$").append(var).append(".obj.").append(propName).append("}");
@@ -1446,8 +1385,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 				continue;
 			}
 
-			Node fnode = root.addNode("bzmodule" + folder.getId(), "bzmodule" + module.getId()).setName(
-					module.getName());
+			Node fnode = root.addNode("bzmodule" + folder.getId(), "bzmodule" + module.getId()).setName(module.getName());
 
 			fnode.setType(viewController.getCode());
 			fnode.set("dataID", viewController.getId());
@@ -1565,8 +1503,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 
 	private void loadUiStyle() {
 		if (this.styleCache.size() == 0 || !appconfig.isProductMode()) {
-			List<IStyle> uiStyleList = Demsy.orm().query(bizEngine.getStaticType(BIZSYS_UIUDF_STYLE),
-					Expr.asc(F_ORDER_BY));
+			List<IStyle> uiStyleList = Demsy.orm().query(bizEngine.getStaticType(BIZSYS_UIUDF_STYLE), Expr.asc(F_ORDER_BY));
 			for (IStyle ele : uiStyleList) {
 				if (ele.getId() != null)
 					this.styleCache.put(ele.getId(), ele);

@@ -13,7 +13,7 @@
         <td class="bzsubsys_container"><table id="bzsubsys_{$ui.uiid}" class="bzsubsys">
             <tr>
                 <th class="bzsubfld_head" style="width:140px;">CSS名称</th>
-                <th class="bzsubfld_head" style="width:290px;">CSS内容</th>
+                <th class="bzsubfld_head" style="width:290px;">样式内容</th>
                 <th class="bzsubfld_head_check">
                     {if $mode == "M" || $mode == "E"}
                      <a href="#" class="op_btn_del" title="删除" alt="删除" style="font-size: 17px;">×</a>
@@ -28,7 +28,6 @@
                 <td class="bzsubfld_data_check" valign="top">
                     <input type="checkbox" class="check" />
                     <input name="id" type="hidden" value="{tostring bean=$subData.id}"/>
-                    {if $ui.fake}{else}<input name="statusForJsonData" type="hidden" class="statusForJsonData"/>{/if}
                 </td>
             </tr>{/foreach}
         </table>
@@ -44,7 +43,7 @@
         	<select style="width:132px;height: 22px;" class="select"><option value="" selected>默认</option></select>
         	</div>
         	<div style="position:absolute;top:1px;left:1px;z-index:2;">
-        	<input style="width:110px;height: 18px;border-right:0;" class="input" name="code" type="text" />
+        	<input style="width:109px;height: 18px;border-right:0;" class="input" name="code" type="text" />
         	</div>
         	</div>
         </td>
@@ -52,7 +51,6 @@
         <td class="bzsubfld_data_check" valign="top">
             <input type="checkbox" class="check" />
             <input name="id" type="hidden" />
-            {if $ui.fake}{else}<input name="statusForJsonData" type="hidden" class="statusForJsonData"/>{/if}
         </td>
     </tr>
 </table>
@@ -67,8 +65,24 @@ $(function(){
 	});
 	var designer = new CssDesigner($pad);
 	var $bzsys = $("#bzsubsys_{$ui.uiid}");
+	var getStyles=function(){
+		var styles=new Array();
+		$(".bzsubsys_item",$bzsys).each(function(){
+			var $item=$(this);
+			var cssname=$(".input",$item).val();
+			var styletext=$(".textarea",$item).val();
+			if(styles[cssname]){
+				styletext=styles[cssname]+styletext;
+			}
+			styles[cssname]=styletext;
+		});
+		return styles;
+	}
 	var selectItem = function(){
 		var $item = $(this).parent().parent();
+		if(!$item.hasClass("bzsubsys_item")){
+			$item=$item.parent().parent();
+		}
 		var checked = true;
 		if($(this).hasClass("check")){
 			checked = this.checked;
@@ -78,18 +92,16 @@ $(function(){
 		
 		//reset
 		if(checked){
-			var output = $(".textarea", $item);
-			var cssClass = $(".input", $item);
-			
-			designer.output = output.get(0);
-			designer.cssClass = cssClass.val();
+			designer.outputEle = $(".textarea", $item).get(0);
+			designer.targetSubSelector = $(".input", $item).val();
 			designer.$pad.show();
 		}else{
-    		designer.output = null;
-    		designer.cssClass = null;
+    		designer.outputEle = null;
+    		designer.targetSubSelector = null;
     		designer.$pad.hide();
 		}
-		designer.reset();
+		
+		designer.refreshCacheStyles(getStyles());
 	}
 	
     new SubModule($("#bzsubsys_{$ui.uiid}"),{
@@ -97,11 +109,14 @@ $(function(){
         itemTemplate: $("#bzsubsys_tpl_{$ui.uiid}"),
         onAddItem: function(self, $item, json){
             $(".check", $item).click(selectItem);
+            $(".input", $bzsys).click(selectItem);
             $(".textarea", $item).click(selectItem);
+            $(".input", $bzsys).blur(selectItem);
+            $(".textarea", $item).blur(selectItem);
             
             var $sel=$(".select", $item).change(function(){
             	var ths=$(this);
-            	$(".input",$item).val(ths.val());
+            	$(".input",$item).val(ths.val()).click();
             });
             var sel = $sel.get(0);
             var options=sel.options;
@@ -116,15 +131,18 @@ $(function(){
             }
         },
         onDelItem: function(self, $item){
-    		designer.output = null;
-    		designer.cssClass = null;
-    		designer.reset();
+    		designer.outputEle = null;
+    		designer.targetSubSelector = null;
     		designer.$pad.hide();
+    		designer.refreshCacheStyles(getStyles());
         }
     });
     
     $(".check", $bzsys).click(selectItem);
+    $(".input", $bzsys).click(selectItem);
     $(".textarea", $bzsys).click(selectItem);
+    $(".input", $bzsys).blur(selectItem);
+    $(".textarea", $bzsys).blur(selectItem);
 });
 </script>
 {/if}

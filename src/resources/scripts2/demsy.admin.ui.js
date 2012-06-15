@@ -63,7 +63,7 @@ var DemsyUIManager = function() {
 					});
 					if (self.$droppable)
 						self.$droppable.droppable("destroy").removeClass("ui-droppable");
-					self.$droppable = $(".droppable").droppable({
+					self.$droppable = $(".area").droppable({
 						accept : ".viewComponent",
 						drop : function(event, ui) {
 							self.drop(event, ui, $(this));
@@ -294,6 +294,7 @@ var DemsyUIManager = function() {
 			loadBlockId = parentId;
 			loadBlock = $("#block" + parentId);
 		}
+		alert("CssDesigner: " + (typeof CssDesigner));
 		loadBlock.load(this.options.loadUrl + loadBlockId, "", function() {
 			self.options.webUI.init();
 			self.evalPageHeight();
@@ -302,15 +303,15 @@ var DemsyUIManager = function() {
 	};
 	this.reloadStyle = function(id) {
 		var self = this;
-		var style = $("#style" + id);
+		var style = $(document.getElementById("style" + id));
 		if (style.length == 0) {
-			style = $("<div dataID='" + id + "'></div>").insertBefore($("#top"));
+			style = $("<div dataID='" + id + "'></div>").addClass("blank").insertBefore($("#top"));
 			style.attr("id", "style" + id);
 		}
-
-		style.load(this.options.loadStyleUrl + id, "", function() {
-			self.evalPageHeight();
-		});
+		if (id.indexOf("#") == 0) {
+			id = id.substring(1);
+		}
+		style.load(this.options.loadStyleUrl + id, "");
 	}
 	this.save = function(saveUrl, dialog, success, type, blockID) {
 		var self = this;
@@ -346,6 +347,12 @@ var DemsyUIManager = function() {
 				var block = $("#block" + blockID);
 				if (block.length == 0)
 					self.reloadBlock(blockID, $form);
+				else {
+					var css = $($form[0].elements["data.styleItems"]);
+					if (css.length > 0 && typeof CssDesigner != "undefined" && typeof CssDesigner.instance != "undefined") {
+						self.reloadStyle("#block" + blockID);
+					}
+				}
 			} else if (type == 1) {
 				self.reloadStyle(newStyleID);
 				if (blockID.length > 0 && oldStyleID.length == 0) {
@@ -357,11 +364,32 @@ var DemsyUIManager = function() {
 				success(jsonObj);
 		}, "json");
 	};
+	this.clearCssDesigner = function() {
+		if (typeof CssDesigner != "undefined" && typeof CssDesigner.instance != "undefined") {
+			try {
+				CssDesigner.instance.refreshCacheStyles(new Array());
+			} catch (e) {
+				alert("edit ERROR:" + e);
+			}
+		}
+	}
 	this.edit = function(loadUrl, saveUrl, dataID, params, type, blockID) {
+		this.clearCssDesigner();
 		var self = this;
 		var dialog = $("#dialog");
 		dialog.load(loadUrl + "?dialog=true", params, function() {
-			CssDesigner.instance.target = "#block" + blockID;
+			if (typeof CssDesigner != "undefined" && typeof CssDesigner.instance != "undefined") {
+				if (type == 0) {
+					CssDesigner.instance.setTarget("#block" + blockID);
+				} else if (type == 1) {
+					if (blockID && blockID.length > 0)
+						CssDesigner.instance.setTarget("#block" + blockID);
+					else
+						CssDesigner.instance.setTarget("body");
+				} else if (type == 2) {
+					CssDesigner.instance.setTarget("body");
+				}
+			}
 		}).dialog({
 			width : 500,
 			zIndex : 9999,
@@ -372,11 +400,13 @@ var DemsyUIManager = function() {
 					self.save(saveUrl + dataID, $(this), function(jsonObj) {
 						me.dialog("destroy");
 						dialog.html("");
-					}, type, blockID)
+						self.clearCssDesigner();
+					}, type, blockID);
 				},
 				"关闭" : function() {
 					$(this).dialog("destroy");
 					dialog.html("");
+					self.clearCssDesigner();
 				},
 				"另存为" : function() {
 					self.save(saveUrl, $(this), function(jsonObj) {
@@ -387,6 +417,7 @@ var DemsyUIManager = function() {
 					}, type, "");
 				},
 				"应用" : function() {
+					self.clearCssDesigner();
 					// 新增时dataID为空，因此需要在点击应用按钮时回写dataID
 					self.save(saveUrl + dataID, $(this), function(jsonObj) {
 						dataID = jsonObj.data;
@@ -399,6 +430,7 @@ var DemsyUIManager = function() {
 			close : function() {
 				$(this).dialog("destroy");
 				dialog.html("");
+				self.clearCssDesigner();
 			}
 		}).block();
 	};

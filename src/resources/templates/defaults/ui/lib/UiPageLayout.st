@@ -45,9 +45,9 @@
 </head>
 <body pageID="{$ui.id}" styleID="{if $ui.param.style != null}{$ui.param.style.id}{/if}">
 <!-- style -->
-{foreach from=$ui.styles item="style"}
-<div id="style{if $style.id != null}{$style.id}{else}{$style.cssClass}{/if}" dataID="{if $style.id != null}{$style.id}{else}{$style.cssClass}{/if}">
-{import file="Style.st" style=$style}</div>{/foreach}
+{foreach from=$ui.styles item="style"}<div class="blank" id="style{if $style.id != null}{$style.id}{else}{$style.cssClass}{/if}" dataID="{if $style.id != null}{$style.id}{else}{$style.cssClass}{/if}">
+{import file="Style.st" style=$style}
+</div>{/foreach}
 
 <style>
 #top{
@@ -94,13 +94,13 @@
 }
 </style>
 
-<div id="top" class="droppable area">{import file="_block_admin.st" children=$ui.topBlocks}</div>
-<div id="page" class="droppable area">{import file="_block_admin.st" children=$ui.pageBlocks}</div>
-<div id="bottom" class="droppable area">{import file="_block_admin.st" children=$ui.bottomBlocks}</div>
+<div id="top" class="area">{import file="_block_admin.st" children=$ui.topBlocks}</div>
+<div id="page" class="area">{import file="_block_admin.st" children=$ui.pageBlocks}</div>
+<div id="bottom" class="area">{import file="_block_admin.st" children=$ui.bottomBlocks}</div>
 
-<div id="dialog"></div>
-<div id="dialogUiModelLib"></div>
-<div style="display:none;z-index:9999;" id="blockContextMenu">
+<div class="blank" id="dialog"></div>
+<div class="blank" id="dialogUiModelLib"></div>
+<div class="blank" style="display:none;z-index:9999;" id="blockContextMenu">
 	<ul>
         <li id="createBlock"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加板块</li>
     	<li id="editBlock"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑板块</li>
@@ -109,7 +109,7 @@
         <li id="editStyle"><img src='{$contextPath}/themes2/images/actionlib/e.gif' />&nbsp;编辑引用样式</li>
     </ul>
 </div>
-<div style="display:none;z-index:9999;" id="pageContextMenu">
+<div class="blank" style="display:none;z-index:9999;" id="pageContextMenu">
 	<ul>
         <li id="createBlock"><img src='{$contextPath}/themes2/images/actionlib/c.gif' />&nbsp;添加板块</li>
         <li id="showBox"><img src='{$contextPath}/themes2/images/actionlib/layout.gif' />显示边框</li>

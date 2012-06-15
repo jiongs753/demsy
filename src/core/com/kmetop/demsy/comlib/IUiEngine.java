@@ -2,9 +2,11 @@ package com.kmetop.demsy.comlib;
 
 import java.util.List;
 
+import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
 import com.kmetop.demsy.comlib.entity.IDemsySoft;
 import com.kmetop.demsy.comlib.security.IAction;
 import com.kmetop.demsy.comlib.security.IModule;
+import com.kmetop.demsy.comlib.ui.IStyleItem;
 import com.kmetop.demsy.comlib.ui.IUIViewComponent;
 import com.kmetop.demsy.comlib.ui.IPage;
 import com.kmetop.demsy.comlib.ui.IPageBlock;
@@ -179,5 +181,7 @@ public interface IUiEngine {
 	public void addClickNum(IOrm orm, IStatistic obj);
 
 	public void addCommentNum(IOrm orm, IStatistic obj);
+
+	public IStyle makeStyle(String styleID, FakeSubSystem<? extends IStyleItem> styleItems);
 
 }

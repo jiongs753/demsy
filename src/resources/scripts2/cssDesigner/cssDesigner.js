@@ -48,7 +48,8 @@ QrXPCOM.isIE = function() {
 }
 
 QrXPCOM.isImageFile = function(src) {
-	if (src.substring(src.lastIndexOf(".")).toLowerCase() == ".gif" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".bmp" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpeg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".png") {
+	if (src.substring(src.lastIndexOf(".")).toLowerCase() == ".gif" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".bmp"
+			|| src.substring(src.lastIndexOf(".")).toLowerCase() == ".jpeg" || src.substring(src.lastIndexOf(".")).toLowerCase() == ".png") {
 		return true;
 	} else {
 		return false;
@@ -215,6 +216,41 @@ function QrSpinner(id) {
 	QrSpinner.instanceMap[this.id] = this;
 }
 
+QrSpinner.getAbsPos = function(p) {
+	var _x = 0;
+	var _y = 0;
+	while (p.offsetParent) {
+		_x += p.offsetLeft;
+		_y += p.offsetTop;
+		p = p.offsetParent;
+	}
+
+	_x += p.offsetLeft;
+	_y += p.offsetTop;
+
+	return {
+		x : _x,
+		y : _y
+	};
+};
+
+QrSpinner.getMousePos = function(evt) {
+	var _x, _y;
+	evt = evt || window.event;
+	if (evt.pageX || evt.pageY) {
+		_x = evt.pageX;
+		_y = evt.pageY;
+	} else if (evt.clientX || evt.clientY) {
+		_x = evt.clientX + document.body.scrollLeft - document.body.clientLeft;
+		_y = evt.clientY + document.body.scrollTop - document.body.clientTop;
+	} else {
+		return $.$getAbsPos(evt.target);
+	}
+	return {
+		x : _x,
+		y : _y
+	};
+}
 QrSpinner.prototype.set = function(value) {
 	document.getElementById(this.id + "#input").value = value;
 	if (QrSpinner.instanceMap[this.id].onChange) {
@@ -229,12 +265,12 @@ QrSpinner.prototype.get = function() {
 QrSpinner.instanceMap = new Array;
 
 QrSpinner.onHover = function(e, id) {
-	var p = QrXPCOM.getMousePoint(e);
-	var d = QrXPCOM.getDivPoint(document.getElementById(id + "#button"));
-	if ((p.y - d.y) < 8) {
+	var mPos = QrSpinner.getMousePos(e);
+	var iPos = QrSpinner.getAbsPos(e.target || e.srcElement);
+	if ((mPos.y - iPos.y) < 8) {
 		document.getElementById(id + "#button").src = QrXPCOM.designerPath + "/img/spinner-updown.gif";
 	}
-	if ((p.y - d.y) > 8) {
+	if ((mPos.y - iPos.y) > 8) {
 		document.getElementById(id + "#button").src = QrXPCOM.designerPath + "/img/spinner-downdown.gif";
 	}
 }
@@ -250,8 +286,8 @@ QrSpinner.onKeyup = function(id) {
 }
 
 QrSpinner.onDown = function(e, id) {
-	var p = QrXPCOM.getMousePoint(e);
-	var d = QrXPCOM.getDivPoint(document.getElementById(id + "#button"));
+	var p = QrSpinner.getMousePos(e);
+	var d = QrSpinner.getAbsPos(e.target || e.srcElement);
 
 	var $input = $(document.getElementById(id + "#input"));
 
@@ -282,9 +318,10 @@ function CssDesigner($pad) {
 	CssDesigner.instance = this;
 	this.$pad = $pad;
 	this.connectInstanceMap = new Array;
-	this.target = null;
-	this.output = null;
-	this.cssClass = null;
+	this.cacheStyles = new Array;
+	this.outputEle = null;// 输出当前CSS到这个位置
+	this.targetSelector = null;
+	this.targetSubSelector = null;
 	var self = this;
 	$(".CssColorInput", $pad).each(function() {
 		var ths = $(this);
@@ -298,14 +335,14 @@ function CssDesigner($pad) {
 			$el.css("background-color", v).val(v);
 			$el.ColorPickerHide();
 
-			self.setTargetStyle(styleName, v);
+			self.change(styleName, v);
 		},
 		onChange : function(hsb, hex, rgb, el) {
 			var v = "#" + hex;
 			var $el = $(el);
 			var styleName = $el.attr("styleName");
 
-			self.setTargetStyle(styleName, v);
+			self.change(styleName, v);
 		},
 		onBeforeShow : function() {
 			$(this).ColorPickerSetColor(this.value);
@@ -317,7 +354,7 @@ function CssDesigner($pad) {
 	}).blur(function() {
 		var $this = $(this);
 		var styleName = $this.attr("styleName");
-		self.setTargetStyle(styleName, $this.val());
+		self.change(styleName, $this.val());
 	});
 
 	$(".CssUpload", $pad).each(function() {
@@ -349,7 +386,7 @@ function CssDesigner($pad) {
 					if (json.success) {
 						$input.val("url(" + json.fileUrl + ")");
 						var styleName = $input.attr("styleName");
-						self.setTargetStyle(styleName, $input.val());
+						self.change(styleName, $input.val());
 					} else {
 						alert(json.customMsg);
 					}
@@ -388,19 +425,22 @@ CssDesigner.switchCSS = function(e, selector2) {
 }
 // 获取行内样式
 CssDesigner.inlineStyles = new Array;
-CssDesigner.getInlineStyles = function($target) {
-	if ($target.length > 0) {
-		var ele = $target.get(0);
+CssDesigner.getInlineStyles = function($one) {
+	if ($one.length > 0) {
+		var ele = $one.get(0);
 		var ret = CssDesigner.inlineStyles[ele];
 		if (!ret) {
 			ret = new Array;
 			CssDesigner.inlineStyles[ele] = ret;
-			var styles = $target.attr("style").split(";");
-			for ( var i = 0; i < styles.length; i++) {
-				var st = styles[i];
-				var kv = st.split(":");
-				if (kv.length == 2) {
-					ret[kv[0].trim()] = kv[1].trim();
+			var styleText = $one.attr("style");
+			if (styleText) {
+				var styles = styleText.split(";");
+				for ( var i = 0; i < styles.length; i++) {
+					var st = styles[i];
+					var kv = st.split(":");
+					if (kv.length == 2) {
+						ret[kv[0].trim()] = kv[1].trim();
+					}
 				}
 			}
 		}
@@ -409,11 +449,35 @@ CssDesigner.getInlineStyles = function($target) {
 	}
 	return new Array;
 }
+CssDesigner.parseStyles = function(styleText) {
+	var styles = new Array();
+	var array = styleText.split(";");
+	for (i = 0; i < array.length; i++) {
+		var kv = array[i].split(":");
+		if (kv.length == 2) {
+			styles[kv[0].trim()] = kv[1].trim();
+		}
+	}
+	return styles;
+}
+CssDesigner.setStyle = function($one, style, value) {
+	var styles = CssDesigner.getInlineStyles($one);
+	if (style && style.trim().length > 0 && !(styles[style])) {
+		try {
+			$one.css(style, value);
+		} catch (e) {
+			alert("Invoke CssDesigner.setStyle($one," + style + "," + value + ") ERROR：" + e);
+		}
+	}
+}
+CssDesigner.prototype.setTarget = function(targetSelector) {
+	this.targetSelector = targetSelector;
+}
 CssDesigner.prototype.makeCssOptions = function(element, tagCssPrefix, displayPrefix) {
 	var self = this;
 
 	if (!element)
-		element = this.target;
+		element = this.targetSelector;
 	if (!tagCssPrefix)
 		tagCssPrefix = "";
 	if (!displayPrefix)
@@ -422,121 +486,126 @@ CssDesigner.prototype.makeCssOptions = function(element, tagCssPrefix, displayPr
 	var options = new Array;
 	$(element).children().each(function() {
 		var ths = $(this);
-		if (!ths.hasClass("droppable") && !ths.hasClass("ui-resizable-handle") && !ths.hasClass("blank")) {
-			// 元素tag作为css名
-			var tagCssName = this.tagName;
-			var displayName = this.tagName;
+		var tagName = this.tagName.toUpperCase();
 
-			// 查找元素class
-			var cssName = null;
-			var cssNames = ths.attr("class");
-			if (cssNames && cssNames.trim().length > 0) {
-				cssNames = cssNames.trim().split(" ");
-				if (cssNames.length > 0) {
-					cssName = "." + cssNames[0];
-					displayName = this.tagName + "." + cssNames[0];
-				}
+		// 忽略的元素
+		if (ths.hasClass("block") //
+				|| ths.hasClass("ui-resizable-handle") //
+				|| ths.hasClass("ui-dialog") //
+				|| ths.hasClass("colorpicker") //
+				|| ths.hasClass("blank") //
+				|| tagName == "STYLE"//
+				|| this.id == "jqContextMenu"//
+				|| tagName == "SCRIPT") {
+			return;
+		}
+
+		// 元素tag作为css名
+		var tagCssName = tagName;
+		var displayName = tagName;
+
+		// 查找元素class
+		var cssName = null;
+		var cssNames = ths.attr("class");
+		if (cssNames && cssNames.trim().length > 0) {
+			cssNames = cssNames.trim().split(" ");
+			if (cssNames.length > 0 && cssNames[0] != "area") {
+				cssName = "." + cssNames[0];
+				displayName = tagName + cssName;
 			}
+		}
+		// class属性未指定，则视图将ID作为css名字
+		if (cssName == null && this.id && this.id.trim().length > 0 && self.targetSelector == "body") {
+			cssName = "#" + this.id;
+			displayName = tagName + "." + cssName;
+		}
 
-			if (tagCssPrefix.length > 0)
-				tagCssName = tagCssPrefix + " " + tagCssName;
-			if (displayPrefix.length > 0)
-				displayName = displayPrefix + " > " + displayName;
+		//
+		if (tagCssPrefix.length > 0)
+			tagCssName = tagCssPrefix + " " + tagCssName;
+		if (displayPrefix.length > 0)
+			displayName = displayPrefix + " > " + displayName;
 
-			if (cssName == null)
+		// 添加选项
+		if (cssName == null) {
+			if (self.targetSelector != "body")
 				options[tagCssName] = displayName;
-			else
-				options[cssName] = displayName;
-			// 查找子元素
-			var nextOptions = self.makeCssOptions(this, tagCssName, displayName);
-			for (o in nextOptions) {
-				v = nextOptions[o];
-				options[o] = v;
-			}
+		} else {
+			options[cssName] = displayName;
+		}
+
+		// 查找子元素
+		var nextOptions = self.makeCssOptions(this, tagCssName, displayName);
+		for (o in nextOptions) {
+			v = nextOptions[o];
+			options[o] = v;
 		}
 	});
 
 	return options;
 
 }
-CssDesigner.prototype.reset = function() {
+/*
+ * 获取当前CSS被应用于哪些目标对象？
+ */
+CssDesigner.prototype.getTargets = function(selector) {
+	var $targets = $(this.targetSelector);
+	if ($targets.length == 0)
+		$targets = $(".CssDesignerDemo", this.$pad);
+	if (selector != null && selector.trim().length > 0)
+		$targets = $(selector, $targets);
+
+	return $targets;
+}
+CssDesigner.prototype.connectCSS = function(obj, style) {
+	var self = this;
+	self.connectInstanceMap[style] = obj;
+	obj.onChange = function(value) {
+		self.change(style, value);
+	}
+}
+CssDesigner.prototype.refreshCacheStyles = function(c) {
+	// 清除当前缓存样式
+	for (s in this.cacheStyles) {
+		this.setStyles(this.getTargets(s), this.cacheStyles[s], true);
+	}
+
+	// 缓存新样式，并将新样式应用在元素上
+	this.cacheStyles = c;
+	for (s in this.cacheStyles) {
+		this.setStyles(this.getTargets(s), this.cacheStyles[s], false);
+	}
+
+	// 解析输出框中的CSS文本并同步到CSS编辑器字段中
 	$("input", this.$pad).val("");
-	if (this.output) {
-		var styles = $(this.output).val().split(";");
-		for ( var i = 0; i < styles.length; i++) {
-			var st = styles[i];
-			var kv = st.split(":");
-			if (kv.length == 2) {
-				$("input[styleName='" + kv[0].trim() + "']").val(kv[1].trim());
-			}
+	if (this.outputEle) {
+		var styleText = $(this.outputEle).val();
+		var styles = CssDesigner.parseStyles(styleText);
+		for (style in styles) {
+			$("input[styleName='" + style + "']").val(styles[style]);
 		}
 	}
 	$(".CssColorInput", this.$pad).each(function() {
 		var ths = $(this);
 		ths.css("background-color", ths.val());
 	});
-
-	var $targets = $(this.target);
-	if ($targets.length == 0)
-		$targets = $(".CssDesignerDemo", this.$pad);
-	if (this.cssClass != null && this.cssClass.trim().length > 0)
-		$targets = $(this.cssClass, $targets);
-
-	var $styles = $("input", this.$pad);
-	$targets.each(function() {
-		var target = this;
-
-		// 优先锁定行内样式
-		var inlineStyles = CssDesigner.getInlineStyles($(target));
-		$styles.each(function() {
-			var $input = $(this);
-			var style = $input.attr("styleName");
-			if (style && !inlineStyles[style]) {
-				try {
-					target.style[style.toProp()] = "";
-				} catch (e) {
-				}
-			}
-		});
-		$styles.each(function() {
-			var $input = $(this);
-			var style = $input.attr("styleName");
-			if (style && !inlineStyles[style]) {
-				var value = $input.val();
-				if (value && value.trim().length > 0) {
-					try {
-						target.style[style.toProp()] = value;
-					} catch (e) {
-					}
-				}
-			}
-		});
-	});
 }
-CssDesigner.prototype.connectCSS = function(obj, style) {
-	var self = this;
-	self.connectInstanceMap[style] = obj;
-	obj.onChange = function(value) {
-		self.setTargetStyle(style, value);
-	}
-}
-CssDesigner.prototype.setTargetStyle = function(style, value) {
-	var $targets = $(this.target);
-	if ($targets.length == 0)
-		$targets = $(".CssDesignerDemo", this.$pad);
-	if (this.cssClass != null && this.cssClass.length > 0)
-		$targets = $(this.cssClass, $targets);
-
+CssDesigner.prototype.setStyles = function($targets, styleText, clear) {
+	var styles = CssDesigner.parseStyles(styleText);
 	$targets.each(function() {
-		var inlineStyles = CssDesigner.getInlineStyles($(this));
-		if (style && !inlineStyles[style]) {
-			try {
-				this.style[style.toProp()] = value;
-			} catch (e) {
-				this.style[style.toProp()] = "";
-			}
+		var $target = $(this);
+		for (style in styles) {
+			CssDesigner.setStyle($target, style, (clear ? "" : styles[style]));
 		}
 	});
+}
+CssDesigner.prototype.change = function(style, value) {
+	// 将样式应用于元素
+	this.getTargets(this.targetSubSelector).each(function() {
+		CssDesigner.setStyle($(this), style, value);
+	});
+
+	// 输出CSS内容到 this.outputEle 框中
 	var styleText = "";
 	$("input", this.$pad).each(function() {
 		var $me = $(this);
@@ -546,7 +615,8 @@ CssDesigner.prototype.setTargetStyle = function(style, value) {
 			styleText += styleName + ": " + v + "; ";
 		}
 	});
-	if (this.output) {
-		$(this.output).val(styleText).change();
+	if (this.outputEle) {
+		$(this.outputEle).val(styleText).change();
 	}
+	this.cacheStyles[this.targetSubSelector] = styleText;
 }

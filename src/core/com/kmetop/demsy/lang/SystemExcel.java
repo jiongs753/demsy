@@ -43,7 +43,7 @@ public class SystemExcel extends Excel {
 		systemClass = bizEngine.getType(system);
 
 		// 处理自定义系统相关信息
-		List<IBizField> datas = (List<IBizField>) bizEngine.getFields(system);
+		List<IBizField> datas = (List<IBizField>) bizEngine.getFieldsOfEnabled(system);
 		for (IBizField data : datas) {
 			String name = data.getName();
 			boolean valid = !data.isDisabled();

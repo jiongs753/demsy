@@ -219,12 +219,12 @@ public class UiPageBlock extends BizComponent implements IPageBlock {
 	private String scrollDirection;
 
 	@ManyToOne
-	@BzFld(name = "引用样式", disabledNavi = true, cascadeMode = "catalog:*:catalog", mode = "c1:E e1:N")
+	@BzFld(name = "引用样式", disabledNavi = true, cascadeMode = "catalog:*:catalog", mode = "c1:E e1:H")
 	@Prop("uiStyle")
 	protected UiCatalogStyle style;
 
 	@Column(length = 2000)
-	@BzFld(name = "CSS样式", gridField = false, uiTemplate = "ui.widget.ext.cssDesigner", mode = "*:N e:E e1:E v:S")
+	@BzFld(name = "CSS样式", gridField = false, uiTemplate = "ui.widget.ext.cssDesigner", mode = "*:N e:H e1:E v:S")
 	protected FakeSubSystem<StyleItem> styleItems;
 
 	@Column(length = 512)

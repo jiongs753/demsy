@@ -22,6 +22,7 @@ import com.kmetop.demsy.Demsy;
 import com.kmetop.demsy.comlib.biz.IBizSystem;
 import com.kmetop.demsy.comlib.security.IModule;
 import com.kmetop.demsy.comlib.security.IUserRole;
+import com.kmetop.demsy.comlib.ui.IPageBlock;
 import com.kmetop.demsy.comlib.ui.IStyle;
 import com.kmetop.demsy.comlib.web.IWebContent;
 import com.kmetop.demsy.comlib.web.IWebContentCatalog;
@@ -66,9 +67,7 @@ public class UiActions extends ModuleActions {
 		UIPageView ui = null;
 		if (!Str.isEmpty(pageID)) {
 			try {
-				ui = (UIPageView) uiEngine.makePageView(Long.parseLong(pageID),
-						Str.isEmpty(blockID) ? null : Long.parseLong(blockID),
-						Str.isEmpty(moduleID) ? null : Long.parseLong(moduleID),
+				ui = (UIPageView) uiEngine.makePageView(Long.parseLong(pageID), Str.isEmpty(blockID) ? null : Long.parseLong(blockID), Str.isEmpty(moduleID) ? null : Long.parseLong(moduleID),
 						Str.isEmpty(dataID) ? null : Long.parseLong(dataID));
 				if (ui != null) {
 					ui.set("loadBlockUrl", MvcUtil.contextPath(URL_UI_BLOCK, ""));
@@ -108,8 +107,7 @@ public class UiActions extends ModuleActions {
 				pathData = Demsy.orm().load(bizEngine.getType(pathSystem), Expr.eq(F_ID, did));
 			}
 		}
-		UIBlockViewModel block = uiEngine.makeBlockView(uiEngine.loadPageBlock(Long.parseLong(blockID)), mid, did,
-				pathModule, pathData);
+		UIBlockViewModel block = uiEngine.makeBlockView(uiEngine.loadPageBlock(Long.parseLong(blockID)), mid, did, pathModule, pathData);
 		block.setAjaxData(true);
 		block.set("dataParam", Str.isEmpty(dataParam) ? "" : dataParam);
 
@@ -122,7 +120,13 @@ public class UiActions extends ModuleActions {
 	public Map style(String styleID) throws DemsyException {
 		Map context = new HashMap();
 		if (!Str.isEmpty(styleID)) {
-			IStyle style = uiEngine.loadStyle(Long.parseLong(styleID));
+			IStyle style = null;
+			if (styleID.startsWith("block")) {
+				IPageBlock block = uiEngine.loadPageBlock(Long.parseLong(styleID.substring(5)));
+				style = uiEngine.makeStyle("#" + styleID, block.getStyleItems());
+			} else {
+				style = uiEngine.loadStyle(Long.parseLong(styleID));
+			}
 
 			if (style != null) {
 				context.put("style", style);
@@ -207,8 +211,7 @@ public class UiActions extends ModuleActions {
 		ui.set("saveStyleUrl", MvcUtil.contextPath(URL_BZ_SAVE, styleMdl, "e:"));
 		ui.set("loadStyleUrl", MvcUtil.contextPath(URL_UI_STYLE, ""));
 
-		long webCataMdl = moduleEngine.getModule(me.getSoft(), bizEngine.getSystem(IWebContentCatalog.SYS_CODE))
-				.getId();
+		long webCataMdl = moduleEngine.getModule(me.getSoft(), bizEngine.getSystem(IWebContentCatalog.SYS_CODE)).getId();
 		ui.set("createWebCataUrl", MvcUtil.contextPath(URL_BZFORM_ADD, webCataMdl + ":", "c"));
 		ui.set("saveWebCataUrl", MvcUtil.contextPath(URL_BZ_SAVE, webCataMdl, "e:"));
 

@@ -330,7 +330,7 @@ public abstract class BizCompiler {
 
 		// 检查字段
 		List<IBizField> checkedFields = new LinkedList();
-		List<? extends IBizField> fields = engine.getFields(system);
+		List<? extends IBizField> fields = engine.getFieldsOfEnabled(system);
 		if (fields != null && fields.size() > 0) {
 			List<String> disFlds = new LinkedList();
 			List<String> refFlds = new LinkedList();

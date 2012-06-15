@@ -58,6 +58,7 @@ public class UIPageView implements IUIView, MvcConst {
 	private Map<String, IUIView> blocks;
 
 	private List<IStyle> styles;
+	private Map<String, IStyle> styleMap;
 
 	// private DataModel placeholder;
 
@@ -90,6 +91,7 @@ public class UIPageView implements IUIView, MvcConst {
 		if (ctx != null)
 			context.putAll(ctx);
 		styles = new LinkedList();
+		styleMap = new HashMap();
 	}
 
 	public void adjust() {
@@ -219,7 +221,12 @@ public class UIPageView implements IUIView, MvcConst {
 	}
 
 	public void addStyle(IStyle style) {
-		if (!styles.contains(style) || style.getId() == null) {
+		if (style == null) {
+			return;
+		}
+		String key = style.getCssClass();
+		if (styleMap.get(key) == null) {
+			styleMap.put(key, style);
 			styles.add(style);
 		}
 	}
