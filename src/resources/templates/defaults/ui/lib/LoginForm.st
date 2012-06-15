@@ -18,7 +18,7 @@
 			<td class="it"><label for="_loginuser_">帐号：</label></td>
 			<td><input class="ir input" id="_loginuser_" type=“text“ name="_loginuser_" /></td>
 			<td class="it"><label for="_loginpwd_">密码：</label></td>
-			<td><input class="ir input" id="_loginpwd_" type=“password“ name="_loginpwd_" /></td>
+			<td><input class="ir input" id="_loginpwd_" type="password" name="_loginpwd_" /></td>
 			<td>
 				<input class="ir submitButton login" onclick='this.form.action="{$contextPath}/login"' value="登录" type="submit" />
 				<input class="ir submitButton" onclick='window.document.location.href="{$itemUrl}";' value="注册" type="submit" />
@@ -37,7 +37,7 @@
     <input name="_loginrealm_" value="02" type="hidden" />
 	<ul>
 		<li class="i"><label for="_loginuser_">帐号：</label><input class="ir input" type=“text“ id="_loginuser_" name="_loginuser_" /></li>
-		<li class="i"><label for="_loginpwd_">密码：</label><input class="ir input" type=“password“ id="_loginpwd_" name="_loginpwd_" /></li>
+		<li class="i"><label for="_loginpwd_">密码：</label><input class="ir input" type="password" id="_loginpwd_" name="_loginpwd_" /></li>
 		<li class="i">
 			<input class="ir submitButton login" onclick='this.form.action="{$contextPath}/login"' value="登录" type="submit" />
 			<input class="ir submitButton" onclick='window.document.location.href="{$itemUrl}";' value="注册" type="submit" />
