@@ -615,6 +615,8 @@ var SubModule = function($table, config) {
 		self.bindEval($item);
 
 		self.eval();
+		
+		return false;
 	}
 	// 删除一条记录
 	this.delItem = function() {
@@ -631,6 +633,8 @@ var SubModule = function($table, config) {
 		});
 
 		self.eval();
+		
+		return false;
 	}
 	// 上下移动对记录进行排序
 	this.moveItem = function(down) {
@@ -686,14 +690,16 @@ var SubModule = function($table, config) {
 		}
 
 		self.eval();
+		
+		return false;
 	}
 	// 上移排序
 	this.moveUpItem = function() {
-		self.moveItem(false);
+		return self.moveItem(false);
 	}
 	// 下移排序
 	this.moveDownItem = function() {
-		self.moveItem(true);
+		return self.moveItem(true);
 	}
 	// 选中全部记录
 	this.checkall = function() {
