@@ -127,7 +127,7 @@ import com.kmetop.demsy.security.SecurityException;
  * <p>
  * <b>可以从【DEMSY动作上下文环境】中：</b>
  * <UL>
- * <LI>获取动作环境属性 {@link #attr(String)}
+ * <LI>获取动作环境属性 {@link #get(String)}
  * <LI>获取ActionContext环境对象 {@link #actionContext()}
  * <LI>获取动作链 {@link #actionInvoker()}
  * <LI>获取平台目标应用系统 {@link #getSoft()}
@@ -598,7 +598,7 @@ public abstract class Demsy implements Const, MvcConst {
 	 *            属性值
 	 * @return 【DEMSY动作上下文环境】对象
 	 */
-	public abstract Demsy attr(String name, Object value);
+	public abstract Demsy set(String name, Object value);
 
 	/**
 	 * 获取【DEMSY动作上下文环境】属性
@@ -607,7 +607,7 @@ public abstract class Demsy implements Const, MvcConst {
 	 *            属性名
 	 * @return 属性值
 	 */
-	public abstract <T> T attr(String attributeName);
+	public abstract <T> T get(String attributeName);
 
 	/**
 	 * 获取登录信息。
@@ -736,6 +736,8 @@ public abstract class Demsy implements Const, MvcConst {
 
 		private String url;
 
+		private Map<String, Object> props;
+
 		private static Pattern configPath = Pattern.compile("^/(config|login|logout)/*", Pattern.CASE_INSENSITIVE);
 
 		//
@@ -747,6 +749,7 @@ public abstract class Demsy implements Const, MvcConst {
 			if (upgradding) {
 				throw new DemsyException("正在升级系统......请稍候再试!");
 			}
+			props = new HashMap();
 			request = req;
 			response = resp;
 			url = Mvcs.getRequestPath(req);
@@ -916,14 +919,14 @@ public abstract class Demsy implements Const, MvcConst {
 		}
 
 		@Override
-		public Demsy attr(String name, Object value) {
-			request.getSession().setAttribute(name, value);
+		public Demsy set(String name, Object value) {
+			props.put(name, value);
 			return this;
 		}
 
 		@Override
-		public <T> T attr(String name) {
-			return (T) request.getSession().getAttribute(name);
+		public <T> T get(String name) {
+			return (T) props.get(name);
 		}
 
 		@Override

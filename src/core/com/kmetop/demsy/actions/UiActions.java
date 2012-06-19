@@ -172,53 +172,52 @@ public class UiActions extends ModuleActions {
 			return null;
 		}
 
-		UIPageView ui = (UIPageView) page(pageParam, dataParam);
-		if (ui == null) {
+		boolean canLayout = canLayout(Long.parseLong(pageID));
+		Demsy.me().set("layoutable", true);
+
+		UIPageView pageView = (UIPageView) page(pageParam, dataParam);
+		if (pageView == null) {
 			return null;
 		}
-		try {
-			if (!canLayout(Long.parseLong(pageID))) {
-				return ui;
-			}
-		} catch (Throwable e) {
-			return ui;
+		if (!canLayout) {
+			return pageView;
 		}
 
-		ui.set("pageID", pageID);
-		ui.setTemplate(ui.getTemplate() + "Layout");
-		ui.set("layoutable", true);
+		pageView.set("pageID", pageID);
+		pageView.setTemplate(pageView.getTemplate() + "Layout");
+		pageView.set("layoutable", true);
 
 		Demsy me = Demsy.me();
 
-		ui.set("loadPageUrl", MvcUtil.contextPath(URL_ADMIN_UI, ""));
-		ui.set("loadUilibUrl", MvcUtil.contextPath(URL_ADMIN_UILIB, ""));
+		pageView.set("loadPageUrl", MvcUtil.contextPath(URL_ADMIN_UI, ""));
+		pageView.set("loadUilibUrl", MvcUtil.contextPath(URL_ADMIN_UILIB, ""));
 
 		long pageMdl = moduleEngine.getModule(me.getSoft(), bizEngine.getSystem(BIZSYS_UIUDF_PAGE)).getId();
-		ui.set("editPageUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, pageMdl + ":", "e:"));
-		ui.set("edit1PageUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, pageMdl + ":", "e1:"));
-		ui.set("savePageUrl", MvcUtil.contextPath(URL_BZ_SAVE, pageMdl, "e:"));
+		pageView.set("editPageUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, pageMdl + ":", "e:"));
+		pageView.set("edit1PageUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, pageMdl + ":", "e1:"));
+		pageView.set("savePageUrl", MvcUtil.contextPath(URL_BZ_SAVE, pageMdl, "e:"));
 
 		long blockMdl = moduleEngine.getModule(me.getSoft(), bizEngine.getSystem(BIZSYS_UIUDF_PAGE_BLOCK)).getId();
-		ui.set("createUrl", MvcUtil.contextPath(URL_BZFORM_ADD, blockMdl + ":", "c1"));
-		ui.set("editUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, blockMdl + ":", "e:"));
-		ui.set("edit1Url", MvcUtil.contextPath(URL_BZFORM_EDIT, blockMdl + ":", "e1:"));
-		ui.set("saveUrl", MvcUtil.contextPath(URL_BZ_SAVE, blockMdl, "e:"));
-		ui.set("loadUrl", MvcUtil.contextPath(URL_UI_BLOCK, ""));
+		pageView.set("createUrl", MvcUtil.contextPath(URL_BZFORM_ADD, blockMdl + ":", "c1"));
+		pageView.set("editUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, blockMdl + ":", "e:"));
+		pageView.set("edit1Url", MvcUtil.contextPath(URL_BZFORM_EDIT, blockMdl + ":", "e1:"));
+		pageView.set("saveUrl", MvcUtil.contextPath(URL_BZ_SAVE, blockMdl, "e:"));
+		pageView.set("loadUrl", MvcUtil.contextPath(URL_UI_BLOCK, ""));
 
 		long styleMdl = moduleEngine.getModule(me.getSoft(), bizEngine.getSystem(BIZSYS_UIUDF_STYLE)).getId();
-		ui.set("createStyleUrl", MvcUtil.contextPath(URL_BZFORM_ADD, styleMdl + ":", "c"));
-		ui.set("editStyleUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, styleMdl + ":", "e:"));
-		ui.set("saveStyleUrl", MvcUtil.contextPath(URL_BZ_SAVE, styleMdl, "e:"));
-		ui.set("loadStyleUrl", MvcUtil.contextPath(URL_UI_STYLE, ""));
+		pageView.set("createStyleUrl", MvcUtil.contextPath(URL_BZFORM_ADD, styleMdl + ":", "c"));
+		pageView.set("editStyleUrl", MvcUtil.contextPath(URL_BZFORM_EDIT, styleMdl + ":", "e:"));
+		pageView.set("saveStyleUrl", MvcUtil.contextPath(URL_BZ_SAVE, styleMdl, "e:"));
+		pageView.set("loadStyleUrl", MvcUtil.contextPath(URL_UI_STYLE, ""));
 
 		long webCataMdl = moduleEngine.getModule(me.getSoft(), bizEngine.getSystem(IWebContentCatalog.SYS_CODE)).getId();
-		ui.set("createWebCataUrl", MvcUtil.contextPath(URL_BZFORM_ADD, webCataMdl + ":", "c"));
-		ui.set("saveWebCataUrl", MvcUtil.contextPath(URL_BZ_SAVE, webCataMdl, "e:"));
+		pageView.set("createWebCataUrl", MvcUtil.contextPath(URL_BZFORM_ADD, webCataMdl + ":", "c"));
+		pageView.set("saveWebCataUrl", MvcUtil.contextPath(URL_BZ_SAVE, webCataMdl, "e:"));
 
 		long webContMdl = moduleEngine.getModule(me.getSoft(), bizEngine.getSystem(IWebContent.SYS_CODE)).getId();
-		ui.set("createWebContUrl", MvcUtil.contextPath(URL_BZFORM_ADD, webContMdl, "e"));
+		pageView.set("createWebContUrl", MvcUtil.contextPath(URL_BZFORM_ADD, webContMdl, "e"));
 
-		return ui;
+		return pageView;
 	}
 
 	@At(URL_ADMIN_UILIB)

@@ -67,7 +67,7 @@ public class SmartyTemplate extends AbstractTemplate {
 	@Override
 	public void renderExpression(String classPath, String expression, Map context, Writer out) throws Exception {
 		DemsyEngine engine = new DemsyEngine();
-		engine.setTemplatePath(Demsy.contextDir);
+		engine.setTemplatePath("");
 
 		Context ctx = new Context();
 		ctx.putAll(context);

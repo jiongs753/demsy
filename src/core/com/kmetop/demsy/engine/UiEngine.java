@@ -1182,8 +1182,8 @@ public class UiEngine implements IUiEngine, MvcConst {
 		}
 
 		// 处理引用页面子视图
-		if (block.getType() == IPageBlock.TYPE_REF) {
-			IPage refPage = block.getViewPage();
+		IPage refPage = block.getViewPage();
+		if (refPage != null && refPage.getId() != null && refPage.getId() > 0) {
 			List<? extends IPageBlock> childrenBlocks = loadPageBlocks(refPage.getId());
 			if (childrenBlocks != null && childrenBlocks.size() > 0) {
 				for (IPageBlock child : childrenBlocks) {
@@ -1254,7 +1254,12 @@ public class UiEngine implements IUiEngine, MvcConst {
 				h = 100;
 			}
 			if ("relative".equals(p)) {
-				// cssStyle.append("min-height:").append(h).append("px;");
+				boolean layoutable = false;
+				if (Demsy.me().get("layoutable") != null) {
+					layoutable = Demsy.me().get("layoutable");
+				}
+				if (layoutable)
+					cssStyle.append("height:").append(h).append("px;overflow: hidden;");
 			} else {
 				cssStyle.append("height:").append(h).append("px;");
 			}
@@ -1291,7 +1296,8 @@ public class UiEngine implements IUiEngine, MvcConst {
 				viewExpression = lib.getViewExpression();
 			}
 		}
-		if (block.getType() == IPageBlock.TYPE_REF) {
+		IPage refPage = block.getViewPage();
+		if (refPage != null && refPage.getId() != null && refPage.getId() > 0) {
 			viewTemplate = "ui.lib.RefPage";
 		}
 		if (Str.isEmpty(viewTemplate)) {
@@ -1430,7 +1436,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 			IBizSystem catalogSystem = blockContext.getCatalogSystem();
 			IBizSystem system = blockContext.getSystem();
 			if (catalogSystem != null) {
-				Node node = root.addNode(null, "catalogSystemFields").setName("字段表达式(" + catalogSystem.getName() + ")");
+				Node node = root.addNode(null, "catalogSystemFields").setName(catalogSystem.getName() + "(字段表达式)");
 				node.setType("catalogSystemFields");
 				List<? extends IBizField> fields = bizEngine.getFieldsOfEnabled(catalogSystem);
 				for (IBizField f : fields) {
@@ -1439,7 +1445,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 				}
 			}
 			if (system != null) {
-				Node node = root.addNode(null, "systemFields").setName("字段表达式(" + system.getName() + ")");
+				Node node = root.addNode(null, "systemFields").setName(system.getName() + "(字段表达式)");
 				node.setType("systemFields");
 				List<? extends IBizField> fields = bizEngine.getFieldsOfEnabled(system);
 				for (IBizField f : fields) {
@@ -1469,7 +1475,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 		Nodes moduleNodes = moduleEngine.makeNodesByModule(Demsy.me().getSoft(), IUserRole.ROLE_ADMIN_ROOT);
 		for (Node folderNode : moduleNodes.getChildren()) {
 			IModule folder = (IModule) folderNode.get("module");
-			Node bznode = root.addNode(null, "bzmodule" + folder.getId()).setName("数据控制器(" + folder.getName() + ")");
+			Node bznode = root.addNode(null, "bzmodule" + folder.getId()).setName(folder.getName() + "(数据控制器)");
 			bznode.setType("bzmodules");
 
 			this.addViewComponent(root, folder, folderNode, viewController);

@@ -26,20 +26,18 @@
     {import file="_share.st"}
     </div>
 	<div class="cmt">
-		<table class="cmtinfo"><tr>
-			<td class="cmtinfo1" style="float: left">我要评论</td>
-			{if $obj.commentNum != null}
-            <td class="cmtinfo2"><a href='javascript:ui.gotoPage("blockcomment{$block.id}","commentPage=1&pageSize=10");'>已有&nbsp;<span style="color: red;">{$obj.commentNum}</span>&nbsp;人参与评论</a></td>
-            {/if}
+		<table class="cmtinfo" style="text-align: left;">
+            <tr>
+			<td class="cmtinfo1">我要评论</td>
+			{if $obj.commentNum != null}<td class="cmtinfo2"><a href='javascript:ui.gotoPage("blockcomment{$block.id}","commentPage=1&pageSize=10");'>已有&nbsp;<span style="color: red;">{$obj.commentNum}</span>&nbsp;人参与评论</a></td>{/if}
 			</tr>
 		</table>
 		<div class="cmtform">
-		<form id="form_{$ui.uiid}" action="{$commentUrl}" style="text-align: right;">
+		<form id="form_{$ui.uiid}" action="{$commentUrl}">
 			<input type="hidden" name="data.module.id" value="{$module.id}" />
 			<input type="hidden" name="data.subjectID" value="{$obj.id}" />
-			<textarea style="height: 200px;" id="textarea_{$ui.uiid}" class="xheditor" name="data.content"></textarea>
-			<div>
-			<input type="submit" class="submitButton" value="" /></div>
+			<textarea style="height: 200px; width: 100%;" id="textarea_{$ui.uiid}" class="xheditor" name="data.content"></textarea>
+			<div style="text-align: right;padding: 2px;"><input type="submit" class="submitButton" value="提交评论" /></div>
 		</form>
 		</div>
         <div class="cmtlist" id="blockcomment{$block.id}" dataID="{$block.id}">

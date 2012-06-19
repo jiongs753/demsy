@@ -68,7 +68,7 @@ public class SecurityActions extends ModuleActions {
 		try {
 			ILogin login = security.login(ctx.request(), ctx.getSoft(), realm, user, pwd);
 
-			String uri = (String) ctx.attr("lasturi");
+			String uri = (String) ctx.request().getSession().getAttribute("lasturi");
 			ctx.request().getSession().removeAttribute("lasturi");
 
 			log.debugf("登录成功. [%s]", login);

@@ -294,7 +294,6 @@ var DemsyUIManager = function() {
 			loadBlockId = parentId;
 			loadBlock = $("#block" + parentId);
 		}
-		alert("CssDesigner: " + (typeof CssDesigner));
 		loadBlock.load(this.options.loadUrl + loadBlockId, "", function() {
 			self.options.webUI.init();
 			self.evalPageHeight();

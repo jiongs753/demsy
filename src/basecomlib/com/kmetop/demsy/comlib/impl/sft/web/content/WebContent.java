@@ -89,19 +89,19 @@ public class WebContent extends SFTBizComponent implements IWebContent, IStatist
 	@BzFld(name = "所属专题", disabledNavi = true, mode = "c1:M *:N v:S")
 	protected WebContent parent;
 
-	@BzFld(name = "信息类型", mode = "c:M c1:M e:M *:N v:S", disabledNavi = true, cascadeMode = "catalog.type:0,1:M", defalutValue = "{catalog.infoType}", options = "0:编辑器,2:超链接,99:推荐")
+	@BzFld(name = "类型", mode = "c:M c1:M e:M *:N v:S", disabledNavi = true, cascadeMode = "catalog.type:0,1:M", defalutValue = "{catalog.infoType}", options = "0:编辑器,2:超链接,99:推荐")
 	protected Integer typeCode;// 信息类型
 
 	/*
 	 * 内容编辑
 	 */
-	@BzFld(name = "信息来源", mode = "c:E c1:E e:E *:N v:S", cascadeMode = "typeCode:0:E typeCode:2,99:N catalog.type:99:N", gridField = false)
+	@BzFld(name = "来源", mode = "c:E c1:E e:E *:N v:S", cascadeMode = "typeCode:0:E typeCode:2,99:N catalog.type:99:N", gridField = false)
 	protected String origin;
 
-	@BzFld(name = "信息作者", mode = "c:E c1:E e:E *:N v:S", cascadeMode = "typeCode:0:E typeCode:2,99:N catalog.type:99:N", gridField = false)
+	@BzFld(name = "作者", mode = "c:E c1:E e:E *:N v:S", cascadeMode = "typeCode:0:E typeCode:2,99:N catalog.type:99:N", gridField = false)
 	protected String author;
 
-	@BzFld(name = "信息全文", mode = "c:E c1:E e:E *:N v:S", cascadeMode = "typeCode:0:E typeCode:2,99:N catalog.type:99:N", gridField = false)
+	@BzFld(name = "内容", mode = "c:E c1:E e:E *:N v:S", cascadeMode = "typeCode:0:E typeCode:2,99:N catalog.type:99:N", gridField = false)
 	protected RichText content;
 
 	/*
@@ -137,11 +137,11 @@ public class WebContent extends SFTBizComponent implements IWebContent, IStatist
 	private String keywords; // 关键字——用于搜索引擎进行网页搜索
 
 	@Prop("logo1Image")
-	@BzFld(name = "信息徽标", mode = "c:E c1:E e:E *:N v:S", uploadType = "*.bmp;*.jpg;*.gif;*.png;*.swf", gridField = false)
+	@BzFld(name = "徽标", mode = "c:E c1:E e:E *:N v:S", uploadType = "*.bmp;*.jpg;*.gif;*.png;*.swf", gridField = false)
 	protected Upload logo;
 
 	@Prop("logo2Image")
-	@BzFld(name = "信息图片", mode = "c:E c1:E e:E *:N v:S", uploadType = "*.bmp;*.jpg;*.gif;*.png;*.swf;*.flv", cascadeMode = "catalog.infoRequiredImage:1:M catalog.infoRequiredImage:0:E typeCode:99:N", gridField = false)
+	@BzFld(name = "图片", mode = "c:E c1:E e:E *:N v:S", uploadType = "*.bmp;*.jpg;*.gif;*.png;*.swf;*.flv", cascadeMode = "catalog.infoRequiredImage:1:M catalog.infoRequiredImage:0:E typeCode:99:N", gridField = false)
 	protected Upload image;
 
 	// 统计信息
