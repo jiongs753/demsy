@@ -48,7 +48,7 @@ public class TabsDataset extends UiBaseDataSource {
 
 		IOrm orm = Demsy.orm();
 		if (refType != null) {
-			Class dataType = maker.getDataClass();
+			Class dataType = maker.getType();
 			List catalogs = maker.getCatalogObjs();
 			int pageSize = maker.getPageSize();
 			String imgfld = maker.getImageField();

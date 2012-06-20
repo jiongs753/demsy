@@ -35,7 +35,7 @@ public class BizRecord extends UiBaseDataSource {
 		if (data == null && block.getDataset().isDynamic()) {
 			IBizField fk = parser.getCatalogField();
 			Object catalog = parser.getCatalogObj();
-			data = Mirror.me(parser.getDataClass()).born();
+			data = Mirror.me(parser.getType()).born();
 			Obj.setValue(data, Demsy.bizEngine.getPropName(fk), catalog);
 		}
 

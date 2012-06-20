@@ -27,12 +27,12 @@ public class $tostring extends LineFunction {
 			if (values[1] == null) {
 				context.set((String) values[3], Obj.format(values[0], (String) values[2]));
 			} else
-				context.set((String) values[3], Obj.getValueOfString(values[0], (String) values[1], (String) values[2]));
+				context.set((String) values[3], Obj.getStringValue(values[0], (String) values[1], (String) values[2]));
 		} else {
 			if (values[1] == null) {
 				writer.write(Obj.format(values[0], (String) values[2]));
 			} else {
-				writer.write(Obj.getValueOfString(values[0], (String) values[1], (String) values[2]));
+				writer.write(Obj.getStringValue(values[0], (String) values[1], (String) values[2]));
 			}
 		}
 	}

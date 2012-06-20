@@ -314,8 +314,6 @@ public interface IBizEngine {
 
 	Nodes makeNaviNodes(IBizSystem system, String idField);
 
-	boolean hasField(Class klass, String fldname);
-
 	Nodes makeOptionNodes(IBizField field, String mode, Object data, String idField);
 
 	List<String> makeCascadeExpr(Object obj, IBizField field, String mode);

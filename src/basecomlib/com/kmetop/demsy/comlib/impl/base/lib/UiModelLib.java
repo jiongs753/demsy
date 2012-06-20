@@ -43,7 +43,7 @@ import com.kmetop.demsy.orm.ann.Prop;
 		, @BzFld(property = "created", name = "创建时间", mode = "*:P") //
 		, @BzFld(property = "updated", name = "更新时间", mode = "*:P") //
 }) }// end groups
-, jsonData = "UiModelLib.data.js"//
+, jsonData = "UIViewComponent.data.js"//
 )
 public class UiModelLib extends BizComponent implements IUIViewComponent, IRuntimeConfigable {
 

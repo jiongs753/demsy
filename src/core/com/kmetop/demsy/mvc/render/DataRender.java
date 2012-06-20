@@ -96,7 +96,7 @@ public class DataRender extends TemplateRender implements MvcConst {
 		for (Object obj : list) {
 			out.write("<row>");
 			out.write("<cell>");
-			out.write(Obj.getValueOfString(obj, idField));
+			out.write(Obj.getStringValue(obj, idField));
 			out.write("</cell>");
 			for (int i = 0; i < size; i++) {
 				UIGridFld fld = (UIGridFld) flds.get(i);
@@ -107,9 +107,9 @@ public class DataRender extends TemplateRender implements MvcConst {
 
 				String str = "";
 				if (Str.isEmpty(fld.getPattern())) {
-					str = Obj.getValueOfString(obj, fld.getPropName());
+					str = Obj.getStringValue(obj, fld.getPropName());
 				} else {
-					str = Obj.getValueOfString(obj, fld.getPropName(), fld.getPattern());
+					str = Obj.getStringValue(obj, fld.getPropName(), fld.getPattern());
 				}
 				if (fld.getOptions() != null && !Str.isEmpty(str)) {
 					String tmp = fld.getOptions().get(str);

@@ -1,11 +1,11 @@
 package com.kmetop.demsy.orm.listener.impl;
 
-import static com.kmetop.demsy.Demsy.bizEngine;
 import static com.kmetop.demsy.comlib.LibConst.F_GUID;
 
 import java.io.Serializable;
 
 import com.kmetop.demsy.comlib.entity.ITimeID;
+import com.kmetop.demsy.lang.Cls;
 import com.kmetop.demsy.lang.Dates;
 import com.kmetop.demsy.lang.Obj;
 import com.kmetop.demsy.lang.Str;
@@ -58,7 +58,7 @@ public class DemsyEntityListener implements EntityListener {
 				}
 			}
 
-			if (bizEngine.hasField(obj.getClass(), F_GUID) && Str.isEmpty((String) Obj.getValue(obj, F_GUID)))
+			if (Cls.hasField(obj.getClass(), F_GUID) && Str.isEmpty((String) Obj.getValue(obj, F_GUID)))
 				Obj.setValue(obj, F_GUID, (String) guid.generate(dao, obj));
 
 		}

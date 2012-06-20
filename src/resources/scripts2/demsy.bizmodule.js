@@ -335,7 +335,7 @@ var BizModule = function() {
 		$(document).ready(function() {
 			$.doTimeout(100, function() {
 				options.oncheckboxclick = function(root, item, status) {
-					if (comb && combType == "expr") {
+					if (comb && (combType == "expr" || combType == "c_expr")) {
 						var rules = new Array();
 						var names = new Array();
 						var navi = self.combSys(comb).navi;
@@ -615,7 +615,7 @@ var SubModule = function($table, config) {
 		self.bindEval($item);
 
 		self.eval();
-		
+
 		return false;
 	}
 	// 删除一条记录
@@ -633,7 +633,7 @@ var SubModule = function($table, config) {
 		});
 
 		self.eval();
-		
+
 		return false;
 	}
 	// 上下移动对记录进行排序
@@ -690,7 +690,7 @@ var SubModule = function($table, config) {
 		}
 
 		self.eval();
-		
+
 		return false;
 	}
 	// 上移排序

@@ -19,9 +19,7 @@ package com.kmetop.demsy.lang;
 import static com.kmetop.demsy.comlib.LibConst.F_GUID;
 import static com.kmetop.demsy.comlib.LibConst.F_ID;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.Writer;
 import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -30,9 +28,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.nutz.json.JsonException;
-import org.nutz.json.JsonFormat;
-import org.nutz.lang.Lang;
 import org.nutz.lang.Mirror;
 
 import com.kmetop.demsy.Demsy;
@@ -57,7 +52,7 @@ public abstract class Obj {
 		return (array == null || array.length == 0);
 	}
 
-	public static boolean containsElement(Object[] array, Object element) {
+	public static boolean contains(Object[] array, Object element) {
 		if (array == null) {
 			return false;
 		}
@@ -69,7 +64,7 @@ public abstract class Obj {
 		return false;
 	}
 
-	public static Object[] addObjectToArray(Object[] array, Object obj) {
+	public static Object[] add(Object[] array, Object obj) {
 		Class compType = Object.class;
 		if (array != null) {
 			compType = array.getClass().getComponentType();
@@ -622,11 +617,11 @@ public abstract class Obj {
 		}
 	}
 
-	public static String getValueOfString(Object obj, String path) {
+	public static String getStringValue(Object obj, String path) {
 		return Obj.format(getValue(obj, path), null);
 	}
 
-	public static String getValueOfString(Object bean, String path, String pattern) {
+	public static String getStringValue(Object bean, String path, String pattern) {
 		if (bean == null || Str.isEmpty(path)) {
 			return "";
 		}
@@ -785,7 +780,14 @@ public abstract class Obj {
 		return value == null ? "" : value.toString();
 	}
 
-	public static String key(Object obj, String prop) {
+	/**
+	 * 将指定字段转换成下拉选项键值
+	 * 
+	 * @param obj
+	 * @param prop
+	 * @return
+	 */
+	public static String toKey(Object obj, String prop) {
 		if (obj == null) {
 			return "";
 		}
@@ -810,23 +812,34 @@ public abstract class Obj {
 		}
 	}
 
-	public static String key(Object obj) {
-		return key(obj, null);
+	/**
+	 * 生成下拉选项的键值
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	public static String toKey(Object obj) {
+		return toKey(obj, null);
 	}
 
-	public static String toJson(Object obj) {
-		try {
-			StringBuilder sb = new StringBuilder();
-			Writer writer = Lang.opw(sb);
+	/**
+	 * 判断指定的数字是否为正数
+	 * 
+	 * @param cs
+	 * @return
+	 */
+	public static boolean isPositive(Number cs) {
+		if (null != cs && cs.intValue() > 0)
+			return true;
 
-			new JSON(writer, JsonFormat.nice()).render(obj);
+		return false;
+	}
 
-			writer.flush();
+	public static boolean isTrue(Boolean b) {
+		if (b != null)
+			return b.booleanValue();
 
-			return sb.toString();
-		} catch (IOException e) {
-			throw Ex.throwEx(e, JsonException.class);
-		}
+		return false;
 	}
 
 }

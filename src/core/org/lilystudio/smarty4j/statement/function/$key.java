@@ -24,7 +24,7 @@ public class $key extends LineFunction {
 	@Override
 	public void execute(Context context, Writer writer, Object[] values) throws Exception {
 		String prop = (String) values[1];
-		String key = Obj.key(values[0], prop);
+		String key = Obj.toKey(values[0], prop);
 		if (values[3] != null) {
 			context.set((String) values[3], key.toString());
 		} else {

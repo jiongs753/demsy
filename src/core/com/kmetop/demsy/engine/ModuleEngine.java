@@ -488,7 +488,7 @@ public abstract class ModuleEngine implements IModuleEngine {
 				Class type = bizEngine.getType(refSys);
 
 				if (orm.count(type, null) < 10) {
-					List<? extends IBizEntity> datas = orm.query(type, bizEngine.hasField(klass, F_ORDER_BY) ? CndExpr.asc(F_ORDER_BY) : null);
+					List<? extends IBizEntity> datas = orm.query(type, Cls.hasField(klass, F_ORDER_BY) ? CndExpr.asc(F_ORDER_BY) : null);
 					for (IBizEntity data : datas) {
 						Node node = root.addNode(item.getId(), item.getId() + "_" + fld.getId() + "_" + data.getId());
 						node.setName(data.toString());

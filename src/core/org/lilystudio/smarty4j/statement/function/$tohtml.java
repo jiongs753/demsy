@@ -28,12 +28,12 @@ public class $tohtml extends LineFunction {
 			if (values[1] == null) {
 				context.set((String) values[3], Str.toHtml(values[0]));
 			} else
-				context.set((String) values[3], Str.toHtml(Obj.getValueOfString(values[0], (String) values[1], (String) values[2])));
+				context.set((String) values[3], Str.toHtml(Obj.getStringValue(values[0], (String) values[1], (String) values[2])));
 		} else {
 			if (values[1] == null) {
 				writer.write(Str.toHtml(values[0]));
 			} else {
-				writer.write(Str.toHtml(Obj.getValueOfString(values[0], (String) values[1], (String) values[2])));
+				writer.write(Str.toHtml(Obj.getStringValue(values[0], (String) values[1], (String) values[2])));
 			}
 		}
 	}

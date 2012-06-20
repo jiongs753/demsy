@@ -155,12 +155,23 @@ public abstract class CndExpr extends Expr {
 		}
 	}
 
+	/**
+	 * 相同字段的“等于”表达式将被合并为“in”表达式，即相同字段的“等于”表达式被认为是“或”的关系；
+	 * <p>
+	 * 相同字段的“不等于”表达式将被合并为“not in”表达式，即相同字段的“不等于”表达式也被认为是“或”的关系；
+	 * <p>
+	 * 合并后的表达式之间被认为是“与”的关系。
+	 * 
+	 * @param rules
+	 * @return
+	 */
 	public static CndExpr make(List<String> rules) {
 		CndExpr expr = null;
 
 		List<String> ruleFields = new LinkedList();
 		Map<String, List<String>> inRules = new HashMap();
 		Map<String, String> notInRules = new HashMap();
+		List<ExprRule> others = new LinkedList();
 		ExprRule rule = null;
 		for (String naviRule : rules) {
 			if (Str.isEmpty(naviRule)) {
@@ -191,10 +202,14 @@ public abstract class CndExpr extends Expr {
 				list = new LinkedList();
 				inRules.put(fld, list);
 			}
-			if ("in".equals(rule.getOp())) {
+
+			String op = rule.getOp();
+			if ("in".equals(op)) {
 				list.addAll(Str.toList((String) rule.getData(), ",;"));
-			} else {
+			} else if ("eq".equals(op) || "=".equals(op)) {// 将多个eq转换为in
 				list.add((String) rule.getData());
+			} else {
+				others.add(rule);
 			}
 		}
 
@@ -223,6 +238,14 @@ public abstract class CndExpr extends Expr {
 				} else {
 					expr = expr.and(naviExpr);
 				}
+			}
+		}
+
+		for (ExprRule exprRule : others) {
+			if (expr == null) {
+				expr = exprRule.toExpr();
+			} else {
+				expr = expr.and(exprRule.toExpr());
 			}
 		}
 

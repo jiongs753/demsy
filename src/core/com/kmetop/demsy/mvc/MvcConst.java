@@ -49,7 +49,7 @@ public interface MvcConst {
 	public static final String URL_BZ_ORDER_ALIPAYRETURN = URL_PREFIX_BZ + "order/alipayreturn";
 
 	public static final String URL_BZ_ORDER_ALIPAYNOTIFY = URL_PREFIX_BZ + "order/alipaynotify";
-	
+
 	/**
 	 * 模块业务窗体访问路径——主界面
 	 * <UL>
@@ -59,6 +59,8 @@ public interface MvcConst {
 	public static final String URL_BZSYS = URL_PREFIX_BZ + BizConst.TYPE_BZSYS + "/*";
 
 	public static final String URL_BZSYS_COMB_EXPR = URL_PREFIX_BZ + BizConst.TYPE_BZSYS_COMB_EXPR + "/*";
+
+	public static final String URL_BZSYS_COMB_CATALOG_EXPR = URL_PREFIX_BZ + BizConst.TYPE_BZSYS_COMB_CATALOG_EXPR + "/*";
 
 	public static final String URL_BZSYS_COMB_FK = URL_PREFIX_BZ + BizConst.TYPE_BZSYS_COMB_FK + "/*";
 
@@ -119,7 +121,7 @@ public interface MvcConst {
 	public static final String URL_BZ_DEL = URL_PREFIX_BZ + BizConst.TYPE_BZ_DEL + "/*";
 
 	public static final String URL_BZ_CLEAR = URL_PREFIX_BZ + BizConst.TYPE_BZ_CLEAR + "/*";
-	
+
 	public static final String URL_BZ_ORDERBY_CANCEL = URL_PREFIX_BZ + BizConst.TYPE_BZ_ORDERBY_CANCEL + "/*";
 
 	public static final String URL_BZ_ORDERBY_UP = URL_PREFIX_BZ + BizConst.TYPE_BZ_ORDERBY_UP + "/*";

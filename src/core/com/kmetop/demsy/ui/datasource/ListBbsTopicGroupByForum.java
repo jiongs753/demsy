@@ -68,7 +68,7 @@ public class ListBbsTopicGroupByForum extends UiBaseDataSource {
 				title.setImg("");
 			}
 
-			Pager pager = new Pager(parser.getDataClass());
+			Pager pager = new Pager(parser.getType());
 			CndExpr expr = Expr.eq("forum", cata);
 
 			if (cata.getCheckPostStatus() == 1) {// 该论坛的帖子需要审核后才能显示

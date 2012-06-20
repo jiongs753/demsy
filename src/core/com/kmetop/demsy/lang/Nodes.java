@@ -110,11 +110,11 @@ public final class Nodes implements IDynamic {
 	}
 
 	public boolean existNode(Serializable nodeID) {
-		return nodeMap.get(Obj.key(nodeID)) != null;
+		return nodeMap.get(Obj.toKey(nodeID)) != null;
 	}
 
 	private Node getNode(Serializable nodeID) {
-		String key = Obj.key(nodeID);
+		String key = Obj.toKey(nodeID);
 		if (key.length() == 0) {
 			return null;
 		}

@@ -19,10 +19,12 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.nutz.json.Json;
+import org.nutz.json.JsonException;
 import org.nutz.json.JsonFormat;
 import org.nutz.json.ToJson;
 import org.nutz.lang.FailToGetValueException;
 import org.nutz.lang.Files;
+import org.nutz.lang.Lang;
 import org.nutz.lang.Mirror;
 import org.nutz.lang.Strings;
 
@@ -329,6 +331,21 @@ public class JSON {
 				writer.append(',').append(' ');
 		}
 		writer.append(']');
+	}
+
+	public static String toJson(Object obj) {
+		try {
+			StringBuilder sb = new StringBuilder();
+			Writer writer = Lang.opw(sb);
+	
+			new JSON(writer, JsonFormat.nice()).render(obj);
+	
+			writer.flush();
+	
+			return sb.toString();
+		} catch (IOException e) {
+			throw Ex.throwEx(e, JsonException.class);
+		}
 	}
 
 	public static <T> List<T> loadFromJson(Class<T> klass, String json) {

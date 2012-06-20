@@ -44,7 +44,7 @@ public abstract class Str extends org.nutz.lang.Strings {
 			return "";
 		}
 		String str = input.replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "");
-		//str = str.replaceAll("[(/>)<]", "");
+		// str = str.replaceAll("[(/>)<]", "");
 		return str;
 	}
 
@@ -125,7 +125,7 @@ public abstract class Str extends org.nutz.lang.Strings {
 
 	public static String ipToName(String ip) {
 		try {
-			if(Demsy.ipseeker==null){
+			if (Demsy.ipseeker == null) {
 				return ip;
 			}
 			String ret = Demsy.ipseeker.getIPLocation(ip).getCountry() + Demsy.ipseeker.getArea(ip);
@@ -1393,6 +1393,11 @@ public abstract class Str extends org.nutz.lang.Strings {
 		return str == null ? null : str.toLowerCase();
 	}
 
+	/**
+	 * 
+	 * @param cs
+	 * @return
+	 */
 	public static boolean isEmpty(String cs) {
 		if (null == cs)
 			return true;
@@ -1400,11 +1405,14 @@ public abstract class Str extends org.nutz.lang.Strings {
 		return cs.trim().length() == 0;
 	}
 
-	public static boolean isEmpty(Long cs) {
-		if (null == cs || cs < 0)
-			return true;
-
-		return false;
+	/**
+	 * 判断去除前后空格之后是否含有内容
+	 * 
+	 * @param cs
+	 * @return
+	 */
+	public static boolean hasContent(String cs) {
+		return !isEmpty(cs);
 	}
 
 	public static String replaceOnce(String template, String placeholder, String replacement) {

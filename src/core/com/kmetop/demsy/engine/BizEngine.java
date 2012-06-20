@@ -429,7 +429,7 @@ public abstract class BizEngine implements IBizEngine {
 			if (!Str.isEmpty(str)) {
 				return evalOptions(str);
 			} else if (isBoolean(field)) {
-				return new Option[] { new Option(Obj.key(true), "是"), new Option(Obj.key(false), "否") };
+				return new Option[] { new Option(Obj.toKey(true), "是"), new Option(Obj.toKey(false), "否") };
 			} else if (isV1Dic(field)) {
 				return geDicOptions(field);
 			}
@@ -1229,7 +1229,7 @@ public abstract class BizEngine implements IBizEngine {
 
 	public void loadFieldValue(Object obj, IBizSystem system) {
 		if (log.isTraceEnabled())
-			log.tracef("加载业务数据... [%s] %s", system, Obj.toJson(obj));
+			log.tracef("加载业务数据... [%s] %s", system, JSON.toJson(obj));
 
 		List<? extends IBizField> fks = this.getFieldsOfSystemFK(system);
 		for (IBizField fk : fks) {
@@ -1249,7 +1249,7 @@ public abstract class BizEngine implements IBizEngine {
 		}
 
 		if (log.isTraceEnabled())
-			log.tracef("加载业务结束. [%s] %s", system, Obj.toJson(obj));
+			log.tracef("加载业务结束. [%s] %s", system, JSON.toJson(obj));
 	}
 
 	public String[] getCascadeMode(IBizField field, Object obj) {
@@ -1548,7 +1548,7 @@ public abstract class BizEngine implements IBizEngine {
 					if (value != null) {
 						value = loadFieldValue(data, field);
 						if (value != null) {
-							String key = Obj.key(value, idField);
+							String key = Obj.toKey(value, idField);
 							String name = value.toString();
 							if (!Str.isEmpty(key))
 								root.addNode(null, key).setName(name).setParams(value);
@@ -1561,7 +1561,7 @@ public abstract class BizEngine implements IBizEngine {
 					if (bizEngine.isSystemFK(field)) {
 						value = loadFieldValue(data, field);
 						if (value != null) {
-							String key = Obj.key(value);
+							String key = Obj.toKey(value);
 							String name = value.toString();
 							if (!Str.isEmpty(key))
 								root.addNode(null, key).setName(name).setParams(value);
@@ -1569,7 +1569,7 @@ public abstract class BizEngine implements IBizEngine {
 					} else {
 						Option[] options = bizEngine.getOptions(field);
 						for (Option o : options) {
-							if (Obj.key(value).equals(Obj.key(o.getValue()))) {
+							if (Obj.toKey(value).equals(Obj.toKey(o.getValue()))) {
 								root.addNode(null, o.getValue()).setName(o.getText()).setParams(o.getValue());
 							}
 						}
@@ -1581,14 +1581,6 @@ public abstract class BizEngine implements IBizEngine {
 		}
 
 		return root;
-	}
-
-	public boolean hasField(Class klass, String fldname) {
-		try {
-			return Mirror.me(klass).getField(fldname) != null;
-		} catch (Throwable e) {
-			return false;
-		}
 	}
 
 	// 解析自身树节点
@@ -1767,10 +1759,10 @@ public abstract class BizEngine implements IBizEngine {
 
 			// 计算排序表达式
 			Class type = getType(refSys);
-			if (hasField(type, F_ORDER_BY)) {
+			if (Cls.hasField(type, F_ORDER_BY)) {
 				expr = expr == null ? CndExpr.asc(F_ORDER_BY) : expr.addAsc(F_ORDER_BY);
 			}
-			if (hasField(type, F_DISABLED)) {
+			if (Cls.hasField(type, F_DISABLED)) {
 				expr = expr == null ? Expr.eq(F_DISABLED, 0).or(Expr.isNull(F_DISABLED)) : expr.and(Expr.eq(F_DISABLED, 0).or(Expr.isNull(F_DISABLED)));
 			}
 
@@ -1792,7 +1784,7 @@ public abstract class BizEngine implements IBizEngine {
 			List<Node> result = new LinkedList();
 
 			List datas = orm.query(refType, expr);
-			if (hasField(type, F_ORDER_BY))
+			if (Cls.hasField(type, F_ORDER_BY))
 				SortUtils.sort(datas, F_ORDER_BY, true);
 
 			// if (datas.size() == 1 && obj != null) {
@@ -1939,7 +1931,7 @@ public abstract class BizEngine implements IBizEngine {
 
 		Object idValue = Obj.getValue(newObj, idFld);
 		if (idValue == null || Str.isEmpty(idValue.toString())) {
-			log.warnf("保存数据失败. [%s.%s = %s] %s", newObj.getClass().getSimpleName(), idFld, idValue, Obj.toJson(newObj));
+			log.warnf("保存数据失败. [%s.%s = %s] %s", newObj.getClass().getSimpleName(), idFld, idValue, JSON.toJson(newObj));
 			return ret;
 		}
 
@@ -1952,12 +1944,12 @@ public abstract class BizEngine implements IBizEngine {
 		Object obj = orm.load(newObj.getClass(), expr);
 		if (obj == null) {
 			if (log.isTraceEnabled())
-				log.tracef("创建数据记录... [%s] %s", newObj.getClass().getSimpleName(), Obj.toJson(newObj));
+				log.tracef("创建数据记录... [%s] %s", newObj.getClass().getSimpleName(), JSON.toJson(newObj));
 
 			obj = newObj;
 		} else {// 拷贝字段值
 			if (log.isTraceEnabled())
-				log.tracef("编辑数据记录... [%s] %s", newObj.getClass().getSimpleName(), Obj.toJson(obj));
+				log.tracef("编辑数据记录... [%s] %s", newObj.getClass().getSimpleName(), JSON.toJson(obj));
 
 			for (Field fld : fields) {
 				String fldname = fld.getName();
@@ -2110,7 +2102,7 @@ public abstract class BizEngine implements IBizEngine {
 					this.saveObj(orm, soft, obj, null, F_GUID);
 
 					if (log.isTraceEnabled())
-						log.tracef("导入数据 [cls: %s, includeFK: %s]\n%s", obj.getClass().getSimpleName(), includeFK, Obj.toJson(obj));
+						log.tracef("导入数据 [cls: %s, includeFK: %s]\n%s", obj.getClass().getSimpleName(), includeFK, JSON.toJson(obj));
 				}
 
 				log.debugf("导入数据结束. [%s]", className);

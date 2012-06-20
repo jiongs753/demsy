@@ -78,8 +78,7 @@ public abstract class Cls {
 
 		Set primitiveTypeNames = new HashSet(16);
 		primitiveTypeNames.addAll(primitiveWrapperTypeMap.values());
-		primitiveTypeNames.addAll(Arrays.asList(new Class[] { boolean[].class, byte[].class, char[].class,
-				double[].class, float[].class, int[].class, long[].class, short[].class }));
+		primitiveTypeNames.addAll(Arrays.asList(new Class[] { boolean[].class, byte[].class, char[].class, double[].class, float[].class, int[].class, long[].class, short[].class }));
 		for (Iterator it = primitiveTypeNames.iterator(); it.hasNext();) {
 			Class primitiveClass = (Class) it.next();
 			primitiveTypeNameMap.put(primitiveClass.getName(), primitiveClass);
@@ -191,8 +190,7 @@ public abstract class Cls {
 			iae.initCause(ex);
 			throw iae;
 		} catch (LinkageError ex) {
-			IllegalArgumentException iae = new IllegalArgumentException("Error loading class [" + className
-					+ "]: problem with class file or dependent class.");
+			IllegalArgumentException iae = new IllegalArgumentException("Error loading class [" + className + "]: problem with class file or dependent class.");
 			iae.initCause(ex);
 			throw iae;
 		}
@@ -911,9 +909,7 @@ public abstract class Cls {
 
 		protected Class reloadClass(String clsname) throws ClassNotFoundException {
 			try {
-				return defineClass(clsname,
-						new File(Demsy.appconfig.getClassDir() + File.separator + clsname.replace(".", File.separator)
-								+ ".class"));
+				return defineClass(clsname, new File(Demsy.appconfig.getClassDir() + File.separator + clsname.replace(".", File.separator) + ".class"));
 			} catch (IOException e) {
 				throw new ClassNotFoundException(e.getMessage());
 			}
@@ -922,8 +918,7 @@ public abstract class Cls {
 
 	}
 
-	public static Class getType(Class type, String prop) throws NoSuchFieldException, SecurityException,
-			NoSuchMethodException {
+	public static Class getType(Class type, String prop) throws NoSuchFieldException, SecurityException, NoSuchMethodException {
 		if (type == null || Str.isEmpty(prop))
 			return null;
 
@@ -1032,8 +1027,7 @@ public abstract class Cls {
 	}
 
 	public static boolean isNumber(Class cls) {
-		if (Cls.isInteger(cls) || Cls.isLong(cls) || Cls.isByte(cls) || Cls.isShort(cls) || Cls.isDouble(cls)
-				|| Cls.isFloat(cls) || Number.class.isAssignableFrom(cls)) {
+		if (Cls.isInteger(cls) || Cls.isLong(cls) || Cls.isByte(cls) || Cls.isShort(cls) || Cls.isDouble(cls) || Cls.isFloat(cls) || Number.class.isAssignableFrom(cls)) {
 			return true;
 		}
 
@@ -1088,4 +1082,11 @@ public abstract class Cls {
 		return false;
 	}
 
+	public static boolean hasField(Class klass, String fldname) {
+		try {
+			return Mirror.me(klass).getField(fldname) != null;
+		} catch (Throwable e) {
+			return false;
+		}
+	}
 }

@@ -28,9 +28,9 @@ public class $prop extends LineFunction {
 			if (values[2] == null || Str.isEmpty(values[2].toString()))
 				context.set((String) values[3], Obj.getValue(values[0], (String) values[1]));
 			else
-				context.set((String) values[3], Obj.getValueOfString(values[0], (String) values[1], (String) values[2]));
+				context.set((String) values[3], Obj.getStringValue(values[0], (String) values[1], (String) values[2]));
 		else
-			writer.write(Obj.getValueOfString(values[0], (String) values[1], (String) values[2]));
+			writer.write(Obj.getStringValue(values[0], (String) values[1], (String) values[2]));
 	}
 
 	@Override

@@ -141,7 +141,7 @@ public abstract class ModuleActions implements BizConst, MvcConst {
 			String sidx = sidxs[i];
 			String sord = sords[i];
 
-			if (!Demsy.bizEngine.hasField(classOfEntity, sidx))
+			if (!Cls.hasField(classOfEntity, sidx))
 				continue;
 
 			int dot = sidx.indexOf('.');

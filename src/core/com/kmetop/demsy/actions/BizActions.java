@@ -31,15 +31,16 @@ import com.kmetop.demsy.comlib.biz.IBizField;
 import com.kmetop.demsy.comlib.biz.IBizSystem;
 import com.kmetop.demsy.comlib.security.IAction;
 import com.kmetop.demsy.comlib.security.IModule;
+import com.kmetop.demsy.lang.Cls;
 import com.kmetop.demsy.lang.ConfigException;
 import com.kmetop.demsy.lang.Dates;
 import com.kmetop.demsy.lang.DemsyException;
+import com.kmetop.demsy.lang.Ex;
 import com.kmetop.demsy.lang.Http;
 import com.kmetop.demsy.lang.Nodes;
 import com.kmetop.demsy.lang.Obj;
 import com.kmetop.demsy.lang.Status;
 import com.kmetop.demsy.lang.Str;
-import com.kmetop.demsy.lang.Ex;
 import com.kmetop.demsy.lang.SystemExcel;
 import com.kmetop.demsy.mvc.MvcConst;
 import com.kmetop.demsy.mvc.ObjcetNaviNode;
@@ -190,6 +191,8 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 	/**
 	 * 
+	 * 业务数据查询表达式，表达式弹出窗口包括右边的GRID和左边的数据分类菜单。
+	 * 
 	 * @param moduleParam
 	 *            参数结构：moduleID:comboboxFieldID
 	 * @return
@@ -230,6 +233,22 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 				return model;
 			}
 		});
+	}
+
+	/**
+	 * 业务数据分类表达式，表达式弹出窗口不包括右边的GRID，只包含左边的分类菜单。
+	 * 
+	 * @param moduleParam
+	 * @param dataID
+	 * @return
+	 * @throws DemsyException
+	 */
+	@At(URL_BZSYS_COMB_CATALOG_EXPR)
+	public UIWidgetModel<UIBizSystem, Object> systemCombFkExpr(String moduleParam, final String dataID) throws DemsyException {
+		UIWidgetModel<UIBizSystem, Object> ret = this.systemCombExpr(moduleParam, dataID);
+		ret.set("comboboxType", "c_expr");
+
+		return ret;
 	}
 
 	@At(URL_BZSYS_COMB_FK)
@@ -331,7 +350,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	private String getIdField(Class type) {
 		String ret = Demsy.me().param("idField", String.class, null);
 
-		if (!bizEngine.hasField(type, ret)) {
+		if (!Cls.hasField(type, ret)) {
 			return LibConst.F_ID;
 		}
 
@@ -620,14 +639,14 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 
 				bizEngine.validate(bizManager.getSystem(), action, data, fieldMode);
 
-				if (bizEngine.hasField(bizClass, F_SOFT_ID) && (softID == null || softID <= 0)) {
+				if (Cls.hasField(bizClass, F_SOFT_ID) && (softID == null || softID <= 0)) {
 					Obj.setValue(data, F_SOFT_ID, mdl.getSoftID());
 				}
 
 				executor.exec(bizManager, data, action);
 			} else {
 				data = null;
-				if (bizEngine.hasField(bizClass, F_SOFT_ID) && (softID == null || softID <= 0)) {
+				if (Cls.hasField(bizClass, F_SOFT_ID) && (softID == null || softID <= 0)) {
 					if (list.size() == 1) {
 						data = list.get(0);
 						dataNode.inject(mirror, data, fieldMode);
@@ -806,7 +825,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 						count = 0;
 						for (String fld : fields) {
 							IBizField bzfld = fieldMap.get(fld);
-							row[count++] = Obj.getValueOfString(v, fld, bzfld.getPattern());
+							row[count++] = Obj.getStringValue(v, fld, bzfld.getPattern());
 						}
 						excelResult.add(row);
 					}

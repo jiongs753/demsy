@@ -1,23 +1,24 @@
 package com.kmetop.demsy.mvc.controller;
 
-import java.util.Map;
-
 import com.kmetop.demsy.mvc.ui.IUIViewController;
 import com.kmetop.demsy.mvc.ui.UIBlockContext;
 import com.kmetop.demsy.orm.expr.CndExpr;
 
+/**
+ * 视图控制器
+ * 
+ * @author yongshan.ji
+ * 
+ */
 public class UIViewController implements IUIViewController {
 
-	protected void init(UIBlockContext maker, Map context) {
-	}
-
-	protected CndExpr getExpr(UIBlockContext parser) {
+	protected CndExpr getExpr(UIBlockContext blockContext) {
 		return null;
 	}
 
 	@Override
 	public Object process(UIBlockContext blockContext) {
-		blockContext.query();
+		blockContext.query(getExpr(blockContext));
 
 		return null;
 	}

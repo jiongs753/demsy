@@ -18,6 +18,8 @@ public interface BizConst {
 
 	public static final int TYPE_BZSYS_COMB_FK = 22;
 
+	public static final int TYPE_BZSYS_COMB_CATALOG_EXPR = 23;
+
 	/*
 	 * 打开业务表单，准备执行业务逻辑
 	 */
@@ -67,7 +69,7 @@ public interface BizConst {
 	public static final int TYPE_BZ_IMPORT_XLS = 208;
 
 	public static final int TYPE_BZ_ORDERBY = 250;
-	
+
 	public static final int TYPE_BZ_ORDERBY_UP = 251;
 
 	public static final int TYPE_BZ_ORDERBY_DOWN = 252;
@@ -77,7 +79,7 @@ public interface BizConst {
 	public static final int TYPE_BZ_ORDERBY_TOP = 254;
 
 	public static final int TYPE_BZ_ORDERBY_BOTTOM = 255;
-	
+
 	public static final int TYPE_BZ_ORDERBY_CANCEL = 256;
 
 	public static final int TYPE_BZ_DEL = 299;

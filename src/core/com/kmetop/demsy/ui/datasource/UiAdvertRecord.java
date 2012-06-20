@@ -30,7 +30,7 @@ public class UiAdvertRecord extends UiBaseDataSource {
 	private List query(UIBlockContext maker) {
 		IOrm orm = Demsy.orm();
 		if (orm != null) {
-			Class type = maker.getDataClass();
+			Class type = maker.getType();
 
 			int size = orm.count(type);
 			int page = new java.util.Random().nextInt(size);

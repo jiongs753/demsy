@@ -27,6 +27,7 @@ import com.kmetop.demsy.comlib.ui.IPageBlock;
 import com.kmetop.demsy.comlib.ui.IUIViewComponent;
 import com.kmetop.demsy.comlib.web.IWebContent;
 import com.kmetop.demsy.comlib.web.IWebContentCatalog;
+import com.kmetop.demsy.lang.Cls;
 import com.kmetop.demsy.lang.Dates;
 import com.kmetop.demsy.lang.Ex;
 import com.kmetop.demsy.lang.Obj;
@@ -92,10 +93,10 @@ public class UIBlockContext {
 	private IBizField catalogField;
 
 	// 栏目业务系统类
-	private Class catalogClass;
+	private Class catalogType;
 
 	// 数据业务系统类
-	private Class dataClass;
+	private Class type;
 
 	// 查询规则
 	private List<String> rules;
@@ -166,8 +167,8 @@ public class UIBlockContext {
 			context.catalogSystem = context.parent.catalogSystem;
 			context.system = context.parent.system;
 			context.catalogField = context.parent.catalogField;
-			context.catalogClass = context.parent.catalogClass;
-			context.dataClass = context.parent.dataClass;
+			context.catalogType = context.parent.catalogType;
+			context.type = context.parent.type;
 			context.rules = context.parent.rules;
 			context.fields = context.fields;
 			context.dynamicModuleID = context.dynamicModuleID;
@@ -324,7 +325,7 @@ public class UIBlockContext {
 		}
 
 		// 初始化解析规则和栏目对象集合
-		List<String> srcRuleArray = Str.toList(datasource.getRules(), ",;");
+		List<String> srcRuleArray = datasource.getExprs();
 		String[] srcRule2Array = Str.toArray(datasource.getRules2(), ",;");
 		rules = new ArrayList(srcRuleArray.size());
 		catalogObjs = new ArrayList(srcRuleArray.size());
@@ -333,16 +334,16 @@ public class UIBlockContext {
 		String moduleGuid = datasource.getModuleGuid();
 		module = moduleEngine.getModule(moduleGuid);
 		system = moduleEngine.getSystem(module);
-		dataClass = bizEngine.getType(system);
+		type = bizEngine.getType(system);
 
 		// 解析排序字段
 		orderBy = datasource.getOrderBy();
 		if (Str.isEmpty(orderBy)) {
 			// 默认先按人工序正排，再按创建时间倒排
-			if (bizEngine.hasField(dataClass, F_ORDER_BY)) {
+			if (Cls.hasField(type, F_ORDER_BY)) {
 				orderBy = F_ORDER_BY + " asc";
 			}
-			if (bizEngine.hasField(dataClass, F_CREATED)) {
+			if (Cls.hasField(type, F_CREATED)) {
 				orderBy += (Str.isEmpty(orderBy) ? "" : ",") + F_CREATED + " desc";
 			}
 		}
@@ -372,7 +373,7 @@ public class UIBlockContext {
 				if (catalogField != null && bizEngine.isSystemFK(catalogField)) {
 					catalogModule = moduleEngine.getModule(Demsy.me().getSoft(), catalogField.getRefrenceSystem());
 					catalogSystem = moduleEngine.getSystem(catalogModule);
-					catalogClass = bizEngine.getType(catalogSystem);
+					catalogType = bizEngine.getType(catalogSystem);
 
 					break;
 				}
@@ -398,7 +399,7 @@ public class UIBlockContext {
 					// 全动态：数据源中没有指定外键字段，运行时自动获取外键字段
 					catalogModule = dModule;
 					catalogSystem = moduleEngine.getSystem(catalogModule);
-					catalogClass = bizEngine.getType(catalogSystem);
+					catalogType = bizEngine.getType(catalogSystem);
 
 					isDynaCatalogModule = true;
 					isFullDynaCatalogModule = true;
@@ -468,10 +469,10 @@ public class UIBlockContext {
 
 					// 解析栏目对象
 					Object catalogEntity = null;
-					if (isDynaCatalogModule && fldClass.equals(catalogClass)) {// 动态栏目
+					if (isDynaCatalogModule && fldClass.equals(catalogType)) {// 动态栏目
 						catalogEntity = orm.load(fldClass, dynamicDataID);
 					} else if (isDynaDataModule) {// 动态数据
-						itemObj = orm.load(dataClass, dynamicDataID);
+						itemObj = orm.load(type, dynamicDataID);
 						catalogEntity = Obj.getValue(itemObj, fkFldName);
 					} else {// 固定栏目
 						catalogEntity = orm.load(fldClass, Expr.eq(fkSubFldName, exprRule.getData()));
@@ -508,7 +509,7 @@ public class UIBlockContext {
 			}
 
 			if (isDynaDataModule && itemObj == null) {
-				itemObj = orm.load(dataClass, dynamicDataID);
+				itemObj = orm.load(type, dynamicDataID);
 			}
 		} catch (Throwable e) {
 			if (!appconfig.isProductMode() || log.isTraceEnabled())
@@ -694,7 +695,7 @@ public class UIBlockContext {
 
 	public Pager getPager(CndExpr expr) {
 		if (pager == null) {
-			pager = new Pager(dataClass);
+			pager = new Pager(type);
 			if (expr == null)
 				pager.setQueryExpr(getExpr());
 			else {
@@ -742,7 +743,7 @@ public class UIBlockContext {
 
 		String imgFld = this.getImageField();
 		if (!Str.isEmpty(imgFld) && !block.isAllowEmptyImg()) {
-			if (IWebContent.class.isAssignableFrom(this.dataClass)) {
+			if (IWebContent.class.isAssignableFrom(this.type)) {
 				CndExpr subexpr = Expr.notNull(imgFld).and(Expr.ne(imgFld, "")).or(Expr.notNull("refrence"));
 				expr = expr.and(subexpr);
 			} else {
@@ -812,8 +813,8 @@ public class UIBlockContext {
 		return orderBy;
 	}
 
-	public Class getDataClass() {
-		return dataClass;
+	public Class getType() {
+		return type;
 
 	}
 

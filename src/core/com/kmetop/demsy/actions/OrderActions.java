@@ -1125,7 +1125,7 @@ public class OrderActions extends ModuleActions implements BizConst, MvcConst {
 		Class ordClass = bizEngine.getSystemClass(IOrder.SYS_CODE);
 
 		CndExpr expr = Expr.eq(LibConst.F_SOFT_ID, me.getSoft().getId()).addDesc(LibConst.F_CREATED);
-		if (!Str.isEmpty(orderID))
+		if (Obj.isPositive(orderID))
 			expr = expr.and(Expr.eq(LibConst.F_ID, orderID));
 		else {
 			String user = me.username();

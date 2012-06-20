@@ -60,7 +60,7 @@ import com.kmetop.demsy.orm.ann.Prop;
 		, @BzFld(property = "fillBlank", name = "填充空白", disabledNavi = true, mode = "e1:N", desc = "用于列表类板块，判断实际数据行数小于列表所需行数时是否用空白行填充列表？") //
 }), @BzGrp(name = "板块布局", code = "inlineStyle"//
 , fields = { @BzFld(property = "inlineStyle") //
-		, @BzFld(name = "排序", property = "orderby", uiTemplate = "ui.widget.field.Spinner", mode = "e1:N") //
+		, @BzFld(name = "布局顺序", property = "orderby", uiTemplate = "ui.widget.field.Spinner", mode = "e1:N") //
 		, @BzFld(property = "position") //
 }), @BzGrp(name = "高级属性", code = "others"//
 , fields = { @BzFld(property = "viewController") //

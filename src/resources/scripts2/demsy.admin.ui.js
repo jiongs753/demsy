@@ -344,13 +344,10 @@ var DemsyUIManager = function() {
 
 			if (type == 0) {
 				var block = $("#block" + blockID);
-				if (block.length == 0)
-					self.reloadBlock(blockID, $form);
-				else {
-					var css = $($form[0].elements["data.styleItems"]);
-					if (css.length > 0 && typeof CssDesigner != "undefined" && typeof CssDesigner.instance != "undefined") {
-						self.reloadStyle("#block" + blockID);
-					}
+				self.reloadBlock(blockID, $form);
+				var css = $($form[0].elements["data.styleItems"]);
+				if (css.length > 0 && typeof CssDesigner != "undefined" && typeof CssDesigner.instance != "undefined") {
+					self.reloadStyle("#block" + blockID);
 				}
 			} else if (type == 1) {
 				self.reloadStyle(newStyleID);

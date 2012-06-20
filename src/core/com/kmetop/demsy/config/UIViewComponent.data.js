@@ -10,25 +10,25 @@
 		viewTemplate : "ui.view.UIViewController",
 		viewController : "com.kmetop.demsy.mvc.controller.UIViewController",
 		desc : "用于控制实体数据，但不直接将实体数据展现在界面上，展现任务交由子视图完成（如：在视图控制器内添加列表视图、表达式视图等）",
-		defaultWidth: 300,
-		defaultHeight: 300
+		defaultWidth : 300,
+		defaultHeight : 300
 	}, {
-		name : "表达式",
-		code : "expressionView",
-		orderby : 2,
-		viewController : "com.kmetop.demsy.mvc.controller.UIViewController",
-		desc : "按“视图表达式”中指定的内容展现数据",
-		defaultWidth: 200,
-		defaultHeight: 30
-	}, {
-		name : "循环迭代",
+		name : "列表视图",
 		code : "listView",
 		orderby : 3,
 		viewTemplate : "ui.view.UIListView",
 		viewController : "com.kmetop.demsy.mvc.controller.UIViewController",
-		desc : "循环迭代中的子视图(集)将作为迭代模版，并循环显示数据源指定的数据集或父视图中指定的数据集",
-		defaultWidth: 300,
-		defaultHeight: 300
+		desc : "列表视图中的子视图(集)将作为迭代模版，并循环显示数据源指定的数据集或父视图中指定的数据集",
+		defaultWidth : 300,
+		defaultHeight : 300
+	}, {
+		name : "表达式视图",
+		code : "expressionView",
+		orderby : 2,
+		viewController : "com.kmetop.demsy.mvc.controller.UIViewController",
+		desc : "按“视图表达式”中指定的内容展现数据",
+		defaultWidth : 200,
+		defaultHeight : 30
 	} ]
 }, {
 	name : "更多控件",
@@ -95,8 +95,8 @@
 		scrollOptions : true,
 		viewTemplate : "ui.lib.ListImageSlide",
 		viewController : "UiDataset",
-		defaultWidth: 500,
-		defaultHeight: 200
+		defaultWidth : 500,
+		defaultHeight : 200
 	}, {
 		name : "选项卡(容器)",
 		code : "_tabs",

@@ -12,7 +12,7 @@ import org.nutz.dao.Condition;
 import com.kmetop.demsy.config.IDataSource;
 import com.kmetop.demsy.lang.Cls;
 import com.kmetop.demsy.lang.ConfigException;
-import com.kmetop.demsy.lang.Obj;
+import com.kmetop.demsy.lang.JSON;
 import com.kmetop.demsy.lang.Ex;
 import com.kmetop.demsy.log.Log;
 import com.kmetop.demsy.log.Logs;
@@ -147,7 +147,7 @@ public class OrmImpl implements IOrm {
 	@Override
 	public int save(Object obj, NullCndExpr fieldRexpr) {
 		if (log.isTraceEnabled())
-			log.tracef("保存%s......[obj: %s, fieldRexpr: %s]", Cls.getDisplayName(obj.getClass()), Obj.toJson(obj),
+			log.tracef("保存%s......[obj: %s, fieldRexpr: %s]", Cls.getDisplayName(obj.getClass()), JSON.toJson(obj),
 					fieldRexpr);
 
 		int result = dao.save(obj, Cnds.fieldRexpr(fieldRexpr), Cnds.isIgloreNull(fieldRexpr));
@@ -158,7 +158,7 @@ public class OrmImpl implements IOrm {
 		if (log.isDebugEnabled())
 			log.debugf("保存%s成功!! [result: %s, fieldRexpr: %s]", Cls.getDisplayName(obj.getClass()), result, fieldRexpr);
 		if (log.isTraceEnabled())
-			log.trace(Obj.toJson(obj));
+			log.trace(JSON.toJson(obj));
 
 		return result;
 	}
@@ -171,7 +171,7 @@ public class OrmImpl implements IOrm {
 	@Override
 	public int insert(Object obj, NullCndExpr fieldRexpr) {
 		if (log.isTraceEnabled())
-			log.tracef("新增%s......[obj: %s, fieldRexpr: %s]", Cls.getDisplayName(obj.getClass()), Obj.toJson(obj),
+			log.tracef("新增%s......[obj: %s, fieldRexpr: %s]", Cls.getDisplayName(obj.getClass()), JSON.toJson(obj),
 					fieldRexpr);
 
 		int result = dao.insert(obj, Cnds.fieldRexpr(fieldRexpr), Cnds.isIgloreNull(fieldRexpr));
@@ -181,7 +181,7 @@ public class OrmImpl implements IOrm {
 		if (log.isDebugEnabled())
 			log.debugf("新增%s成功! [result: %s, fieldRexpr: %s]", Cls.getDisplayName(obj.getClass()), result, fieldRexpr);
 		if (log.isTraceEnabled())
-			log.trace(Obj.toJson(obj));
+			log.trace(JSON.toJson(obj));
 
 		return result;
 	}
@@ -194,7 +194,7 @@ public class OrmImpl implements IOrm {
 	@Override
 	public int update(Object obj, NullCndExpr fieldRexpr) {
 		if (log.isTraceEnabled())
-			log.tracef("修改%s......[obj: %s, fieldRexpr: %s]", Cls.getDisplayName(obj.getClass()), Obj.toJson(obj),
+			log.tracef("修改%s......[obj: %s, fieldRexpr: %s]", Cls.getDisplayName(obj.getClass()), JSON.toJson(obj),
 					fieldRexpr);
 
 		int result = dao.update(obj, Cnds.fieldRexpr(fieldRexpr), Cnds.isIgloreNull(fieldRexpr));
@@ -204,7 +204,7 @@ public class OrmImpl implements IOrm {
 		if (log.isDebugEnabled())
 			log.debugf("修改%s成功! [result: %s, fieldRexpr: %s]", Cls.getDisplayName(obj.getClass()), result, fieldRexpr);
 		if (log.isTraceEnabled())
-			log.trace(Obj.toJson(obj));
+			log.trace(JSON.toJson(obj));
 
 		return result;
 	}
@@ -218,7 +218,7 @@ public class OrmImpl implements IOrm {
 	public int updateMore(Object obj, CndExpr expr) {
 		Condition cnd = Cnds.toCnd(expr);
 		if (log.isTraceEnabled())
-			log.tracef("批量修改%s......[obj: %s, expr: %s]", Cls.getDisplayName(obj.getClass()), Obj.toJson(obj),
+			log.tracef("批量修改%s......[obj: %s, expr: %s]", Cls.getDisplayName(obj.getClass()), JSON.toJson(obj),
 					cnd == null ? "" : cnd.toSql(null));
 
 		int result = dao.update(obj, Cnds.fieldRexpr(expr), Cnds.isIgloreNull(expr), cnd);
@@ -229,7 +229,7 @@ public class OrmImpl implements IOrm {
 			log.debugf("批量修改%s成功! %s [result: %s]", Cls.getDisplayName(obj.getClass()),
 					cnd == null ? "" : cnd.toSql(null), result);
 		if (log.isTraceEnabled())
-			log.trace(Obj.toJson(obj));
+			log.trace(JSON.toJson(obj));
 
 		return result;
 	}
@@ -237,7 +237,7 @@ public class OrmImpl implements IOrm {
 	@Override
 	public int delete(Object obj) {
 		if (log.isTraceEnabled())
-			log.tracef("删除%s......[obj: %s]", Cls.getDisplayName(obj.getClass()), Obj.toJson(obj));
+			log.tracef("删除%s......[obj: %s]", Cls.getDisplayName(obj.getClass()), JSON.toJson(obj));
 
 		int result = dao.deleteMany(obj, null);
 		result += dao.delete(obj);
@@ -245,7 +245,7 @@ public class OrmImpl implements IOrm {
 		if (log.isDebugEnabled())
 			log.debugf("删除%s成功! [result: %s]", Cls.getDisplayName(obj.getClass()), result);
 		if (log.isTraceEnabled())
-			log.trace(Obj.toJson(obj));
+			log.trace(JSON.toJson(obj));
 
 		return result;
 	}
@@ -299,7 +299,7 @@ public class OrmImpl implements IOrm {
 
 			log.debugf("加载%s成功! [id: %s, fieldRexpr: %s]", Cls.getDisplayName(klass), id, fieldRexpr);
 			if (log.isTraceEnabled())
-				log.trace(Obj.toJson(result));
+				log.trace(JSON.toJson(result));
 
 			return result;
 		} else
@@ -321,7 +321,7 @@ public class OrmImpl implements IOrm {
 
 			log.debugf("加载%s成功! %s", Cls.getDisplayName(klass), cnd == null ? "" : cnd.toSql(null));
 			if (log.isTraceEnabled())
-				log.trace(Obj.toJson(result));
+				log.trace(JSON.toJson(result));
 
 			return result;
 		} else
