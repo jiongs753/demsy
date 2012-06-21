@@ -1,17 +1,4 @@
 {assign var="scriptPath" value="/scripts2"} {assign var="stylePath" value="/themes2/defaults"} {assign var="designerPath" value="/scripts2/cssDesigner"} {assign var="tabsPath" value="/scripts2/tabs"}
-<link href="{$designerPath}/cssDesigner.css" rel="stylesheet" type="text/css">
-<SCRIPT src="{$designerPath}/cssDesigner.js" language="JavaScript" type="text/javascript"></SCRIPT>
-<script src="{$scriptPath}/demsy.uploadify.js" type="text/javascript"></script>
-<script src="{$scriptPath}/swfobject.js" type="text/javascript"></script>
-<link href="{$stylePath}/jquery.uploadify.css" rel="stylesheet" type="text/css" media="screen" />
-<script src="{$scriptPath}/demsy.colorpicker.js" type="text/javascript"></script>
-<link href="{$stylePath}/demsy.colorpicker.css" rel="stylesheet" type="text/css" media="screen" />
-<LINK href="{$tabsPath}/demsy.tabs.css" rel=stylesheet type=text/css media=screen>
-<SCRIPT src="{$tabsPath}/demsy.tabs.js" language=javascript type=text/javascript></SCRIPT>
-
-<SCRIPT language="JavaScript" type="text/javascript">
-	QrXPCOM.designerPath = "{$designerPath}";
-</SCRIPT>
 <DIV class="tabs CssDesignerPad" style="display: none; margin-top: 5px;">
 	<DIV class="tabsMenu">
 		<UL>

@@ -35,5 +35,4 @@
 </div>
 {/if}
 {else}
-<span style="color: red;">没有查询到满足条件的记录</span>
 {/if}

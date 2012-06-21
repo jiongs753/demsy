@@ -1,6 +1,11 @@
 {prop bean=$data name=$ui.propName pattern=$ui.pattern assign="value"}
 {assign var="mode" value=$ui.mode}
 
+<style>
+.bzsubsys_item_active td{
+    background-color: #c5dbec;
+}
+</style>
 {if $mode == "H"}
 <textarea id="{$ui.uiid}" name="{$ui.name}" style="display: none;">{tostring bean=$value}</textarea>
 {else}
@@ -14,9 +19,8 @@
             <tr>
                 <th class="bzsubfld_head" style="width:140px;">CSS名称</th>
                 <th class="bzsubfld_head" style="width:290px;">样式内容</th>
-                <th class="bzsubfld_head_check">
+                <th class="bzsubfld_head_check bzsubsys_btns">
                     {if $mode == "M" || $mode == "E"}
-                     <a href="#" class="op_btn_del" title="删除" alt="删除" style="font-size: 17px;">×</a>
                      <a href="#" class="op_btn_add" title="添加" alt="添加">+</a>
                     {/if}
                 </th>
@@ -24,9 +28,9 @@
             {foreach from=$subSystemObj.list item="subData" key="row"}
             <tr class="bzsubsys_item">
                 <td class="bzsubfld_data" valign="top" style="padding: 4px;"><input style="width:130px;height: 18px;" class="input" name="code" type="text" value="{tostring bean=$subData.code}" /></td>
-                <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" style="width:280px;height: 20px;" class="textarea">{tostring bean=$subData.desc}</textarea></td>
-                <td class="bzsubfld_data_check" valign="top">
-                    <input type="checkbox" class="check" />
+                <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" readonly="true" style="width:280px;height: 20px;" class="textarea">{tostring bean=$subData.desc}</textarea></td>
+                <td class="bzsubfld_data_check bzsubsys_btns" valign="top">
+                     <a href="#" class="op_btn_del_item" title="删除" alt="删除" style="font-size: 17px;">×</a>
                     <input name="id" type="hidden" value="{tostring bean=$subData.id}"/>
                 </td>
             </tr>{/foreach}
@@ -47,9 +51,9 @@
         	</div>
         	</div>
         </td>
-        <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" style="width:280px;height: 20px;" class="textarea"></textarea></td>
-        <td class="bzsubfld_data_check" valign="top">
-            <input type="checkbox" class="check" />
+        <td class="bzsubfld_data" valign="top" style="padding: 3px;"><textarea name="desc" readonly="true" style="width:280px;height: 20px;" class="textarea"></textarea></td>
+        <td class="bzsubfld_data_check bzsubsys_btns" valign="top">
+            <a href="#" class="op_btn_del_item" title="删除" alt="删除" style="font-size: 17px;">×</a>
             <input name="id" type="hidden" />
         </td>
     </tr>
@@ -81,26 +85,16 @@ $(function(){
 	var selectItem = function(){
 		var $item = $(this).parent().parent();
 		if(!$item.hasClass("bzsubsys_item")){
-			$item=$item.parent().parent();
-		}
-		var checked = true;
-		if($(this).hasClass("check")){
-			checked = this.checked;
-		}
-		$(".check", $bzsys).attr("checked", false);
-		$(".check", $item).attr("checked", checked);
-		
-		//reset
-		if(checked){
-			designer.outputEle = $(".textarea", $item).get(0);
-			designer.targetSubSelector = $(".input", $item).val();
-			designer.$pad.show();
-		}else{
-    		designer.outputEle = null;
-    		designer.targetSubSelector = null;
-    		designer.$pad.hide();
+			$item = $item.parent().parent();
 		}
 		
+		$(".bzsubsys_item", $bzsys).removeClass("bzsubsys_item_active");	
+		$item.addClass("bzsubsys_item_active");
+
+		designer.$pad.show();
+		designer.outputEle = $(".textarea", $item).get(0);
+		designer.targetSubSelector = $(".input", $item).val();
+
 		designer.refreshCacheStyles(getStyles());
 	}
 	
@@ -108,16 +102,13 @@ $(function(){
         field: $("#{$ui.uiid}"),
         itemTemplate: $("#bzsubsys_tpl_{$ui.uiid}"),
         onAddItem: function(self, $item, json){
-            $(".check", $item).click(selectItem);
-            $(".input", $bzsys).click(selectItem);
+            $(".input", $item).click(selectItem);
             $(".textarea", $item).click(selectItem);
-            $(".input", $bzsys).blur(selectItem);
-            $(".textarea", $item).blur(selectItem);
-            
             var $sel=$(".select", $item).change(function(){
             	var ths=$(this);
-            	$(".input",$item).val(ths.val()).click();
+            	$(".input", $item).val(ths.val()).click();
             });
+            
             var sel = $sel.get(0);
             var options=sel.options;
             
@@ -130,19 +121,18 @@ $(function(){
             	options.add(option);
             }
         },
-        onDelItem: function(self, $item){
-    		designer.outputEle = null;
-    		designer.targetSubSelector = null;
-    		designer.$pad.hide();
+        onDelItem: function(self, $item){	
+    		if($item.hasClass("bzsubsys_item_active")){
+    			designer.outputEle = null;
+    			designer.targetSubSelector = null;
+    			designer.$pad.hide();
+    		}
+    		
     		designer.refreshCacheStyles(getStyles());
         }
     });
-    
-    $(".check", $bzsys).click(selectItem);
     $(".input", $bzsys).click(selectItem);
     $(".textarea", $bzsys).click(selectItem);
-    $(".input", $bzsys).blur(selectItem);
-    $(".textarea", $bzsys).blur(selectItem);
 });
 </script>
 {/if}

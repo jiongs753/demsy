@@ -260,6 +260,9 @@ var DemsyUIManager = function() {
 		var self = this;
 		var eles = $form[0].elements;
 		var pos = {};
+		if(!eles["data.parent.id"]){
+			return;
+		}
 		var parentId = eles["data.parent.id"].value;
 		if (eles["data.position.position"]) {
 			pos = {
@@ -307,7 +310,7 @@ var DemsyUIManager = function() {
 			style = $("<div dataID='" + id + "'></div>").addClass("blank").insertBefore($("#top"));
 			style.attr("id", "style" + id);
 		}
-		if (id.indexOf("#") == 0) {
+		if ($.type(id)=="string"&&id.indexOf("#") == 0) {
 			id = id.substring(1);
 		}
 		style.load(this.options.loadStyleUrl + id, "");
@@ -341,7 +344,7 @@ var DemsyUIManager = function() {
 				block.removeClass("css_" + oldStyleID);
 				block.addClass("css_" + newStyleID);
 			}
-
+			
 			if (type == 0) {
 				var block = $("#block" + blockID);
 				self.reloadBlock(blockID, $form);
@@ -365,7 +368,7 @@ var DemsyUIManager = function() {
 			try {
 				CssDesigner.instance.refreshCacheStyles(new Array());
 			} catch (e) {
-				alert("edit ERROR:" + e);
+				alert("Css Designer error:" + e);
 			}
 		}
 	}
@@ -413,13 +416,13 @@ var DemsyUIManager = function() {
 					}, type, "");
 				},
 				"应用" : function() {
-					self.clearCssDesigner();
 					// 新增时dataID为空，因此需要在点击应用按钮时回写dataID
 					self.save(saveUrl + dataID, $(this), function(jsonObj) {
 						dataID = jsonObj.data;
 						if (blockID.length == 0) {
 							blockID = dataID;
 						}
+						self.clearCssDesigner();
 					}, type, blockID);
 				}
 			},

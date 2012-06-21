@@ -618,8 +618,8 @@ var SubModule = function($table, config) {
 
 		return false;
 	}
-	// 删除一条记录
-	this.delItem = function() {
+	// 删除多条记录
+	this.delItems = function() {
 		$(".check", self.$table).each(function() {
 			if (this.checked) {
 				var $item = $(this).parent().parent();
@@ -632,6 +632,17 @@ var SubModule = function($table, config) {
 			}
 		});
 
+		self.eval();
+
+		return false;
+	}
+	// 删除一条记录
+	this.delItem = function() {
+		var $item = $(this).parent().parent();
+		if (self.config.onDelItem) {
+			self.config.onDelItem(self, $item);
+		}
+		$item.remove();
 		self.eval();
 
 		return false;
@@ -713,6 +724,7 @@ var SubModule = function($table, config) {
 		$(".input", $item).change(self.eval);
 		$(".select", $item).change(self.eval);
 		$(".textarea", $item).change(self.eval);
+		$(".op_btn_del_item", $item).click(self.delItem);
 		if (!igloreUpload) {
 			var $upload = $(".upload", $item);
 			if ($upload.length > 0) {
@@ -770,7 +782,8 @@ var SubModule = function($table, config) {
 		self.bindEval($table, true);
 		$(".submitButton").click(self.eval);
 		$(".op_btn_add", $table).click(self.addItem);
-		$(".op_btn_del", $table).click(self.delItem);
+		$(".op_btn_del", $table).click(self.delItems);
+		$(".op_btn_del_item", $table).click(self.delItem);
 		$(".op_btn_up", $table).click(self.moveUpItem);
 		$(".op_btn_down", $table).click(self.moveDownItem);
 		$(".op_checkall", $table).click(self.checkall);

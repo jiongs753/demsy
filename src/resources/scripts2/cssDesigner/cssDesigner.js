@@ -317,13 +317,15 @@ QrSpinner.onDown = function(e, id) {
 function CssDesigner($pad) {
 	CssDesigner.instance = this;
 	this.$pad = $pad;
+	this.$inputs = $("input", this.$pad);
+	this.$colors = $(".CssColorInput", this.$pad);
 	this.connectInstanceMap = new Array;
 	this.cacheStyles = new Array;
 	this.outputEle = null;// 输出当前CSS到这个位置
 	this.targetSelector = null;
 	this.targetSubSelector = null;
 	var self = this;
-	$(".CssColorInput", $pad).each(function() {
+	this.$colors.each(function() {
 		var ths = $(this);
 		ths.css("background-color", ths.val());
 	}).ColorPicker({
@@ -577,15 +579,20 @@ CssDesigner.prototype.refreshCacheStyles = function(c) {
 	}
 
 	// 解析输出框中的CSS文本并同步到CSS编辑器字段中
-	$("input", this.$pad).val("");
+	this.$inputs.val("");
 	if (this.outputEle) {
 		var styleText = $(this.outputEle).val();
 		var styles = CssDesigner.parseStyles(styleText);
-		for (style in styles) {
-			$("input[styleName='" + style + "']").val(styles[style]);
-		}
+		this.$inputs.each(function() {
+			var ths = $(this);
+			var styleName = ths.attr("styleName");
+			var styleValue = styles[styleName];
+			if (styleName && typeof styleValue == "string") {
+				ths.val(styleValue);
+			}
+		});
 	}
-	$(".CssColorInput", this.$pad).each(function() {
+	this.$colors.each(function() {
 		var ths = $(this);
 		ths.css("background-color", ths.val());
 	});
@@ -607,7 +614,7 @@ CssDesigner.prototype.change = function(style, value) {
 
 	// 输出CSS内容到 this.outputEle 框中
 	var styleText = "";
-	$("input", this.$pad).each(function() {
+	this.$inputs.each(function() {
 		var $me = $(this);
 		var styleName = $me.attr("styleName");
 		var v = $me.val();
