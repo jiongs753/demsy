@@ -36,6 +36,7 @@ public class MyInfo extends UiBaseDataSource {
 						block.getParams());
 				UIBizFormModel ret = BizActions.buildForm(block.getName(), "" + module.getId(), block.getParams() + ":"
 						+ user.getId(), null, MvcConst.URL_BZ_SAVE);
+				ret.set("importJS", "true");
 
 				user = (IUser) ret.getData();
 				Demsy.me().login().setUser(user);

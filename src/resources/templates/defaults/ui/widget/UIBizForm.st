@@ -1,3 +1,4 @@
+{if $importJS != null}
 <script src="{$scriptPath}/demsy.bizmodule.js" type="text/javascript"></script>
 <link href="{$stylePath}/demsy.bizform.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="{$stylePath}/jquery.ui.spinner.css" rel="stylesheet" type="text/css" media="screen" />
@@ -33,6 +34,7 @@
 {if $ui.hasColor}
 <script src="{$scriptPath}/demsy.colorpicker.js" type="text/javascript"></script>
 <link href="{$stylePath}/demsy.colorpicker.css" rel="stylesheet" type="text/css" media="screen" />
+{/if}
 {/if}
 
 <form id="{$ui.uiid}" class="bzsys bzsys_{$mode}" method="POST" onsubmit="return false;">

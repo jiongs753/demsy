@@ -1,7 +1,3 @@
-<script src="{$scriptPath}/demsy.tree.js" type="text/javascript"></script>
-<link href="{$stylePath}/jquery.tree.css" rel="stylesheet" type="text/css" media="screen" />
-<script src="{$scriptPath}/demsy.bizmodule.js" type="text/javascript"></script>
-
 <div id="{$ui.uiid}"></div>
 <script type="text/javascript">
 bizmodule.addNaviMenu({

@@ -1,19 +1,3 @@
-<script src="{$scriptPath}/jquery.ui.accordion.js" type="text/javascript"></script>
-<script src="{$scriptPath}/demsy.tree.js" type="text/javascript"></script>
-
-<link href="{$stylePath}/jquery.ui.accordion.css" rel="stylesheet" type="text/css" media="screen" />
-<link href="{$stylePath}/jquery.tree.css" rel="stylesheet" type="text/css" media="screen" />
-
-<style>
-.bbit-tree-node-el {
-	padding: 1px;
-}
-.main_bg{
-	background-image: url({$contextPath}/themes2/images/index_main_bg.jpg);
-	background-repeat: repeat;
-	background-position: left top;
-}
-</style>
 <div id="{$ui.uiid}" style="display:none; position: relative; top: -1px;">{foreach from=$data.children item="item"}
 	<h3>
 		<a hideFocus href="javascript:void(0);">{$item.name}</a>

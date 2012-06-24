@@ -45,6 +45,7 @@ public class BizRecord extends UiBaseDataSource {
 					block.getParams());
 			UIBizFormModel ret = BizActions.buildForm(block.getName(), "" + module.getId(), block.getParams() + ":"
 					+ (id == null ? "" : id), objNode, MvcConst.URL_BZ_SAVE);
+			ret.set("importJS", "true");
 
 			ret.setData(data);
 

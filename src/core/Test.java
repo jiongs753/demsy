@@ -18,7 +18,7 @@ public class Test {
 
 		// System.out.print((int) '0' + "," + (int) '9');
 
-		testZoomImage();
+		printClassPath();
 	}
 
 	public static void testZoomImage() {

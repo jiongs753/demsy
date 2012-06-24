@@ -26,7 +26,7 @@ import com.kmetop.demsy.mvc.MvcConst;
  */
 public class StaticResourceFilter implements Filter, MvcConst {
 
-	private String classPathForDir;
+	public static String classPathForDir;
 
 	public void init(FilterConfig conf) throws ServletException {
 		classPathForDir = System.getProperty("user.dir") + File.separator + "work" + File.separator + "classes";

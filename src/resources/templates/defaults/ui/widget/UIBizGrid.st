@@ -1,18 +1,3 @@
-<link href="{$stylePath}/jquery.jqgrid.css" rel="stylesheet" type="text/css" media="screen" />
-
-<script src="{$scriptPath}/demsy.grid-zh-CN.js" type="text/javascript"></script>
-<script src="{$scriptPath}/jquery.jqgrid.js" type="text/javascript"></script>
-<script src="{$scriptPath}/demsy.bizmodule.js" type="text/javascript"></script>
-
-<style>
-.ui-widget,.ui-jqgrid,.ui-jqdialog {
-	font-size: {$fontSize};
-}
-.ui-widget-content .ui-priority-secondary td{
-	background: #eee;
-}
-</style>
-
 <table id="{$ui.uiid}"></table>
 <div id="pg{$ui.uiid}"></div>
 <script type='text/javascript'>
