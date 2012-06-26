@@ -25,6 +25,7 @@
 <link href="{$scriptPath}/cssDesigner/cssDesigner.css" rel="stylesheet" type="text/css">
 <link href="{$stylePath}/jquery.uploadify.css" rel="stylesheet" type="text/css" media="screen" />
 <link href="{$stylePath}/demsy.colorpicker.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="{$stylePath}/jquery.tree.css" rel="stylesheet" type="text/css" media="screen" />
 <LINK href="{$scriptPath}/tabs/demsy.tabs.css" rel=stylesheet type=text/css media=screen>
 
 <script src="{$scriptPath}/jquery.ui.core.js" type="text/javascript"></script>
@@ -36,6 +37,7 @@
 <script src="{$scriptPath}/jquery.ui.resizable.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.ui.dialog.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.ui.button.js" type="text/javascript"></script>
+<script src="{$scriptPath}/demsy.tree.js" type="text/javascript"></script>
 <script src="{$scriptPath}/accordion/demsy.accordion.js" type="text/javascript"></script>
 <script src="{$scriptPath}/jquery.ui.spinner.js" type="text/javascript"></script>
 <script src="{$scriptPath}/demsy.colorpicker.js" type="text/javascript"></script>

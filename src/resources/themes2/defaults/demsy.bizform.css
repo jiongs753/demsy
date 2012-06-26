@@ -133,7 +133,7 @@ form.bzsys {
     padding: 2px;
 }
 .bzsubfld_head, .bzsubfld_head_check, .bzsubsys_btns {
-	width: 204px;
+	width: 104px;
 	white-space: nowrap;
 	background-color: #edf6fc;
 	border: 1px solid #c5dbec;
@@ -168,7 +168,14 @@ a.op_btn_add {
 	font-size: 20px;
 } 
 .bzsubfld_data .input, .bzsubfld_data .select, .bzsubfld_data textarea.textarea {
+	width: 100px;
 	border: 1px solid #999999;
+}
+.bzsubfld_data .select {
+	width: 105px;
+}
+.bzsubfld_data .Combobox {
+	width: 104px;
 }
 .bzfld_data .bzsubfld_data textarea.textarea {
     width: 400px;

@@ -50,26 +50,31 @@ public class $thumbs extends LineFunction {
 			int w = (Integer) values[1];
 			int h = (Integer) values[2];
 
-			src = Str.dencodeUri(src);
-			if (src.startsWith("http://")) {
-				src = src.substring(7);
-				src = src.substring(src.indexOf("/"));
+			String localSrc = Str.dencodeUri(src);
+			if (localSrc.startsWith("http://")) {
+				localSrc = localSrc.substring(7);
+				localSrc = localSrc.substring(localSrc.indexOf("/"));
 			}
-			if (src.startsWith("https://")) {
-				src = src.substring(8);
-				src = src.substring(src.indexOf("/"));
+			if (localSrc.startsWith("https://")) {
+				localSrc = localSrc.substring(8);
+				localSrc = localSrc.substring(localSrc.indexOf("/"));
 			}
-			String zoomImg = Img.zoomImgPath(src, w, h).replace(" ", "_");
-			String targetImg = Demsy.contextDir + zoomImg;
 
-			if (!new File(targetImg).exists()) {
-				Img.zoomImage(Demsy.contextDir + src, targetImg, w, h, (Boolean) values[5]);
+			String zoomImg = Img.zoomImgPath(localSrc, w, h).replace(" ", "_");
+			String targetImg = Demsy.contextDir + zoomImg;
+			File zoomFile = new File(targetImg);
+
+			if (!zoomFile.exists()) {
+				Img.zoomImage(Demsy.contextDir + localSrc, targetImg, w, h, (Boolean) values[5]);
 				String pressImg = Demsy.contextDir + MvcUtil.getUploadBasePath() + "/images/logo.png";
 				if (new File(pressImg).exists() && new File(targetImg).exists() && "true".equals(values[4]))
 					Img.pressImage(pressImg, targetImg, 10, 10);
 			}
-
-			zoomImg = Str.encodeUri(zoomImg);
+			if (zoomFile.exists()) {
+				zoomImg = Str.encodeUri(zoomImg);
+			} else {
+				zoomImg = src;
+			}
 
 			if (values[3] != null)
 				context.set((String) values[3], zoomImg);

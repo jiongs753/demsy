@@ -34,15 +34,16 @@ fields = {
 // 基本信息
 		@BzFld(name = "名称", property = "name", mode = "c:M e:M"),//
 		@BzFld(name = "编码", property = "code"),//
-		// 核心信息
 		@BzFld(property = "parent"),//
-		@BzFld(property = "image"),//
-		// @BzFld(property = "products"), //
-		@BzFld(property = "chidlren"), //
-		@BzFld(property = "customFields"), //
-		// 其他信息
-		@BzFld(name = "排序", property = "orderby", uiTemplate = "ui.widget.field.Spinner", mode = "*:N"), //
-		@BzFld(name = "创建时间", property = "created", mode = "*:N v:P"), //
+		@BzFld(property = "image") //
+}), @BzGrp(name = "下级分类", code = "chidlren",//
+fields = { @BzFld(property = "chidlren") //
+}), @BzGrp(name = "产品特征", code = "customFields",//
+fields = { @BzFld(property = "customFields") //
+// }), @BzGrp(name = "产品列表", code = "products",//
+// fields = { @BzFld(property = "products") //
+}), @BzGrp(name = "其他信息", code = "others",//
+fields = { @BzFld(name = "创建时间", property = "created", mode = "*:N v:P"), //
 		@BzFld(name = "更新时间", property = "updated", mode = "*:N v:P"), //
 		@BzFld(name = "创建帐号", property = "createdBy", mode = "*:N v:P"), //
 		@BzFld(name = "更新帐号", property = "updatedBy", mode = "*:N v:P") //
@@ -60,14 +61,14 @@ public class ProductCatalog extends BizComponent implements IProductCatalog {
 	// "name,image,price,keywords")
 	// protected SubSystem<Product> products;
 
-	@OneToMany(mappedBy = "parent")
-	@BzFld(name = "下级分类", isTransient = true, gridField = false, mode = "c:E e:E v:S *:N", refrenceFields = "name")
-	protected SubSystem<ProductCatalog> chidlren;
-
 	@BzFld(name = "分类图片", uploadType = "*.jpg;*.gif;*.png;")
 	protected Upload image;
 
-	@BzFld(name = "字段设置", gridField = false, refrenceFields = "propName,name,mode,type")
+	@OneToMany(mappedBy = "parent")
+	@BzFld(name = "下级分类", isTransient = true, gridField = false, mode = "c:E e:E v:S *:N", refrenceFields = "name,code,image")
+	protected SubSystem<ProductCatalog> chidlren;
+
+	@BzFld(name = "产品特征", gridField = false, refrenceFields = "propName,name,mode,type,precision")
 	protected FakeSubSystem<AbstractSystemData> customFields;
 
 	public ProductCatalog getParent() {

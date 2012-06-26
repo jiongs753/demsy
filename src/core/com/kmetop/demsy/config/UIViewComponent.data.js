@@ -24,10 +24,26 @@
 	}, {
 		name : "表达式视图",
 		code : "expressionView",
-		orderby : 2,
+		orderby : 3,
 		viewController : "com.kmetop.demsy.mvc.controller.UIViewController",
 		desc : "按“视图表达式”中指定的内容展现数据",
 		defaultWidth : 200,
+		defaultHeight : 30
+	}, {
+		name : "视图面板",
+		code : "panelView",
+		orderby : 4,
+		viewTemplate : "ui.view.UIPanelView",
+		desc : "将子视图按行或列方式排列",
+		defaultWidth : 300,
+		defaultHeight : 300
+	}, {
+		name : "页面分享",
+		code : "shareView",
+		orderby : 5,
+		viewTemplate : "ui.view.UIShareView",
+		desc : "分享页面到博客、微博等",
+		defaultWidth : 500,
 		defaultHeight : 30
 	} ]
 }, {

@@ -712,7 +712,8 @@ public class UiEngine implements IUiEngine, MvcConst {
 				if (refFld != null) {
 					UIBizFld uiRefFld = this.convertFld(module, form, refFld, action, defaultMode, null, null);
 
-					if (bizEngine.isNumber(refFld)) {
+					uiRefFld.setMode("E");
+					if (bizEngine.isNumber(refFld) && !bizEngine.isInteger(refFld)) {
 						uiRefFld.setPattern("#.00");
 					}
 					if (bizEngine.isSystemFK(refFld))
@@ -1432,32 +1433,33 @@ public class UiEngine implements IUiEngine, MvcConst {
 
 			UIBlockViewModel blockView = this.makeBlockView(pageBlock, null, null, null, null);
 			UIBlockContext blockContext = (UIBlockContext) blockView.get("ctx");
-
-			IBizSystem catalogSystem = blockContext.getCatalogSystem();
-			IBizSystem system = blockContext.getSystem();
-			if (catalogSystem != null) {
-				Node node = root.addNode(null, "catalogSystemFields").setName(catalogSystem.getName() + "(字段表达式)");
-				node.setType("catalogSystemFields");
-				List<? extends IBizField> fields = bizEngine.getFieldsOfEnabled(catalogSystem);
-				for (IBizField f : fields) {
-					Node fnode = root.addNode("catalogSystemFields", "field" + f.getId()).setName(f.getName());
-					addViewComponent(fnode, exprView, f, "ctx.catalog");
-				}
-			}
-			if (system != null) {
-				Node node = root.addNode(null, "systemFields").setName(system.getName() + "(字段表达式)");
-				node.setType("systemFields");
-				List<? extends IBizField> fields = bizEngine.getFieldsOfEnabled(system);
-				for (IBizField f : fields) {
-					Node fnode = root.addNode("systemFields", "field" + f.getId()).setName(f.getName());
-
-					// 如果上级板块为迭代视图，则子视图表达式变量不含ctx.前缀
-					if ("listView".equals(parentViewCode)) {
-						addViewComponent(fnode, exprView, f, "item");
-					} else {
-						addViewComponent(fnode, exprView, f, "ctx.item");
+			if (blockContext != null) {
+				IBizSystem catalogSystem = blockContext.getCatalogSystem();
+				IBizSystem system = blockContext.getSystem();
+				if (catalogSystem != null) {
+					Node node = root.addNode(null, "catalogSystemFields").setName(catalogSystem.getName() + "(字段表达式)");
+					node.setType("catalogSystemFields");
+					List<? extends IBizField> fields = bizEngine.getFieldsOfEnabled(catalogSystem);
+					for (IBizField f : fields) {
+						Node fnode = root.addNode("catalogSystemFields", "field" + f.getId()).setName(f.getName());
+						addViewComponent(fnode, exprView, f, "ctx.catalog");
 					}
+				}
+				if (system != null) {
+					Node node = root.addNode(null, "systemFields").setName(system.getName() + "(字段表达式)");
+					node.setType("systemFields");
+					List<? extends IBizField> fields = bizEngine.getFieldsOfEnabled(system);
+					for (IBizField f : fields) {
+						Node fnode = root.addNode("systemFields", "field" + f.getId()).setName(f.getName());
 
+						// 如果上级板块为迭代视图，则子视图表达式变量不含ctx.前缀
+						if ("listView".equals(parentViewCode)) {
+							addViewComponent(fnode, exprView, f, "item");
+						} else {
+							addViewComponent(fnode, exprView, f, "ctx.item");
+						}
+
+					}
 				}
 			}
 		}

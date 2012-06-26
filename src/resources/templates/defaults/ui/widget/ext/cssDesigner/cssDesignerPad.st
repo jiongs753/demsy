@@ -31,7 +31,7 @@
 					<td class="QrCSSDesignerPadLeft">下：</td>
 					<td>{import file="spinner.st" name="borderBottomWidth" style="border-bottom-width" value="" uom="px"}</td>
 					<td>{import file="pulldown.st" name="borderBottomStyle" style="border-bottom-style" value="" options=$borderStyleOptions}</td>
-					<td>{import file="color.st" name="borderBottomColor" style="borde-bottomr-color" value=""}</td>
+					<td>{import file="color.st" name="borderBottomColor" style="border-bottom-color" value=""}</td>
 				</tr>
 				<tr class="tr_border" style="display: none;">
 					<td></td>

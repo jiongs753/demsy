@@ -39,8 +39,7 @@ actions = {
 		// "bu4"),//
 		@BzAct(jsonData = "CommonBizAction.data.js") //
 },//
-groups = { //
-@BzGrp(name = "基本信息", code = "basic",//
+groups = { @BzGrp(name = "基本信息", code = "basic",//
 fields = { @BzFld(property = "catalog", gridOrder = 1)//
 		, @BzFld(name = "产品名称", property = "name", mode = "c:M e:M v:S *:N", gridOrder = 2)//
 		, @BzFld(name = "产品编码", property = "code", mode = "c:E e:E v:S *:N")//
@@ -56,14 +55,19 @@ fields = { @BzFld(property = "catalog", gridOrder = 1)//
 		, @BzFld(property = "saleNum", gridOrder = 6)//
 		, @BzFld(property = "stockNum") //
 		, @BzFld(property = "keywords", gridOrder = 7) //
-}), @BzGrp(name = "其他属性", code = "other",//
-fields = { @BzFld(property = "images")//
-		, @BzFld(property = "attributes") //
-		, @BzFld(property = "models") //
-		, @BzFld(property = "content") //
-		, @BzFld(property = "clickNum", gridOrder = 8)//
-		, @BzFld(property = "commentNum")//
+		, @BzFld(name = "产品说明", property = "desc", mode = "c:E e:E v:S *:N") //
 		, @BzFld(name = "人工顺序", property = "orderby", uiTemplate = "ui.widget.field.Spinner", mode = "v:S *:N") //
+}), @BzGrp(name = "产品详情", code = "content",//
+fields = { @BzFld(property = "content") //
+}), @BzGrp(name = "产品特征", code = "attributes",//
+fields = { @BzFld(property = "attributes") //
+}), @BzGrp(name = "产品型号", code = "models",//
+fields = { @BzFld(property = "models") //
+}), @BzGrp(name = "产品图库", code = "images",//
+fields = { @BzFld(property = "images") //
+}), @BzGrp(name = "其他属性", code = "other",//
+fields = { @BzFld(property = "clickNum", gridOrder = 8)//
+		, @BzFld(property = "commentNum")//
 		, @BzFld(name = "创建时间", property = "created", mode = "*:N v:S") //
 		, @BzFld(name = "更新时间", property = "updated", mode = "*:N v:S") //
 		, @BzFld(name = "创建帐号", property = "createdBy", mode = "*:N v:S") //
@@ -107,7 +111,7 @@ public class Product extends BizComponent implements IProduct {
 	@BzFld(name = "上架时间", pattern = "yyyy-MM-dd", mode = "c:E e:E v:S *:N")
 	protected Date onlineDate;
 
-	@BzFld(name = "产品描述", gridField = false, mode = "c:E e:E v:S *:N")
+	@BzFld(name = "产品详情", gridField = false, mode = "c:E e:E v:S *:N")
 	protected RichText content;
 
 	@Column(length = 256)
@@ -327,15 +331,15 @@ public class Product extends BizComponent implements IProduct {
 		this.images = images;
 	}
 
-	@Override
-	public String getDesc() {
-		if (Str.isEmpty(this.desc)) {
-			String str = this.content == null ? "" : content.toString();
-			return Str.substr(Str.escapeHTML(str).trim(), 50);
-		}
-
-		return Str.substr(Str.escapeHTML(desc).trim(), 50);
-	}
+	// @Override
+	// public String getDesc() {
+	// if (Str.isEmpty(this.desc)) {
+	// String str = this.content == null ? "" : content.toString();
+	// return Str.substr(Str.escapeHTML(str).trim(), 50);
+	// }
+	//
+	// return Str.substr(Str.escapeHTML(desc).trim(), 50);
+	// }
 
 	public SubSystem<ProductAttribute> getAttributes() {
 		return attributes;

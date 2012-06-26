@@ -1,5 +1,5 @@
  {if $block.naviButton && $pager.totalPage > 1}
-<div class="pager">
+<div class="pager" style="cursor: pointer;">
     {if $pager.pageIndex != 1}
     <a class="first navi" onclick='ui.gotoPage("block{$block.id}","page=1");'><span>第一页</span></a>
     &nbsp;<a class="prev navi" onclick='ui.gotoPage("block{$block.id}","page={$pager.prePage}");'><span>上一页</span></a>

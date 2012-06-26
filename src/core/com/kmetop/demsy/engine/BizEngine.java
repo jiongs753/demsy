@@ -538,8 +538,7 @@ public abstract class BizEngine implements IBizEngine {
 	@Override
 	public boolean isManyToOne(IBizField field) {
 		IBizFieldType type = field.getType();
-		return (type.isSystem() || (type.isV1Dic() && !type.isManyToMany()) || type.isV1GEO())
-				&& !field.isSysMultiple();
+		return (type.isSystem() || (type.isV1Dic() && !type.isManyToMany()) || type.isV1GEO()) && !field.isSysMultiple();
 	}
 
 	@Override
@@ -644,7 +643,7 @@ public abstract class BizEngine implements IBizEngine {
 	@Override
 	public boolean isSubSystem(IBizField field) {
 		String type = field.getType().getCode();
-		return "SubSystem".equals(type);
+		return "SubSystem".equals(type) || "FakeSubSystem".equals(type);
 	}
 
 	@Override
@@ -1284,9 +1283,7 @@ public abstract class BizEngine implements IBizEngine {
 					if (parentValue == null) {
 					} else if (this.isSystemFK(parentField)) {
 						String fld = dot > 0 ? array[0].substring(dot + 1) : F_CODE;
-						Object v = Obj.getValue(
-								orm().load(this.getType(parentField.getRefrenceSystem()),
-										Expr.eq(F_ID, Obj.getId(parentValue))), fld);
+						Object v = Obj.getValue(orm().load(this.getType(parentField.getRefrenceSystem()), Expr.eq(F_ID, Obj.getId(parentValue))), fld);
 						if (v instanceof Boolean) {
 							if ((Boolean) v) {
 								code = "1";
@@ -1494,8 +1491,7 @@ public abstract class BizEngine implements IBizEngine {
 		return fldvalue;
 	}
 
-	public void validate(IBizSystem system, IAction action, Object data, Map<String, String> fieldMode)
-			throws DemsyException {
+	public void validate(IBizSystem system, IAction action, Object data, Map<String, String> fieldMode) throws DemsyException {
 		if (fieldMode == null) {
 			fieldMode = this.getMode(system, action, data);
 		}
@@ -1584,8 +1580,8 @@ public abstract class BizEngine implements IBizEngine {
 	}
 
 	// 解析自身树节点
-	private Node mountToSelf(Nodes maker, Object obj, String rootID, String group, String selfTree, String groupTree,
-			String groupParam, String paramPrefix, String prefix, boolean selectable, String idField, List selfList) {
+	private Node mountToSelf(Nodes maker, Object obj, String rootID, String group, String selfTree, String groupTree, String groupParam, String paramPrefix, String prefix, boolean selectable,
+			String idField, List selfList) {
 		boolean isSelfTree = !Str.isEmpty(selfTree);
 
 		if (isSelfTree) {// 自身树
@@ -1600,21 +1596,17 @@ public abstract class BizEngine implements IBizEngine {
 				makeNode(maker, obj, prefix + parentID, prefix, paramPrefix, pselect, idField);
 
 				// 解析自身树上级
-				return mountToSelf(maker, parentObj, rootID, group, selfTree, groupTree, groupParam, paramPrefix,
-						prefix, false, idField, selfList);
+				return mountToSelf(maker, parentObj, rootID, group, selfTree, groupTree, groupParam, paramPrefix, prefix, false, idField, selfList);
 			} else {
-				return mountToGroup(maker, obj, rootID, group, groupTree, groupParam, paramPrefix, prefix, selectable,
-						idField);
+				return mountToGroup(maker, obj, rootID, group, groupTree, groupParam, paramPrefix, prefix, selectable, idField);
 			}
 		} else {
-			return mountToGroup(maker, obj, rootID, group, groupTree, groupParam, paramPrefix, prefix, selectable,
-					idField);
+			return mountToGroup(maker, obj, rootID, group, groupTree, groupParam, paramPrefix, prefix, selectable, idField);
 		}
 	}
 
 	// 将节点挂在分组上
-	private Node mountToGroup(Nodes maker, Object obj, String rootID, String group, String groupTree,
-			String groupParam, String paramPrefix, String prefix, boolean selectable, String idField) {
+	private Node mountToGroup(Nodes maker, Object obj, String rootID, String group, String groupTree, String groupParam, String paramPrefix, String prefix, boolean selectable, String idField) {
 		if (!Str.isEmpty(group)) {
 			Object groupObj = Obj.getValue(obj, group);
 			if (groupObj != null) {
@@ -1624,8 +1616,7 @@ public abstract class BizEngine implements IBizEngine {
 				makeNode(maker, obj, groupPrefix + groupID, prefix, paramPrefix, selectable, idField);
 
 				// 构建分组树
-				return mountToSelf(maker, groupObj, rootID, null, groupTree, null, null, groupParam, groupPrefix,
-						!Str.isEmpty(groupParam), idField, null);
+				return mountToSelf(maker, groupObj, rootID, null, groupTree, null, null, groupParam, groupPrefix, !Str.isEmpty(groupParam), idField, null);
 			} else {
 				return makeNode(maker, obj, rootID, prefix, paramPrefix, selectable, idField);
 			}
@@ -1634,8 +1625,7 @@ public abstract class BizEngine implements IBizEngine {
 		}
 	}
 
-	private Node makeNode(Nodes maker, Object obj, String parentNode, String prefix, String paramPrefix,
-			boolean selectable, String idField) {
+	private Node makeNode(Nodes maker, Object obj, String parentNode, String prefix, String paramPrefix, boolean selectable, String idField) {
 		Serializable id = Obj.getId(obj);
 
 		Node item = maker.addNode(parentNode, prefix + id).setName(obj.toString());
@@ -1700,8 +1690,7 @@ public abstract class BizEngine implements IBizEngine {
 		return rules;
 	}
 
-	private void makeFieldOptions(Nodes root, Node node, Object obj, IBizField field, String mode, String paramPrefix,
-			String idField) throws DemsyException {
+	private void makeFieldOptions(Nodes root, Node node, Object obj, IBizField field, String mode, String paramPrefix, String idField) throws DemsyException {
 		String parentNode = node == null ? "" : "" + node.getId();
 		String nodePrefix = Str.isEmpty(parentNode) ? "_" : parentNode + "_";
 
@@ -1770,8 +1759,7 @@ public abstract class BizEngine implements IBizEngine {
 				expr = expr == null ? CndExpr.asc(F_ORDER_BY) : expr.addAsc(F_ORDER_BY);
 			}
 			if (Cls.hasField(type, F_DISABLED)) {
-				expr = expr == null ? Expr.eq(F_DISABLED, 0).or(Expr.isNull(F_DISABLED)) : expr.and(Expr.eq(F_DISABLED,
-						0).or(Expr.isNull(F_DISABLED)));
+				expr = expr == null ? Expr.eq(F_DISABLED, 0).or(Expr.isNull(F_DISABLED)) : expr.and(Expr.eq(F_DISABLED, 0).or(Expr.isNull(F_DISABLED)));
 			}
 
 			// 计算字段是否属于真实的外键引用
@@ -1808,8 +1796,7 @@ public abstract class BizEngine implements IBizEngine {
 			// }
 
 			for (Object ele : datas) {
-				Node item = this.mountToSelf(root, ele, parentNode, group, selfTree, groupTree, null, paramPrefix,
-						nodePrefix, true, idField, datas);
+				Node item = this.mountToSelf(root, ele, parentNode, group, selfTree, groupTree, null, paramPrefix, nodePrefix, true, idField, datas);
 				if (!result.contains(item)) {
 					result.add(item);
 				}
@@ -1845,14 +1832,12 @@ public abstract class BizEngine implements IBizEngine {
 			}
 
 			for (Option op : options) {
-				root.addNode(parentNode, parentNode + op.getValue().hashCode()).setName(op.getText())
-						.setParams(paramPrefix + op.getValue());
+				root.addNode(parentNode, parentNode + op.getValue().hashCode()).setName(op.getText()).setParams(paramPrefix + op.getValue());
 				notInList.append(",").append(op.getValue());
 			}
 		}
 
-		if (login != null && login.getRoleType() >= IUserRole.ROLE_ADMIN_ROOT && !Str.isEmpty(paramPrefix)
-				&& node != null && node.getSize() > 0) {
+		if (login != null && login.getRoleType() >= IUserRole.ROLE_ADMIN_ROOT && !Str.isEmpty(paramPrefix) && node != null && node.getSize() > 0) {
 			String param = paramPrefix.replace("eq", "ni") + (notInList.length() > 0 ? notInList.substring(1) : "");
 			// String param = paramPrefix.replace("eq", "nu");
 			root.addNode(parentNode, nodePrefix + "nu").setName("---其他---").setParams(param);
@@ -2113,8 +2098,7 @@ public abstract class BizEngine implements IBizEngine {
 					this.saveObj(orm, soft, obj, null, F_GUID);
 
 					if (log.isTraceEnabled())
-						log.tracef("导入数据 [cls: %s, includeFK: %s]\n%s", obj.getClass().getSimpleName(), includeFK,
-								JSON.toJson(obj));
+						log.tracef("导入数据 [cls: %s, includeFK: %s]\n%s", obj.getClass().getSimpleName(), includeFK, JSON.toJson(obj));
 				}
 
 				log.debugf("导入数据结束. [%s]", className);
@@ -2177,8 +2161,7 @@ public abstract class BizEngine implements IBizEngine {
 					log.warnf("查询数据出错![%s] %s", sys, e);
 					break;
 				}
-				log.tracef("查询业务数据 [system: %s, pageIndex:%s, data.size: %s]", sys, pageIndex, datas == null ? 0
-						: datas.size());
+				log.tracef("查询业务数据 [system: %s, pageIndex:%s, data.size: %s]", sys, pageIndex, datas == null ? 0 : datas.size());
 				if (datas == null || datas.size() == 0) {
 					break;
 				}

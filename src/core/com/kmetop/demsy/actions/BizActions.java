@@ -529,7 +529,7 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 		} catch (Throwable e) {
 			String msg = Ex.msg(e);
 
-			log.debugf("创建业务表单<%s>失败! %s", title, msg);
+			log.error(String.format("创建业务表单<%s>失败! %s", title, msg), e);
 
 			throw new DemsyException(e);
 		}
