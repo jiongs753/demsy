@@ -1257,7 +1257,7 @@ public class UiEngine implements IUiEngine, MvcConst {
 			if ("relative".equals(p)) {
 				boolean layoutable = false;
 				if (Demsy.me().get("layoutable") != null) {
-					layoutable = Demsy.me().get("layoutable");
+					layoutable = (Boolean) Demsy.me().get("layoutable");
 				}
 				if (layoutable)
 					cssStyle.append("height:").append(h).append("px;overflow: hidden;");
