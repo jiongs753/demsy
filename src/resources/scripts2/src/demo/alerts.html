@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>DQuery插件: 消息提示对话框</title>
+
+<link href="../css/demsy.alerts.css" rel="stylesheet" type="text/css" media="screen" />
+
+<script src="../../jquery.js" type="text/javascript"></script>
+<script src="../../bin/demsy.min.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <input id="error_button" type="button" value="Show Error" />
+    <input id="warn_button" type="button" value="Show Warn" />
+    <input id="info_button" type="button" value="Show Info" />
+    <input id="success_button" type="button" value="Show Success" />
+    <input id="prompt_button" type="button" value="Show Prompt" />
+    <input id="confirm_button" type="button" value="Show Confirm" />
+    <input id="html_button" type="button" value="Html Info" />
+
+    <script type="text/javascript">
+					$(document).ready(function() {
+
+						$("#error_button").click(function() {
+							Derror('这是一条错误信息这是一条错误信息这是一条错误信息这是一条错误信息这是一条错误信息这是一条错误信息');
+						});
+						$("#warn_button").click(function() {
+							Dwarn('这是一条警告信息');
+						});
+						$("#info_button").click(function() {
+							Dinfo('这是一条提示信息');
+						});
+						$("#success_button").click(function() {
+							Dsuccess('这是一条成功信息');
+						});
+						$("#confirm_button").click(function() {
+							Dconfirm('你确定要这样做吗?', null, function(r) {
+								Dinfo('我确定: ' + r, '确认结果');
+							});
+						});
+						$("#prompt_button").click(function() {
+							Dprompt('内容标题:', '你可以在这里输入内容', null, function(r) {
+								if (r)
+									alert('你输入的内容是: ' + r);
+							});
+						});
+						$("#html_button").click(function() {
+							Dinfo('你可以使用HTML内容, 比如<strong>加粗</strong>, <em>斜体</em>, 以及<u>下划线</u>等!');
+						});
+					});
+				</script>
+
+</body>
+</html>

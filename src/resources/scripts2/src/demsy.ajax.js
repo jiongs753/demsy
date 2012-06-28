@@ -18,8 +18,8 @@ function validateCallback(form, callback) {
 		data : $form.serializeArray(),
 		dataType : "json",
 		cache : false,
-		success : callback || Demsy.ajaxDone,
-		error : Demsy.ajaxError
+		success : callback || Dutils.ajaxDone,
+		error : Dutils.ajaxError
 	});
 	return false;
 }
@@ -45,7 +45,7 @@ function iframeCallback(form, callback) {
 	}
 	form.target = "callbackframe";
 
-	_iframeResponse($iframe[0], callback || Demsy.ajaxDone);
+	_iframeResponse($iframe[0], callback || Dutils.ajaxDone);
 }
 function _iframeResponse(iframe, callback) {
 	var $iframe = $(iframe), $document = $(document);
@@ -100,17 +100,17 @@ function _iframeResponse(iframe, callback) {
  * 框架会默认调用DWZ.ajaxDone() <form action="/user.do?method=save" onsubmit="return
  * validateCallback(this, navTabAjaxDone)">
  * 
- * form提交后返回json数据结构statusCode=Demsy.statusCode.ok表示操作成功, 做页面跳转等操作.
- * statusCode=Demsy.statusCode.error表示操作失败, 提示错误原因.
- * statusCode=Demsy.statusCode.timeout表示session超时，下次点击时跳转到DWZ.loginUrl
+ * form提交后返回json数据结构statusCode=Dutils.statusCode.ok表示操作成功, 做页面跳转等操作.
+ * statusCode=Dutils.statusCode.error表示操作失败, 提示错误原因.
+ * statusCode=Dutils.statusCode.timeout表示session超时，下次点击时跳转到DWZ.loginUrl
  * {"statusCode":"200", "message":"操作成功", "navTabId":"navNewsLi",
  * "forwardUrl":"", "callbackType":"closeCurrent"} {"statusCode":"300",
  * "message":"操作失败"} {"statusCode":"301", "message":"会话超时"}
  * 
  */
 function navTabAjaxDone(json) {
-	Demsy.ajaxDone(json);
-	if (json.statusCode == Demsy.statusCode.ok) {
+	Dutils.ajaxDone(json);
+	if (json.statusCode == Dutils.statusCode.ok) {
 		if (json.navTabId) { // 把指定navTab页面标记为需要“重新载入”。注意navTabId不能是当前navTab页面的
 			navTab.reloadFlag(json.navTabId);
 		} else { // 重新载入当前navTab页面
@@ -124,7 +124,7 @@ function navTabAjaxDone(json) {
 		} else if ("forward" == json.callbackType) {
 			navTab.reload(json.forwardUrl);
 		} else if ("forwardConfirm" == json.callbackType) {
-			alertMsg.confirm(json.confirmMsg || Demsy.msg("forwardConfirmMsg"), {
+			alertMsg.confirm(json.confirmMsg || Dutils.msg("forwardConfirmMsg"), {
 				okCall : function() {
 					navTab.reload(json.forwardUrl);
 				}
@@ -140,13 +140,13 @@ function navTabAjaxDone(json) {
 
 /**
  * dialog上的表单提交回调函数 服务器转回navTabId，可以重新载入指定的navTab.
- * statusCode=Demsy.statusCode.ok表示操作成功, 自动关闭当前dialog
+ * statusCode=Dutils.statusCode.ok表示操作成功, 自动关闭当前dialog
  * 
  * form提交后返回json数据结构,json格式和navTabAjaxDone一致
  */
 function dialogAjaxDone(json) {
-	Demsy.ajaxDone(json);
-	if (json.statusCode == Demsy.statusCode.ok) {
+	Dutils.ajaxDone(json);
+	if (json.statusCode == Dutils.statusCode.ok) {
 		if (json.navTabId) {
 			navTab.reload(json.forwardUrl, {
 				navTabId : json.navTabId
@@ -168,8 +168,8 @@ function dialogAjaxDone(json) {
  */
 function navTabSearch(form, navTabId) {
 	var $form = $(form);
-	if (form[Demsy.pageInfo.pageNum])
-		form[Demsy.pageInfo.pageNum].value = 1;
+	if (form[Dutils.pageInfo.pageNum])
+		form[Dutils.pageInfo.pageNum].value = 1;
 	navTab.reload($form.attr('action'), {
 		data : $form.serializeArray(),
 		navTabId : navTabId
@@ -184,8 +184,8 @@ function navTabSearch(form, navTabId) {
  */
 function dialogSearch(form) {
 	var $form = $(form);
-	if (form[Demsy.pageInfo.pageNum])
-		form[Demsy.pageInfo.pageNum].value = 1;
+	if (form[Dutils.pageInfo.pageNum])
+		form[Dutils.pageInfo.pageNum].value = 1;
 	$.pdialog.reload($form.attr('action'), {
 		data : $form.serializeArray()
 	});
@@ -206,8 +206,8 @@ function dwzSearch(form, targetType) {
  */
 function divSearch(form, rel) {
 	var $form = $(form);
-	if (form[Demsy.pageInfo.pageNum])
-		form[Demsy.pageInfo.pageNum].value = 1;
+	if (form[Dutils.pageInfo.pageNum])
+		form[Dutils.pageInfo.pageNum].value = 1;
 	if (rel) {
 		var $box = $("#" + rel);
 		$box.ajaxUrl({
@@ -233,13 +233,13 @@ function _getPagerForm($parent, args) {
 
 	if (form) {
 		if (args["pageNum"])
-			form[Demsy.pageInfo.pageNum].value = args["pageNum"];
+			form[Dutils.pageInfo.pageNum].value = args["pageNum"];
 		if (args["numPerPage"])
-			form[Demsy.pageInfo.numPerPage].value = args["numPerPage"];
+			form[Dutils.pageInfo.numPerPage].value = args["numPerPage"];
 		if (args["orderField"])
-			form[Demsy.pageInfo.orderField].value = args["orderField"];
-		if (args["orderDirection"] && form[Demsy.pageInfo.orderDirection])
-			form[Demsy.pageInfo.orderDirection].value = args["orderDirection"];
+			form[Dutils.pageInfo.orderField].value = args["orderField"];
+		if (args["orderDirection"] && form[Dutils.pageInfo.orderDirection])
+			form[Dutils.pageInfo.orderDirection].value = args["orderDirection"];
 	}
 
 	return form;
@@ -332,7 +332,7 @@ function ajaxTodo(url, callback) {
 		dataType : "json",
 		cache : false,
 		success : $callback,
-		error : Demsy.ajaxError
+		error : Dutils.ajaxError
 	});
 }
 
@@ -371,7 +371,7 @@ function uploadifyAllComplete(event, data) {
  *            data
  */
 function uploadifyComplete(event, queueId, fileObj, response, data) {
-	Demsy.ajaxDone(Demsy.jsonEval(response));
+	Dutils.ajaxDone(Dutils.jsonEval(response));
 }
 
 /**
@@ -396,9 +396,9 @@ $.fn.extend({
 			var $this = $(this);
 			$this.click(function(event) {
 				var url = unescape($this.attr("href")).replaceTmById($(event.target).parents(".unitBox:first"));
-				Demsy.debug(url);
+				Dutils.debug(url);
 				if (!url.isFinishedTm()) {
-					alertMsg.error($this.attr("warn") || Demsy.msg("alertSelectMsg"));
+					alertMsg.error($this.attr("warn") || Dutils.msg("alertSelectMsg"));
 					return false;
 				}
 				var title = $this.attr("title");

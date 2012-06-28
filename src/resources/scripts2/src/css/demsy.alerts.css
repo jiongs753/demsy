@@ -1,0 +1,117 @@
+#alerts_container {
+	font-family: Arial, sans-serif;
+	font-size: 12px;
+	min-width: 300px; /* Dialog will be no smaller than this */
+	max-width: 600px; /* Dialog will wrap after this width */
+	background: #FFF;
+	border: 1px solid #A6C9E2;
+	color: #000;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid #A6C9E2;
+}
+
+#alerts_title {
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 1.75em;
+	color: #ffffff;
+	background: #A6C9E2 url(images/bg_h.gif);
+	background-repeat: repeat-x;
+	background-position: 0 0;
+	cursor: move;
+	padding: 0em;
+	margin: 0em;
+}
+
+#alerts_content {
+	padding: 1em 1.75em;
+	margin: 0em;
+}
+
+#alerts_content .alerts_logo {
+	position: absolute;
+	top: 35px;
+	left: 10px;
+	width: 32px;
+	height: 32px;
+	background-image: url(images/alerts.png);
+	background-repeat: no-repeat;
+}
+
+#alerts_content.prompt {
+	color: #003ca8;
+	background-color: #b5e2f7;
+}
+
+#alerts_content.prompt .alerts_logo {
+	background-position: 0 0;
+}
+
+#alerts_content.info {
+	color: #003ca8;
+	background-color: #b5e2f7;
+}
+
+#alerts_content.info .alerts_logo {
+	background-position: -32px 0;
+}
+
+#alerts_content.confirm {
+	color: #003ca8;
+	background-color: #b5e2f7;
+}
+
+#alerts_content.confirm .alerts_logo {
+	background-position: 0 0;
+}
+
+#alerts_content.success {
+	color: #2b4206;
+	background-color: #dbf0b8;
+}
+
+#alerts_content.success .alerts_logo {
+	background-position: -96px 0;
+}
+
+#alerts_content.error {
+	color: #7e1110;
+	background-color: #fdb3b2;
+}
+
+#alerts_content.error .alerts_logo {
+	background-position: -128px 0;
+}
+
+#alerts_content.warn {
+	color: #a87000;
+	background-color: #fcedaa;
+}
+
+#alerts_content.warn .alerts_logo {
+	background-position: -160px 0;
+}
+
+#alerts_message {
+	font-size: 12px;
+	padding-left: 35px;
+}
+
+#alerts_panel {
+	text-align: center;
+	margin: 3em 0em 0em 1em;
+}
+
+#alerts_panel input[type=button] {
+	cursor: pointer;
+	width: 80px;
+	height: 28px;
+	margin: 0 2px 0 2px;
+}
+
+#alerts_prompt {
+	margin: .5em 0em;
+}
