@@ -124,6 +124,7 @@
 						cursor : 'move'
 					});
 				} catch (e) {
+					alert(e);
 				}
 			}
 		},

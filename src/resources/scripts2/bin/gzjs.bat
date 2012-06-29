@@ -7,6 +7,8 @@ type ..\src\demsy.config.js >> demsyESC.js
 type ..\src\demsy.alerts.js >> demsyESC.js
 type ..\src\demsy.utils.js >> demsyESC.js
 type ..\src\demsy.core.js >> demsyESC.js
+type ..\src\demsy.draggable.js >> demsyESC.js
+type ..\src\demsy.droppable.js >> demsyESC.js
 
 cscript ESC.wsf -l 1 -ow demsyESC1.js demsyESC.js
 cscript ESC.wsf -l 2 -ow demsyESC2.js demsyESC1.js
