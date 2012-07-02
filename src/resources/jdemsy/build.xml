@@ -1,0 +1,78 @@
+<project name="jDemsy" default="all" basedir=".">
+
+	<!-- SETUP -->
+
+	<property description="Source Folder" name="SRC_DIR" value="src" />
+	<property description="Files for parsing etc." name="BUILD_DIR" value="build" />
+	<property description="Rhino JS Engine" name="JAR" value="${BUILD_DIR}/js.jar" />
+	<property description="YUICompressor" name="YUICompressor" value="${BUILD_DIR}/yuicompressor-2.4.2.jar" />
+
+	<property description="Folder for jdemsy, min, lite and packed target" name="DIST_DIR" value="./js" />
+
+	<!-- Files names for distribution -->
+	<property name="JD" value="${DIST_DIR}/jdemsy.js" />
+	<property name="JD_LITE" value="${DIST_DIR}/jdemsy.lite.js" />
+	<property name="JD_MIN" value="${DIST_DIR}/jdemsy.min.js" />
+	<property name="JD_PACK" value="${DIST_DIR}/jdemsy.pack.js" />
+
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+		<classpath>
+			<pathelement location="build/ant-contrib-0.6.jar" />
+		</classpath>
+	</taskdef>
+
+	<!-- MAIN -->
+
+	<target name="jdemsy" description="Main jdemsy build, concatenates source files and replaces @VERSION">
+		<echo message="Building ${JD}" />
+		<mkdir dir="${DIST_DIR}" />
+		<concat destfile="${JD}">
+			<fileset dir="${SRC_DIR}" includes="demsy.core.js" />
+			<fileset dir="${SRC_DIR}" includes="demsy.nls.zh.js" />
+			<fileset dir="${SRC_DIR}" includes="demsy.config.js" />
+			<fileset dir="${SRC_DIR}" includes="demsy.utils.js" />
+			<fileset dir="${SRC_DIR}" includes="demsy.alerts.js" />
+			<fileset dir="${SRC_DIR}" includes="demsy.draggable.js" />
+			<fileset dir="${SRC_DIR}" includes="demsy.droppable.js" />
+			<!--
+			-->
+		</concat>
+		<echo message="${JD} built." />
+	</target>
+
+	<target name="min" depends="jdemsy" description="Remove all comments and whitespace, no compression, great in combination with GZip">
+		<echo message="Building ${JD_MIN}" />
+		<apply executable="java" parallel="false" verbose="true" dest="${DIST_DIR}">
+			<fileset dir="${DIST_DIR}">
+				<include name="jdemsy.js" />
+			</fileset>
+			<arg line="-jar" />
+			<arg path="${YUICompressor}" />
+			<arg value="--charset" />
+			<arg value="ANSI" />
+			<arg value="-o" />
+			<targetfile />
+			<mapper type="glob" from="jdemsy.js" to="jdemsy.min.js" />
+		</apply>
+		<echo message="${JD_MIN} built." />
+	</target>
+
+	<target name="pack" depends="jdemsy" description="Remove all comments and whitespace and compress">
+		<echo message="Building ${JD_PACK}" />
+		<java jar="${JAR}" fork="true">
+			<arg value="${BUILD_DIR}/build/pack.js" />
+			<arg value="${JD_MIN}" />
+			<arg value="${JD_PACK}" />
+		</java>
+		<echo message="${JD_PACK} built." />
+	</target>
+
+	<target name="clean">
+		<delete dir="${DIST_DIR}" />
+	</target>
+
+	<target name="all" depends="clean,jdemsy,min,pack">
+		<echo message="Build complete." />
+	</target>
+
+</project>
