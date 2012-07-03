@@ -121,7 +121,7 @@
 		 * <p>
 		 * 3. 如果返回内容不是一个JSON对象：则将返回内容作为当前元素的HTML内容并初始化UI；
 		 */
-		dajax : function(options) {
+		jdLoad : function(options) {
 			if ($.fn.xheditor) {
 				$("textarea.editor", this).xheditor(false);
 			}
@@ -145,7 +145,7 @@
 					}
 					// 返回值是“HTML内容”：将其作为元素的HTML内容
 					else {
-						$this.html(response).demsyInit();
+						$this.html(response).jdSetup();
 						if ($.isFunction(options.callback))
 							options.callback(response);
 					}
@@ -156,8 +156,8 @@
 		/**
 		 * 发送GET请求到指定的URL地址加载内容，该方法是demsyAjax的简化用法
 		 */
-		dget : function(url, data, callback) {
-			this.dajax({
+		jdGet : function(url, data, callback) {
+			this.jdLoad({
 				url : url,
 				data : data,
 				callback : callback
@@ -166,8 +166,8 @@
 		/**
 		 * 发送POST请求到指定的URL地址加载内容，该方法是demsyAjax的简化用法
 		 */
-		dpost : function(url, data, callback) {
-			this.dajax({
+		jdPost : function(url, data, callback) {
+			this.jdLoad({
 				url : url,
 				type : "POST",
 				data : data,
@@ -177,28 +177,28 @@
 		/**
 		 * 初始化元素内容中的UI
 		 */
-		dinit : function() {
+		jdSetup : function() {
 			return this.each(function() {
-				if ($.isFunction(initUI))
-					initUI(this);
+				if ($.isFunction(jDemsy.setup))
+					jDemsy.setup(this);
 			});
 		},
 		/**
 		 * 校正元素高度为指定对象的高度
 		 */
-		dlayout : function($refBox) {
+		jdHeight : function($refBox) {
 			return this.each(function() {
 				var $this = $(this);
 				if (!$refBox)
 					$refBox = $this.parents("div.layoutBox:first");
-				var iRefH = $refBox.height();
-				var iLayoutH = parseInt($this.attr("layoutH"));
-				var iH = iRefH - iLayoutH > 50 ? iRefH - iLayoutH : 50;
+				var refHeight = $refBox.height();
+				var jdHeight = parseInt($this.attr("jdHeight"));
+				var height = refHeight - jdHeight > 50 ? refHeight - jdHeight : 50;
 
 				if ($this.isTag("table")) {
-					$this.removeAttr("layoutH").wrap('<div layoutH="' + iLayoutH + '" style="overflow:auto;height:' + iH + 'px"></div>');
+					$this.removeAttr("jdHeight").wrap('<div jdHeight="' + jdHeight + '" style="overflow:auto;height:' + height + 'px"></div>');
 				} else {
-					$this.height(iH).css("overflow", "auto");
+					$this.height(height).css("overflow", "auto");
 				}
 			});
 		},
@@ -274,7 +274,10 @@
 		isTag : function(tn) {
 			if (!tn)
 				return false;
-			return this.tagName.toLowerCase() == tn.toLowerCase() ? true : false;
+			return this.get(0).tagName.toUpperCase() == tn.toUpperCase() ? true : false;
+		},
+		tag : function() {
+			return this.get(0).tagName.toUpperCase();
 		},
 		/**
 		 * 判断当前元素是否已经绑定某个事件

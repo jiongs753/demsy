@@ -1,0 +1,30 @@
+/* Accordion */
+.accordion {
+	border: #b8d0d6 solid 1px;
+	border-bottom: #b8d0d6 solid 0px;
+	background: #FFF;
+}
+
+.accordionHeader {
+	color: #183152;
+	border-bottom: #b8d0d6 solid 1px;
+	cursor: pointer;
+	background-color: #eaf4ff;
+	padding: 6px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.accordionSelected {
+	background-color: #E0ECFF;
+}
+
+.accordionHover {
+	background-color: #E0ECFF;
+}
+
+.accordionContent {
+	border-bottom: #b8d0d6 solid 1px;
+	display: none;
+	overflow: auto;
+}

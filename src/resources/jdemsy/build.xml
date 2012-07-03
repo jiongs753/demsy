@@ -1,19 +1,4 @@
-<project name="jDemsy" default="all" basedir=".">
-
-	<!-- SETUP -->
-
-	<property description="Source Folder" name="SRC_DIR" value="src" />
-	<property description="Files for parsing etc." name="BUILD_DIR" value="build" />
-	<property description="Rhino JS Engine" name="JAR" value="${BUILD_DIR}/js.jar" />
-	<property description="YUICompressor" name="YUICompressor" value="${BUILD_DIR}/yuicompressor-2.4.2.jar" />
-
-	<property description="Folder for jdemsy, min, lite and packed target" name="DIST_DIR" value="./js" />
-
-	<!-- Files names for distribution -->
-	<property name="JD" value="${DIST_DIR}/jdemsy.js" />
-	<property name="JD_LITE" value="${DIST_DIR}/jdemsy.lite.js" />
-	<property name="JD_MIN" value="${DIST_DIR}/jdemsy.min.js" />
-	<property name="JD_PACK" value="${DIST_DIR}/jdemsy.pack.js" />
+<project name="jDemsy" default="jdemsy" basedir=".">
 
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
 		<classpath>
@@ -21,58 +6,111 @@
 		</classpath>
 	</taskdef>
 
-	<!-- MAIN -->
+	<!-- JAR包配置 -->
+	<property name="BUILD_DIR" value="build" />
+	<property name="JS_JAR" value="${BUILD_DIR}/js.jar" />
+	<property name="YUICompressor" value="${BUILD_DIR}/yuicompressor-2.4.2.jar" />
 
-	<target name="jdemsy" description="Main jdemsy build, concatenates source files and replaces @VERSION">
-		<echo message="Building ${JD}" />
-		<mkdir dir="${DIST_DIR}" />
-		<concat destfile="${JD}">
-			<fileset dir="${SRC_DIR}" includes="demsy.core.js" />
-			<fileset dir="${SRC_DIR}" includes="demsy.nls.zh.js" />
-			<fileset dir="${SRC_DIR}" includes="demsy.config.js" />
-			<fileset dir="${SRC_DIR}" includes="demsy.utils.js" />
-			<fileset dir="${SRC_DIR}" includes="demsy.alerts.js" />
-			<fileset dir="${SRC_DIR}" includes="demsy.draggable.js" />
-			<fileset dir="${SRC_DIR}" includes="demsy.droppable.js" />
+	<!-- JS文件配置 -->
+	<property name="SRC_JS_DIR" value="src" />
+	<property name="DIST_JS_DIR" value="./js" />
+	<property name="JDEMSY_JS_ALL" value="${DIST_JS_DIR}/jdemsy.all.js" />
+	<property name="JDEMSY_JS_MIN" value="${DIST_JS_DIR}/jdemsy.min.js" />
+	<property name="JDEMSY_JS_PACK" value="${DIST_JS_DIR}/jdemsy.pack.js" />
+
+	<!-- CSS文件配置 -->
+	<property name="SRC_CSS_DIR" value="src/css" />
+	<property name="DIST_CSS_DIR" value="./css" />
+	<property name="JDEMSY_CSS_ALL" value="${DIST_CSS_DIR}/jdemsy.all.css" />
+	<property name="JDEMSY_CSS_MIN" value="${DIST_CSS_DIR}/jdemsy.min.css" />
+
+	<!-- 清除js和css文件 -->
+	<target name="clean">
+		<delete file="${JDEMSY_JS_ALL}" />
+		<delete file="${JDEMSY_JS_MIN}" />
+		<delete file="${JDEMSY_JS_PACK}" />
+		<delete file="${JDEMSY_CSS_ALL}" />
+		<delete file="${JDEMSY_CSS_MIN}" />
+	</target>
+
+	<!-- 合并js和css成一个文件 -->
+	<target name="all">
+		<mkdir dir="${DIST_JS_DIR}" />
+
+		<echo message="合并JS文件：${JDEMSY_JS_ALL} ..." />
+		<concat destfile="${JDEMSY_JS_ALL}">
+			<fileset dir="${SRC_JS_DIR}" includes="demsy.core.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="demsy.nls.zh.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="demsy.config.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="demsy.utils.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="demsy.alerts.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="demsy.draggable.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="demsy.droppable.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="demsy.accordion.js" />
 			<!--
 			-->
 		</concat>
-		<echo message="${JD} built." />
+		<echo message="合并JS文件：${JDEMSY_JS_ALL} 成功！" />
+
+		<echo message="合并CSS文件： ${JDEMSY_CSS_ALL} ..." />
+		<concat destfile="${JDEMSY_CSS_ALL}">
+			<fileset dir="${SRC_CSS_DIR}" includes="demsy.alerts.css" />
+			<fileset dir="${SRC_CSS_DIR}" includes="demsy.accordion.css" />
+			<!--
+			-->
+		</concat>
+		<echo message="合并CSS文件：${JDEMSY_CSS_ALL} 成功！" />
 	</target>
 
-	<target name="min" depends="jdemsy" description="Remove all comments and whitespace, no compression, great in combination with GZip">
-		<echo message="Building ${JD_MIN}" />
-		<apply executable="java" parallel="false" verbose="true" dest="${DIST_DIR}">
-			<fileset dir="${DIST_DIR}">
-				<include name="jdemsy.js" />
+	<!-- 压缩js和css文件 -->
+	<target name="min" depends="all">
+		<echo message="压缩JS文件： ${JDEMSY_JS_MIN} ..." />
+		<apply executable="java" parallel="false" verbose="true" dest="${DIST_JS_DIR}">
+			<fileset dir="${DIST_JS_DIR}">
+				<include name="jdemsy.all.js" />
 			</fileset>
 			<arg line="-jar" />
 			<arg path="${YUICompressor}" />
 			<arg value="--charset" />
-			<arg value="ANSI" />
+			<arg value="UTF-8" />
 			<arg value="-o" />
 			<targetfile />
-			<mapper type="glob" from="jdemsy.js" to="jdemsy.min.js" />
+			<mapper type="glob" from="jdemsy.all.js" to="jdemsy.min.js" />
 		</apply>
-		<echo message="${JD_MIN} built." />
+		<echo message="压缩JS文件：${JDEMSY_JS_MIN} 成功！" />
+
+		<echo message="压缩CSS文件： ${JDEMSY_CSS_MIN} ..." />
+		<apply executable="java" parallel="false" verbose="true" dest="${DIST_CSS_DIR}">
+			<fileset dir="${DIST_CSS_DIR}">
+				<include name="jdemsy.all.css" />
+			</fileset>
+			<arg line="-jar" />
+			<arg path="${YUICompressor}" />
+			<arg value="--charset" />
+			<arg value="UTF-8" />
+			<arg value="--type" />
+			<arg value="css" />
+			<arg value="-o" />
+			<targetfile />
+			<mapper type="glob" from="jdemsy.all.css" to="jdemsy.min.css" />
+		</apply>
+		<echo message="压缩CSS文件：${JDEMSY_CSS_MIN} 成功！" />
 	</target>
 
-	<target name="pack" depends="jdemsy" description="Remove all comments and whitespace and compress">
-		<echo message="Building ${JD_PACK}" />
-		<java jar="${JAR}" fork="true">
+	<!-- 加密js文件 -->
+	<target name="pack" depends="min">
+		<echo message="加密JS文件： ${JDEMSY_JS_PACK} ..." />
+		<java jar="${JS_JAR}" fork="true">
 			<arg value="${BUILD_DIR}/build/pack.js" />
-			<arg value="${JD_MIN}" />
-			<arg value="${JD_PACK}" />
+			<arg value="${JDEMSY_JS_MIN}" />
+			<arg value="${JDEMSY_JS_PACK}" />
 		</java>
-		<echo message="${JD_PACK} built." />
+		<echo message="加密JS文件：${JDEMSY_JS_PACK} 成功！" />
 	</target>
 
-	<target name="clean">
-		<delete dir="${DIST_DIR}" />
-	</target>
-
-	<target name="all" depends="clean,jdemsy,min,pack">
-		<echo message="Build complete." />
+	<!-- 按步骤编译jDemsy代码：清除、 合并、 压缩、 加密 -->
+	<target name="jdemsy" depends="clean,all,min,pack">
+		<echo message="编译jDemsy结束." />
 	</target>
 
 </project>

@@ -12,11 +12,11 @@
 	/*
 	 * 显示提示框
 	 */
-	var _show = function(title, msg, value, type, callback) {
+	function show(title, msg, value, type, callback) {
 		var beginTime = new Date().getTime();
 
-		_hide();
-		_overlay('show');
+		hide();
+		overlay('show');
 
 		var $container = $('<div id="alerts_container"><h1 id="alerts_title"></h1><div id="alerts_content"><div class="alerts_logo"></div><div id="alerts_message"></div></div></div>').appendTo($("BODY"));
 
@@ -42,8 +42,8 @@
 			maxWidth : $container.outerWidth()
 		});
 
-		_reposition();
-		_bindWindowResize(true);
+		reposition();
+		bindWindowResize(true);
 
 		switch (type) {
 		case 'confirm':
@@ -51,7 +51,7 @@
 			var $ok = $("#alerts_ok", $container);
 			var $cancel = $("#alerts_cancel", $container);
 			$ok.click(function() {
-				_hide();
+				hide();
 				if (callback)
 					callback(true);
 			}).focus().keypress(function(e) {
@@ -61,7 +61,7 @@
 					$cancel.trigger('click');
 			});
 			$cancel.click(function() {
-				_hide();
+				hide();
 				if (callback)
 					callback(false);
 			}).keypress(function(e) {
@@ -79,7 +79,7 @@
 			var $cancel = $("#alerts_cancel", $container);
 			$ok.click(function() {
 				var val = $prompt.val();
-				_hide();
+				hide();
 				if (callback)
 					callback(val);
 			}).keypress(function(e) {
@@ -89,7 +89,7 @@
 					$cancel.trigger('click');
 			});
 			$cancel.click(function() {
-				_hide();
+				hide();
 				if (callback)
 					callback(null);
 			}).keypress(function(e) {
@@ -107,7 +107,7 @@
 			$message.after('<div id="alerts_panel"><input type="button" value="{0}" id="alerts_ok" /></div>'.format(jDemsy.nls.ok));
 			var $ok = $("#alerts_ok", $container);
 			$ok.click(function() {
-				_hide();
+				hide();
 				if (callback)
 					callback(true);
 			}).focus().keypress(function(e) {
@@ -133,24 +133,24 @@
 		}
 
 		jDemsy.log("创建提示框：耗时 {0}ms.", (new Date().getTime() - beginTime));
-	};
+	}
 
 	/*
 	 * 隐藏提示框
 	 */
-	var _hide = function() {
+	function hide() {
 		$("#alerts_container").remove();
-		_overlay('hide');
-		_bindWindowResize(false);
-	};
+		overlay('hide');
+		bindWindowResize(false);
+	}
 
 	/*
 	 * 遮住窗口内容，即弹出提示框时，禁止点击。
 	 */
-	var _overlay = function(status) {
+	function overlay(status) {
 		switch (status) {
 		case 'show':
-			_overlay('hide');
+			overlay('hide');
 			$('<div id="alerts_overlay"></div>').css({
 				position : 'absolute',
 				zIndex : 99998,
@@ -168,12 +168,12 @@
 
 			break;
 		}
-	};
+	}
 
 	/*
 	 * 重新计算提示框在浏览器窗口中的位置
 	 */
-	var _reposition = function() {
+	function reposition() {
 		var $container = $("#alerts_container");
 		var $window = $(window);
 		var top = (($window.height() / 2) - ($container.outerHeight() / 2)) + jDemsy.alerts.verticalOffset;
@@ -192,55 +192,55 @@
 			left : left + 'px'
 		});
 		$("#alerts_overlay").height($(document).height());
-	};
+	}
 
 	/*
 	 * 绑定浏览器窗口 resize 事件：即浏览器窗口大小发生变化时，重新计算提示框位置。
 	 */
-	var _bindWindowResize = function(status) {
+	function bindWindowResize(status) {
 		if (jDemsy.alerts.repositionOnResize) {
 			switch (status) {
 			case true:
-				$(window).bind('resize', _reposition);
+				$(window).bind('resize', reposition);
 				break;
 			case false:
-				$(window).unbind('resize', _reposition);
+				$(window).unbind('resize', reposition);
 				break;
 			}
 		}
-	};
+	}
 
 	/*
 	 * 弹出只有OK按钮的提示框
 	 */
-	var _alert = function(message, title, type, callback) {
-		_show(title, message, null, type, function(result) {
+	function alert(message, title, type, callback) {
+		show(title, message, null, type, function(result) {
 			if (callback)
 				callback(result);
 		});
-	};
+	}
 
 	// 公共函数
 	jError = function(message, title, callback) {
-		_alert(message, title || jDemsy.nls.error, "error", callback);
+		alert(message, title || jDemsy.nls.error, "error", callback);
 	};
 	jWarn = function(message, title, callback) {
-		_alert(message, title || jDemsy.nls.warn, "warn", callback);
+		alert(message, title || jDemsy.nls.warn, "warn", callback);
 	};
 	jInfo = function(message, title, callback) {
-		_alert(message, title || jDemsy.nls.info, "info", callback);
+		alert(message, title || jDemsy.nls.info, "info", callback);
 	};
 	jSuccess = function(message, title, callback) {
-		_alert(message, title || jDemsy.nls.success, "success", callback);
+		alert(message, title || jDemsy.nls.success, "success", callback);
 	};
 	jConfirm = function(message, title, callback) {
-		_show(title || jDemsy.nls.confirm, message, null, 'confirm', function(result) {
+		show(title || jDemsy.nls.confirm, message, null, 'confirm', function(result) {
 			if (callback)
 				callback(result);
 		});
 	};
 	jPrompt = function(message, value, title, callback) {
-		_show(title || jDemsy.nls.prompt, message, value, 'prompt', function(result) {
+		show(title || jDemsy.nls.prompt, message, value, 'prompt', function(result) {
 			if (callback)
 				callback(result);
 		});

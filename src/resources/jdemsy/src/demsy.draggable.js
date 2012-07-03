@@ -314,7 +314,7 @@
 		handle : null,
 		disabled : false,
 		edge : 0,
-		axis : null, // v or h
+		axis : null, // v/h：v只允许纵向拖动， h只允许横向拖动。
 
 		onStartDrag : function(e) {
 		},
