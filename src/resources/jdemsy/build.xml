@@ -39,14 +39,15 @@
 
 		<echo message="合并JS文件：${JDEMSY_JS_ALL} ..." />
 		<concat destfile="${JDEMSY_JS_ALL}">
-			<fileset dir="${SRC_JS_DIR}" includes="demsy.core.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="demsy.nls.zh.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="demsy.config.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="demsy.utils.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="demsy.alerts.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="demsy.draggable.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="demsy.droppable.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="demsy.accordion.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.core.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.nls.zh.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.config.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.utils.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.alerts.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.draggable.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.droppable.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.resizable.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.accordion.js" />
 			<!--
 			-->
 		</concat>
@@ -54,8 +55,8 @@
 
 		<echo message="合并CSS文件： ${JDEMSY_CSS_ALL} ..." />
 		<concat destfile="${JDEMSY_CSS_ALL}">
-			<fileset dir="${SRC_CSS_DIR}" includes="demsy.alerts.css" />
-			<fileset dir="${SRC_CSS_DIR}" includes="demsy.accordion.css" />
+			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.alerts.css" />
+			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.accordion.css" />
 			<!--
 			-->
 		</concat>
