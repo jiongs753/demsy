@@ -132,7 +132,7 @@
 			}
 		}
 
-		jDemsy.log("创建提示框：耗时 {0}ms.", (new Date().getTime() - beginTime));
+		jDemsy.log("创建提示框", beginTime);
 	}
 
 	/*

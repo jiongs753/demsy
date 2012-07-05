@@ -178,10 +178,12 @@
 	}
 
 	$.fn.draggable = function(options, args) {
+		var beginTime = new Date().getTime();
+
 		if (typeof options == "string") {
 			return $.fn.draggable.methods[options](this, args);
 		}
-		return this.each(function() {
+		var ret = this.each(function() {
 			var opts;
 			var state = $.data(this, "draggable");
 			if (state) {
@@ -262,6 +264,10 @@
 				return Math.min(t, r, b, l) > dragObj.options.edge;
 			}
 		});
+
+		jDemsy.log("创建可拖动对象draggable (length = {1})", beginTime, ret.length);
+
+		return ret;
 	};
 	$.fn.draggable.methods = {
 		options : function(jq) {

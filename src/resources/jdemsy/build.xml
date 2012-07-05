@@ -57,6 +57,7 @@
 		<concat destfile="${JDEMSY_CSS_ALL}">
 			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.alerts.css" />
 			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.accordion.css" />
+			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.tabs.css" />
 			<!--
 			-->
 		</concat>

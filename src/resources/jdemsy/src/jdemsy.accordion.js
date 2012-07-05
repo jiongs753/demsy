@@ -60,14 +60,14 @@
 		}
 
 		// 计算accordion菜单内容面板高度
-		var height = parentHeight - (($(".accordionHeader", obj).size()) * ($(".accordionHeader:first-child", obj).outerHeight())) - 2;
+		var height = parentHeight - (($(".accordion-header", obj).size()) * ($(".accordion-header:first-child", obj).outerHeight())) - 2;
 
 		var os = parent.children().not(obj);
 		$.each(os, function(i) {
 			height -= $(os[i]).outerHeight();
 		});
 
-		$(".accordionContent", obj).height(height);
+		$(".accordion-content", obj).height(height);
 	}
 
 	function toggle(toShow, toHide, data, clickedActive, down) {
@@ -319,17 +319,17 @@
 
 		});
 
-		jDemsy.log("创建{0}折叠菜单(accordion)：耗时 {1}ms.", ret.length, (new Date().getTime() - beginTime));
+		jDemsy.log("创建折叠菜单accordion (length = {1})", beginTime, ret.length);
 
 		return ret;
 	}
 	$.fn.accordion.defaults = {
-		selectedClass : "accordionSelected",
-		hoverClass : "accordionHover",
+		selectedClass : "accordion-selected",
+		hoverClass : "accordion-hover",
 		alwaysOpen : true,
 		// animated : false,
 		event : "click",
-		header : ".accordionHeader",
+		header : ".accordion-header",
 		autoHeight : true,
 		fillSpace : true,
 		running : 0,

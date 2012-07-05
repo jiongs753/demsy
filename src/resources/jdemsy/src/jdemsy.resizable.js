@@ -1,5 +1,6 @@
 (function($, jDemsy) {
 	$.fn.resizable = function(options, args) {
+		var beginTime = new Date().getTime();
 
 		if (typeof options == "string") {
 			return $.fn.resizable.methods[options](this, args);
@@ -76,7 +77,7 @@
 			return false;
 		}
 
-		return this.each(function() {
+		var ret = this.each(function() {
 			var $this = $(this);
 			var opts = null;
 			var state = $.data(this, "resizable");
@@ -91,15 +92,6 @@
 			}
 			if (opts.disabled == true) {
 				return;
-			}
-
-			function getCssValue(css) {
-				var val = parseInt($this.css(css));
-				if (isNaN(val)) {
-					return 0;
-				} else {
-					return val;
-				}
 			}
 
 			function getDirection(e) {
@@ -153,8 +145,8 @@
 					return;
 				}
 
-				var left = getCssValue("left");
-				var top = getCssValue("top");
+				var left = $this.getCssValue("left");
+				var top = $this.getCssValue("top");
 				var width = $this.outerWidth();
 				var height = $this.outerHeight();
 				var data = {
@@ -186,6 +178,10 @@
 			});
 
 		});
+
+		jDemsy.log("创建可调整大小对象resizable (length = {1})", beginTime, ret.length);
+
+		return ret;
 	};
 	$.fn.resizable.methods = {
 		options : function(jq) {

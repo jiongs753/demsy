@@ -5,7 +5,7 @@
 	background: #FFF;
 }
 
-.accordionHeader {
+.accordion-header {
 	color: #183152;
 	border-bottom: #b8d0d6 solid 1px;
 	cursor: pointer;
@@ -15,15 +15,15 @@
 	font-weight: bold;
 }
 
-.accordionSelected {
+.accordion-selected {
 	background-color: #E0ECFF;
 }
 
-.accordionHover {
+.accordion-hover {
 	background-color: #E0ECFF;
 }
 
-.accordionContent {
+.accordion-content {
 	border-bottom: #b8d0d6 solid 1px;
 	display: none;
 	overflow: auto;

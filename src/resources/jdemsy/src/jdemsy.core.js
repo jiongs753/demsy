@@ -306,15 +306,19 @@ $.extend(String.prototype, {
 		// width);
 		// },
 		/**
-		 * 调试
+		 * 调试:
+		 * 第1个参数为日志模版，如果有更多参数，则第2个参数必需是执行代码的开始时间，第3个参数开始才用于填充日志占位符(日志模版中的占位符为{number}，花括号中的数字从1开始)。
 		 */
 		log : function(msg) {
-			if (this._debug) {
+			if (this._debug && typeof (console) != "undefined") {
 				var args = [];
-				if (arguments.length > 1)
+				if (arguments.length > 1) {
 					args = Array.prototype.slice.call(arguments, 1);
-				if (typeof (console) != "undefined")
-					console.log(msg.format(args));
+					args[0] = new Date().getTime() - args[0];
+					console.log((msg + " - 耗时：{0}").format(args));
+				} else {
+					console.log(msg);
+				}
 			}
 		},
 		/**
@@ -539,6 +543,32 @@ $.extend(String.prototype, {
 				if (console)
 					console.log("%s: %o", msg, this);
 			});
+		},
+		_outerWidth : function(_e) {
+			return this.each(function() {
+				if (!$.boxModel && $.browser.msie) {
+					$(this).width(_e);
+				} else {
+					$(this).width(_e - ($(this).outerWidth() - $(this).width()));
+				}
+			});
+		},
+		_outerHeight : function(_f) {
+			return this.each(function() {
+				if (!$.boxModel && $.browser.msie) {
+					$(this).height(_f);
+				} else {
+					$(this).height(_f - ($(this).outerHeight() - $(this).height()));
+				}
+			});
+		},
+		getCssValue : function(css) {
+			var val = parseInt(this.css(css));
+			if (isNaN(val)) {
+				return 0;
+			} else {
+				return val;
+			}
 		}
 	});
 
