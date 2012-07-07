@@ -1,7 +1,5 @@
 (function($, jDemsy) {
 	$.fn.resizable = function(options, args) {
-		var beginTime = new Date().getTime();
-
 		if (typeof options == "string") {
 			return $.fn.resizable.methods[options](this, args);
 		}
@@ -77,7 +75,7 @@
 			return false;
 		}
 
-		var ret = this.each(function() {
+		return this.each(function() {
 			var $this = $(this);
 			var opts = null;
 			var state = $.data(this, "resizable");
@@ -178,10 +176,6 @@
 			});
 
 		});
-
-		jDemsy.log("创建可调整大小对象resizable (length = {1})", beginTime, ret.length);
-
-		return ret;
 	};
 	$.fn.resizable.methods = {
 		options : function(jq) {

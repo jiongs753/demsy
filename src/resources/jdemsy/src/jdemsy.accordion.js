@@ -181,7 +181,7 @@
 		this.element = container;
 		var $container = $(container);
 
-		$container.addClass("accordion");
+		// $container.addClass("accordion");
 		if (options.navigation) {
 			var current = $container.find("a").filter(options.navigationFilter);
 			if (current.length) {
@@ -294,12 +294,11 @@
 
 	// 扩展jQuery对象支持 accordion
 	$.fn.accordion = function(options, data) {
-		var beginTime = new Date().getTime();
 		options = $.extend({}, $.fn.accordion.defaults, options);
 
 		var args = Array.prototype.slice.call(arguments, 1);
 
-		var ret = this.each(function() {
+		return this.each(function() {
 			if (options.fillSpace) {
 				options.mapKey = jdAccordions.size();
 				jdAccordions.put(options.mapKey, this);
@@ -318,10 +317,6 @@
 			}
 
 		});
-
-		jDemsy.log("创建折叠菜单accordion (length = {1})", beginTime, ret.length);
-
-		return ret;
 	}
 	$.fn.accordion.defaults = {
 		selectedClass : "accordion-selected",

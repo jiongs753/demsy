@@ -447,13 +447,11 @@
 	}
 
 	$.fn.tabs = function(options, args) {
-		var beginTime = new Date().getTime();
-
 		if (typeof options == "string") {
 			return $.fn.tabs.methods[options](this, args);
 		}
 		options = options || {};
-		var ret = this.each(function() {
+		return this.each(function() {
 			var tabsObj = $.data(this, "tabs");
 			var opts;
 			if (tabsObj) {
@@ -472,9 +470,6 @@
 			setSelected(this);
 		});
 
-		jDemsy.log("创建选项卡对象tabs (length = {1})", beginTime, ret.length);
-
-		return ret;
 	};
 	$.fn.tabs.methods = {
 		options : function(jq) {

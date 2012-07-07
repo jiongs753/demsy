@@ -24,36 +24,24 @@
 		plugins : [ "draggable", "droppable", "resizable", "pagination", "linkbutton", "menu", "menubutton", "splitbutton", "progressbar", "tree", "combobox", "combotree", "combogrid", "numberbox", "validatebox", "searchbox", "numberspinner", "timespinner", "calendar", "datebox", "datetimebox", "slider", "layout", "panel", "datagrid", "propertygrid", "treegrid", "tabs", "accordion", "window", "dialog" ],
 		parse : function(context) {
 			var aa = [];
+			
+			var time0 = new Date().getTime();
+			
 			for ( var i = 0; i < this.plugins.length; i++) {
+				var time1 = new Date().getTime();
+
 				var name = this.plugins[i];
 				var r = $(".jdemsy-" + name, context);
 				if (r.length) {
 					if (r[name]) {
 						r[name]();
-					} else {
-						aa.push({
-							name : name,
-							jq : r
-						});
+
+						jDemsy.log("initialize {1} = {2}", time1, name, r.length);
 					}
 				}
 			}
-			// if (aa.length && window.jdemsyloader) {
-			// var names = [];
-			// for ( var i = 0; i < aa.length; i++) {
-			// names.push(aa[i].name);
-			// }
-			// jdemsyloader.load(names, function() {
-			// for ( var i = 0; i < aa.length; i++) {
-			// var name = aa[i].name;
-			// var jq = aa[i].jq;
-			// jq[name]();
-			// }
-			// jDemsy.onComplete.call(jDemsy, context);
-			// });
-			// } else {
-			// jDemsy.onComplete.call(jDemsy, context);
-			// }
+			
+			jDemsy.log("initialize plugins end.", time0);
 		},
 		/*
 		 * 解析目标元素属性选项：[ "attr1","attr2", { bAttr1 : "boolean", nAttr1 :
@@ -103,3 +91,6 @@
 		}
 	});
 })(jQuery, jDemsy);
+$(document).ready(function(){
+	jDemsy.parse();
+});
