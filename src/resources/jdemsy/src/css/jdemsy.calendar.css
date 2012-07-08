@@ -1,0 +1,174 @@
+/* calendar */
+#calendar {
+	margin: 0;
+	width: 208px;
+	z-index: 1001;
+	position: absolute;
+	display: block;
+	border: 1px solid #B3E4EB;
+	display: none;
+}
+
+#calendar * {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	line-height: 18px
+}
+
+#calendar .main {
+	margin: auto;
+	padding: 2px;
+	text-align: center;
+	background: #ffffff;
+	zoom: 1;
+	position: relative;
+}
+
+#calendar .head {
+	background: #EDF8FF;
+	border: 1px solid #BEE9F0
+}
+
+#calendar .head select {
+	width: 60px;
+}
+
+#calendar .body {
+	margin: 2px 0;
+	padding: 2px;
+	clear: both;
+	overflow: hidden;
+	border: 1px solid #BEE9F0;
+	position: relative;
+}
+
+#calendar .foot {
+	background: #EDF8FF;
+	border: 1px solid #BEE9F0;
+	text-align: right;
+	padding: 1px
+}
+
+#calendar .nodate .head,#calendar .nodate .body {
+	display: none;
+}
+
+#calendar dl {
+	clear: both;
+	margin: auto;
+	overflow: hidden;
+}
+
+#calendar dt,#calendar dd,#calendar span {
+	width: 26px;
+	height: 18px;
+	display: block;
+	float: left;
+	overflow: hidden;
+	zoom: 1;
+	border: 1px solid #fff;
+}
+
+#calendar dt {
+	margin-top: 4px;
+	font-weight: bold;
+	color: #666666;
+}
+
+#calendar .days dd {
+	cursor: pointer;
+}
+
+#calendar .days dd.other {
+	color: #6A6AFF
+}
+
+#calendar .days dd.slt {
+	background: #B3E4EB;
+	border: 1px solid #66CCCC;
+}
+
+#calendar .days dd:hover {
+	border: 1px solid #66CCCC;
+}
+
+#calendar .close {
+	width: 16px;
+	height: 16px;
+	font-size: 16px;
+	display: block;
+	cursor: pointer;
+	border: 1px solid #CCC;
+	text-align: center;
+}
+
+#calendar .btnClear,#calendar .btnConfirm {
+	background-color: #CFEBEE;
+	border: 1px solid #38B1B9;
+	color: #08575B;
+	margin-top: 2px;
+	width: 40px;
+}
+
+#calendar .time {
+	border-collapse: collapse;
+	float: left;
+	background-color: #fff;
+	display: none;
+}
+
+#calendar .time td {
+	border: 1px solid #61CAD0;
+	line-height: 16px;
+	vertical-align: center;
+}
+
+#calendar .time .hh,#calendar .time .mm,#calendar .time .ss {
+	width: 18px;
+	height: 16px;
+	border: none
+}
+
+#calendar .time ul {
+	list-style: none
+}
+
+#calendar .time .up,#calendar .time .down {
+	font-size: 8px;
+	height: 8px;
+	line-height: 100%;
+	border: 1px solid #BEE9F0;
+	cursor: pointer;
+}
+
+#calendar .tm {
+	
+}
+
+#calendar .tm .hh,#calendar .tm .mm,#calendar .tm .ss {
+	border: 1px solid #A3C6C8;
+	position: absolute;
+	left: 1px;
+	bottom: 1px;
+	background-color: #ffffc0;
+	width: 120px;
+	display: none;
+}
+
+#calendar .hh .hh,#calendar .mm .mm,#calendar .ss .ss {
+	display: block;
+}
+
+#calendar .tm .hh li,#calendar .tm .mm li,#calendar .tm .ss li {
+	display: block;
+	float: left;
+	cursor: pointer;
+	width: 20px;
+	line-height: 21px
+}
+
+#calendar .tm .hh li:hover,#calendar .tm .mm li:hover,#calendar .tm .ss li:hover
+	{
+	background: #B3E4EB;
+}

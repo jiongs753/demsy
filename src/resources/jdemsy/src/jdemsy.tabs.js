@@ -6,15 +6,17 @@
 	/*
 	 * 获取tab项距离左边的位置
 	 */
-	function getTabLeftPosition(container, tab) {
+	function getTabLeftPosition($container, tab) {
 		var w = 0;
-		var b = true;
-		$('>div.tabs-header ul.tabs li', container).each(function() {
-			if (this == tab)
-				b = false;
-			if (b)
-				w += $(this).outerWidth(true);
-		});
+
+		// 查找tab条目并计算当前条目之前的宽度
+		var items = $('>div.tabs-header ul.tabs li', $container)
+		var len = items.length;
+		for (i = 0; i < len; i++) {
+			if (this == items[i])
+				break;
+			w += $(items[i]).outerWidth(true);
+		}
 
 		return w;
 	}
@@ -22,8 +24,8 @@
 	/*
 	 * 计算最大可滚动宽度 = tab项总宽度 - 可见部分宽度
 	 */
-	function getMaxScrollWidth(container) {
-		var header = $('>div.tabs-header', container);
+	function getMaxScrollWidth($container) {
+		var header = $('>div.tabs-header', $container);
 		var tabsWidth = 0;
 		$('ul.tabs li', header).each(function() {
 			tabsWidth += $(this).outerWidth(true);
@@ -34,8 +36,8 @@
 		return tabsWidth - wrapWidth + padding;
 	}
 
-	function setScrollers(container) {
-		var header = $('>div.tabs-header', container);
+	function setScrollers($container) {
+		var header = $('>div.tabs-header', $container);
 
 		// 计算tab项总宽度
 		var tabsWidth = 0;
@@ -70,9 +72,8 @@
 		}
 	}
 
-	function setSize(container) {
-		var opts = $.data(container, 'tabs').options;
-		var $container = $(container);
+	function setSize($container) {
+		var opts = $.data($container[0], 'tabs').options;
 
 		// 获取父节点宽度和高度作为tabs的大小
 		if (opts.fit == true) {
@@ -85,7 +86,7 @@
 		$container.width(opts.width).height(opts.height);
 
 		// 设置tabs表头宽度
-		var header = $('.tabs-header', container);
+		var header = $('.tabs-header', $container);
 		if ($.boxModel == true) {
 			var delta = header.outerWidth() - header.width();
 			header.width($container.width() - delta);
@@ -94,9 +95,9 @@
 		}
 
 		// 设置滚动条
-		setScrollers(container);
+		setScrollers($container);
 
-		var panels = $('.tabs-panels', container);
+		var panels = $('.tabs-panels', $container);
 		var height = opts.height;
 		if (!isNaN(height)) {
 			if ($.boxModel == true) {
@@ -122,17 +123,19 @@
 		}
 
 		if (jDemsy.parse) {
-			jDemsy.parse(container);
+			jDemsy.parse($container);
 		}
 
 	}
 
-	function fitContent(container) {
-		var tab = $('>div.tabs-header ul.tabs li.tabs-selected', container);
+	/*
+	 * 定位当前活动选项卡内容
+	 */
+	function fitContent($container) {
+		var tab = $('>div.tabs-header ul.tabs li.tabs-selected', $container);
 		if (tab.length) {
-			var panelId = $.data(tab[0], 'tabs.tab').id;
-			var panel = $('#' + panelId);
-			var panels = $('>div.tabs-panels', container);
+			var panel = $(tab.attr("rel"));
+			var panels = $('>div.tabs-panels', $container);
 			if (panels.css('height').toLowerCase() != 'auto') {
 				if ($.boxModel == true) {
 					panel.height(panels.height() - (panel.outerHeight() - panel.height()));
@@ -147,51 +150,10 @@
 
 	}
 
-	function wrapTabs(container) {
-		$(container).addClass('tabs-container');
-		$(container).wrapInner('<div class="tabs-panels"/>');
-		$('<div class="tabs-header">' + '<div class="tabs-scroller-left"></div>' + '<div class="tabs-scroller-right"></div>' + '<div class="tabs-wrap">' + '<ul class="tabs"></ul>' + '</div>' + '</div>').prependTo(container);
-
-		var header = $('>div.tabs-header', container);
-
-		$('>div.tabs-panels>div', container).each(function() {
-			if (!$(this).attr('id')) {
-				$(this).attr('id', 'gen-tabs-panel' + $.fn.tabs.defaults.idSeed++);
-			}
-
-			var options = {
-				id : $(this).attr('id'),
-				title : $(this).attr('title'),
-				content : null,
-				href : $(this).attr('href'),
-				closable : $(this).attr('closable') == 'true',
-				icon : $(this).attr('icon'),
-				selected : $(this).attr('selected') == 'true',
-				cache : $(this).attr('cache') == 'false' ? false : true
-			};
-			$(this).attr('title', '');
-			createTab(container, options);
-		});
-
-		$('.tabs-scroller-left, .tabs-scroller-right', header).hover(function() {
-			$(this).addClass('tabs-scroller-over');
-		}, function() {
-			$(this).removeClass('tabs-scroller-over');
-		});
-		$(container).bind('_resize', function() {
-			var opts = $.data(container, 'tabs').options;
-			if (opts.fit == true) {
-				setSize(container);
-				fitContent(container);
-			}
-			return false;
-		});
-	}
-
-	function setProperties(container) {
-		var opts = $.data(container, 'tabs').options;
-		var header = $('>div.tabs-header', container);
-		var panels = $('>div.tabs-panels', container);
+	function setProperties($container) {
+		var opts = $.data($container[0], 'tabs').options;
+		var header = $('>div.tabs-header', $container);
+		var panels = $('>div.tabs-panels', $container);
 		var tabs = $('ul.tabs', header);
 
 		if (opts.plain == true) {
@@ -209,24 +171,25 @@
 
 		$('li', tabs).unbind('.tabs').bind('click.tabs', function() {
 			$('.tabs-selected', tabs).removeClass('tabs-selected');
-			$(this).addClass('tabs-selected');
-			$(this).blur();
+			var $this = $(this);
+			$this.addClass('tabs-selected');
+			$this.blur();
 
-			$('>div.tabs-panels>div', container).css('display', 'none');
+			$('>div.tabs-panels>div', $container).css('display', 'none');
 
 			var wrap = $('.tabs-wrap', header);
-			var leftPos = getTabLeftPosition(container, this);
+			var leftPos = getTabLeftPosition($container, this);
 			var left = leftPos - wrap.scrollLeft();
-			var right = left + $(this).outerWidth();
+			var right = left + $this.outerWidth();
 			if (left < 0 || right > wrap.innerWidth()) {
-				var pos = Math.min(leftPos - (wrap.width() - $(this).width()) / 2, getMaxScrollWidth(container));
+				var pos = Math.min(leftPos - (wrap.width() - $this.width()) / 2, getMaxScrollWidth($container));
 				wrap.animate({
 					scrollLeft : pos
 				}, opts.scrollDuration);
 			}
 
 			var tabAttr = $.data(this, 'tabs.tab');
-			var panel = $('#' + tabAttr.id);
+			var panel = $($this.attr("rel"));
 			panel.css('display', 'block');
 
 			if (tabAttr.href && (!tabAttr.loaded || !tabAttr.cache)) {
@@ -239,17 +202,19 @@
 				});
 			}
 
-			fitContent(container);
+			fitContent($container);
 
 			opts.onSelect.call(panel, tabAttr.title);
+		}).each(function() {
+			$.data(this, 'tabs.tab', $.fn.tabs.parseTabOptions($(this)));
 		});
 
 		// 不支持关闭tab
 		// $('a.tabs-close', tabs).unbind('.tabs').bind('click.tabs', function()
 		// {
-		// var elem = $(this).parent()[0];
+		// var elem = $this.parent()[0];
 		// var tabAttr = $.data(elem, 'tabs.tab');
-		// closeTab(container, tabAttr.title);
+		// closeTab($container, tabAttr.title);
 		// });
 
 		$('.tabs-scroller-left', header).unbind('.tabs').bind('click.tabs', function() {
@@ -258,51 +223,61 @@
 			wrap.animate({
 				scrollLeft : pos
 			}, opts.scrollDuration);
-		});
+		}).hoverClass('tabs-scroller-over');
 
 		$('.tabs-scroller-right', header).unbind('.tabs').bind('click.tabs', function() {
 			var wrap = $('.tabs-wrap', header);
-			var pos = Math.min(wrap.scrollLeft() + opts.scrollIncrement, getMaxScrollWidth(container));
+			var pos = Math.min(wrap.scrollLeft() + opts.scrollIncrement, getMaxScrollWidth($container));
 			wrap.animate({
 				scrollLeft : pos
 			}, opts.scrollDuration);
+		}).hoverClass('tabs-scroller-over');
+
+		$container.bind('_resize', function() {
+			var opts = $.data($container[0], 'tabs').options;
+			if (opts.fit == true) {
+				setSize($container);
+				fitContent($container);
+			}
+			return false;
 		});
 	}
 
-	function createTab(container, options) {
-		var header = $('>div.tabs-header', container);
-		var tabs = $('ul.tabs', header);
-
-		var tab = $('<li></li>');
-		var tab_span = $('<span></span>').html(options.title);
-		var tab_a = $('<a class="tabs-inner"></a>').attr('href', 'javascript:void(0)').append(tab_span);
-		tab.append(tab_a).appendTo(tabs);
-
-		// 不支持关闭tab
-		// if (options.closable) {
-		// tab_span.addClass('tabs-closable');
-		// tab_a.after('<a href="javascript:void(0)" class="tabs-close"></a>');
-		// }
-		if (options.icon) {
-			tab_span.addClass('tabs-with-icon');
-			tab_span.after($('<span/>').addClass('tabs-icon').addClass(options.icon));
-		}
-		if (options.selected) {
-			tab.addClass('tabs-selected');
-		}
-		if (options.content) {
-			$('#' + options.id).html(options.content);
-		}
-
-		$('#' + options.id).removeAttr('title');
-		$.data(tab[0], 'tabs.tab', {
-			id : options.id,
-			title : options.title,
-			href : options.href,
-			loaded : false,
-			cache : options.cache
-		});
-	}
+	// function createTab(container, options) {
+	// var header = $('>div.tabs-header', container);
+	// var tabs = $('ul.tabs', header);
+	//
+	// var tab = $('<li></li>');
+	// var tab_span = $('<span></span>').html(options.title);
+	// var tab_a = $('<a class="tabs-inner"></a>').attr('href',
+	// 'javascript:void(0)').append(tab_span);
+	// tab.append(tab_a).appendTo(tabs);
+	//
+	// // 不支持关闭tab
+	// // if (options.closable) {
+	// // tab_span.addClass('tabs-closable');
+	// // tab_a.after('<a href="javascript:void(0)" class="tabs-close"></a>');
+	// // }
+	// if (options.icon) {
+	// tab_span.addClass('tabs-with-icon');
+	// tab_span.after($('<span/>').addClass('tabs-icon').addClass(options.icon));
+	// }
+	// if (options.selected) {
+	// tab.addClass('tabs-selected');
+	// }
+	// if (options.content) {
+	// $('#' + options.id).html(options.content);
+	// }
+	//
+	// //$('#' + options.id).removeAttr('title');
+	// $.data(tab[0], 'tabs.tab', {
+	// id : options.id,
+	// title : options.title,
+	// href : options.href,
+	// loaded : false,
+	// cache : options.cache
+	// });
+	// }
 
 	// 不支持添加tab
 	// function addTab(container, options) {
@@ -367,15 +342,15 @@
 	/*
 	 * 选中tab项
 	 */
-	function selectTab(container, title) {
+	function selectTab($container, title) {
 		// 按标题选中
 		if (title) {
-			var elem = $('>div.tabs-header li:has(a span:contains("' + title + '"))', container)[0];
+			var elem = $('>div.tabs-header li:has(a span:contains("' + title + '"))', $container)[0];
 			if (elem) {
 				$(elem).trigger('click');
 			}
 		} else {
-			var tabs = $('>div.tabs-header ul.tabs', container);
+			var tabs = $('>div.tabs-header ul.tabs', $container);
 			var selected = $('.tabs-selected', tabs);
 
 			if (selected.length == 0) {// 选中第一项
@@ -393,13 +368,11 @@
 	// }
 
 	$.fn.tabs = function(options, param) {
-		var beginTime = new Date().getTime();
-
 		if (typeof options == 'string') {
 			switch (options) {
 			case 'resize':
 				return this.each(function() {
-					setSize(this);
+					setSize($(this));
 				});
 				// 不支持添加tab
 				// case 'add':
@@ -414,7 +387,7 @@
 				// });
 			case 'select':
 				return this.each(function() {
-					selectTab(this, param);
+					selectTab($(this), param);
 				});
 				// 不支持：判断是否存在
 				// case 'exists':
@@ -424,36 +397,34 @@
 
 		options = options || {};
 
-		var ret = this.each(function() {
+		return this.each(function() {
+			var $this = $(this);
 			var state = $.data(this, 'tabs');
-			var opts;
-			if (state) {
-				opts = $.extend(state.options, options);
-				state.options = opts;
-			} else {
-				var t = $(this);
-				opts = $.extend({}, $.fn.tabs.defaults, $.fn.tabs.parseOptions(this), options);
-				wrapTabs(this);
+			if (!state) {
+				// state.options = $.extend(state.options, options);
+				// } else {
 				$.data(this, 'tabs', {
-					options : opts
+					options : $.extend({}, $.fn.tabs.defaults, $.fn.tabs.parseOptions(this), options)
 				});
+				setProperties($this);
+				setSize($this);
+				selectTab($this);
 			}
 
-			setProperties(this);
-			setSize(this);
-			selectTab(this);
 		});
-
-		jDemsy.log("创建选项卡对象tabs (length = {1})", beginTime, ret.length);
-
-		return ret;
 	};
-	$.fn.tabs.parseOptions = function(container) {
-		return $.extend({}, jDemsy.parseOptions(container, [ "width", "height", {
+	$.fn.tabs.parseOptions = function($container) {
+		return $.extend({}, jDemsy.parseOptions($container, [ "width", "height", {
 			fit : "boolean",
 			border : "boolean",
 			plain : "boolean"
 		} ]));
+	};
+	$.fn.tabs.parseTabOptions = function($tab) {
+		return jDemsy.parseOptions($tab, [ "href", {
+			selected : "boolean",
+			cache : "boolean"
+		} ])
 	};
 	$.fn.tabs.defaults = {
 		width : 'auto',
