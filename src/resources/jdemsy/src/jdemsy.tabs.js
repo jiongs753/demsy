@@ -400,17 +400,17 @@
 		return this.each(function() {
 			var $this = $(this);
 			var state = $.data(this, 'tabs');
-			if (state) {
-				state.options = $.extend(state.options, options);
-			} else {
+			if (!state) {
+				// state.options = $.extend(state.options, options);
+				// } else {
 				$.data(this, 'tabs', {
 					options : $.extend({}, $.fn.tabs.defaults, $.fn.tabs.parseOptions(this), options)
 				});
+				setProperties($this);
+				setSize($this);
+				selectTab($this);
 			}
 
-			setProperties($this);
-			setSize($this);
-			selectTab($this);
 		});
 	};
 	$.fn.tabs.parseOptions = function($container) {

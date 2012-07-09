@@ -1,5 +1,6 @@
 (function($, jDemsy) {
 	$.extend(jDemsy, {
+		plugins : [ "draggable", "droppable", "resizable", "pagination", "linkbutton", "menu", "menubutton", "splitbutton", "progressbar", "tree", "combobox", "combotree", "combogrid", "numberbox", "validatebox", "searchbox", "numberspinner", "timespinner", "calendar", "date", "slider", "layout", "panel", "datagrid", "propertygrid", "treegrid", "tabs", "accordion", "window", "dialog" ],
 		/**
 		 * AJAX访问URL成功后调用该函数处理返回结果
 		 */
@@ -21,12 +22,11 @@
 		},
 		onComplete : function(_1) {
 		},
-		plugins : [ "draggable", "droppable", "resizable", "pagination", "linkbutton", "menu", "menubutton", "splitbutton", "progressbar", "tree", "combobox", "combotree", "combogrid", "numberbox", "validatebox", "searchbox", "numberspinner", "timespinner", "calendar", "datebox", "datetimebox", "slider", "layout", "panel", "datagrid", "propertygrid", "treegrid", "tabs", "accordion", "window", "dialog" ],
 		parse : function(context) {
 			var aa = [];
-			
+
 			var time0 = new Date().getTime();
-			
+
 			for ( var i = 0; i < this.plugins.length; i++) {
 				var time1 = new Date().getTime();
 
@@ -34,13 +34,13 @@
 				var r = $(".jdemsy-" + name, context);
 				if (r.length) {
 					if (r[name]) {
-						r[name]();
+						var ret = r[name]();
 
-						jDemsy.log("initialize {1} = {2}", time1, name, r.length);
+						jDemsy.log("initialize {1} id={3}... (size = {2})", time1, name, r.length, ret[0].id);
 					}
 				}
 			}
-			
+
 			jDemsy.log("initialize plugins end.", time0);
 		},
 		/*
@@ -91,6 +91,6 @@
 		}
 	});
 })(jQuery, jDemsy);
-$(document).ready(function(){
+$(document).ready(function() {
 	jDemsy.parse();
 });
