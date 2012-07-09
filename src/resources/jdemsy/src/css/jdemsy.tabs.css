@@ -1,4 +1,4 @@
-.jdemsy-tabs{
+.tabs{
 	overflow:hidden;
 	background:#fff;
 }
@@ -15,10 +15,12 @@
 .tabs-header-noborder{
 	border:0px;
 }
+/*
 .tabs-header-plain{
 	border:0px;
 	background:transparent;
 }
+*/
 .tabs-scroller-left{
 	position:absolute;
 	left:0px;
@@ -45,6 +47,7 @@
 	cursor:pointer;
 	background:#E0ECFF url('images/tabs_rightarrow.png') no-repeat 2px 5px;
 }
+/*
 .tabs-tool{
 	position:absolute;
 	top:-1px;
@@ -53,6 +56,8 @@
 	background:#E0ECFF;
 	overflow:hidden;
 }
+*/
+/*
 .tabs-header-plain .tabs-scroller-left{
 	top:2px;
 	height:25px!important;
@@ -67,10 +72,11 @@
 	top:2px;
 	padding-top:0;
 }
+*/
 .tabs-scroller-over{
 	background-color:#ECF9F9;
 }
-.tabs-wrap{
+.tabs-wrapper{
 	position:relative;
 	left:0px;
 	overflow:hidden;
@@ -82,7 +88,7 @@
 	margin-left:18px;
 	margin-right:18px;
 }
-.tabs{
+.tabs-menu{
 	list-style-type:none;
 	height:26px;
 	margin:0px;
@@ -92,7 +98,7 @@
 	width:5000px;
 	border-bottom:1px solid #8DB2E3;
 }
-.tabs li{
+.tabs-menu li{
 	float:left;
 	display:inline-block;
 	margin-right:4px;
@@ -106,7 +112,7 @@
 	-webkit-border-top-right-radius:5px;
 	cursor: pointer;
 }
-.tabs li a.tabs-inner{
+.tabs-menu li a.tabs-inner{
 	display:inline-block;
 	text-decoration:none;
 	color:#416AA3;
@@ -122,24 +128,25 @@
 	-webkit-border-top-left-radius:5px;
 	-webkit-border-top-right-radius:5px;
 }
-.tabs li a.tabs-inner:hover{
+.tabs-menu li a.tabs-inner:hover{
 	background:url('images/tabs_active.png') repeat-x left bottom;
 }
-.tabs li.tabs-selected{
+.tabs-menu li.tabs-selected{
 	border:1px solid #8DB2E3;
 	border-bottom:1px solid #fff;
 }
-.tabs li.tabs-selected a.tabs-inner{
+.tabs-menu li.tabs-selected a.tabs-inner{
 	color:#416AA3;
 	font-weight:bold;
 	background:#fff;
 	background:#7eabcd url('images/tabs_active.png') repeat-x left bottom;
 	outline: none;
 }
-.tabs li.tabs-selected a:hover.tabs-inner{
+.tabs-menu li.tabs-selected a:hover.tabs-inner{
 	cursor:default;
 	pointer:default;
 }
+/*
 .tabs-p-tool{
 	position:absolute;
 	right:16px;
@@ -161,6 +168,7 @@
 	cursor:pointer;
 	background-color:#8DB2E3;
 }
+*/
 .tabs-with-icon{
 	padding-left:18px;
 }
@@ -174,7 +182,7 @@
 .tabs-closable{
 	padding-right:8px;
 }
-.tabs li a.tabs-close{
+.tabs-menu li a.tabs-close{
 	position:absolute;
 	font-size:1px;
 	display:block;
@@ -187,15 +195,13 @@
 	filter:alpha(opacity=60);
 	background:url('images/tabs_close.gif') no-repeat 2px 2px;
 }
-.tabs li a:hover.tabs-close{
+.tabs-menu li a:hover.tabs-close{
 	opacity:1;
 	filter:alpha(opacity=100);
 	cursor:hand;
 	cursor:pointer;
 	background-color:#8DB2E3;
 }
-
-
 .tabs-panels{
 	margin:0px;
 	padding:0px;

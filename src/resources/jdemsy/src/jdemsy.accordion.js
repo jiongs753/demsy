@@ -1,15 +1,4 @@
 (function($, jDemsy) {
-	var jdAccordions = new Map();
-
-	// 添加窗口resize事件：浏览器窗口大小改变时：重新填充折叠式菜单空白
-	$(window).resize(function() {
-		setTimeout(function() {
-			for ( var i = 0; i < jdAccordions.size(); i++) {
-				evalHeight(jdAccordions.element(i).key);
-			}
-		}, 100);
-	});
-
 	/*
 	 * 创建回调函数：即将fun函数作为obj的对象函数来调用
 	 */
@@ -48,26 +37,25 @@
 	/*
 	 * 调整accordion菜单高度
 	 */
-	function evalHeight(key) {
-		var obj = jdAccordions.get(key);
-		if (!obj)
+	function evalHeight(container) {
+		if (!container)
 			return;
 
-		var parent = $(obj).parent();
+		var parent = $(container).parent();
 		var parentHeight = parent.height();
 		if (parent.isTag("body")) {
 			parentHeight = $(window).height();
 		}
 
 		// 计算accordion菜单内容面板高度
-		var height = parentHeight - (($(".accordion-header", obj).size()) * ($(".accordion-header:first-child", obj).outerHeight())) - 2;
+		var height = parentHeight - (($(".accordion-header", container).size()) * ($(".accordion-header:first-child", container).outerHeight())) - 2;
 
-		var os = parent.children().not(obj);
+		var os = parent.children().not(container);
 		$.each(os, function(i) {
 			height -= $(os[i]).outerHeight();
 		});
 
-		$(".accordion-content", obj).height(height);
+		$(".accordion-content", container).height(height);
 	}
 
 	function toggle(toShow, toHide, data, clickedActive, down) {
@@ -199,7 +187,7 @@
 		options.active = findActive(options.headers, options.active);
 
 		if (options.fillSpace) {
-			evalHeight(options.mapKey);
+			evalHeight(container);
 		} else if (options.autoHeight) {
 			var maxHeight = 0;
 			options.headers.next().each(function() {
@@ -294,14 +282,16 @@
 
 	// 扩展jQuery对象支持 accordion
 	$.fn.accordion = function(options, data) {
-		options = $.extend({}, $.fn.accordion.defaults, options);
+		options = $.extend({}, $.fn.accordion.defaults, $.fn.accordion.parseOptions(this), options);
 
 		var args = Array.prototype.slice.call(arguments, 1);
 
 		return this.each(function() {
+			var self = this;
 			if (options.fillSpace) {
-				options.mapKey = jdAccordions.size();
-				jdAccordions.put(options.mapKey, this);
+				$(window).resize(function() {
+					setTimeout(evalHeight, 100, self);
+				});
 			}
 
 			// 如果不是一个 accordion 对象， 则创建 accordion 对象
@@ -318,13 +308,20 @@
 
 		});
 	}
+	$.fn.accordion.parseOptions = function($container) {
+		return jDemsy.parseOptions($container, [ {
+			autoHeight : "boolean",
+			fillSpace : "boolean",
+			alwaysOpen : "boolean"
+		} ]);
+	};
 	$.fn.accordion.defaults = {
 		selectedClass : "accordion-selected",
 		hoverClass : "accordion-hover",
+		header : ".accordion-header",
 		alwaysOpen : true,
 		// animated : false,
 		event : "click",
-		header : ".accordion-header",
 		autoHeight : true,
 		fillSpace : true,
 		running : 0,

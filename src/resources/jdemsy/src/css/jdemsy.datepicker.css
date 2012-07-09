@@ -1,5 +1,5 @@
-/* calendar */
-#calendar {
+/* datepicker */
+#datepicker {
 	margin: 0;
 	width: 208px;
 	z-index: 1001;
@@ -9,14 +9,14 @@
 	display: none;
 }
 
-#calendar * {
+#datepicker * {
 	margin: 0;
 	padding: 0;
 	font-size: 12px;
 	line-height: 18px
 }
 
-#calendar .main {
+#datepicker .main {
 	margin: auto;
 	padding: 2px;
 	text-align: center;
@@ -25,16 +25,16 @@
 	position: relative;
 }
 
-#calendar .head {
+#datepicker .head {
 	background: #EDF8FF;
 	border: 1px solid #BEE9F0
 }
 
-#calendar .head select {
+#datepicker .head select {
 	width: 60px;
 }
 
-#calendar .body {
+#datepicker .body {
 	margin: 2px 0;
 	padding: 2px;
 	clear: both;
@@ -43,24 +43,24 @@
 	position: relative;
 }
 
-#calendar .foot {
+#datepicker .foot {
 	background: #EDF8FF;
 	border: 1px solid #BEE9F0;
 	text-align: right;
 	padding: 1px
 }
 
-#calendar .nodate .head,#calendar .nodate .body {
+.datepicker-nodate .head,.datepicker-nodate .body {
 	display: none;
 }
 
-#calendar dl {
+#datepicker dl {
 	clear: both;
 	margin: auto;
 	overflow: hidden;
 }
 
-#calendar dt,#calendar dd,#calendar span {
+#datepicker dt,#datepicker dd,#datepicker span {
 	width: 26px;
 	height: 18px;
 	display: block;
@@ -70,30 +70,30 @@
 	border: 1px solid #fff;
 }
 
-#calendar dt {
+#datepicker dt {
 	margin-top: 4px;
 	font-weight: bold;
 	color: #666666;
 }
 
-#calendar .days dd {
+#datepicker .days dd {
 	cursor: pointer;
 }
 
-#calendar .days dd.other {
+#datepicker .days dd.other {
 	color: #6A6AFF
 }
 
-#calendar .days dd.slt {
+#datepicker .days dd.selected {
 	background: #B3E4EB;
 	border: 1px solid #66CCCC;
 }
 
-#calendar .days dd:hover {
+#datepicker .days dd:hover {
 	border: 1px solid #66CCCC;
 }
 
-#calendar .close {
+#datepicker .close {
 	width: 16px;
 	height: 16px;
 	font-size: 16px;
@@ -103,38 +103,40 @@
 	text-align: center;
 }
 
-#calendar .btnClear,#calendar .btnConfirm {
+#datepicker .clear,#datepicker .confirm {
 	background-color: #CFEBEE;
 	border: 1px solid #38B1B9;
 	color: #08575B;
 	margin-top: 2px;
 	width: 40px;
+	cursor: pointer;
 }
 
-#calendar .time {
+#datepicker .time {
 	border-collapse: collapse;
 	float: left;
 	background-color: #fff;
 	display: none;
 }
 
-#calendar .time td {
+#datepicker .time td {
 	border: 1px solid #61CAD0;
-	line-height: 16px;
+	line-height: 14px;
 	vertical-align: center;
+	padding: 1px;
 }
 
-#calendar .time .hh,#calendar .time .mm,#calendar .time .ss {
+#datepicker .time-hh,#datepicker .time-mm,#datepicker .time-ss {
 	width: 18px;
-	height: 16px;
+	height: 14px;
 	border: none
 }
 
-#calendar .time ul {
+#datepicker .time ul {
 	list-style: none
 }
 
-#calendar .time .up,#calendar .time .down {
+#datepicker .time-up,#datepicker .time-down {
 	font-size: 8px;
 	height: 8px;
 	line-height: 100%;
@@ -142,11 +144,18 @@
 	cursor: pointer;
 }
 
-#calendar .tm {
+#datepicker .time .selected {
+	background: highlight;
+	color: #fff;
+	padding: 1px 1px 2px 1px;
+}
+
+#datepicker .menu {
 	
 }
 
-#calendar .tm .hh,#calendar .tm .mm,#calendar .tm .ss {
+#datepicker .menu .menu-hh,#datepicker .menu .menu-mm,#datepicker .menu .menu-ss
+	{
 	border: 1px solid #A3C6C8;
 	position: absolute;
 	left: 1px;
@@ -156,19 +165,21 @@
 	display: none;
 }
 
-#calendar .hh .hh,#calendar .mm .mm,#calendar .ss .ss {
+#datepicker .menu-hh .menu-hh,#datepicker .menu-mm .menu-mm,#datepicker .menu-ss .menu-ss
+	{
 	display: block;
 }
 
-#calendar .tm .hh li,#calendar .tm .mm li,#calendar .tm .ss li {
+#datepicker .menu-hh li,#datepicker .menu-mm li,#datepicker .menu-ss li
+	{
 	display: block;
 	float: left;
 	cursor: pointer;
 	width: 20px;
-	line-height: 21px
+	line-height: 21px;
 }
 
-#calendar .tm .hh li:hover,#calendar .tm .mm li:hover,#calendar .tm .ss li:hover
+#datepicker .menu-hh li:hover,#datepicker .menu-mm li:hover,#datepicker .menu-ss li:hover
 	{
 	background: #B3E4EB;
 }

@@ -10,7 +10,7 @@
 		var w = 0;
 
 		// 查找tab条目并计算当前条目之前的宽度
-		var items = $('>div.tabs-header ul.tabs li', $container)
+		var items = $('>div.tabs-header ul.tabs-menu li', $container)
 		var len = items.length;
 		for (i = 0; i < len; i++) {
 			if (this == items[i])
@@ -27,11 +27,11 @@
 	function getMaxScrollWidth($container) {
 		var header = $('>div.tabs-header', $container);
 		var tabsWidth = 0;
-		$('ul.tabs li', header).each(function() {
+		$('ul.tabs-menu li', header).each(function() {
 			tabsWidth += $(this).outerWidth(true);
 		});
-		var wrapWidth = $('.tabs-wrap', header).width();
-		var padding = $('.tabs', header).getCssValue('padding-left');
+		var wrapWidth = $('.tabs-wrapper', header).width();
+		var padding = $('.tabs-menu', header).getCssValue('padding-left');
 
 		return tabsWidth - wrapWidth + padding;
 	}
@@ -41,34 +41,34 @@
 
 		// 计算tab项总宽度
 		var tabsWidth = 0;
-		$('ul.tabs li', header).each(function() {
+		$('ul.tabs-menu li', header).each(function() {
 			tabsWidth += $(this).outerWidth(true);
 		});
 
 		var leftScroller = $('.tabs-scroller-left', header);
 		var rightScroller = $('.tabs-scroller-right', header);
-		var wrap = $('.tabs-wrap', header);
+		var wrapper = $('.tabs-wrapper', header);
 
 		// 总宽度已经超出tab栏目表头宽度
 		if (tabsWidth > header.width()) {
 			leftScroller.css('display', 'block');
 			rightScroller.css('display', 'block');
-			wrap.addClass('tabs-scrolling');
+			wrapper.addClass('tabs-scrolling');
 
 			if ($.boxModel == true) {
-				wrap.css('left', 2);
+				wrapper.css('left', 2);
 			} else {
-				wrap.css('left', 0);
+				wrapper.css('left', 0);
 			}
 			var width = header.width() - leftScroller.outerWidth() - rightScroller.outerWidth();
-			wrap.width(width);
+			wrapper.width(width);
 
 		} else {
 			leftScroller.css('display', 'none');
 			rightScroller.css('display', 'none');
-			wrap.removeClass('tabs-scrolling').scrollLeft(0);
-			wrap.width(header.width());
-			wrap.css('left', 0);
+			wrapper.removeClass('tabs-scrolling').scrollLeft(0);
+			wrapper.width(header.width());
+			wrapper.css('left', 0);
 		}
 	}
 
@@ -132,7 +132,7 @@
 	 * 定位当前活动选项卡内容
 	 */
 	function fitContent($container) {
-		var tab = $('>div.tabs-header ul.tabs li.tabs-selected', $container);
+		var tab = $('>div.tabs-header ul.tabs-menu li.tabs-selected', $container);
 		if (tab.length) {
 			var panel = $(tab.attr("rel"));
 			var panels = $('>div.tabs-panels', $container);
@@ -154,7 +154,7 @@
 		var opts = $.data($container[0], 'tabs').options;
 		var header = $('>div.tabs-header', $container);
 		var panels = $('>div.tabs-panels', $container);
-		var tabs = $('ul.tabs', header);
+		var tabs = $('ul.tabs-menu', header);
 
 		if (opts.plain == true) {
 			header.addClass('tabs-header-plain');
@@ -177,13 +177,13 @@
 
 			$('>div.tabs-panels>div', $container).css('display', 'none');
 
-			var wrap = $('.tabs-wrap', header);
+			var wrapper = $('.tabs-wrapper', header);
 			var leftPos = getTabLeftPosition($container, this);
-			var left = leftPos - wrap.scrollLeft();
+			var left = leftPos - wrapper.scrollLeft();
 			var right = left + $this.outerWidth();
-			if (left < 0 || right > wrap.innerWidth()) {
-				var pos = Math.min(leftPos - (wrap.width() - $this.width()) / 2, getMaxScrollWidth($container));
-				wrap.animate({
+			if (left < 0 || right > wrapper.innerWidth()) {
+				var pos = Math.min(leftPos - (wrapper.width() - $this.width()) / 2, getMaxScrollWidth($container));
+				wrapper.animate({
 					scrollLeft : pos
 				}, opts.scrollDuration);
 			}
@@ -218,17 +218,17 @@
 		// });
 
 		$('.tabs-scroller-left', header).unbind('.tabs').bind('click.tabs', function() {
-			var wrap = $('.tabs-wrap', header);
-			var pos = wrap.scrollLeft() - opts.scrollIncrement;
-			wrap.animate({
+			var wrapper = $('.tabs-wrapper', header);
+			var pos = wrapper.scrollLeft() - opts.scrollIncrement;
+			wrapper.animate({
 				scrollLeft : pos
 			}, opts.scrollDuration);
 		}).hoverClass('tabs-scroller-over');
 
 		$('.tabs-scroller-right', header).unbind('.tabs').bind('click.tabs', function() {
-			var wrap = $('.tabs-wrap', header);
-			var pos = Math.min(wrap.scrollLeft() + opts.scrollIncrement, getMaxScrollWidth($container));
-			wrap.animate({
+			var wrapper = $('.tabs-wrapper', header);
+			var pos = Math.min(wrapper.scrollLeft() + opts.scrollIncrement, getMaxScrollWidth($container));
+			wrapper.animate({
 				scrollLeft : pos
 			}, opts.scrollDuration);
 		}).hoverClass('tabs-scroller-over');
@@ -295,7 +295,7 @@
 	// }, options || {});
 	//
 	// if (options.selected) {
-	// $('.tabs-header .tabs-wrap .tabs li',
+	// $('.tabs-header .tabs-wrapper .tabs li',
 	// container).removeClass('tabs-selected');
 	// }
 	// options.id = options.id || 'gen-tabs-panel' +
@@ -331,9 +331,9 @@
 	// if (selected) {
 	// selectTab(container);
 	// } else {
-	// var wrap = $('>div.tabs-header .tabs-wrap', container);
-	// var pos = Math.min(wrap.scrollLeft(), getMaxScrollWidth(container));
-	// wrap.animate({
+	// var wrapper = $('>div.tabs-header .tabs-wrapper', container);
+	// var pos = Math.min(wrapper.scrollLeft(), getMaxScrollWidth(container));
+	// wrapper.animate({
 	// scrollLeft : pos
 	// }, opts.scrollDuration);
 	// }
@@ -350,7 +350,7 @@
 				$(elem).trigger('click');
 			}
 		} else {
-			var tabs = $('>div.tabs-header ul.tabs', $container);
+			var tabs = $('>div.tabs-header ul.tabs-menu', $container);
 			var selected = $('.tabs-selected', tabs);
 
 			if (selected.length == 0) {// 选中第一项
