@@ -66,8 +66,8 @@
 		 * 登录：弹出登录框
 		 */
 		login : function(title) {
-			if ($.pdialog && this.urls.login) {
-				$.pdialog.open(this.urls.login, "login", title || this.nls.login, {
+			if (this.dialog && this.urls.login) {
+				this.dialog.open(this.urls.login, "login", title || this.nls.login, {
 					mask : true,
 					width : 520,
 					height : 260
@@ -184,15 +184,6 @@
 			});
 		},
 		/**
-		 * 初始化元素内容中的UI
-		 */
-		jdSetup : function() {
-			return this.each(function() {
-				if ($.isFunction(jDemsy.setup))
-					jDemsy.setup(this);
-			});
-		},
-		/**
 		 * 校正元素高度为指定对象的高度
 		 */
 		jdHeight : function($refBox) {
@@ -277,16 +268,16 @@
 				});
 			});
 		},
+		tag : function() {
+			return this.get(0).tagName.toUpperCase();
+		},
 		/**
 		 * 判断元素是不是指定的HTML标签
 		 */
 		isTag : function(tn) {
 			if (!tn)
 				return false;
-			return this.get(0).tagName.toUpperCase() == tn.toUpperCase() ? true : false;
-		},
-		tag : function() {
-			return this.get(0).tagName.toUpperCase();
+			return this.tag() == tn.toUpperCase() ? true : false;
 		},
 		/**
 		 * 判断当前元素是否已经绑定某个事件
@@ -294,15 +285,6 @@
 		hasEvent : function(type) {
 			var _events = $(this).data("events");
 			return _events && type && _events[type];
-		},
-		/**
-		 * 输出firebug日志
-		 */
-		log : function(msg) {
-			return this.each(function() {
-				if (console)
-					console.log("%s: %o", msg, this);
-			});
 		},
 		_outerWidth : function(_e) {
 			return this.each(function() {

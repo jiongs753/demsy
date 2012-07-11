@@ -1,0 +1,136 @@
+.dialog {
+	display: block;
+	text-align: left;
+	position: absolute;
+	z-index: 42;
+}
+
+.dialogHeader,.dialogHeader_r,.dialogHeader_c {
+	display: block;
+	overflow: hidden;
+	height: 28px;
+}
+
+.dialogHeader .close,.dialogHeader .maximize,.dialogHeader .restore,.dialogHeader .minimize
+	{
+	display: block;
+	overflow: hidden;
+	text-indent: -1000px;
+	width: 19px;
+	height: 19px;
+	position: absolute;
+	top: 5px;
+}
+
+.dialogHeader h1 {
+	display: block;
+	overflow: hidden;
+	height: 28px;
+	padding: 0 5px 0 20px;
+	line-height: 28px;
+	background-position: 0 -450px;
+}
+
+.dialogHeader {
+	padding-left: 5px;
+	background-position: 0 0;
+	position: relative;
+	cursor: move;
+}
+
+.dialogHeader_r {
+	padding-right: 5px;
+	background-position: 100% -50px;
+}
+
+.dialogHeader_c {
+	padding: 0;
+	background-position: 0 -100px;
+	background-repeat: repeat-x;
+}
+
+.dialogHeader .close {
+	background-position: 0 0;
+	right: 4px;
+}
+
+.dialogHeader .close:hover {
+	background-position: 0 -50px;
+}
+
+.dialogHeader .maximize {
+	background-position: 0 -100px;
+	right: 23px;
+}
+
+.dialogHeader .maximize:hover {
+	background-position: 0 -150px;
+}
+
+.dialogHeader .restore {
+	display: none;
+	background-position: 0 -200px;
+	right: 23px;
+}
+
+.dialogHeader .restore:hover {
+	background-position: 0 -250px;
+}
+
+.dialogHeader .minimize {
+	background-position: 0 -300px;
+	right: 42px;
+}
+
+.dialogHeader .minimize:hover {
+	background-position: 0 -350px;
+}
+
+.dialogContent {
+	display: block;
+	overflow: hidden;
+	padding: 5px 5px 1px 5px;
+	border-style: solid;
+	border-width: 0 1px;
+}
+
+.dialogFooter_r,.dialog .dialogFooter_c {
+	display: block;
+	overflow: hidden;
+	height: 5px;
+}
+
+.dialogFooter {
+	padding-left: 5px;
+	background-position: 0 -150px;
+}
+
+.dialogFooter_r {
+	padding-right: 5px;
+	background-position: 100% -200px;
+}
+
+.dialogFooter_c {
+	padding: 0;
+	background-position: 0 -250px;
+	background-repeat: repeat-x;
+}
+
+.dialogHeader,.dialogHeader_r,.dialogHeader_c,.dialogFooter,.dialogFooter_r,.dialogFooter_c
+	{
+	background: url(./images/dialog.png) no-repeat;
+}
+
+.dialogHeader h1,.dialogHeader .close,.dialogHeader .maximize,.dialogHeader .restore,.dialogHeader .minimize
+	{
+	background: url(./images/dialog_icon.png) no-repeat;
+}
+
+.dialogHeader h1 {
+	color: #183152;
+}
+
+.dialogContent {
+	border-color: #b8d0d6;
+	background: #eef4f5;
+}
