@@ -1,6 +1,9 @@
 (function($, jDemsy) {
 	$.extend(jDemsy, {
-		plugins : [ "draggable", "droppable", "resizable", "pagination", "linkbutton", "menu", "menubutton", "splitbutton", "progressbar", "tree", "combobox", "combotree", "combogrid", "numberbox", "validatebox", "searchbox", "numberspinner", "timespinner", "calendar", "datepicker", "slider", "layout", "panel", "datagrid", "propertygrid", "treegrid", "tabs", "accordion", "window", "dialog" ],
+		plugins : [ "draggable", "droppable", "resizable", "datepicker", "tabs", "accordion", "dialogbutton", "pagination", "linkbutton", "menu", "menubutton", "splitbutton", "progressbar", "tree", "combobox", "combotree", "combogrid", "numberbox", "validatebox", "searchbox", "numberspinner", "timespinner", "calendar", "slider", "layout", "panel", "datagrid", "propertygrid", "treegrid", "window" ],
+		/*
+		 * 自动解析 jdemsy-ui
+		 */
 		parse : function(context) {
 			var jdemsy = this;
 			var time0 = new Date().getTime();
@@ -11,12 +14,12 @@
 				for ( var i = 0; i < jdemsy.plugins.length; i++) {
 					var time1 = new Date().getTime();
 
-					var pluginName = jdemsy.plugins[i];
-					if ($ui.hasClass(pluginName)) {
-						if ($ui[pluginName]) {
-							var plugin = $ui[pluginName]();
+					var plugin = jdemsy.plugins[i];
+					if ($ui.hasClass(plugin)) {
+						if ($ui[plugin]) {
+							var plugin = $ui[plugin]();
 
-							jDemsy.log("{1}. (id = {2})", time1, pluginName, this.id);
+							jDemsy.log("{1}. (id = {2})", time1, plugin, this.id);
 						}
 					}
 				}

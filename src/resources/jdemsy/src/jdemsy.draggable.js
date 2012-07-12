@@ -283,6 +283,14 @@
 					disabled : true
 				});
 			});
+		},
+		destroy : function(jq) {
+			return jq.each(function() {
+				var state = $.data(this, "draggable");
+				if (state) {
+					state.handle.unbind(".draggable");
+				}
+			});
 		}
 	};
 	$.fn.draggable.parseOptions = function(source) {

@@ -1,3 +1,13 @@
+.dialogHeader,.dialogHeader_r,.dialogHeader_c,.dialogFooter,.dialogFooter_r,.dialogFooter_c
+	{
+	background: url(./images/dialog.png) no-repeat;
+}
+
+.dialogHeader h1,.dialogHeader .close,.dialogHeader .maximize,.dialogHeader .restore,.dialogHeader .minimize
+	{
+	background: url(./images/dialog_icon.png) no-repeat;
+}
+
 .dialog {
 	display: block;
 	text-align: left;
@@ -29,13 +39,14 @@
 	padding: 0 5px 0 20px;
 	line-height: 28px;
 	background-position: 0 -450px;
+	font-size: 12px;
+	color: #183152;
 }
 
 .dialogHeader {
 	padding-left: 5px;
 	background-position: 0 0;
 	position: relative;
-	cursor: move;
 }
 
 .dialogHeader_r {
@@ -87,14 +98,16 @@
 }
 
 .dialogContent {
+	border-color: #b8d0d6;
+	background: #eef4f5;
 	display: block;
-	overflow: hidden;
+	overflow: auto;
 	padding: 5px 5px 1px 5px;
 	border-style: solid;
 	border-width: 0 1px;
 }
 
-.dialogFooter_r,.dialog .dialogFooter_c {
+.dialogFooter_r,.dialogFooter_c {
 	display: block;
 	overflow: hidden;
 	height: 5px;
@@ -116,21 +129,95 @@
 	background-repeat: repeat-x;
 }
 
-.dialogHeader,.dialogHeader_r,.dialogHeader_c,.dialogFooter,.dialogFooter_r,.dialogFooter_c
+/* Shadow */
+.shadow_h_l {
+	background: url(./images/shadow/shadow_h_l.png) no-repeat;
+}
+
+.shadow_h_r {
+	background: url(./images/shadow/shadow_h_r.png) no-repeat;
+}
+
+.shadow_h_c {
+	background: url(./images/shadow/shadow_h_c.png) repeat-x;
+}
+
+.shadow_c_l {
+	background: url(./images/shadow/shadow_c_l.png) repeat-y;
+}
+
+.shadow_c_r {
+	background: url(./images/shadow/shadow_c_r.png) repeat-y;
+}
+
+.shadow_c_c {
+	background: url(./images/shadow/shadow_c_c.png) repeat;
+}
+
+.shadow_f_l {
+	background: url(./images/shadow/shadow_f_l.png) no-repeat;
+}
+
+.shadow_f_r {
+	background: url(./images/shadow/shadow_f_r.png) no-repeat;
+}
+
+.shadow_f_c {
+	background: url(./images/shadow/shadow_f_c.png) repeat-x;
+}
+
+.shadow {
+	display: none;
+	overflow: hidden;
+	position: absolute;
+	z-index: 41;
+}
+
+.shadow_h,.shadow_h_l,.shadow_h_r,.shadow_h_c,.shadow_f,.shadow_f_l,.shadow_f_r,.shadow_f_c
 	{
-	background: url(./images/dialog.png) no-repeat;
+	display: block;
+	overflow: hidden;
+	height: 6px;
 }
 
-.dialogHeader h1,.dialogHeader .close,.dialogHeader .maximize,.dialogHeader .restore,.dialogHeader .minimize
+.shadow_h,.shadow_c,.shadow_f {
+	position: relative;
+}
+
+.shadow_h_l,.shadow_c_l,.shadow_f_l {
+	width: 6px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.shadow_h_r,.shadow_c_r,.shadow_f_r {
+	width: 6px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.shadow_h_c,.shadow_c_c,.shadow_f_c {
+	margin: 0 6px;
+}
+
+.shadow_c,.shadow_c_l,.shadow_c_r,.shadow_c_c
 	{
-	background: url(./images/dialog_icon.png) no-repeat;
+	display: block;
+	overflow: hidden;
+	height: 100%;
 }
-
-.dialogHeader h1 {
-	color: #183152;
-}
-
-.dialogContent {
-	border-color: #b8d0d6;
-	background: #eef4f5;
+/*dialogBackground*/
+.dialogBackground {
+	display: none;
+	width: 100%;
+	height: 100%;
+	opacity: 0.4;
+	filter: alpha(opacity = 40);
+	background: #FFF;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 900;
 }

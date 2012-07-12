@@ -194,6 +194,14 @@
 					disabled : true
 				});
 			});
+		},
+		destroy : function(jq) {
+			return jq.each(function() {
+				var state = $.data(this, "resizable");
+				if (state) {
+					state.unbind(".resizable");
+				}
+			});
 		}
 	};
 	$.fn.resizable.parseOptions = function(target) {

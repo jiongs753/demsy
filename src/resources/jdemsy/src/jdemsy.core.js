@@ -14,10 +14,6 @@
 		nls : {
 			login : "Login",
 		},
-		/*
-		 * 定义模版对象便于扩展
-		 */
-		tpl : {},
 		// AJAX状态码配置
 		status : {
 			ok : 200,
@@ -131,8 +127,9 @@
 		 * 3. 如果返回内容不是一个JSON对象：则将返回内容作为当前元素的HTML内容并初始化UI；
 		 */
 		jdLoad : function(options) {
+			var $this = $(this);
 			if ($.fn.xheditor) {
-				$("textarea.editor", this).xheditor(false);
+				$("textarea.editor", $this).xheditor(false);
 			}
 
 			$.ajax({
@@ -140,9 +137,10 @@
 				url : options.url,
 				data : options.data,
 				cache : false,
-				success : function(response) {
+				success : function(jqXHR, status, response) {
+					var responseText = response.responseText;
 					// 将内容转换成JSON对象
-					var json = jDemsy.toJson(response);
+					var json = jDemsy.toJson(responseText);
 
 					// 返回值是“会话过期/未登录”：弹出登录框
 					if (json.statusCode == jDemsy.status.timeout) {
@@ -154,7 +152,7 @@
 					}
 					// 返回值是“HTML内容”：将其作为元素的HTML内容
 					else {
-						$this.html(response).jdSetup();
+						$this.html(responseText);// .jdSetup();
 						if ($.isFunction(options.callback))
 							options.callback(response);
 					}
