@@ -26,9 +26,6 @@
 					url : url,
 					data : options.data,
 					callback : function(response) {
-						// $content.find("[jdHeight]").jdHeight($content);
-						// $(".pageContent", $dialog).width($dialog.width() -
-						// 14);
 						$(":button.close", $dialog).click(function() {
 							self.close($dialog);
 							return false;
@@ -58,13 +55,10 @@
 					self.switchDialog($dialog);
 					var $content = $dialog.find(".dialogContent");
 					$content.jdGet(url, {}, function() {
-						// $content.find("[jdHeight]").jdHeight($content);
-						// $(".pageContent", $dialog).width($dialog.width() -
-						// 14);
-						// $("button.close").click(function() {
-						// self.close($dialog);
-						// return false;
-						// });
+						$("button.close", $dialog).click(function() {
+							self.close($dialog);
+							return false;
+						});
 					});
 				}
 
@@ -141,12 +135,10 @@
 				// load data
 				var $content = $(".dialogContent", $dialog);
 				$content.jdGet(url, {}, function() {
-					// $content.find("[jdHeight]").jdHeight($content);
-					// $(".pageContent", $dialog).width($dialog.width() - 14);
-					// $("button.close").click(function() {
-					// self.close($dialog);
-					// return false;
-					// });
+					$("button.close", $dialog).click(function() {
+						self.close($dialog);
+						return false;
+					});
 				});
 			}
 			if (options.mask) {
@@ -214,7 +206,9 @@
 			var width = options.width > options.minWidth ? options.width : options.minWidth;
 			if (isNaN($dialog.height()) || $dialog.height() < height) {
 				$dialog.height(height + "px");
-				$(".dialogContent", $dialog).height(height - $(".dialogHeader", $dialog).outerHeight() - $(".dialogFooter", $dialog).outerHeight() - 6);
+				var h = height - $(".dialogHeader", $dialog).outerHeight() - $(".dialogFooter", $dialog).outerHeight() - 6;
+				$(".dialogBody", $dialog).height(h);
+				$(".dialogContent", $dialog).height(h - 2);
 			}
 			if (isNaN($dialog.css("width")) || $dialog.width() < width) {
 				$dialog.width(width + "px");
@@ -290,15 +284,15 @@
 		// top : otop,
 		// height : height
 		// });
-		// $(".dialogContent", $dialog).css("width", (width - 12) + "px");
-		// $(".pageContent", $dialog).css("width", (width - 14) + "px");
+		// $(".dialogBody", $dialog).css("width", (width - 12) + "px");
+		// $(".dialogContent", $dialog).css("width", (width - 14) + "px");
 		// if (target != "w" && target != "e") {
-		// var content = $(".dialogContent", $dialog);
-		// content.css({
+		// var $body = $(".dialogBody", $dialog);
+		// $body.css({
 		// height : height - $(".dialogHeader", $dialog).outerHeight() -
 		// $(".dialogFooter", $dialog).outerHeight() - 6
 		// });
-		// content.find("[jdHeight]").jdHeight(content);
+		// $body.find("[jdHeight]").jdHeight($body);
 		// self.resizeTool(target, tmove, $dialog);
 		// }
 		// self.repaint(target, {
@@ -405,15 +399,16 @@
 		// });
 		// },
 		_resizeContent : function($dialog, width, height) {
-			var $content = $(".dialogContent", $dialog);
-			$content.css({
+			var headerHeight = $(".dialogHeader", $dialog).outerHeight();
+			var footerHeight = $(".dialogFooter", $dialog).outerHeight();
+			$(".dialogBody", $dialog).css({
 				width : (width - 12) + "px",
-				height : height - $(".dialogHeader", $dialog).outerHeight() - $(".dialogFooter", $dialog).outerHeight() - 6
+				height : height - headerHeight - footerHeight - 6
 			});
-			// $content.find("[jdHeight]").jdHeight($content);
-			// $(".pageContent", $dialog).css("width", (width - 14) + "px");
-
-			// $(window).trigger("resizeGrid");
+			$(".dialogContent", $dialog).css({
+				width : (width - 14) + "px",
+				height : height - headerHeight - footerHeight - 8
+			});
 		}
 	};
 
@@ -458,7 +453,7 @@
 						</div>\
 					</div>\
 				</div>\
-				<div class="dialogContent"></div>\
+				<div class="dialogBody"><div class="dialogContent"></div></div>\
 				<div class="dialogFooter"><div class="dialogFooter_r"><div class="dialogFooter_c"></div></div></div>\
 			</div>',
 		shadow : '\

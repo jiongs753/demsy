@@ -1,0 +1,54 @@
+/*
+ * core
+ */
+.grid .gridHeader { background:#EEE;font-size: 12px;}
+.grid { background:#FFF;}
+.grid table { border-color:#d0d0d0;}
+.grid .gridHeader, .grid .gridHeader th { border-color:#d0d0d0; background:#f0eff0 url(./images/grid/tableth.png) repeat-x;}
+.grid table th div { border-left-color:#EEE; border-right-color:#d0d0d0;}
+.grid table td { border-color:#ededed;font-size: 12px;}
+
+.grid .resizeMarker, .grid .resizeProxy { background:url(./images/grid/resizeCol.png) repeat-y;}
+
+.grid .gridHeader th.hover, .grid .gridHeader th.thSelected { border-color:#aaccf6; }
+.grid .gridTbody .gridRowBg { background:#f7f7f7;}
+.grid .gridTbody .gridRow { border-color:#ededed;}
+.grid .gridTbody .gridRow td.tdLast { border-color:#ededed;}
+.grid .gridTbody .hover { border-color:#dddddd; background:#f5f5f5;}
+.grid .gridTbody .hover .tdSelected { background:#f5f5f5;}
+.grid .gridTbody .selected { border-color:#b8d0d6; background:#7cc5e5;}
+.grid .gridTbody .selected .tdSelected { background:#e8edf3;}
+.grid .gridTbody .tdSelected { background:#f8f8f8;}
+.grid .error{background:#fb7e81;}
+
+/*
+ * theme: default
+ */
+.grid { display:block; overflow:hidden; width:100%; border-width:0 1px; position:relative;}
+.grid .gridHeader { display:block; overflow:hidden; width:auto;}
+.grid .gridThead { }
+
+.grid .gridScroller { display:block; overflow:auto; position:relative;}
+.grid .gridTbody { }
+
+.grid table { border:0; border-collapse:collapse;table-layout:fixed;}
+.grid .gridHeader th { padding:0 3px; border-style:solid; border-width:0 1px 1px 0; vertical-align:top; white-space:nowrap; line-height:21px; cursor:default;}
+.grid .gridHeader th.hover, .grid .gridHeader th.thSelected { background-position:0 -50px;}
+.grid .gridTbody td { border-right:solid 1px #ededed; overflow:hidden; padding:0 3px; border-bottom:solid 1px #ededed; vertical-align:middle; line-height:21px;}
+.grid .gridTbody td div { display:block; overflow:hidden; height:21px; white-space:nowrap; line-height:21px;}
+.grid .gridTbody td div a{line-height:21px;}
+
+.grid .gridRow { border-style:solid; border-width:0 0 1px 0; cursor:default;}
+.grid .gridRow td.tdLast { padding:0 4px 0 5px; border-right:solid 1px;}
+.grid .gridCol { width:100%; display:block; overflow:hidden; height:21px; line-height:21px; white-space:nowrap;}
+
+
+.grid .gridTbody .selected td { border-bottom-style:dotted; border-bottom-width:1px;}
+.grid .gridTbody .selected .tdSelected {}
+.grid .gridTbody .tdSelected { }
+
+.grid .resizeMarker, .grid .resizeProxy { display:block; overflow:hidden; width:1px; position:absolute;}
+
+.grid .left { text-align:left;}
+.grid .right { text-align:right;}
+.grid .center { text-align:center;}

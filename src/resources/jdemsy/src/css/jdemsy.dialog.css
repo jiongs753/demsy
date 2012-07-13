@@ -34,13 +34,14 @@
 
 .dialogHeader h1 {
 	display: block;
-	overflow: hidden;
+	overflow: auto;
 	height: 28px;
 	padding: 0 5px 0 20px;
 	line-height: 28px;
 	background-position: 0 -450px;
 	font-size: 12px;
 	color: #183152;
+	margin: 0;
 }
 
 .dialogHeader {
@@ -97,14 +98,22 @@
 	background-position: 0 -350px;
 }
 
-.dialogContent {
-	border-color: #b8d0d6;
-	background: #eef4f5;
+.dialogBody {
 	display: block;
-	overflow: auto;
+	overflow: hidden;
 	padding: 5px 5px 1px 5px;
+	border-color: #b8d0d6;
 	border-style: solid;
 	border-width: 0 1px;
+	background: #eef4f5;
+}
+
+.dialogContent {
+	display: block;
+	overflow: auto;
+	position: relative;
+	border: 1px solid #b8d0d6;
+	background: #FFF;
 }
 
 .dialogFooter_r,.dialogFooter_c {
@@ -202,8 +211,7 @@
 	margin: 0 6px;
 }
 
-.shadow_c,.shadow_c_l,.shadow_c_r,.shadow_c_c
-	{
+.shadow_c,.shadow_c_l,.shadow_c_r,.shadow_c_c {
 	display: block;
 	overflow: hidden;
 	height: 100%;
@@ -214,7 +222,7 @@
 	width: 100%;
 	height: 100%;
 	opacity: 0.4;
-	filter: alpha(opacity = 40);
+	filter: alpha(opacity =       40);
 	background: #FFF;
 	position: absolute;
 	top: 0;

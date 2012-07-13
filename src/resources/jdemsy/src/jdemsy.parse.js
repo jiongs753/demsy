@@ -1,6 +1,6 @@
 (function($, jDemsy) {
 	$.extend(jDemsy, {
-		plugins : [ "draggable", "droppable", "resizable", "datepicker", "tabs", "accordion", "dialogbutton", "pagination", "linkbutton", "menu", "menubutton", "splitbutton", "progressbar", "tree", "combobox", "combotree", "combogrid", "numberbox", "validatebox", "searchbox", "numberspinner", "timespinner", "calendar", "slider", "layout", "panel", "datagrid", "propertygrid", "treegrid", "window" ],
+		plugins : [ "draggable", "droppable", "resizable", "datepicker", "tabs", "accordion", "dialogbutton", "datagrid", "pagination", "linkbutton", "menu", "menubutton", "splitbutton", "progressbar", "tree", "combobox", "combotree", "combogrid", "numberbox", "validatebox", "searchbox", "numberspinner", "timespinner", "calendar", "slider", "layout", "panel", "propertygrid", "treegrid", "window" ],
 		/*
 		 * 自动解析 jdemsy-ui
 		 */
