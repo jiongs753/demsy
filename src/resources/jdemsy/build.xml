@@ -50,6 +50,8 @@
 			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.accordion.js" />
 			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.tabs.js" />
 			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.datepicker.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.dialog.js" />
+			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.datagrid.js" />
 			<!--
 			-->
 		</concat>
@@ -61,6 +63,8 @@
 			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.accordion.css" />
 			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.tabs.css" />
 			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.datepicker.css" />
+			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.dialog.css" />
+			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.datagrid.css" />
 			<!--
 			-->
 		</concat>

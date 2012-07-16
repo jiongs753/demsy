@@ -47,7 +47,9 @@
 		 * 第1个参数为日志模版，如果有更多参数，则第2个参数必需是执行代码的开始时间，第3个参数开始才用于填充日志占位符(日志模版中的占位符为{number}，花括号中的数字从1开始)。
 		 */
 		log : function(msg) {
-			if (this._debug && typeof (console) != "undefined") {
+			if (this._debug) {
+				if (typeof (console) == "undefined")
+					console = alert;
 				var args = [];
 				if (arguments.length > 1) {
 					args = Array.prototype.slice.call(arguments, 1);

@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Flexigrid</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" type="text/css" href="../src/css/jdemsy.flexigrid.css" />
+
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../src/jdemsy.flexigrid.js"></script>
+</head>
+<body>
+    <h2>Example 1</h2>
+
+    <table class="flexme1">
+        <thead>
+            <tr>
+                <th width="100">Col 1</th>
+                <th width="100">Col 2</th>
+                <th width="100">Col 3 is a long header name</th>
+                <th width="300">Col 4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>This is data 1 with overflowing content</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Example 2</h2>
+    <table class="flexme2">
+        <thead>
+            <tr>
+                <th width="100">Col 1</th>
+                <th width="100">Col 2</th>
+                <th width="100">Col 3 is a long header name</th>
+                <th width="300">Col 4</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>This is data 1 with overflowing content</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+            <tr>
+                <td>This is data 1</td>
+                <td>This is data 2</td>
+                <td>This is data 3</td>
+                <td>This is data 4</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Example 3</h2>
+    <table class="flexme3" style="display: none"></table>
+
+    <script type="text/javascript">
+					$('.flexme1').flexigrid({
+						width : 700,
+						usepager : true,
+						showcheckbox: true,
+						searchitems : [ {
+							display : 'ISO',
+							name : 'iso'
+						}, {
+							display : 'Name',
+							name : 'name',
+							isdefault : true
+						} ]
+					});
+					$('.flexme2').flexigrid({
+						height : 'auto',
+						striped : false,
+						width : "auto"
+					});
+
+					$(".flexme3").flexigrid({
+						showcheckbox: true,
+						url : 'flexigrid.xml',
+						dataType : 'xml',
+						colModel : [ {
+							display : 'ISO',
+							name : 'iso',
+							width : 40,
+							sortable : true,
+							align : 'center'
+						}, {
+							display : 'Name',
+							name : 'name',
+							width : 180,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : 'Printable Name',
+							name : 'printable_name',
+							width : 120,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : 'ISO3',
+							name : 'iso3',
+							width : 130,
+							sortable : true,
+							align : 'left',
+							hide : true
+						}, {
+							display : 'Number Code',
+							name : 'numcode',
+							width : 80,
+							sortable : true,
+							align : 'right'
+						} ],
+						buttons : [ {
+							displayname : 'Add',
+							name : 'Add',
+							bclass : 'add',
+							onpress : test
+						}, {
+							displayname : 'Delete',
+							name : 'Delete',
+							bclass : 'delete',
+							onpress : test
+						}, {
+							separator : true
+						} ],
+						searchitems : [ {
+							display : 'ISO',
+							name : 'iso'
+						}, {
+							display : 'Name',
+							name : 'name',
+							isdefault : true
+						} ],
+						sortname : "iso",
+						sortorder : "asc",
+						usepager : true,
+						title : 'Countries',
+						useRp : true,
+						rp : 15,
+						showTableToggleBtn : true,
+						width : 700,
+						height : 200
+					});
+
+					function test(com, grid) {
+						if (com == 'Delete') {
+							confirm('Delete ' + $('.trSelected', grid).length + ' items?')
+						} else if (com == 'Add') {
+							alert('Add New Item');
+						}
+					}
+				</script>
+</body>
+</html>
