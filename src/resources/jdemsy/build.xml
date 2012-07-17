@@ -12,17 +12,17 @@
 	<property name="YUICompressor" value="${BUILD_DIR}/yuicompressor-2.4.2.jar" />
 
 	<!-- JS文件配置 -->
-	<property name="SRC_JS_DIR" value="src" />
-	<property name="DIST_JS_DIR" value="./js" />
-	<property name="JDEMSY_JS_ALL" value="${DIST_JS_DIR}/jdemsy.all.js" />
-	<property name="JDEMSY_JS_MIN" value="${DIST_JS_DIR}/jdemsy.min.js" />
-	<property name="JDEMSY_JS_PACK" value="${DIST_JS_DIR}/jdemsy.pack.js" />
+	<property name="JS_SRC_DIR" value="src/js" />
+	<property name="JS_DIST_DIR" value="./js" />
+	<property name="JDEMSY_JS_ALL" value="${JS_DIST_DIR}/jdemsy.all.js" />
+	<property name="JDEMSY_JS_MIN" value="${JS_DIST_DIR}/jdemsy.min.js" />
+	<property name="JDEMSY_JS_PACK" value="${JS_DIST_DIR}/jdemsy.pack.js" />
 
 	<!-- CSS文件配置 -->
-	<property name="SRC_CSS_DIR" value="src/css" />
-	<property name="DIST_CSS_DIR" value="./css" />
-	<property name="JDEMSY_CSS_ALL" value="${DIST_CSS_DIR}/jdemsy.all.css" />
-	<property name="JDEMSY_CSS_MIN" value="${DIST_CSS_DIR}/jdemsy.min.css" />
+	<property name="CSS_SRC_DIR" value="src/css" />
+	<property name="CSS_DIST_DIR" value="./css" />
+	<property name="JDEMSY_CSS_ALL" value="${CSS_DIST_DIR}/jdemsy.all.css" />
+	<property name="JDEMSY_CSS_MIN" value="${CSS_DIST_DIR}/jdemsy.min.css" />
 
 	<!-- 清除js和css文件 -->
 	<target name="clean">
@@ -31,27 +31,28 @@
 		<delete file="${JDEMSY_JS_PACK}" />
 		<delete file="${JDEMSY_CSS_ALL}" />
 		<delete file="${JDEMSY_CSS_MIN}" />
+		<delete dir="${CSS_DIST_DIR}" />
 	</target>
 
 	<!-- 合并js和css成一个文件 -->
 	<target name="all">
-		<mkdir dir="${DIST_JS_DIR}" />
+		<mkdir dir="${JS_DIST_DIR}" />
 
 		<echo message="合并JS文件：${JDEMSY_JS_ALL} ..." />
 		<concat destfile="${JDEMSY_JS_ALL}">
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.core.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.nls.zh.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.utils.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.parse.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.alerts.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.draggable.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.droppable.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.resizable.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.accordion.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.tabs.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.datepicker.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.dialog.js" />
-			<fileset dir="${SRC_JS_DIR}" includes="jdemsy.datagrid.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.core.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.nls.zh.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.utils.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.parse.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.alerts.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.draggable.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.droppable.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.resizable.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.accordion.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.tabs.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.datepicker.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.dialog.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.datagrid.js" />
 			<!--
 			-->
 		</concat>
@@ -59,23 +60,28 @@
 
 		<echo message="合并CSS文件： ${JDEMSY_CSS_ALL} ..." />
 		<concat destfile="${JDEMSY_CSS_ALL}">
-			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.alerts.css" />
-			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.accordion.css" />
-			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.tabs.css" />
-			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.datepicker.css" />
-			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.dialog.css" />
-			<fileset dir="${SRC_CSS_DIR}" includes="jdemsy.datagrid.css" />
+			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.alerts.css" />
+			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.accordion.css" />
+			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.tabs.css" />
+			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.datepicker.css" />
+			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.dialog.css" />
+			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.datagrid.css" />
 			<!--
 			-->
 		</concat>
+		<copy toDir="${CSS_DIST_DIR}">
+			<fileset dir="${CSS_SRC_DIR}">
+				<include name="images/**/*.*" />
+			</fileset>
+		</copy>
 		<echo message="合并CSS文件：${JDEMSY_CSS_ALL} 成功！" />
 	</target>
 
 	<!-- 压缩js和css文件 -->
 	<target name="min" depends="all">
 		<echo message="压缩JS文件： ${JDEMSY_JS_MIN} ..." />
-		<apply executable="java" parallel="false" verbose="true" dest="${DIST_JS_DIR}">
-			<fileset dir="${DIST_JS_DIR}">
+		<apply executable="java" parallel="false" verbose="true" dest="${JS_DIST_DIR}">
+			<fileset dir="${JS_DIST_DIR}">
 				<include name="jdemsy.all.js" />
 			</fileset>
 			<arg line="-jar" />
@@ -89,8 +95,8 @@
 		<echo message="压缩JS文件：${JDEMSY_JS_MIN} 成功！" />
 
 		<echo message="压缩CSS文件： ${JDEMSY_CSS_MIN} ..." />
-		<apply executable="java" parallel="false" verbose="true" dest="${DIST_CSS_DIR}">
-			<fileset dir="${DIST_CSS_DIR}">
+		<apply executable="java" parallel="false" verbose="true" dest="${CSS_DIST_DIR}">
+			<fileset dir="${CSS_DIST_DIR}">
 				<include name="jdemsy.all.css" />
 			</fileset>
 			<arg line="-jar" />
