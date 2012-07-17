@@ -1,250 +1,936 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Flexigrid</title>
-<link rel="stylesheet" href="style.css" />
-<link rel="stylesheet" type="text/css" href="../src/css/jdemsy.flexigrid.css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DataGrid - jDemsy</title>
+
+<link href="../css/jdemsy.flexigrid.css" rel="stylesheet" type="text/css" media="screen" />
 
 <script type="text/javascript" src="../../js/jquery.min.js"></script>
-<script type="text/javascript" src="../jdemsy.flexigrid.js"></script>
+<script type="text/javascript" src="../../js/jdemsy.all.js"></script>
+<script type="text/javascript" src="../js/jdemsy.flexigrid.js"></script>
+
 </head>
 <body>
-    <h2>Example 1</h2>
+    <h2>DataGrid</h2>
 
-    <table class="flexme1">
+    <table class="jdemsy-ui flexigrid" width="800" title="客户信息管理" usepager="true" showcheckbox="true" singleSelect="true" resizable="true"
+        searchitems='[{"display" : "ISO","name" : "iso"}, {"display" : "Name","name" : "name","isdefault" : true}]'
+        >
         <thead>
             <tr>
-                <th width="100">Col 1</th>
-                <th width="100">Col 2</th>
-                <th width="100">Col 3 is a long header name</th>
-                <th width="300">Col 4</th>
+                <th width="80"></th>
+                <th width="120">客户号</th>
+                <th width="200">客户名称</th>
+                <th width="100">客户类型</th>
+                <th width="150">证件号码</th>
+                <th width="80" align="center">信用等级</th>
+                <th width="80">所属行业</th>
+                <th width="80">建档日期</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>This is data 1 with overflowing content</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="2">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="3">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="4">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="5">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="6">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="7">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="8">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="9">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="10">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
+            <tr target="sid_user" rel="2">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="3">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="4">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="5">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="6">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="7">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="8">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="9">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="10">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="2">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="3">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="4">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="5">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="6">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="7">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="8">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="9">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="10">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="2">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="3">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="4">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="5">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="6">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="7">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="8">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="9">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="10">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="2">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="3">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="4">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="5">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="6">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="7">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="8">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="9">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="10">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="2">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="3">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="4">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="5">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="6">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="7">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="8">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="9">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="10">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="2">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="3">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="4">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="5">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="6">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="7">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="8">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="9">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="10">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="2">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="3">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="4">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="5">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="6">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="7">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="8">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="9">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="10">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="1">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="2">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="3">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="4">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="5">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="6">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="7">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="8">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="9">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
+            </tr>
+            <tr target="sid_user" rel="10">
+                <td>天津农信社</td>
+                <td>A120113196309052434</td>
+                <td>天津市华建装饰工程有限公司</td>
+                <td>联社营业部</td>
+                <td>29385739203816293</td>
+                <td>5级</td>
+                <td>政府机构</td>
+                <td>2009-05-21</td>
             </tr>
         </tbody>
     </table>
-
-    <h2>Example 2</h2>
-    <table class="flexme2">
-        <thead>
-            <tr>
-                <th width="100">Col 1</th>
-                <th width="100">Col 2</th>
-                <th width="100">Col 3 is a long header name</th>
-                <th width="300">Col 4</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>This is data 1 with overflowing content</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
-            </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
-            </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
-            </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
-            </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
-            </tr>
-            <tr>
-                <td>This is data 1</td>
-                <td>This is data 2</td>
-                <td>This is data 3</td>
-                <td>This is data 4</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h2>Example 3</h2>
-    <table class="flexme3" style="display: none"></table>
-
-    <script type="text/javascript">
-					$('.flexme1').flexigrid({
-						width : 700,
-						usepager : true,
-						showcheckbox: true,
-						searchitems : [ {
-							display : 'ISO',
-							name : 'iso'
-						}, {
-							display : 'Name',
-							name : 'name',
-							isdefault : true
-						} ]
-					});
-					$('.flexme2').flexigrid({
-						height : 'auto',
-						striped : false,
-						width : "auto"
-					});
-
-					$(".flexme3").flexigrid({
-						showcheckbox: true,
-						url : 'flexigrid.data.xml',
-						dataType : 'xml',
-						colModel : [ {
-							display : 'ISO',
-							name : 'iso',
-							width : 40,
-							sortable : true,
-							align : 'center'
-						}, {
-							display : 'Name',
-							name : 'name',
-							width : 180,
-							sortable : true,
-							align : 'left'
-						}, {
-							display : 'Printable Name',
-							name : 'printable_name',
-							width : 120,
-							sortable : true,
-							align : 'left'
-						}, {
-							display : 'ISO3',
-							name : 'iso3',
-							width : 130,
-							sortable : true,
-							align : 'left',
-							hide : true
-						}, {
-							display : 'Number Code',
-							name : 'numcode',
-							width : 80,
-							sortable : true,
-							align : 'right'
-						} ],
-						buttons : [ {
-							displayname : 'Add',
-							name : 'Add',
-							bclass : 'add',
-							onpress : test
-						}, {
-							displayname : 'Delete',
-							name : 'Delete',
-							bclass : 'delete',
-							onpress : test
-						}, {
-							separator : true
-						} ],
-						searchitems : [ {
-							display : 'ISO',
-							name : 'iso'
-						}, {
-							display : 'Name',
-							name : 'name',
-							isdefault : true
-						} ],
-						sortname : "iso",
-						sortorder : "asc",
-						usepager : true,
-						title : 'Countries',
-						useRp : true,
-						rp : 15,
-						showTableToggleBtn : true,
-						width : 700,
-						height : 200
-					});
-
-					function test(com, grid) {
-						if (com == 'Delete') {
-							confirm('Delete ' + $('.trSelected', grid).length + ' items?')
-						} else if (com == 'Add') {
-							alert('Add New Item');
-						}
-					}
-				</script>
 </body>
 </html>

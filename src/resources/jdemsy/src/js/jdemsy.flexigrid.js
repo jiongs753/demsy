@@ -1,131 +1,70 @@
-/// <reference path="../intellisense/jquery-1.2.6-vsdoc-cn.js" />
-/// <reference path="../lib/blackbird.js" />
-(function($) {
-	$.addFlex = function(t, p) {
-		if (t.grid)
+(function($, jDemsy) {
+	$.addFlex = function(table, options) {
+		if (table.grid)
 			return false; // 如果Grid已经存在则返回
-		// 引用默认属性
-		p = $.extend({
-			height : 200, // flexigrid插件的高度，单位为px
-			width : 'auto', // 宽度值，auto表示根据每列的宽度自动计算
-			striped : true, // 是否显示斑纹效果，默认是奇偶交互的形式
-			novstripe : false,
-			minwidth : 30, // 列的最小宽度
-			minheight : 80, // 列的最小高度
-			resizable : false, // resizable table是否可伸缩
-			url : false, // ajax url,ajax方式对应的url地址
-			method : 'POST', // data sending method,数据发送方式
-			dataType : 'json', // type of data loaded,数据加载的类型，xml,json
-			errormsg : '发生错误', // 错误提升信息
-			usepager : false, // 是否分页
-			nowrap : true, // 是否不换行
-			page : 1, // current page,默认当前页
-			total : 1, // total pages,总页面数
-			useRp : true, // use the results per page select
-			// box,是否可以动态设置每页显示的结果数
-			rp : 25, // results per page,每页默认的结果数
-			rpOptions : [ 10, 15, 20, 25, 40, 100 ], // 可选择设定的每页结果数
-			title : false, // 是否包含标题
-			pagestat : '显示记录从{from}到{to}，总数 {total} 条', // 显示当前页和总页面的样式
-			procmsg : '正在处理数据，请稍候 ...', // 正在处理的提示信息
-			query : '', // 搜索查询的条件
-			qtype : '', // 搜索查询的类别
-			qop : "Eq", // 搜索的操作符
-			nomsg : '没有符合条件的记录存在', // 无结果的提示信息
-			minColToggle : 1, // minimum allowed column to be hidden
-			showToggleBtn : true, // show or hide column toggle popup
-			hideOnSubmit : true, // 显示遮盖
-			showTableToggleBtn : false, // 显示隐藏Grid
-			autoload : true, // 自动加载
-			blockOpacity : 0.5, // 透明度设置
-			onToggleCol : false, // 当在行之间转换时
-			onChangeSort : false, // 当改变排序时
-			onSuccess : false, // 成功后执行
-			onSubmit : false, // using a custom populate function,调用自定义的计算函数
-			showcheckbox : false, // 是否显示checkbox
-			rowhandler : false, // 是否启用行的扩展事情功能
-			rowbinddata : false,
-			extParam : {},
-			// Style
-			gridClass : "jdemsy-grid",
-			onrowchecked : false
-		}, p);
 
-		$(t).show() // show if hidden
-		.attr({
-			cellPadding : 0,
-			cellSpacing : 0,
-			border : 0
-		}) // remove padding and spacing
-		.removeAttr('width') // remove width properties
-		;
-
-		// create grid class
-		var g = {
+		var grid = {
 			hset : {},
+			/*
+			 * 调整列的位置
+			 */
 			rePosDrag : function() {
 
-				var cdleft = 0 - this.hDiv.scrollLeft;
+				var colDragLeft = 0 - this.hDiv.scrollLeft;
 				if (this.hDiv.scrollLeft > 0)
-					cdleft -= Math.floor(p.cgwidth / 2);
+					colDragLeft -= Math.floor(options.cgwidth / 2);
 
-				$(g.cDrag).css({
-					top : g.hDiv.offsetTop + 1
+				$(grid.cDrag).css({
+					top : grid.hDiv.offsetTop + 1
 				});
 				var cdpad = this.cdpad;
 
-				$('div', g.cDrag).hide();
-				// update by xuanye ,避免jQuery :visible 无效的bug
-				var i = 0;
-				$('thead tr:first th:visible', this.hDiv).each(function() {
+				$('div', grid.cDrag).hide();
+				$('thead tr:first th:visible', this.hDiv).each(function(i) {
 					if ($(this).css("display") == "none") {
 						return;
 					}
 
-					var n = i;
-					// var n = $('thead tr:first th:visible',
-					// g.hDiv).index(this);
+					// 表头宽度
 					var cdpos = parseInt($('div', this).width());
 					var ppos = cdpos;
-					if (cdleft == 0)
-						cdleft -= Math.floor(p.cgwidth / 2);
+					if (colDragLeft == 0)
+						colDragLeft -= Math.floor(options.cgwidth / 2);
 
-					cdpos = cdpos + cdleft + cdpad;
+					cdpos = cdpos + colDragLeft + cdpad;
 
-					$('div:eq(' + n + ')', g.cDrag).css({
+					$('div:eq(' + i + ')', grid.cDrag).css({
 						'left' : cdpos + 'px'
 					}).show();
 
-					cdleft = cdpos;
-					i++;
+					colDragLeft = cdpos;
 				});
-
 			},
 			fixHeight : function(newH) {
 				newH = false;
 				if (!newH)
-					newH = $(g.bDiv).height();
+					newH = $(grid.bDiv).height();
 				var hdHeight = $(this.hDiv).height();
 				$('div', this.cDrag).each(function() {
 					$(this).height(newH + hdHeight);
 				});
 
-				var nd = parseInt($(g.nDiv).height());
+				var nd = parseInt($(grid.nDiv).height());
 
 				if (nd > newH)
-					$(g.nDiv).height(newH).width(200);
+					$(grid.nDiv).height(newH).width(200);
 				else
-					$(g.nDiv).height('auto').width('auto');
+					$(grid.nDiv).height('auto').width('auto');
 
-				$(g.block).css({
+				$(grid.block).css({
 					height : newH,
 					marginBottom : (newH * -1)
 				});
 
-				var hrH = g.bDiv.offsetTop + newH;
-				if (p.height != 'auto' && p.resizable)
-					hrH = g.vDiv.offsetTop;
-				$(g.rDiv).css({
+				var hrH = grid.bDiv.offsetTop + newH;
+				if (options.height != 'auto' && options.resizable)
+					hrH = grid.vGrip.offsetTop;
+				$(grid.hGrip).css({
 					height : hrH
 				});
 
@@ -135,8 +74,8 @@
 
 				if (dragtype == 'colresize') // column resize
 				{
-					$(g.nDiv).hide();
-					$(g.nBtn).hide();
+					$(grid.nDiv).hide();
+					$(grid.nBtn).hide();
 					var n = $('div', this.cDrag).index(obj);
 					// var ow = $('th:visible div:eq(' + n + ')',
 					// this.hDiv).width();
@@ -160,9 +99,9 @@
 						$('body').css('cursor', 'col-resize');
 					}
 					this.vresize = {
-						h : p.height,
+						h : options.height,
 						sy : e.pageY,
-						w : p.width,
+						w : options.width,
 						sx : e.pageX,
 						hgo : hgo
 					};
@@ -171,8 +110,8 @@
 
 				else if (dragtype == 'colMove') // column header drag
 				{
-					$(g.nDiv).hide();
-					$(g.nBtn).hide();
+					$(grid.nDiv).hide();
+					$(grid.nBtn).hide();
 					this.hset = $(this.hDiv).offset();
 					this.hset.right = this.hset.left + $('table', this.hDiv).width();
 					this.hset.bottom = this.hset.top + $('table', this.hDiv).height();
@@ -201,8 +140,8 @@
 
 			},
 			reSize : function() {
-				this.gDiv.style.width = p.width;
-				this.bDiv.style.height = p.height;
+				this.gDiv.style.width = options.width;
+				this.bDiv.style.height = options.height;
 			},
 			dragMove : function(e) {
 
@@ -212,7 +151,7 @@
 					var diff = e.pageX - this.colresize.startX;
 					var nleft = this.colresize.ol + diff;
 					var nw = this.colresize.ow + diff;
-					if (nw > p.minwidth) {
+					if (nw > options.minwidth) {
 						$('div:eq(' + n + ')', this.cDrag).css('left', nleft);
 						this.colresize.nw = nw;
 					}
@@ -221,21 +160,21 @@
 					var v = this.vresize;
 					var y = e.pageY;
 					var diff = y - v.sy;
-					if (!p.defwidth)
-						p.defwidth = p.width;
-					if (p.width != 'auto' && !p.nohresize && v.hgo) {
+					if (!options.defwidth)
+						options.defwidth = options.width;
+					if (options.width != 'auto' && !options.nohresize && v.hgo) {
 						var x = e.pageX;
 						var xdiff = x - v.sx;
 						var newW = v.w + xdiff;
-						if (newW > p.defwidth) {
+						if (newW > options.defwidth) {
 							this.gDiv.style.width = newW + 'px';
-							p.width = newW;
+							options.width = newW;
 						}
 					}
 					var newH = v.h + diff;
-					if ((newH > p.minheight || p.height < p.minheight) && !v.hgo) {
+					if ((newH > options.minheight || options.height < options.minheight) && !v.hgo) {
 						this.bDiv.style.height = newH + 'px';
-						p.height = newH;
+						options.height = newH;
 						this.fixHeight(newH);
 					}
 					v = null;
@@ -302,12 +241,12 @@
 			},
 			toggleCol : function(cid, visible) {
 				var ncol = $("th[axis='col" + cid + "']", this.hDiv)[0];
-				var n = $('thead th', g.hDiv).index(ncol);
-				var cb = $('input[value=' + cid + ']', g.nDiv)[0];
+				var n = $('thead th', grid.hDiv).index(ncol);
+				var cb = $('input[value=' + cid + ']', grid.nDiv)[0];
 				if (visible == null) {
 					visible = ncol.hide;
 				}
-				if ($('input:checked', g.nDiv).length < p.minColToggle && !visible)
+				if ($('input:checked', grid.nDiv).length < options.minColToggle && !visible)
 					return false;
 				if (visible) {
 					ncol.hide = false;
@@ -318,19 +257,19 @@
 					$(ncol).hide();
 					cb.checked = false;
 				}
-				$('tbody tr', t).each(function() {
+				$('tbody tr', table).each(function() {
 					if (visible)
 						$('td:eq(' + n + ')', this).show();
 					else
 						$('td:eq(' + n + ')', this).hide();
 				});
 				this.rePosDrag();
-				if (p.onToggleCol)
-					p.onToggleCol(cid, visible);
+				if (options.onToggleCol)
+					options.onToggleCol(cid, visible);
 				return visible;
 			},
 			switchCol : function(cdrag, cdrop) { // switch columns
-				$('tbody tr', t).each(function() {
+				$('tbody tr', table).each(function() {
 					if (cdrag > cdrop)
 						$('td:eq(' + cdrop + ')', this).before($('td:eq(' + cdrag + ')', this));
 					else
@@ -351,71 +290,71 @@
 			},
 			hideLoading : function() {
 				$('.pReload', this.pDiv).removeClass('loading');
-				if (p.hideOnSubmit)
-					$(g.block).remove();
-				$('.pPageStat', this.pDiv).html(p.errormsg);
+				if (options.hideOnSubmit)
+					$(grid.block).remove();
+				$('.pPageStat', this.pDiv).html(options.errormsg);
 				this.loading = false;
 			},
 			addData : function(data) { // parse data
-				if (p.preProcess) {
-					data = p.preProcess(data);
+				if (options.preProcess) {
+					data = options.preProcess(data);
 				}
-				if (p.usepager) {
+				if (options.usepager) {
 					$('.pReload', this.pDiv).removeClass('loading');
 				}
 				this.loading = false;
 
 				if (!data) {
-					if (p.usepager) {
-						$('.pPageStat', this.pDiv).html(p.errormsg);
+					if (options.usepager) {
+						$('.pPageStat', this.pDiv).html(options.errormsg);
 					}
 					return false;
 				}
-				var temp = p.total;
-				if (p.dataType == 'xml') {
-					p.total = +$('rows total', data).text();
+				var temp = options.total;
+				if (options.dataType == 'xml') {
+					options.total = +$('rows total', data).text();
 				} else {
-					p.total = data.total;
+					options.total = data.total;
 				}
-				if (p.total < 0) {
-					p.total = temp;
+				if (options.total < 0) {
+					options.total = temp;
 				}
-				if (p.total == 0) {
-					$('tr, a, td, div', t).unbind();
-					$(t).empty();
-					p.pages = 1;
-					p.page = 1;
+				if (options.total == 0) {
+					$('tr, a, td, div', table).unbind();
+					$(table).empty();
+					options.pages = 1;
+					options.page = 1;
 					this.buildpager();
-					$('.pPageStat', this.pDiv).html(p.nomsg);
-					if (p.hideOnSubmit)
-						$(g.block).remove();
+					$('.pPageStat', this.pDiv).html(options.nomsg);
+					if (options.hideOnSubmit)
+						$(grid.block).remove();
 					return false;
 				}
 
-				p.pages = Math.ceil(p.total / p.rp);
+				options.pages = Math.ceil(options.total / options.rp);
 
-				if (p.dataType == 'xml') {
-					p.page = +$('rows page', data).text();
+				if (options.dataType == 'xml') {
+					options.page = +$('rows page', data).text();
 				} else {
-					p.page = data.page;
+					options.page = data.page;
 				}
-				if (p.usepager) {
+				if (options.usepager) {
 					this.buildpager();
 				}
 
-				var ths = $('thead tr:first th', g.hDiv);
-				var thsdivs = $('thead tr:first th div', g.hDiv);
+				var ths = $('thead tr:first th', grid.hDiv);
+				var thsdivs = $('thead tr:first th div', grid.hDiv);
 				var tbhtml = [];
 				tbhtml.push("<tbody>");
-				if (p.dataType == 'json') {
+				if (options.dataType == 'json') {
 					if (data.rows != null) {
 						$.each(data.rows, function(i, row) {
 							tbhtml.push("<tr id='", "row", row.id, "'");
 
-							if (i % 2 && p.striped) {
+							if (i % 2 && options.striped) {
 								tbhtml.push(" class='erow'");
 							}
-							if (p.rowbinddata) {
+							if (options.rowbinddata) {
 								tbhtml.push("ch='", row.cell.join("_FG$SP_"), "'");
 							}
 							tbhtml.push(">");
@@ -426,7 +365,7 @@
 								tbhtml.push("<td align='", this.align, "'");
 								var idx = $(this).attr('axis').substr(3);
 
-								if (p.sortname && p.sortname == $(this).attr('abbr')) {
+								if (options.sortname && options.sortname == $(this).attr('abbr')) {
 									tdclass = 'sorted';
 								}
 								if (this.hide) {
@@ -435,7 +374,7 @@
 								var width = thsdivs[j].style.width;
 								var div = [];
 								div.push("<div style='text-align:", this.align, ";width:", width, ";");
-								if (p.nowrap == false) {
+								if (options.nowrap == false) {
 									div.push("white-space:normal");
 								}
 								div.push("'>");
@@ -463,7 +402,7 @@
 						});
 					}
 
-				} else if (p.dataType == 'xml') {
+				} else if (options.dataType == 'xml') {
 					i = 1;
 					$("rows row", data).each(function() {
 						i++;
@@ -474,10 +413,10 @@
 						});
 						var nid = $(this).attr('id');
 						tbhtml.push("<tr id='", "row", nid, "'");
-						if (i % 2 && p.striped) {
+						if (i % 2 && options.striped) {
 							tbhtml.push(" class='erow'");
 						}
-						if (p.rowbinddata) {
+						if (options.rowbinddata) {
 							tbhtml.push("ch='", arrdata.join("_FG$SP_"), "'");
 						}
 						tbhtml.push(">");
@@ -491,14 +430,14 @@
 							var tddata = "";
 							var idx = $(this).attr('axis').substr(3);
 
-							if (p.sortname && p.sortname == $(this).attr('abbr')) {
+							if (options.sortname && options.sortname == $(this).attr('abbr')) {
 								tdclass = 'sorted';
 							}
 							var width = thsdivs[j].style.width;
 
 							var div = [];
 							div.push("<div style='text-align:", this.align, ";width:", width, ";");
-							if (p.nowrap == false) {
+							if (options.nowrap == false) {
 								div.push("white-space:normal");
 							}
 							div.push("'>");
@@ -512,7 +451,7 @@
 								}
 							} else {
 								var divInner = arrdata[idx] || "&nbsp;";
-								if (p.rowbinddata) {
+								if (options.rowbinddata) {
 									tddata = arrdata[idx] || "";
 								}
 								if (this.process) {
@@ -531,17 +470,17 @@
 
 				}
 				tbhtml.push("</tbody>");
-				$(t).html(tbhtml.join(""));
+				$(table).html(tbhtml.join(""));
 
 				// this.rePosDrag();
 				this.addRowProp();
-				if (p.onSuccess)
-					p.onSuccess();
-				if (p.hideOnSubmit)
-					$(g.block).remove(); // $(t).show();
+				if (options.onSuccess)
+					options.onSuccess();
+				if (options.hideOnSubmit)
+					$(grid.block).remove(); // $(table).show();
 				this.hDiv.scrollLeft = this.bDiv.scrollLeft;
 				if ($.browser.opera)
-					$(t).css('visibility', 'visible');
+					$(table).css('visibility', 'visible');
 
 			},
 			changeSort : function(th) { // change sortorder
@@ -549,152 +488,152 @@
 				if (this.loading)
 					return true;
 
-				$(g.nDiv).hide();
-				$(g.nBtn).hide();
+				$(grid.nDiv).hide();
+				$(grid.nBtn).hide();
 
-				if (p.sortname == $(th).attr('abbr')) {
-					if (p.sortorder == 'asc')
-						p.sortorder = 'desc';
+				if (options.sortname == $(th).attr('abbr')) {
+					if (options.sortorder == 'asc')
+						options.sortorder = 'desc';
 					else
-						p.sortorder = 'asc';
+						options.sortorder = 'asc';
 				}
 
 				$(th).addClass('sorted').siblings().removeClass('sorted');
 				$('.sdesc', this.hDiv).removeClass('sdesc');
 				$('.sasc', this.hDiv).removeClass('sasc');
-				$('div', th).addClass('s' + p.sortorder);
-				p.sortname = $(th).attr('abbr');
+				$('div', th).addClass('s' + options.sortorder);
+				options.sortname = $(th).attr('abbr');
 
-				if (p.onChangeSort)
-					p.onChangeSort(p.sortname, p.sortorder);
+				if (options.onChangeSort)
+					options.onChangeSort(options.sortname, options.sortorder);
 				else
 					this.populate();
 
 			},
 			buildpager : function() { // rebuild pager based on new properties
 
-				$('.pcontrol input', this.pDiv).val(p.page);
-				$('.pcontrol span', this.pDiv).html(p.pages);
+				$('.pcontrol input', this.pDiv).val(options.page);
+				$('.pcontrol span', this.pDiv).html(options.pages);
 
-				var r1 = (p.page - 1) * p.rp + 1;
-				var r2 = r1 + p.rp - 1;
+				var r1 = (options.page - 1) * options.rp + 1;
+				var r2 = r1 + options.rp - 1;
 
-				if (p.total < r2)
-					r2 = p.total;
+				if (options.total < r2)
+					r2 = options.total;
 
-				var stat = p.pagestat;
+				var stat = options.pagestat;
 
 				stat = stat.replace(/{from}/, r1);
 				stat = stat.replace(/{to}/, r2);
-				stat = stat.replace(/{total}/, p.total);
+				stat = stat.replace(/{total}/, options.total);
 				$('.pPageStat', this.pDiv).html(stat);
 			},
 			populate : function() { // get latest data
 				// log.trace("开始访问数据源");
 				if (this.loading)
 					return true;
-				if (p.onSubmit) {
-					var gh = p.onSubmit();
+				if (options.onSubmit) {
+					var gh = options.onSubmit();
 					if (!gh)
 						return false;
 				}
 				this.loading = true;
-				if (!p.url)
+				if (!options.url)
 					return false;
-				$('.pPageStat', this.pDiv).html(p.procmsg);
+				$('.pPageStat', this.pDiv).html(options.procmsg);
 				$('.pReload', this.pDiv).addClass('loading');
-				$(g.block).css({
-					top : g.bDiv.offsetTop
+				$(grid.block).css({
+					top : grid.bDiv.offsetTop
 				});
-				if (p.hideOnSubmit)
-					$(this.gDiv).prepend(g.block); // $(t).hide();
+				if (options.hideOnSubmit)
+					$(this.gDiv).prepend(grid.block); // $(table).hide();
 				if ($.browser.opera)
-					$(t).css('visibility', 'hidden');
-				if (!p.newp)
-					p.newp = 1;
-				if (p.page > p.pages)
-					p.page = p.pages;
-				// var param = {page:p.newp, rp: p.rp, sortname: p.sortname,
-				// sortorder: p.sortorder, query: p.query, qtype: p.qtype};
+					$(table).css('visibility', 'hidden');
+				if (!options.newp)
+					options.newp = 1;
+				if (options.page > options.pages)
+					options.page = options.pages;
+				// var param = {page:options.newp, rp: options.rp, sortname: options.sortname,
+				// sortorder: options.sortorder, query: options.query, qtype: options.qtype};
 				var param = [ {
 					name : 'page',
-					value : p.newp
+					value : options.newp
 				}, {
 					name : 'rp',
-					value : p.rp
+					value : options.rp
 				}, {
 					name : 'sortname',
-					value : p.sortname
+					value : options.sortname
 				}, {
 					name : 'sortorder',
-					value : p.sortorder
+					value : options.sortorder
 				}, {
 					name : 'query',
-					value : p.query
+					value : options.query
 				}, {
 					name : 'qtype',
-					value : p.qtype
+					value : options.qtype
 				}, {
 					name : 'qop',
-					value : p.qop
+					value : options.qop
 				} ];
-				// param = jQuery.extend(param, p.extParam);
-				if (p.extParam) {
-					for ( var pi = 0; pi < p.extParam.length; pi++)
-						param[param.length] = p.extParam[pi];
+				// param = jQuery.extend(param, options.extParam);
+				if (options.extParam) {
+					for ( var pi = 0; pi < options.extParam.length; pi++)
+						param[param.length] = options.extParam[pi];
 				}
 
 				$.ajax({
-					type : p.method,
-					url : p.url,
+					type : options.method,
+					url : options.url,
 					data : param,
-					dataType : p.dataType,
+					dataType : options.dataType,
 					success : function(data) {
 						if (data != null && data.error != null) {
-							if (p.onError) {
-								p.onError(data);
-								g.hideLoading();
+							if (options.onError) {
+								options.onError(data);
+								grid.hideLoading();
 							}
 						} else {
-							g.addData(data);
+							grid.addData(data);
 						}
 					},
 					error : function(data) {
 						try {
-							if (p.onError) {
-								p.onError(data);
+							if (options.onError) {
+								options.onError(data);
 							} else {
 								alert("获取数据发生异常;")
 							}
-							g.hideLoading();
+							grid.hideLoading();
 						} catch (e) {
 						}
 					}
 				});
 			},
 			doSearch : function() {
-				var queryType = $('select[name=qtype]', g.sDiv).val();
+				var queryType = $('select[name=qtype]', grid.sDiv).val();
 				var qArrType = queryType.split("$");
 				var index = -1;
 				if (qArrType.length != 3) {
-					p.qop = "Eq";
-					p.qtype = queryType;
+					options.qop = "Eq";
+					options.qtype = queryType;
 				} else {
-					p.qop = qArrType[1];
-					p.qtype = qArrType[0];
+					options.qop = qArrType[1];
+					options.qtype = qArrType[0];
 					index = parseInt(qArrType[2]);
 				}
-				p.query = $('input[name=q]', g.sDiv).val();
+				options.query = $('input[name=q]', grid.sDiv).val();
 				// 添加验证代码
-				if (p.query != "" && p.searchitems && index >= 0 && p.searchitems.length > index) {
-					if (p.searchitems[index].reg) {
-						if (!p.searchitems[index].reg.test(p.query)) {
+				if (options.query != "" && options.searchitems && index >= 0 && options.searchitems.length > index) {
+					if (options.searchitems[index].reg) {
+						if (!options.searchitems[index].reg.test(options.query)) {
 							alert("你的输入不符合要求!");
 							return;
 						}
 					}
 				}
-				p.newp = 1;
+				options.newp = 1;
 				this.populate();
 			},
 			changePage : function(ctype) { // change page
@@ -704,18 +643,18 @@
 
 				switch (ctype) {
 				case 'first':
-					p.newp = 1;
+					options.newp = 1;
 					break;
 				case 'prev':
-					if (p.page > 1)
-						p.newp = parseInt(p.page) - 1;
+					if (options.page > 1)
+						options.newp = parseInt(options.page) - 1;
 					break;
 				case 'next':
-					if (p.page < p.pages)
-						p.newp = parseInt(p.page) + 1;
+					if (options.page < options.pages)
+						options.newp = parseInt(options.page) + 1;
 					break;
 				case 'last':
-					p.newp = p.pages;
+					options.newp = options.pages;
 					break;
 				case 'input':
 					var nv = parseInt($('.pcontrol input', this.pDiv).val());
@@ -723,83 +662,84 @@
 						nv = 1;
 					if (nv < 1)
 						nv = 1;
-					else if (nv > p.pages)
-						nv = p.pages;
+					else if (nv > options.pages)
+						nv = options.pages;
 					$('.pcontrol input', this.pDiv).val(nv);
-					p.newp = nv;
+					options.newp = nv;
 					break;
 				}
 
-				if (p.newp == p.page)
+				if (options.newp == options.page)
 					return false;
 
-				if (p.onChangePage)
-					p.onChangePage(p.newp);
+				if (options.onChangePage)
+					options.onChangePage(options.newp);
 				else
 					this.populate();
 
 			},
-			cellProp : function(n, ptr, pth) {
-				var tdDiv = document.createElement('div');
-				if (pth != null) {
-					if (p.sortname == $(pth).attr('abbr') && p.sortname) {
-						this.className = 'sorted';
-					}
-					$(tdDiv).css({
-						textAlign : pth.align,
-						width : $('div:first', pth)[0].style.width
-					});
-					if (pth.hide)
-						$(this).css('display', 'none');
-				}
-				if (p.nowrap == false)
-					$(tdDiv).css('white-space', 'normal');
-
-				if (this.innerHTML == '')
-					this.innerHTML = '&nbsp;';
-
-				// tdDiv.value = this.innerHTML; //store preprocess value
-				tdDiv.innerHTML = this.innerHTML;
-
-				var prnt = $(this).parent()[0];
-				var pid = false;
-				if (prnt.id)
-					pid = prnt.id.substr(3);
-				if (pth != null) {
-					if (pth.process) {
-						pth.process(tdDiv, pid);
-					}
-				}
-				$("input.itemchk", tdDiv).each(function() {
-					$(this).click(function() {
-						if (this.checked) {
-							$(ptr).addClass("trSelected");
-						} else {
-							$(ptr).removeClass("trSelected");
-						}
-						if (p.onrowchecked) {
-							p.onrowchecked.call(this);
-						}
-					});
-				});
-				$(this).empty().append(tdDiv).removeAttr('width'); // wrap
-				// content
-				// add editable event here 'dblclick',如果需要可编辑在这里添加可编辑代码
-			},
 			addCellProp : function() {
-				var $gF = this.cellProp;
+				var self = this;
+				var cellOptions = [];
+				var $ths = $(grid.hDiv).find("thead>tr:last-child").find("th").each(function(i) {
+					var $th = $(this);
+					var option = {
+						css : {
+							textAlign : this.align,
+							width : $("div", $th).width()
+						}
+					};
+					// 排序字段样式
+					// if (options.sortname && options.sortname == $th.attr('abbr')) {
+					// option.sorted = true;
+					// }
+					option.hide = options.hide;
+					if (options.nowrap == false)
+						option.css["white-space"] = "normal";
 
-				$('tbody tr td', g.bDiv).each(function() {
-					var n = $('td', $(this).parent()).index(this);
-					var pth = $('th:eq(' + n + ')', g.hDiv).get(0);
-					var ptr = $(this).parent();
-					$gF.call(this, n, ptr, pth);
+					cellOptions[i] = option;
 				});
-				$gF = null;
+				$('>table >tbody >tr', grid.bDiv).each(function() {
+					var tr = this;
+					var $tr = $(tr);
+					self._addRowProp(this);
+					$(">td", this).each(function(i) {
+						var option = cellOptions[i];
+
+						var $td = $(this);
+						var $div = $("<div>" + $td.html() + "</div>").css(option.css);
+
+						if (option.hide)
+							$div.css('display', 'none');
+
+						// var pid = false;
+						// if (tr.id)
+						// pid = tr.id.substr(3);
+						// th = $ths[i];
+						// if (th.process) {
+						// th.process($div, pid);
+						// }
+						// $("input.itemchk", $div).each(function() {
+						// $(this).click(function() {
+						// if (this.checked) {
+						// $tr.addClass("trSelected");
+						// } else {
+						// $tr.removeClass("trSelected");
+						// }
+						// if (options.onrowchecked) {
+						// options.onrowchecked.call(this);
+						// }
+						// });
+						// });
+						$td.html($div);// .removeAttr('width'); // wrap
+						// content
+						// add editable event here 'dblclick',如果需要可编辑在这里添加可编辑代码
+					});
+				});
 			},
 			getCheckedRows : function() {
 				var ids = [];
-				$(":checkbox:checked", g.bDiv).each(function() {
+				$(":checkbox:checked", grid.bDiv).each(function() {
 					ids.push($(this).val());
 				});
 				return ids;
@@ -825,9 +765,62 @@
 					pwt : pwt
 				};
 			},
-			rowProp : function() {
-				if (p.rowhandler) {
-					p.rowhandler(this);
+			_addRowProp : function(tr) {
+				$(tr).click(function(e) {
+					var obj = (e.target || e.srcElement);
+					if (obj.href || obj.type)
+						return true;
+					if (options.singleSelect && !grid.multisel) {
+						$(this).siblings().removeClass('trSelected');
+						$(this).toggleClass('trSelected');
+					} else {
+						$(this).toggleClass('trSelected');
+					}
+					// }).mousedown(function(e) {
+					// if (e.shiftKey) {
+					// $(this).toggleClass('trSelected');
+					// grid.multisel = true;
+					// this.focus();
+					// $(grid.gDiv).noSelect();
+					// }
+					// if (e.ctrlKey) {
+					// $(this).toggleClass('trSelected');
+					// grid.multisel = true;
+					// this.focus();
+					// }
+					// }).mouseup(function(e) {
+					// if (grid.multisel && !e.ctrlKey) {
+					// grid.multisel = false;
+					// $(grid.gDiv).noSelect(false);
+					// }
+					// }).hover(function(e) {
+					// if (grid.multisel && e.shiftKey) {
+					// $(this).toggleClass('trSelected');
+					// }
+					// }, function() {
+				});
+				if ($.browser.msie && $.browser.version < 7.0) {
+					$(this).hover(function() {
+						$(this).addClass('trOver');
+					}, function() {
+						$(this).removeClass('trOver');
+					});
+				}
+				$("input.itemchk", tr).each(function() {
+					var ptr = $(this).parent().parent().parent();
+					$(this).click(function() {
+						if (this.checked) {
+							ptr.addClass("trSelected");
+						} else {
+							ptr.removeClass("trSelected");
+						}
+						if (options.onrowchecked) {
+							options.onrowchecked.call(this);
+						}
+					});
+				});
+				if (options.rowhandler) {
+					options.rowhandler(this);
 				}
 				if ($.browser.msie && $.browser.version < 7.0) {
 					$(this).hover(function() {
@@ -838,39 +831,25 @@
 				}
 			},
 			addRowProp : function() {
-				var $gF = this.rowProp;
-				$('tbody tr', g.bDiv).each(function() {
-					$("input.itemchk", this).each(function() {
-						var ptr = $(this).parent().parent().parent();
-						$(this).click(function() {
-							if (this.checked) {
-								ptr.addClass("trSelected");
-							} else {
-								ptr.removeClass("trSelected");
-							}
-							if (p.onrowchecked) {
-								p.onrowchecked.call(this);
-							}
-						});
-					});
-					$gF.call(this);
+				var self = this;
+				$('>table >tbody >tr', grid.bDiv).each(function() {
+					self._addRowProp(this);
 				});
-				$gF = null;
 			},
 			checkAllOrNot : function(parent) {
 				var ischeck = $(this).attr("checked");
-				$('tbody tr', g.bDiv).each(function() {
+				$('>table >tbody >tr', grid.bDiv).each(function() {
 					if (ischeck) {
 						$(this).addClass("trSelected");
 					} else {
 						$(this).removeClass("trSelected");
 					}
 				});
-				$("input.itemchk", g.bDiv).each(function() {
+				$("input.itemchk", grid.bDiv).each(function() {
 					this.checked = ischeck;
 					// Raise Event
-					if (p.onrowchecked) {
-						p.onrowchecked.call(this);
+					if (options.onrowchecked) {
+						options.onrowchecked.call(this);
 					}
 				});
 			},
@@ -878,11 +857,10 @@
 		};
 
 		// create model if any
-		if (p.colModel) {
+		if (options.colModel) {
 			thead = document.createElement('thead');
 			tr = document.createElement('tr');
-			// p.showcheckbox ==true;
-			if (p.showcheckbox) {
+			if (options.showcheckbox) {
 				var cth = jQuery('<th/>');
 				var cthch = jQuery('<input type="checkbox"/>');
 				cthch.addClass("noborder");
@@ -893,8 +871,8 @@
 				}).append(cthch);
 				$(tr).append(cth);
 			}
-			for (i = 0; i < p.colModel.length; i++) {
-				var cm = p.colModel[i];
+			for (i = 0; i < options.colModel.length; i++) {
+				var cm = options.colModel[i];
 				var th = document.createElement('th');
 
 				th.innerHTML = cm.display;
@@ -924,129 +902,126 @@
 				$(tr).append(th);
 			}
 			$(thead).append(tr);
-			$(t).prepend(thead);
-		} // end if p.colmodel
+			$(table).prepend(thead);
+		} // end if options.colModel
 
-		// init divs
-		g.gDiv = document.createElement('div'); // create global container
-												// 全局Grid容器
-		g.mDiv = document.createElement('div'); // create title container 标题容器
-		g.hDiv = document.createElement('div'); // create header container 表头容器
-		g.bDiv = document.createElement('div'); // create body container 内容容器
-		g.vDiv = document.createElement('div'); // create grip
-		g.rDiv = document.createElement('div'); // create horizontal resizer
-		g.cDrag = document.createElement('div'); // create column drag
-		g.block = document.createElement('div'); // creat blocker
-		g.nDiv = document.createElement('div'); // create column show/hide popup
-		g.nBtn = document.createElement('div'); // create column show/hide
-		// button
-		g.iDiv = document.createElement('div'); // create editable layer
-		g.tDiv = document.createElement('div'); // create toolbar
-		g.sDiv = document.createElement('div'); // search box
+		// 初始化Grid容器
+		grid.gDiv = document.createElement('div'); // global container 全局容器
+		grid.mDiv = document.createElement('div'); // title container 标题容器
+		grid.hDiv = document.createElement('div'); // header container 表头容器
+		grid.bDiv = document.createElement('div'); // body container 内容容器
+		grid.vGrip = document.createElement('div'); // vertical grip 纵向拉手：上下拉伸调整Grid高度
+		grid.hGrip = document.createElement('div'); // horizontal grip 横向拉手：左右拉伸调整Grid宽度
+		grid.cDrag = document.createElement('div'); // column drag 表头拉伸容器：包含和列数量相同的竖线，用于左右拉伸调整列宽度
+		grid.block = document.createElement('div'); // blocker 阻塞：Grid获取数据时，将阻塞禁用在Grid上的所有操作
+		grid.nDiv = document.createElement('div'); // column show/hide popup 列选择器：弹出菜单，用于设置要显示的列
+		grid.nBtn = document.createElement('div'); // create column show/hide button 列选择器按钮：点击按钮，将弹出列选择器菜单
+		grid.iDiv = document.createElement('div'); // create editable layer
+		grid.sDiv = document.createElement('div'); // search box 搜索栏
 
-		if (p.usepager)
-			g.pDiv = document.createElement('div'); // create pager container
-		g.hTable = document.createElement('table'); // 表头Table
+		// 检查是否显示分页控件，如果需要显示，则创建分页控件
+		if (options.usepager)
+			grid.pDiv = document.createElement('div'); // create pager 分页控件
 
-		// set gDiv
-		g.gDiv.className = p.gridClass;
-		if (p.width != 'auto')
-			g.gDiv.style.width = p.width + 'px';
+		grid.hTable = document.createElement('table'); // Grid头：是一个表格
+
+		grid.gDiv.className = options.gridClass;// 设置全局样式名称
+
+		// 如果不需要自动调整Grid宽度，则设置为固定值
+		if (options.width != 'auto')
+			grid.gDiv.style.width = options.width + 'px';
 
 		// add conditional classes
 		if ($.browser.msie)
-			$(g.gDiv).addClass('ie');
+			$(grid.gDiv).addClass('ie');
 
-		if (p.novstripe)
-			$(g.gDiv).addClass('novstripe');
+		if (options.novstripe)
+			$(grid.gDiv).addClass('novstripe');
 
 		// 用 global div 容器将 table 包起来
-		$(t).before(g.gDiv);
-		$(g.gDiv).append(t);
+		$(table).before(grid.gDiv);
+		$(grid.gDiv).append(table);
 
-		// set toolbar 设置Grid工具栏操作按钮
-		if (p.buttons) {
-			g.tDiv.className = 'tDiv';
-			var tDiv2 = document.createElement('div');
-			tDiv2.className = 'tDiv2';
+		// TODO: 创建工具栏
+		// if (options.buttons) {
+		// grid.tDiv = document.createElement('div');
+		// grid.tDiv.className = 'tDiv';
+		// var tDiv2 = document.createElement('div');
+		// tDiv2.className = 'tDiv2';
+		//
+		// for (i = 0; i < options.buttons.length; i++) {
+		// var btn = options.buttons[i];
+		// if (!btn.separator) {
+		// var btnDiv = document.createElement('div');
+		// btnDiv.className = 'fbutton';
+		// btnDiv.innerHTML = "<div><span>" + btn.displayname + "</span></div>";
+		// if (btn.title) {
+		// btnDiv.title = btn.title;
+		// }
+		// if (btn.bclass)
+		// $('span', btnDiv).addClass(btn.bclass);
+		// btnDiv.onpress = btn.onpress;
+		// btnDiv.name = btn.name;
+		// if (btn.onpress) {
+		// $(btnDiv).click(function() {
+		// this.onpress(this.name, grid.gDiv);
+		// });
+		// }
+		// $(tDiv2).append(btnDiv);
+		// if ($.browser.msie && $.browser.version < 7.0) {
+		// $(btnDiv).hover(function() {
+		// $(this).addClass('fbOver');
+		// }, function() {
+		// $(this).removeClass('fbOver');
+		// });
+		// }
+		//
+		// } else {
+		// $(tDiv2).append("<div class='btnseparator'></div>");
+		// }
+		// }
+		// $(grid.tDiv).append(tDiv2);
+		// $(grid.tDiv).append("<div style='clear:both'></div>");
+		// $(grid.gDiv).prepend(grid.tDiv);
+		// }
 
-			for (i = 0; i < p.buttons.length; i++) {
-				var btn = p.buttons[i];
-				if (!btn.separator) {
-					var btnDiv = document.createElement('div');
-					btnDiv.className = 'fbutton';
-					btnDiv.innerHTML = "<div><span>" + btn.displayname + "</span></div>";
-					if (btn.title) {
-						btnDiv.title = btn.title;
-					}
-					if (btn.bclass)
-						$('span', btnDiv).addClass(btn.bclass);
-					btnDiv.onpress = btn.onpress;
-					btnDiv.name = btn.name;
-					if (btn.onpress) {
-						$(btnDiv).click(function() {
-							this.onpress(this.name, g.gDiv);
-						});
-					}
-					$(tDiv2).append(btnDiv);
-					if ($.browser.msie && $.browser.version < 7.0) {
-						$(btnDiv).hover(function() {
-							$(this).addClass('fbOver');
-						}, function() {
-							$(this).removeClass('fbOver');
-						});
-					}
-
-				} else {
-					$(tDiv2).append("<div class='btnseparator'></div>");
-				}
-			}
-			$(g.tDiv).append(tDiv2);
-			$(g.tDiv).append("<div style='clear:both'></div>");
-			$(g.gDiv).prepend(g.tDiv);
-		}
-
-		// set hDiv
-		g.hDiv.className = 'hDiv';
-
-		$(t).before(g.hDiv);
-
-		// set hTable
-		g.hTable.cellPadding = 0;
-		g.hTable.cellSpacing = 0;
-		$(g.hDiv).append('<div class="hDivBox"></div>');
-		$('div', g.hDiv).append(g.hTable);
-		var thead = $("thead:first", t).get(0);
+		// 处理Grid表头
+		grid.hDiv.className = 'hDiv';
+		$(table).before(grid.hDiv);
+		$(grid.hDiv).append('<div class="hDivBox"></div>');
+		$('div', grid.hDiv).append(grid.hTable);
+		var thead = $("thead:first", table).get(0);
 		if (thead)
-			$(g.hTable).append(thead);
+			$(grid.hTable).append(thead);
 		thead = null;
 
-		if (!p.colmodel)
+		if (!options.colmodel)
 			var ci = 0;
-
-		// setup thead
-		$('thead tr:first th', g.hDiv).each(function() {
+		$('thead tr:first th', grid.hDiv).each(function() {
 			var thdiv = document.createElement('div');
 			if ($(this).attr('abbr')) {
+				// 点击表头调用排序函数
 				$(this).click(function(e) {
 					if (!$(this).hasClass('thOver'))
 						return false;
 					var obj = (e.target || e.srcElement);
 					if (obj.href || obj.type)
 						return true;
-					g.changeSort(this);
+					grid.changeSort(this);
 				});
 
-				if ($(this).attr('abbr') == p.sortname) {
+				if ($(this).attr('abbr') == options.sortname) {
 					this.className = 'sorted';
-					thdiv.className = 's' + p.sortorder;
+					thdiv.className = 's' + options.sortorder;
 				}
 			}
 
+			// 隐藏表头
 			if (this.hide)
 				$(this).hide();
 
-			if (!p.colmodel && !$(this).attr("isch")) {
+			// 设置列的轴心
+			if (!options.colmodel && !$(this).attr("isch")) {
 				$(this).attr('axis', 'col' + ci++);
 			}
 
@@ -1057,41 +1032,43 @@
 			thdiv.innerHTML = this.innerHTML;
 
 			$(this).empty().append(thdiv).removeAttr('width');
+			
+			//不是checkbox列，则为表头添加拖动事件
 			if (!$(this).attr("isch")) {
 				$(this).mousedown(function(e) {
-					g.dragStart('colMove', e, this);
+					grid.dragStart('colMove', e, this);
 				}).hover(function() {
 
-					if (!g.colresize && !$(this).hasClass('thMove') && !g.colCopy)
+					if (!grid.colresize && !$(this).hasClass('thMove') && !grid.colCopy)
 						$(this).addClass('thOver');
 
-					if ($(this).attr('abbr') != p.sortname && !g.colCopy && !g.colresize && $(this).attr('abbr'))
-						$('div', this).addClass('s' + p.sortorder);
-					else if ($(this).attr('abbr') == p.sortname && !g.colCopy && !g.colresize && $(this).attr('abbr')) {
+					if ($(this).attr('abbr') != options.sortname && !grid.colCopy && !grid.colresize && $(this).attr('abbr'))
+						$('div', this).addClass('s' + options.sortorder);
+					else if ($(this).attr('abbr') == options.sortname && !grid.colCopy && !grid.colresize && $(this).attr('abbr')) {
 						var no = '';
-						if (p.sortorder == 'asc')
+						if (options.sortorder == 'asc')
 							no = 'desc';
 						else
 							no = 'asc';
-						$('div', this).removeClass('s' + p.sortorder).addClass('s' + no);
+						$('div', this).removeClass('s' + options.sortorder).addClass('s' + no);
 					}
 
-					if (g.colCopy) {
+					if (grid.colCopy) {
 
-						var n = $('th', g.hDiv).index(this);
+						var n = $('th', grid.hDiv).index(this);
 
-						if (n == g.dcoln)
+						if (n == grid.dcoln)
 							return false;
 
-						if (n < g.dcoln)
-							$(this).append(g.cdropleft);
+						if (n < grid.dcoln)
+							$(this).append(grid.cdropleft);
 						else
-							$(this).append(g.cdropright);
+							$(this).append(grid.cdropright);
 
-						g.dcolt = n;
+						grid.dcolt = n;
 
-					} else if (!g.colresize) {
-						var thsa = $('th:visible', g.hDiv);
+					} else if (!grid.colresize) {
+						var thsa = $('th:visible', grid.hDiv);
 						var nv = -1;
 						for ( var i = 0, j = 0, l = thsa.length; i < l; i++) {
 							if ($(thsa[i]).css("display") != "none") {
@@ -1102,232 +1079,233 @@
 								j++;
 							}
 						}
-						// var nv = $('th:visible', g.hDiv).index(this);
-						var onl = parseInt($('div:eq(' + nv + ')', g.cDrag).css('left'));
-						var nw = parseInt($(g.nBtn).width()) + parseInt($(g.nBtn).css('borderLeftWidth'));
-						nl = onl - nw + Math.floor(p.cgwidth / 2);
+						// var nv = $('th:visible', grid.hDiv).index(this);
+						var onl = parseInt($('div:eq(' + nv + ')', grid.cDrag).css('left'));
+						var nw = parseInt($(grid.nBtn).width()) + parseInt($(grid.nBtn).css('borderLeftWidth'));
+						nl = onl - nw + Math.floor(options.cgwidth / 2);
 
-						$(g.nDiv).hide();
-						$(g.nBtn).hide();
+						$(grid.nDiv).hide();
+						$(grid.nBtn).hide();
 
-						$(g.nBtn).css({
+						$(grid.nBtn).css({
 							'left' : nl,
-							top : g.hDiv.offsetTop
+							top : grid.hDiv.offsetTop
 						}).show();
 
-						var ndw = parseInt($(g.nDiv).width());
+						var ndw = parseInt($(grid.nDiv).width());
 
-						$(g.nDiv).css({
-							top : g.bDiv.offsetTop
+						$(grid.nDiv).css({
+							top : grid.bDiv.offsetTop
 						});
 
-						if ((nl + ndw) > $(g.gDiv).width())
-							$(g.nDiv).css('left', onl - ndw + 1);
+						if ((nl + ndw) > $(grid.gDiv).width())
+							$(grid.nDiv).css('left', onl - ndw + 1);
 						else
-							$(g.nDiv).css('left', nl);
+							$(grid.nDiv).css('left', nl);
 
 						if ($(this).hasClass('sorted'))
-							$(g.nBtn).addClass('srtd');
+							$(grid.nBtn).addClass('srtd');
 						else
-							$(g.nBtn).removeClass('srtd');
+							$(grid.nBtn).removeClass('srtd');
 
 					}
 
 				}, function() {
 					$(this).removeClass('thOver');
-					if ($(this).attr('abbr') != p.sortname)
-						$('div', this).removeClass('s' + p.sortorder);
-					else if ($(this).attr('abbr') == p.sortname) {
+					if ($(this).attr('abbr') != options.sortname)
+						$('div', this).removeClass('s' + options.sortorder);
+					else if ($(this).attr('abbr') == options.sortname) {
 						var no = '';
-						if (p.sortorder == 'asc')
+						if (options.sortorder == 'asc')
 							no = 'desc';
 						else
 							no = 'asc';
 
-						$('div', this).addClass('s' + p.sortorder).removeClass('s' + no);
+						$('div', this).addClass('s' + options.sortorder).removeClass('s' + no);
 					}
-					if (g.colCopy) {
-						$(g.cdropleft).remove();
-						$(g.cdropright).remove();
-						g.dcolt = null;
+					if (grid.colCopy) {
+						$(grid.cdropleft).remove();
+						$(grid.cdropright).remove();
+						grid.dcolt = null;
 					}
 				}); // wrap content
 			}
 		});
 
 		// set bDiv
-		g.bDiv.className = 'bDiv';
-		$(t).before(g.bDiv);
-		$(g.bDiv).css({
-			height : (p.height == 'auto') ? 'auto' : p.height + "px"
+		grid.bDiv.className = 'bDiv';
+		$(table).before(grid.bDiv);
+		$(grid.bDiv).css({
+			height : (options.height == 'auto') ? 'auto' : options.height + "px"
 		}).scroll(function(e) {
-			g.scroll();
-		}).append(t);
+			grid.scroll();
+		}).append(table);
 
-		if (p.height == 'auto') {
-			$('table', g.bDiv).addClass('autoht');
+		if (options.height == 'auto') {
+			$('table', grid.bDiv).addClass('autoht');
 		}
 
 		// add td properties
-		if (p.url == false || p.url == "") {
-			g.addCellProp();
-			// add row properties
-			g.addRowProp();
-		}
+		// if (options.url == false || options.url == "") {
+		grid.addCellProp();
+
+		// }
 
 		// set cDrag
-
-		var cdcol = $('thead tr:first th:first', g.hDiv).get(0);
+		var cdcol = $('thead tr:first th:first', grid.hDiv).get(0);
 
 		if (cdcol != null) {
-			g.cDrag.className = 'cDrag';
-			g.cdpad = 0;
+			grid.cDrag.className = 'cDrag';
+			grid.cdpad = 0;
 
-			g.cdpad += (isNaN(parseInt($('div', cdcol).css('borderLeftWidth'))) ? 0 : parseInt($('div', cdcol).css('borderLeftWidth')));
-			g.cdpad += (isNaN(parseInt($('div', cdcol).css('borderRightWidth'))) ? 0 : parseInt($('div', cdcol).css('borderRightWidth')));
-			g.cdpad += (isNaN(parseInt($('div', cdcol).css('paddingLeft'))) ? 0 : parseInt($('div', cdcol).css('paddingLeft')));
-			g.cdpad += (isNaN(parseInt($('div', cdcol).css('paddingRight'))) ? 0 : parseInt($('div', cdcol).css('paddingRight')));
-			g.cdpad += (isNaN(parseInt($(cdcol).css('borderLeftWidth'))) ? 0 : parseInt($(cdcol).css('borderLeftWidth')));
-			g.cdpad += (isNaN(parseInt($(cdcol).css('borderRightWidth'))) ? 0 : parseInt($(cdcol).css('borderRightWidth')));
-			g.cdpad += (isNaN(parseInt($(cdcol).css('paddingLeft'))) ? 0 : parseInt($(cdcol).css('paddingLeft')));
-			g.cdpad += (isNaN(parseInt($(cdcol).css('paddingRight'))) ? 0 : parseInt($(cdcol).css('paddingRight')));
+			grid.cdpad += (isNaN(parseInt($('div', cdcol).css('borderLeftWidth'))) ? 0 : parseInt($('div', cdcol).css('borderLeftWidth')));
+			grid.cdpad += (isNaN(parseInt($('div', cdcol).css('borderRightWidth'))) ? 0 : parseInt($('div', cdcol).css('borderRightWidth')));
+			grid.cdpad += (isNaN(parseInt($('div', cdcol).css('paddingLeft'))) ? 0 : parseInt($('div', cdcol).css('paddingLeft')));
+			grid.cdpad += (isNaN(parseInt($('div', cdcol).css('paddingRight'))) ? 0 : parseInt($('div', cdcol).css('paddingRight')));
+			grid.cdpad += (isNaN(parseInt($(cdcol).css('borderLeftWidth'))) ? 0 : parseInt($(cdcol).css('borderLeftWidth')));
+			grid.cdpad += (isNaN(parseInt($(cdcol).css('borderRightWidth'))) ? 0 : parseInt($(cdcol).css('borderRightWidth')));
+			grid.cdpad += (isNaN(parseInt($(cdcol).css('paddingLeft'))) ? 0 : parseInt($(cdcol).css('paddingLeft')));
+			grid.cdpad += (isNaN(parseInt($(cdcol).css('paddingRight'))) ? 0 : parseInt($(cdcol).css('paddingRight')));
 
-			$(g.bDiv).before(g.cDrag);
+			$(grid.bDiv).before(grid.cDrag);
 
-			var cdheight = $(g.bDiv).height();
-			var hdheight = $(g.hDiv).height();
+			var cdheight = $(grid.bDiv).height();
+			var hdheight = $(grid.hDiv).height();
 
-			$(g.cDrag).css({
+			$(grid.cDrag).css({
 				top : -hdheight + 'px'
 			});
 
-			$('thead tr:first th', g.hDiv).each(function() {
+			// 为表头的每一列创建一个div用来左右拉伸列，即调整列宽度
+			$('thead tr:first th', grid.hDiv).each(function() {
 				var cgDiv = document.createElement('div');
-				$(g.cDrag).append(cgDiv);
-				if (!p.cgwidth)
-					p.cgwidth = $(cgDiv).width();
+				$(grid.cDrag).append(cgDiv);
+				if (!options.cgwidth)
+					options.cgwidth = $(cgDiv).width();
 				$(cgDiv).css({
 					height : cdheight + hdheight
 				}).mousedown(function(e) {
-					g.dragStart('colresize', e, this);
+					grid.dragStart('colresize', e, this);
 				});
 				if ($.browser.msie && $.browser.version < 7.0) {
-					g.fixHeight($(g.gDiv).height());
+					grid.fixHeight($(grid.gDiv).height());
 					$(cgDiv).hover(function() {
-						g.fixHeight();
+						grid.fixHeight();
 						$(this).addClass('dragging');
 					}, function() {
-						if (!g.colresize)
+						if (!grid.colresize)
 							$(this).removeClass('dragging');
 					});
 				}
 			});
 
-			// g.rePosDrag();
+			// grid.rePosDrag();
 
 		}
 
 		// add strip
-		if (p.striped)
-			$('tbody tr:odd', g.bDiv).addClass('erow');
+		if (options.striped)
+			$('tbody tr:odd', grid.bDiv).addClass('erow');
 
-		if (p.resizable && p.height != 'auto') {
-			g.vDiv.className = 'vGrip';
-			$(g.vDiv).mousedown(function(e) {
-				g.dragStart('vresize', e);
+		// 拉动底部调整Grid高度
+		if (options.resizable && options.height != 'auto') {
+			grid.vGrip.className = 'vGrip';
+			$(grid.vGrip).mousedown(function(e) {
+				grid.dragStart('vresize', e);
 			}).html('<span></span>');
-			$(g.bDiv).after(g.vDiv);
+			$(grid.bDiv).after(grid.vGrip);
 		}
 
-		if (p.resizable && p.width != 'auto' && !p.nohresize) {
-			g.rDiv.className = 'hGrip';
-			$(g.rDiv).mousedown(function(e) {
-				g.dragStart('vresize', e, true);
-			}).html('<span></span>').css('height', $(g.gDiv).height());
+		// 拉动右边调整Grid宽度
+		if (options.resizable && options.width != 'auto' && !options.nohresize) {
+			grid.hGrip.className = 'hGrip';
+			$(grid.hGrip).mousedown(function(e) {
+				grid.dragStart('vresize', e, true);
+			}).html('<span></span>').css('height', $(grid.gDiv).height());
 			if ($.browser.msie && $.browser.version < 7.0) {
-				$(g.rDiv).hover(function() {
+				$(grid.hGrip).hover(function() {
 					$(this).addClass('hgOver');
 				}, function() {
 					$(this).removeClass('hgOver');
 				});
 			}
-			$(g.gDiv).append(g.rDiv);
+			$(grid.gDiv).append(grid.hGrip);
 		}
 
 		// add pager
-		if (p.usepager) {
-			g.pDiv.className = 'pDiv';
-			g.pDiv.innerHTML = '<div class="pDiv2"></div>';
-			$(g.bDiv).after(g.pDiv);
+		if (options.usepager) {
+			grid.pDiv.className = 'pDiv';
+			grid.pDiv.innerHTML = '<div class="pDiv2"></div>';
+			$(grid.bDiv).after(grid.pDiv);
 			var html = '<div class="pGroup"><div class="pFirst pButton" title="转到第一页"><span></span></div><div class="pPrev pButton" title="转到上一页"><span></span></div> </div><div class="btnseparator"></div> <div class="pGroup"><span class="pcontrol">当前 <input type="text" size="1" value="1" /> ,总页数 <span> 1 </span></span></div><div class="btnseparator"></div><div class="pGroup"> <div class="pNext pButton" title="转到下一页"><span></span></div><div class="pLast pButton" title="转到最后一页"><span></span></div></div><div class="btnseparator"></div><div class="pGroup"> <div class="pReload pButton" title="刷新"><span></span></div> </div> <div class="btnseparator"></div><div class="pGroup"><span class="pPageStat"></span></div>';
-			$('div', g.pDiv).html(html);
+			$('div', grid.pDiv).html(html);
 
-			$('.pReload', g.pDiv).click(function() {
-				g.populate();
+			$('.pReload', grid.pDiv).click(function() {
+				grid.populate();
 			});
-			$('.pFirst', g.pDiv).click(function() {
-				g.changePage('first');
+			$('.pFirst', grid.pDiv).click(function() {
+				grid.changePage('first');
 			});
-			$('.pPrev', g.pDiv).click(function() {
-				g.changePage('prev');
+			$('.pPrev', grid.pDiv).click(function() {
+				grid.changePage('prev');
 			});
-			$('.pNext', g.pDiv).click(function() {
-				g.changePage('next');
+			$('.pNext', grid.pDiv).click(function() {
+				grid.changePage('next');
 			});
-			$('.pLast', g.pDiv).click(function() {
-				g.changePage('last');
+			$('.pLast', grid.pDiv).click(function() {
+				grid.changePage('last');
 			});
-			$('.pcontrol input', g.pDiv).keydown(function(e) {
+			$('.pcontrol input', grid.pDiv).keydown(function(e) {
 				if (e.keyCode == 13)
-					g.changePage('input');
+					grid.changePage('input');
 			});
 			if ($.browser.msie && $.browser.version < 7)
-				$('.pButton', g.pDiv).hover(function() {
+				$('.pButton', grid.pDiv).hover(function() {
 					$(this).addClass('pBtnOver');
 				}, function() {
 					$(this).removeClass('pBtnOver');
 				});
 
-			if (p.useRp) {
+			if (options.useRp) {
 				var opt = "";
-				for ( var nx = 0; nx < p.rpOptions.length; nx++) {
-					if (p.rp == p.rpOptions[nx])
+				for ( var nx = 0; nx < options.rpOptions.length; nx++) {
+					if (options.rp == options.rpOptions[nx])
 						sel = 'selected="selected"';
 					else
 						sel = '';
-					opt += "<option value='" + p.rpOptions[nx] + "' " + sel + " >" + p.rpOptions[nx] + "&nbsp;&nbsp;</option>";
+					opt += "<option value='" + options.rpOptions[nx] + "' " + sel + " >" + options.rpOptions[nx] + "&nbsp;&nbsp;</option>";
 				}
 				;
-				$('.pDiv2', g.pDiv).prepend("<div class='pGroup'>每页 <select name='rp'>" + opt + "</select>条</div> <div class='btnseparator'></div>");
-				$('select', g.pDiv).change(function() {
-					if (p.onRpChange)
-						p.onRpChange(+this.value);
+				$('.pDiv2', grid.pDiv).prepend("<div class='pGroup'>每页 <select name='rp'>" + opt + "</select>条</div> <div class='btnseparator'></div>");
+				$('select', grid.pDiv).change(function() {
+					if (options.onRpChange)
+						options.onRpChange(+this.value);
 					else {
-						p.newp = 1;
-						p.rp = +this.value;
-						g.populate();
+						options.newp = 1;
+						options.rp = +this.value;
+						grid.populate();
 					}
 				});
 			}
 
 			// add search button
-			if (p.searchitems) {
-				$('.pDiv2', g.pDiv).prepend("<div class='pGroup'> <div class='pSearch pButton'><span></span></div> </div>  <div class='btnseparator'></div>");
-				$('.pSearch', g.pDiv).click(function() {
-					$(g.sDiv).slideToggle('fast', function() {
-						$('.sDiv:visible input:first', g.gDiv).trigger('focus');
+			if (options.searchitems) {
+				$('.pDiv2', grid.pDiv).prepend("<div class='pGroup'> <div class='pSearch pButton'><span></span></div> </div>  <div class='btnseparator'></div>");
+				$('.pSearch', grid.pDiv).click(function() {
+					$(grid.sDiv).slideToggle('fast', function() {
+						$('.sDiv:visible input:first', grid.gDiv).trigger('focus');
 					});
 				});
 				// add search box
-				g.sDiv.className = 'sDiv';
+				grid.sDiv.className = 'sDiv';
 
-				sitems = p.searchitems;
+				sitems = options.searchitems;
 
 				var sopt = "";
 				var op = "Eq";
 				for ( var s = 0; s < sitems.length; s++) {
-					if (p.qtype == '' && sitems[s].isdefault == true) {
-						p.qtype = sitems[s].name;
+					if (options.qtype == '' && sitems[s].isdefault == true) {
+						options.qtype = sitems[s].name;
 						sel = 'selected="selected"';
 					} else
 						sel = '';
@@ -1339,57 +1317,57 @@
 					sopt += "<option value='" + sitems[s].name + "$" + op + "$" + s + "' " + sel + " >" + sitems[s].display + "&nbsp;&nbsp;</option>";
 				}
 
-				if (p.qtype == '')
-					p.qtype = sitems[0].name;
+				if (options.qtype == '')
+					options.qtype = sitems[0].name;
 
-				$(g.sDiv).append("<div class='sDiv2'>快速检索：<input type='text' size='30' name='q' class='qsbox' /> <select name='qtype'>" + sopt + "</select> <input type='button' name='qclearbtn' value='清空' /></div>");
+				$(grid.sDiv).append("<div class='sDiv2'>快速检索：<input type='text' size='30' name='q' class='qsbox' /> <select name='qtype'>" + sopt + "</select> <input type='button' name='qclearbtn' value='清空' /></div>");
 
-				$('input[name=q],select[name=qtype]', g.sDiv).keydown(function(e) {
+				$('input[name=q],select[name=qtype]', grid.sDiv).keydown(function(e) {
 					if (e.keyCode == 13)
-						g.doSearch();
+						grid.doSearch();
 				});
-				$('input[name=qclearbtn]', g.sDiv).click(function() {
-					$('input[name=q]', g.sDiv).val('');
-					p.query = '';
-					g.doSearch();
+				$('input[name=qclearbtn]', grid.sDiv).click(function() {
+					$('input[name=q]', grid.sDiv).val('');
+					options.query = '';
+					grid.doSearch();
 				});
-				$(g.bDiv).after(g.sDiv);
+				$(grid.bDiv).after(grid.sDiv);
 
 			}
 
 		}
-		$(g.pDiv, g.sDiv).append("<div style='clear:both'></div>");
+		$(grid.pDiv, grid.sDiv).append("<div style='clear:both'></div>");
 
 		// add title
-		if (p.title) {
-			g.mDiv.className = 'mDiv';
-			g.mDiv.innerHTML = '<div class="ftitle">' + p.title + '</div>';
-			$(g.gDiv).prepend(g.mDiv);
-			if (p.showTableToggleBtn) {
-				$(g.mDiv).append('<div class="ptogtitle" title="Minimize/Maximize Table"><span></span></div>');
-				$('div.ptogtitle', g.mDiv).click(function() {
-					$(g.gDiv).toggleClass('hideBody');
+		if (options.title) {
+			grid.mDiv.className = 'mDiv';
+			grid.mDiv.innerHTML = '<div class="ftitle">' + options.title + '</div>';
+			$(grid.gDiv).prepend(grid.mDiv);
+			if (options.showTableToggleBtn) {
+				$(grid.mDiv).append('<div class="ptogtitle" title="Minimize/Maximize Table"><span></span></div>');
+				$('div.ptogtitle', grid.mDiv).click(function() {
+					$(grid.gDiv).toggleClass('hideBody');
 					$(this).toggleClass('vsble');
 				});
 			}
-			// g.rePosDrag();
+			// grid.rePosDrag();
 		}
 
 		// setup cdrops
-		g.cdropleft = document.createElement('span');
-		g.cdropleft.className = 'cdropleft';
-		g.cdropright = document.createElement('span');
-		g.cdropright.className = 'cdropright';
+		grid.cdropleft = document.createElement('span');
+		grid.cdropleft.className = 'cdropleft';
+		grid.cdropright = document.createElement('span');
+		grid.cdropright.className = 'cdropright';
 
 		// add block
-		g.block.className = 'gBlock';
+		grid.block.className = 'gBlock';
 		var blockloading = $("<div/>");
 		blockloading.addClass("loading");
-		$(g.block).append(blockloading);
-		var gh = $(g.bDiv).height();
-		var gtop = g.bDiv.offsetTop;
-		$(g.block).css({
-			width : g.bDiv.style.width,
+		$(grid.block).append(blockloading);
+		var gh = $(grid.bDiv).height();
+		var gtop = grid.bDiv.offsetTop;
+		$(grid.block).css({
+			width : grid.bDiv.style.width,
 			height : gh,
 			position : 'relative',
 			marginBottom : (gh * -1),
@@ -1397,13 +1375,13 @@
 			top : gtop,
 			left : '0px'
 		});
-		$(g.block).fadeTo(0, p.blockOpacity);
+		$(grid.block).fadeTo(0, options.blockOpacity);
 
 		// add column control
-		if ($('th', g.hDiv).length) {
-			g.nDiv.className = 'nDiv';
-			g.nDiv.innerHTML = "<table cellpadding='0' cellspacing='0'><tbody></tbody></table>";
-			$(g.nDiv).css({
+		if ($('th', grid.hDiv).length) {
+			grid.nDiv.className = 'nDiv';
+			grid.nDiv.innerHTML = "<table cellpadding='0' cellspacing='0'><tbody></tbody></table>";
+			$(grid.nDiv).css({
 				marginBottom : (gh * -1),
 				display : 'none',
 				top : gtop
@@ -1411,13 +1389,13 @@
 
 			var cn = 0;
 
-			$('th div', g.hDiv).each(function() {
-				var kcol = $("th[axis='col" + cn + "']", g.hDiv)[0];
+			$('th div', grid.hDiv).each(function() {
+				var kcol = $("th[axis='col" + cn + "']", grid.hDiv)[0];
 				if (kcol == null)
 					return;
 				var chkall = $("input[type='checkbox']", this);
 				if (chkall.length > 0) {
-					chkall[0].onclick = g.checkAllOrNot;
+					chkall[0].onclick = grid.checkAllOrNot;
 					return;
 				}
 				if (kcol.toggle == false || this.innerHTML == "") {
@@ -1428,140 +1406,124 @@
 				if (kcol.style.display == 'none')
 					chk = '';
 
-				$('tbody', g.nDiv).append('<tr><td class="ndcol1"><input type="checkbox" ' + chk + ' class="togCol noborder" value="' + cn + '" /></td><td class="ndcol2">' + this.innerHTML + '</td></tr>');
+				$('tbody', grid.nDiv).append('<tr><td class="ndcol1"><input type="checkbox" ' + chk + ' class="togCol noborder" value="' + cn + '" /></td><td class="ndcol2">' + this.innerHTML + '</td></tr>');
 				cn++;
 			});
 
 			if ($.browser.msie && $.browser.version < 7.0)
-				$('tr', g.nDiv).hover(function() {
+				$('tr', grid.nDiv).hover(function() {
 					$(this).addClass('ndcolover');
 				}, function() {
 					$(this).removeClass('ndcolover');
 				});
 
-			$('td.ndcol2', g.nDiv).click(function() {
-				if ($('input:checked', g.nDiv).length <= p.minColToggle && $(this).prev().find('input')[0].checked)
+			$('td.ndcol2', grid.nDiv).click(function() {
+				if ($('input:checked', grid.nDiv).length <= options.minColToggle && $(this).prev().find('input')[0].checked)
 					return false;
-				return g.toggleCol($(this).prev().find('input').val());
+				return grid.toggleCol($(this).prev().find('input').val());
 			});
 
-			$('input.togCol', g.nDiv).click(function() {
+			$('input.togCol', grid.nDiv).click(function() {
 
-				if ($('input:checked', g.nDiv).length < p.minColToggle && this.checked == false)
+				if ($('input:checked', grid.nDiv).length < options.minColToggle && this.checked == false)
 					return false;
 				$(this).parent().next().trigger('click');
 				// return false;
 			});
 
-			$(g.gDiv).prepend(g.nDiv);
+			$(grid.gDiv).prepend(grid.nDiv);
 
-			$(g.nBtn).addClass('nBtn').html('<div></div>')
+			$(grid.nBtn).addClass('nBtn').html('<div></div>')
 			// .attr('title', 'Hide/Show Columns')
 			.click(function() {
-				$(g.nDiv).toggle();
+				$(grid.nDiv).toggle();
 				return true;
 			});
 
-			if (p.showToggleBtn)
-				$(g.gDiv).prepend(g.nBtn);
+			if (options.showToggleBtn)
+				$(grid.gDiv).prepend(grid.nBtn);
 
 		}
 
 		// add date edit layer
-		$(g.iDiv).addClass('iDiv').css({
+		$(grid.iDiv).addClass('iDiv').css({
 			display : 'none'
 		});
-		$(g.bDiv).append(g.iDiv);
+		$(grid.bDiv).append(grid.iDiv);
 
 		// add flexigrid events
-		$(g.bDiv).hover(function() {
-			$(g.nDiv).hide();
-			$(g.nBtn).hide();
+		$(grid.bDiv).hover(function() {
+			$(grid.nDiv).hide();
+			$(grid.nBtn).hide();
 		}, function() {
-			if (g.multisel)
-				g.multisel = false;
+			if (grid.multisel)
+				grid.multisel = false;
 		});
-		$(g.gDiv).hover(function() {
+		$(grid.gDiv).hover(function() {
 		}, function() {
-			$(g.nDiv).hide();
-			$(g.nBtn).hide();
+			$(grid.nDiv).hide();
+			$(grid.nBtn).hide();
 		});
 
 		// add document events
 		$(document).mousemove(function(e) {
-			g.dragMove(e);
+			grid.dragMove(e);
 		}).mouseup(function(e) {
-			g.dragEnd();
+			grid.dragEnd();
 		}).hover(function() {
 		}, function() {
-			g.dragEnd();
+			grid.dragEnd();
 		});
 
 		// browser adjustments
 		if ($.browser.msie && $.browser.version < 7.0) {
-			$('.hDiv,.bDiv,.mDiv,.pDiv,.vGrip,.tDiv, .sDiv', g.gDiv).css({
+			$('.hDiv,.bDiv,.mDiv,.pDiv,.vGrip,.tDiv, .sDiv', grid.gDiv).css({
 				width : '100%'
 			});
-			$(g.gDiv).addClass('ie6');
-			if (p.width != 'auto')
-				$(g.gDiv).addClass('ie6fullwidthbug');
+			$(grid.gDiv).addClass('ie6');
+			if (options.width != 'auto')
+				$(grid.gDiv).addClass('ie6fullwidthbug');
 		}
 
-		g.rePosDrag();
-		g.fixHeight();
+		grid.rePosDrag();
+		grid.fixHeight();
 
 		// make grid functions accessible
-		t.p = p;
-		t.grid = g;
+		table.options = options;
+		table.grid = grid;
 
 		// load data
-		if (p.url && p.autoload) {
-			g.populate();
+		if (options.url && options.autoload) {
+			grid.populate();
 		}
 
-		return t;
+		return table;
 
 	};
+	//
+	// var docloaded = false;
+	//
+	// $(document).ready(function() {
+	// docloaded = true
+	// });
 
-	var docloaded = false;
-
-	$(document).ready(function() {
-		docloaded = true
-	});
-
-	$.fn.flexigrid = function(p) {
-
-		return this.each(function() {
-			if (!docloaded) {
-				$(this).hide();
-				var t = this;
-				$(document).ready(function() {
-					$.addFlex(t, p);
-				});
-			} else {
-				$.addFlex(this, p);
-			}
-		});
-
-	}; // end flexigrid
-
-	$.fn.flexReload = function(p) { // function to reload grid
+	$.fn.flexReload = function(options) { // function to reload grid
 
 		return this.each(function() {
-			if (this.grid && this.p.url)
+			if (this.grid && this.options.url)
 				this.grid.populate();
 		});
 
 	}; // end flexReload
 	// 重新指定宽度和高度
 	$.fn.flexResize = function(w, h) {
-		var p = {
+		var options = {
 			width : w,
 			height : h
 		};
 		return this.each(function() {
 			if (this.grid) {
-				$.extend(this.p, p);
+				$.extend(this.options, options);
 				this.grid.reSize();
 			}
 		});
@@ -1573,20 +1535,14 @@
 			}
 		})
 	};
-	$.fn.flexOptions = function(p) { // function to update general options
+	$.fn.flexOptions = function(options) { // function to update general options
 
 		return this.each(function() {
 			if (this.grid)
-				$.extend(this.p, p);
+				$.extend(this.options, options);
 		});
 
 	}; // end flexOptions
-	$.fn.GetOptions = function() {
-		if (this[0].grid) {
-			return this[0].p;
-		}
-		return null;
-	};
 	$.fn.getCheckedRows = function() {
 		if (this[0].grid) {
 			return this[0].grid.getCheckedRows();
@@ -1611,11 +1567,11 @@
 
 	};
 
-	$.fn.noSelect = function(p) { // no select plugin by me :-)
-		if (p == null)
+	$.fn.noSelect = function(options) { // no select plugin by me :-)
+		if (options == null)
 			prevent = true;
 		else
-			prevent = p;
+			prevent = options;
 
 		if (prevent) {
 
@@ -1653,4 +1609,78 @@
 
 	}; // end noSelect
 
-})(jQuery);
+	$.fn.flexigrid = function(options) {
+
+		return this.each(function() {
+			$.addFlex(this, $.extend($.fn.flexigrid.defaults, $.fn.flexigrid.parseOptions(this), options));
+		});
+
+	}; // end flexigrid
+	$.fn.flexigrid.defaults = {
+		height : 300, // flexigrid插件的高度，单位为px
+		width : 'auto', // 宽度值，auto表示根据每列的宽度自动计算
+		striped : true, // 是否显示斑纹效果，默认是奇偶交互的形式
+		novstripe : false,
+		minwidth : 30, // Grid最小宽度
+		minheight : 80, // Grid最小高度
+		resizable : false, // resizable table是否可伸缩
+		url : false, // ajax url,ajax方式对应的url地址
+		method : 'POST', // data sending method,数据发送方式
+		dataType : 'json', // type of data loaded,数据加载的类型，xml,json
+		errormsg : '发生错误', // 错误提升信息
+		usepager : false, // 是否分页
+		nowrap : true, // 是否不换行
+		page : 1, // current page,默认当前页
+		total : 1, // total pages,总页面数
+		useRp : true, // use the results per page select
+		// box,是否可以动态设置每页显示的结果数
+		rp : 25, // results per page,每页默认的结果数
+		rpOptions : [ 10, 15, 20, 25, 40, 100 ], // 可选择设定的每页结果数
+		title : false, // 是否包含标题
+		pagestat : '显示记录从{from}到{to}，总数 {total} 条', // 显示当前页和总页面的样式
+		procmsg : '正在处理数据，请稍候 ...', // 正在处理的提示信息
+		query : '', // 搜索查询的条件
+		qtype : '', // 搜索查询的类别
+		qop : "Eq", // 搜索的操作符
+		nomsg : '没有符合条件的记录存在', // 无结果的提示信息
+		minColToggle : 1, // minimum allowed column to be hidden
+		showToggleBtn : true, // show or hide column toggle popup
+		hideOnSubmit : true, // 显示遮盖
+		showTableToggleBtn : false, // 显示隐藏Grid
+		autoload : true, // 自动加载
+		blockOpacity : 0.5, // 透明度设置
+		onToggleCol : false, // 当在行之间转换时
+		onChangeSort : false, // 当改变排序时
+		onSuccess : false, // 成功后执行
+		onSubmit : false, // using a custom populate function,调用自定义的计算函数
+		showcheckbox : false, // 是否显示checkbox
+		rowhandler : false, // 是否启用行的扩展事情功能
+		rowbinddata : false,
+		extParam : {},
+		gridClass : "jdemsy-grid",
+		onrowchecked : false,
+		colResizable : true
+	};
+
+	$.fn.flexigrid.parseOptions = function($container) {
+		return jDemsy.parseOptions($container, [ "url", "gridClass", "title", {
+			height : "number",
+			width : "number",
+			minheight : "number",
+			minwidth : "number",
+			page : "number",
+			total : "number",
+			rp : "number",
+			striped : "boolean",
+			novstripe : "boolean",
+			resizable : "boolean",
+			colResizable : "boolean",
+			usepager : "boolean",
+			useRp : "boolean",
+			singleSelect : "boolean",
+			showcheckbox : "boolean",
+			searchitems : "json",
+			colModel : "json"
+		} ])
+	};
+})(jQuery, jDemsy);

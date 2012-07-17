@@ -1,23 +1,23 @@
 (function($, jDemsy) {
 	$.extend(jDemsy, {
-		plugins : [ "draggable", "droppable", "resizable", "datepicker", "tabs", "accordion", "dialogbutton", "datagrid", "pagination", "linkbutton", "menu", "menubutton", "splitbutton", "progressbar", "tree", "combobox", "combotree", "combogrid", "numberbox", "validatebox", "searchbox", "numberspinner", "timespinner", "calendar", "slider", "layout", "panel", "propertygrid", "treegrid", "window" ],
+		plugins : [ "draggable", "droppable", "resizable", "datepicker", "tabs", "accordion", "dialogbutton", "viewgrid", "flexigrid", "pagination", "linkbutton", "menu", "menubutton", "splitbutton", "progressbar", "tree", "combobox", "combotree", "combogrid", "numberbox", "validatebox", "searchbox", "numberspinner", "timespinner", "calendar", "slider", "layout", "panel", "propertygrid", "treegrid", "window" ],
 		/*
 		 * 自动解析 jdemsy-ui
 		 */
 		parse : function(context) {
-			var jdemsy = this;
+			var self = this;
 			var time0 = new Date().getTime();
 
 			var $uis = $(".jdemsy-ui", context);
 			$uis.each(function() {
 				var $ui = $(this);
-				for ( var i = 0; i < jdemsy.plugins.length; i++) {
+				for ( var i = 0; i < self.plugins.length; i++) {
 					var time1 = new Date().getTime();
 
-					var plugin = jdemsy.plugins[i];
+					var plugin = self.plugins[i];
 					if ($ui.hasClass(plugin)) {
 						if ($ui[plugin]) {
-							var plugin = $ui[plugin]();
+							$ui[plugin]();
 
 							jDemsy.log("{1}. (id = {2})", time1, plugin, this.id);
 						}
@@ -59,12 +59,13 @@
 					} else {
 						for ( var name in pp) {
 							var _d = pp[name];
+							var v = $target.attr(name);
 							if (_d == "boolean") {
-								options[name] = $target.attr(name) ? ($target.attr(name) == "true") : undefined;
-							} else {
-								if (_d == "number") {
-									options[name] = $target.attr(name) == "0" ? 0 : parseFloat($target.attr(name)) || undefined;
-								}
+								options[name] = v ? (v == "true") : undefined;
+							} else if (_d == "number") {
+								options[name] = v == "0" ? 0 : parseFloat(v) || undefined;
+							} else if (_d == "json") {
+								options[name] = v ? jDemsy.toJson(v) : undefined;
 							}
 						}
 					}

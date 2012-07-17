@@ -84,7 +84,7 @@
 	// };
 	// return offset;
 	// }
-	$.fn.datagrid = function(options) {
+	$.fn.viewgrid = function(options) {
 		return this.each(function() {
 			var $table = $(this), nowrapTD = $table.attr("nowrapTD");
 			var twidth = $table.width();

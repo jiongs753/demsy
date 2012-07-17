@@ -48,15 +48,17 @@
 		 */
 		log : function(msg) {
 			if (this._debug) {
-				if (typeof (console) == "undefined")
-					console = alert;
+				var print = alert;
+				if (typeof (console) != "undefined")
+					print = console.log;
+
 				var args = [];
 				if (arguments.length > 1) {
 					args = Array.prototype.slice.call(arguments, 1);
 					args[0] = new Date().getTime() - args[0];
-					console.log((msg + " - 耗时：{0}").format(args));
+					print((msg + " - 耗时：{0}").format(args));
 				} else {
-					console.log(msg);
+					print(msg);
 				}
 			}
 		},
@@ -80,10 +82,11 @@
 		toJson : function(str) {
 			try {
 				if ($.type(str) == 'string')
-					return $.parseJSON('(' + str + ')');
+					return $.parseJSON(str);
 				else
 					return str;
 			} catch (e) {
+				alert(e);
 				return {};
 			}
 		},
