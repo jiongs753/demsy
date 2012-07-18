@@ -1,5 +1,7 @@
 (function($, jDemsy) {
 	$.addFlex = function(table, options) {
+		var time0 = new Date().getTime();
+
 		if (table.grid)
 			return false; // 如果Grid已经存在则返回
 
@@ -151,7 +153,7 @@
 					var diff = e.pageX - this.colresize.startX;
 					var nleft = this.colresize.ol + diff;
 					var nw = this.colresize.ow + diff;
-					if (nw > options.minwidth) {
+					if (nw > options.minWidth) {
 						$('div:eq(' + n + ')', this.cDrag).css('left', nleft);
 						this.colresize.nw = nw;
 					}
@@ -172,7 +174,7 @@
 						}
 					}
 					var newH = v.h + diff;
-					if ((newH > options.minheight || options.height < options.minheight) && !v.hgo) {
+					if ((newH > options.minHeight || options.height < options.minHeight) && !v.hgo) {
 						this.bDiv.style.height = newH + 'px';
 						options.height = newH;
 						this.fixHeight(newH);
@@ -299,13 +301,13 @@
 				if (options.preProcess) {
 					data = options.preProcess(data);
 				}
-				if (options.usepager) {
+				if (options.usePager) {
 					$('.pReload', this.pDiv).removeClass('loading');
 				}
 				this.loading = false;
 
 				if (!data) {
-					if (options.usepager) {
+					if (options.usePager) {
 						$('.pPageStat', this.pDiv).html(options.errormsg);
 					}
 					return false;
@@ -338,7 +340,7 @@
 				} else {
 					options.page = data.page;
 				}
-				if (options.usepager) {
+				if (options.usePager) {
 					this.buildpager();
 				}
 
@@ -625,9 +627,9 @@
 				}
 				options.query = $('input[name=q]', grid.sDiv).val();
 				// 添加验证代码
-				if (options.query != "" && options.searchitems && index >= 0 && options.searchitems.length > index) {
-					if (options.searchitems[index].reg) {
-						if (!options.searchitems[index].reg.test(options.query)) {
+				if (options.query != "" && options.searchItems && index >= 0 && options.searchItems.length > index) {
+					if (options.searchItems[index].reg) {
+						if (!options.searchItems[index].reg.test(options.query)) {
 							alert("你的输入不符合要求!");
 							return;
 						}
@@ -680,58 +682,45 @@
 			},
 			addCellProp : function() {
 				var self = this;
-				var cellOptions = [];
-				var $ths = $(grid.hDiv).find("thead>tr:last-child").find("th").each(function(i) {
-					var $th = $(this);
-					var option = {
-						css : {
-							textAlign : this.align,
-							width : $("div", $th).width()
-						}
-					};
-					// 排序字段样式
-					// if (options.sortname && options.sortname == $th.attr('abbr')) {
-					// option.sorted = true;
-					// }
-					option.hide = options.hide;
-					if (options.nowrap == false)
-						option.css["white-space"] = "normal";
-
-					cellOptions[i] = option;
-				});
-				$('>table >tbody >tr', grid.bDiv).each(function() {
-					var tr = this;
-					var $tr = $(tr);
-					self._addRowProp(this);
+				$('>tbody >tr', table).each(function() {
+					var $tr = $(this);
+					self._addRowProp($tr);
 					$(">td", this).each(function(i) {
-						var option = cellOptions[i];
+						var colOption = grid.colOptions[i];
 
 						var $td = $(this);
-						var $div = $("<div>" + $td.html() + "</div>").css(option.css);
-
-						if (option.hide)
-							$div.css('display', 'none');
+						var $tddiv = $("<div>" + $td.html() + "</div>").css({
+							textAlign : colOption.align,
+							width : colOption.width
+						});
+						if (colOption.hide)
+							$td.hide();
+						$td.html($tddiv);// .removeAttr('width'); // wrap
+						
+						if (colOption.isch) {
+							$td.addClass("chboxtd");
+							$(":checkbox", $td).addClass("itemchk");
+						}
 
 						// var pid = false;
 						// if (tr.id)
 						// pid = tr.id.substr(3);
 						// th = $ths[i];
 						// if (th.process) {
-						// th.process($div, pid);
+						// th.process($tddiv, pid);
 						// }
-						// $("input.itemchk", $div).each(function() {
+						// $("input.itemchk", $tddiv).each(function() {
 						// $(this).click(function() {
 						// if (this.checked) {
 						// $tr.addClass("trSelected");
 						// } else {
 						// $tr.removeClass("trSelected");
 						// }
-						// if (options.onrowchecked) {
-						// options.onrowchecked.call(this);
+						// if (options.onRowChecked) {
+						// options.onRowChecked.call(this);
 						// }
 						// });
 						// });
-						$td.html($div);// .removeAttr('width'); // wrap
 						// content
 						// add editable event here 'dblclick',如果需要可编辑在这里添加可编辑代码
 					});
@@ -765,17 +754,17 @@
 					pwt : pwt
 				};
 			},
-			_addRowProp : function(tr) {
-				$(tr).click(function(e) {
-					var obj = (e.target || e.srcElement);
-					if (obj.href || obj.type)
-						return true;
-					if (options.singleSelect && !grid.multisel) {
-						$(this).siblings().removeClass('trSelected');
-						$(this).toggleClass('trSelected');
-					} else {
-						$(this).toggleClass('trSelected');
-					}
+			_addRowProp : function($tr) {
+				$tr.click(function(e) {
+					// var obj = (e.target || e.srcElement);
+					// if (obj.href || obj.type)
+					// return true;
+					// if (options.singleSelect && !grid.multisel) {
+					$tr.siblings().removeClass('trSelected');
+					$tr.toggleClass('trSelected');
+					// } else {
+					// $tr.toggleClass('trSelected');
+					// }
 					// }).mousedown(function(e) {
 					// if (e.shiftKey) {
 					// $(this).toggleClass('trSelected');
@@ -799,41 +788,33 @@
 					// }
 					// }, function() {
 				});
-				if ($.browser.msie && $.browser.version < 7.0) {
-					$(this).hover(function() {
-						$(this).addClass('trOver');
-					}, function() {
-						$(this).removeClass('trOver');
-					});
-				}
-				$("input.itemchk", tr).each(function() {
-					var ptr = $(this).parent().parent().parent();
+				$("input.itemchk", $tr).each(function() {
 					$(this).click(function() {
 						if (this.checked) {
-							ptr.addClass("trSelected");
+							$tr.addClass("trSelected");
 						} else {
-							ptr.removeClass("trSelected");
+							$tr.removeClass("trSelected");
 						}
-						if (options.onrowchecked) {
-							options.onrowchecked.call(this);
+						if (options.onRowChecked) {
+							options.onRowChecked.call(this);
 						}
 					});
 				});
-				if (options.rowhandler) {
-					options.rowhandler(this);
+				if (options.rowHandler) {
+					options.rowHandler(this);
 				}
 				if ($.browser.msie && $.browser.version < 7.0) {
-					$(this).hover(function() {
-						$(this).addClass('trOver');
+					$tr.hover(function() {
+						$tr.addClass('trOver');
 					}, function() {
-						$(this).removeClass('trOver');
+						$tr.removeClass('trOver');
 					});
 				}
 			},
 			addRowProp : function() {
 				var self = this;
-				$('>table >tbody >tr', grid.bDiv).each(function() {
-					self._addRowProp(this);
+				$('>tbody >tr', table).each(function() {
+					self._addRowProp($(this));
 				});
 			},
 			checkAllOrNot : function(parent) {
@@ -848,8 +829,8 @@
 				$("input.itemchk", grid.bDiv).each(function() {
 					this.checked = ischeck;
 					// Raise Event
-					if (options.onrowchecked) {
-						options.onrowchecked.call(this);
+					if (options.onRowChecked) {
+						options.onRowChecked.call(this);
 					}
 				});
 			},
@@ -860,16 +841,8 @@
 		if (options.colModel) {
 			thead = document.createElement('thead');
 			tr = document.createElement('tr');
-			if (options.showcheckbox) {
-				var cth = jQuery('<th/>');
-				var cthch = jQuery('<input type="checkbox"/>');
-				cthch.addClass("noborder");
-				cth.addClass("cth").attr({
-					'axis' : "col-1",
-					width : "25",
-					"isch" : true
-				}).append(cthch);
-				$(tr).append(cth);
+			if (options.showCheckbox) {
+				$(tr).append($('<th width="25" isch="true"><input type="checkbox"/></th>'));
 			}
 			for (i = 0; i < options.colModel.length; i++) {
 				var cm = options.colModel[i];
@@ -920,7 +893,7 @@
 		grid.sDiv = document.createElement('div'); // search box 搜索栏
 
 		// 检查是否显示分页控件，如果需要显示，则创建分页控件
-		if (options.usepager)
+		if (options.usePager)
 			grid.pDiv = document.createElement('div'); // create pager 分页控件
 
 		grid.hTable = document.createElement('table'); // Grid头：是一个表格
@@ -939,7 +912,7 @@
 			$(grid.gDiv).addClass('novstripe');
 
 		// 用 global div 容器将 table 包起来
-		$(table).before(grid.gDiv);
+		var $table = $(table).before(grid.gDiv);
 		$(grid.gDiv).append(table);
 
 		// TODO: 创建工具栏
@@ -985,9 +958,12 @@
 		// $(grid.gDiv).prepend(grid.tDiv);
 		// }
 
-		// 处理Grid表头
+		var time1 = new Date().getTime();
+		/*
+		 * 处理Grid表头
+		 */
 		grid.hDiv.className = 'hDiv';
-		$(table).before(grid.hDiv);
+		$table.before(grid.hDiv);
 		$(grid.hDiv).append('<div class="hDivBox"></div>');
 		$('div', grid.hDiv).append(grid.hTable);
 		var thead = $("thead:first", table).get(0);
@@ -997,12 +973,25 @@
 
 		if (!options.colmodel)
 			var ci = 0;
-		$('thead tr:first th', grid.hDiv).each(function() {
-			var thdiv = document.createElement('div');
-			if ($(this).attr('abbr')) {
-				// 点击表头调用排序函数
-				$(this).click(function(e) {
-					if (!$(this).hasClass('thOver'))
+		var colOptions = grid.colOptions = {};
+		var $thList = $('thead tr:first th', grid.hTable).each(function(colIndex) {
+			var $th = $(this);
+			var colOption = $.fn.flexigrid.parseColOptions($th);
+			colOptions[colIndex] = colOption;
+
+			var $thdiv = $("<div>" + $th.html() + "</div>").css({
+				textAlign : colOption.align,
+				width : colOption.width
+			});
+			if (colOption.hide) {
+				$th.hide();
+			}
+			$th.html($thdiv).removeAttr('width');
+
+			// 有abbr属性的列，支持点击排序，abbr的值即为排序字段
+			if (colOption.abbr) {
+				$th.click(function(e) {
+					if (!$th.hasClass('thOver'))
 						return false;
 					var obj = (e.target || e.srcElement);
 					if (obj.href || obj.type)
@@ -1010,64 +999,52 @@
 					grid.changeSort(this);
 				});
 
-				if ($(this).attr('abbr') == options.sortname) {
-					this.className = 'sorted';
-					thdiv.className = 's' + options.sortorder;
+				// 如果数据是按当前列排序的，则在表头显示排序标记
+				if (colOption.abbr == options.sortname) {
+					$th.addClass('sorted');
+					$thdiv.addClass('s' + options.sortorder);
 				}
 			}
 
-			// 隐藏表头
-			if (this.hide)
-				$(this).hide();
-
-			// 设置列的轴心
-			if (!options.colmodel && !$(this).attr("isch")) {
-				$(this).attr('axis', 'col' + ci++);
+			// 设置列的轴、并将列内容用div包起来
+			if (!options.colmodel && !colOption.isch) {
+				$th.attr('axis', 'col' + ci++);
+			} else if (colOption.isch) {
+				$th.addClass("cth").attr('axis', "col-1");
 			}
 
-			$(thdiv).css({
-				textAlign : this.align,
-				width : this.width + 'px'
-			});
-			thdiv.innerHTML = this.innerHTML;
-
-			$(this).empty().append(thdiv).removeAttr('width');
-			
-			//不是checkbox列，则为表头添加拖动事件
-			if (!$(this).attr("isch")) {
-				$(this).mousedown(function(e) {
+			// 不是checkbox列，则为表头添加拖动事件
+			if (!colOption.isch) {
+				$th.mousedown(function(e) {
 					grid.dragStart('colMove', e, this);
 				}).hover(function() {
 
-					if (!grid.colresize && !$(this).hasClass('thMove') && !grid.colCopy)
-						$(this).addClass('thOver');
+					if (!grid.colresize && !grid.colCopy) {
+						if (!$th.hasClass('thMove'))
+							$th.addClass('thOver');
 
-					if ($(this).attr('abbr') != options.sortname && !grid.colCopy && !grid.colresize && $(this).attr('abbr'))
-						$('div', this).addClass('s' + options.sortorder);
-					else if ($(this).attr('abbr') == options.sortname && !grid.colCopy && !grid.colresize && $(this).attr('abbr')) {
-						var no = '';
-						if (options.sortorder == 'asc')
-							no = 'desc';
-						else
-							no = 'asc';
-						$('div', this).removeClass('s' + options.sortorder).addClass('s' + no);
+						if (colOption.abbr) {
+							if (colOption.abbr != options.sortname)
+								$thdiv.addClass('s' + options.sortorder);
+							else {
+								var dir = options.sortorder == 'asc' ? 'desc' : 'asc';
+								$thdiv.removeClass('s' + options.sortorder).addClass('s' + dir);
+							}
+						}
 					}
 
 					if (grid.colCopy) {
-
-						var n = $('th', grid.hDiv).index(this);
-
-						if (n == grid.dcoln)
+						if (colIndex == grid.dcoln)
 							return false;
 
-						if (n < grid.dcoln)
-							$(this).append(grid.cdropleft);
+						if (colIndex < grid.dcoln)
+							$th.append(grid.cdropleft);
 						else
-							$(this).append(grid.cdropright);
+							$th.append(grid.cdropright);
 
-						grid.dcolt = n;
+						grid.dcolt = colIndex;
 
-					} else if (!grid.colresize) {
+					} else if (!grid.colresize) {// 显示列选择器菜单
 						var thsa = $('th:visible', grid.hDiv);
 						var nv = -1;
 						for ( var i = 0, j = 0, l = thsa.length; i < l; i++) {
@@ -1084,57 +1061,55 @@
 						var nw = parseInt($(grid.nBtn).width()) + parseInt($(grid.nBtn).css('borderLeftWidth'));
 						nl = onl - nw + Math.floor(options.cgwidth / 2);
 
-						$(grid.nDiv).hide();
-						$(grid.nBtn).hide();
+						var $nDiv = $(grid.nDiv).hide();
+						var $nBtn = $(grid.nBtn).hide();
 
-						$(grid.nBtn).css({
+						$nBtn.css({
 							'left' : nl,
 							top : grid.hDiv.offsetTop
 						}).show();
 
-						var ndw = parseInt($(grid.nDiv).width());
+						var ndw = parseInt($nDiv.width());
 
-						$(grid.nDiv).css({
+						$nDiv.css({
 							top : grid.bDiv.offsetTop
 						});
 
 						if ((nl + ndw) > $(grid.gDiv).width())
-							$(grid.nDiv).css('left', onl - ndw + 1);
+							$nDiv.css('left', onl - ndw + 1);
 						else
-							$(grid.nDiv).css('left', nl);
+							$nDiv.css('left', nl);
 
 						if ($(this).hasClass('sorted'))
-							$(grid.nBtn).addClass('srtd');
+							$nBtn.addClass('srtd');
 						else
-							$(grid.nBtn).removeClass('srtd');
+							$nBtn.removeClass('srtd');
 
 					}
 
 				}, function() {
-					$(this).removeClass('thOver');
-					if ($(this).attr('abbr') != options.sortname)
-						$('div', this).removeClass('s' + options.sortorder);
+					$th.removeClass('thOver');
+					if (colOption.abbr != options.sortname)
+						$thdiv.removeClass('s' + options.sortorder);
 					else if ($(this).attr('abbr') == options.sortname) {
-						var no = '';
-						if (options.sortorder == 'asc')
-							no = 'desc';
-						else
-							no = 'asc';
-
-						$('div', this).addClass('s' + options.sortorder).removeClass('s' + no);
+						var no = options.sortorder == 'asc' ? 'desc' : 'asc';
+						$thdiv.addClass('s' + options.sortorder).removeClass('s' + no);
 					}
 					if (grid.colCopy) {
 						$(grid.cdropleft).remove();
 						$(grid.cdropright).remove();
 						grid.dcolt = null;
 					}
-				}); // wrap content
+				}); // wrap header content
 			}
 		});
 
-		// set bDiv
+		var time2 = new Date().getTime();
+		/*
+		 * 处理Grid内容
+		 */
 		grid.bDiv.className = 'bDiv';
-		$(table).before(grid.bDiv);
+		$table.before(grid.bDiv).removeAttr('width');;
 		$(grid.bDiv).css({
 			height : (options.height == 'auto') ? 'auto' : options.height + "px"
 		}).scroll(function(e) {
@@ -1142,19 +1117,21 @@
 		}).append(table);
 
 		if (options.height == 'auto') {
-			$('table', grid.bDiv).addClass('autoht');
+			$table.addClass('autoht');
 		}
+		// 处理内容cell
+		if (options.url == false || options.url == "") {
+			grid.addCellProp();
+		}
+		if (options.striped)
+			$('>tbody tr:odd', table).addClass('erow');
 
-		// add td properties
-		// if (options.url == false || options.url == "") {
-		grid.addCellProp();
-
-		// }
-
-		// set cDrag
-		var cdcol = $('thead tr:first th:first', grid.hDiv).get(0);
-
-		if (cdcol != null) {
+		var time3 = new Date().getTime();
+		/*
+		 * 处理表头拉伸
+		 */
+		//if (options.colResizable) {
+			var cdcol = $('thead tr:first th:first', grid.hTable).get(0);
 			grid.cDrag.className = 'cDrag';
 			grid.cdpad = 0;
 
@@ -1177,7 +1154,7 @@
 			});
 
 			// 为表头的每一列创建一个div用来左右拉伸列，即调整列宽度
-			$('thead tr:first th', grid.hDiv).each(function() {
+			$thList.each(function() {
 				var cgDiv = document.createElement('div');
 				$(grid.cDrag).append(cgDiv);
 				if (!options.cgwidth)
@@ -1198,42 +1175,43 @@
 					});
 				}
 			});
+		//}
 
-			// grid.rePosDrag();
-
-		}
-
-		// add strip
-		if (options.striped)
-			$('tbody tr:odd', grid.bDiv).addClass('erow');
-
-		// 拉动底部调整Grid高度
-		if (options.resizable && options.height != 'auto') {
-			grid.vGrip.className = 'vGrip';
-			$(grid.vGrip).mousedown(function(e) {
-				grid.dragStart('vresize', e);
-			}).html('<span></span>');
-			$(grid.bDiv).after(grid.vGrip);
-		}
-
-		// 拉动右边调整Grid宽度
-		if (options.resizable && options.width != 'auto' && !options.nohresize) {
-			grid.hGrip.className = 'hGrip';
-			$(grid.hGrip).mousedown(function(e) {
-				grid.dragStart('vresize', e, true);
-			}).html('<span></span>').css('height', $(grid.gDiv).height());
-			if ($.browser.msie && $.browser.version < 7.0) {
-				$(grid.hGrip).hover(function() {
-					$(this).addClass('hgOver');
-				}, function() {
-					$(this).removeClass('hgOver');
-				});
+		var time4 = new Date().getTime();
+		/*
+		 * 处理Grid拉伸
+		 */
+		if (options.resizable) {
+			// 拉动底部调整Grid高度
+			if (options.height != 'auto') {
+				grid.vGrip.className = 'vGrip';
+				$(grid.vGrip).mousedown(function(e) {
+					grid.dragStart('vresize', e);
+				}).html('<span></span>');
+				$(grid.bDiv).after(grid.vGrip);
 			}
-			$(grid.gDiv).append(grid.hGrip);
+			// 拉动右边调整Grid宽度
+			if (options.width != 'auto' && !options.nohresize) {
+				grid.hGrip.className = 'hGrip';
+				$(grid.hGrip).mousedown(function(e) {
+					grid.dragStart('vresize', e, true);
+				}).html('<span></span>').css('height', $(grid.gDiv).height());
+				if ($.browser.msie && $.browser.version < 7.0) {
+					$(grid.hGrip).hover(function() {
+						$(this).addClass('hgOver');
+					}, function() {
+						$(this).removeClass('hgOver');
+					});
+				}
+				$(grid.gDiv).append(grid.hGrip);
+			}
 		}
 
-		// add pager
-		if (options.usepager) {
+		var time5 = new Date().getTime();
+		/*
+		 * 处理分页导航条
+		 */
+		if (options.usePager) {
 			grid.pDiv.className = 'pDiv';
 			grid.pDiv.innerHTML = '<div class="pDiv2"></div>';
 			$(grid.bDiv).after(grid.pDiv);
@@ -1289,7 +1267,7 @@
 			}
 
 			// add search button
-			if (options.searchitems) {
+			if (options.searchItems) {
 				$('.pDiv2', grid.pDiv).prepend("<div class='pGroup'> <div class='pSearch pButton'><span></span></div> </div>  <div class='btnseparator'></div>");
 				$('.pSearch', grid.pDiv).click(function() {
 					$(grid.sDiv).slideToggle('fast', function() {
@@ -1299,7 +1277,7 @@
 				// add search box
 				grid.sDiv.className = 'sDiv';
 
-				sitems = options.searchitems;
+				sitems = options.searchItems;
 
 				var sopt = "";
 				var op = "Eq";
@@ -1338,7 +1316,10 @@
 		}
 		$(grid.pDiv, grid.sDiv).append("<div style='clear:both'></div>");
 
-		// add title
+		var time6 = new Date().getTime();
+		/*
+		 * 处理标题
+		 */
 		if (options.title) {
 			grid.mDiv.className = 'mDiv';
 			grid.mDiv.innerHTML = '<div class="ftitle">' + options.title + '</div>';
@@ -1359,7 +1340,10 @@
 		grid.cdropright = document.createElement('span');
 		grid.cdropright.className = 'cdropright';
 
-		// add block
+		var time7 = new Date().getTime();
+		/*
+		 * 添加阻塞
+		 */
 		grid.block.className = 'gBlock';
 		var blockloading = $("<div/>");
 		blockloading.addClass("loading");
@@ -1497,6 +1481,10 @@
 			grid.populate();
 		}
 
+		var timen = new Date().getTime();
+
+		jDemsy.log("创建FlexiGrid: 初始化({1}), 处理表头({2}), 处理内容({3}), 列宽调整({4}), Grid拉升({5}), 分页栏({6}), 标题({7}), 其他({8})", time0, time1 - time0, time2 - time1, time3 - time2, time4 - time3, time5 - time4, time6 - time5, time7 - time6, timen - time7);
+
 		return table;
 
 	};
@@ -1612,7 +1600,7 @@
 	$.fn.flexigrid = function(options) {
 
 		return this.each(function() {
-			$.addFlex(this, $.extend($.fn.flexigrid.defaults, $.fn.flexigrid.parseOptions(this), options));
+			$.addFlex(this, $.extend({}, $.fn.flexigrid.defaults, $.fn.flexigrid.parseOptions($(this)), options));
 		});
 
 	}; // end flexigrid
@@ -1621,14 +1609,14 @@
 		width : 'auto', // 宽度值，auto表示根据每列的宽度自动计算
 		striped : true, // 是否显示斑纹效果，默认是奇偶交互的形式
 		novstripe : false,
-		minwidth : 30, // Grid最小宽度
-		minheight : 80, // Grid最小高度
+		minWidth : 30, // Grid最小宽度
+		minHeight : 80, // Grid最小高度
 		resizable : false, // resizable table是否可伸缩
 		url : false, // ajax url,ajax方式对应的url地址
 		method : 'POST', // data sending method,数据发送方式
 		dataType : 'json', // type of data loaded,数据加载的类型，xml,json
 		errormsg : '发生错误', // 错误提升信息
-		usepager : false, // 是否分页
+		usePager : false, // 是否分页
 		nowrap : true, // 是否不换行
 		page : 1, // current page,默认当前页
 		total : 1, // total pages,总页面数
@@ -1653,33 +1641,41 @@
 		onChangeSort : false, // 当改变排序时
 		onSuccess : false, // 成功后执行
 		onSubmit : false, // using a custom populate function,调用自定义的计算函数
-		showcheckbox : false, // 是否显示checkbox
-		rowhandler : false, // 是否启用行的扩展事情功能
+		showCheckbox : false, // 是否显示checkbox
+		rowHandler : false, // 是否启用行的扩展事情功能
 		rowbinddata : false,
 		extParam : {},
 		gridClass : "jdemsy-grid",
-		onrowchecked : false,
-		colResizable : true
+		onRowChecked : false
 	};
 
+	$.fn.flexigrid.parseColOptions = function($container) {
+		return jDemsy.parseOptions($container, [ "align",// 对齐方式
+		"abbr",// 排序字段
+		{
+			width : "number",// 列宽度
+			hide : "boolean",// 是否隐藏
+			isch : "boolean"// 是否是checkbox多选列
+		} ])
+	};
 	$.fn.flexigrid.parseOptions = function($container) {
 		return jDemsy.parseOptions($container, [ "url", "gridClass", "title", {
 			height : "number",
 			width : "number",
-			minheight : "number",
-			minwidth : "number",
+			minHeight : "number",
+			minWidth : "number",
 			page : "number",
 			total : "number",
 			rp : "number",
 			striped : "boolean",
 			novstripe : "boolean",
-			resizable : "boolean",
 			colResizable : "boolean",
-			usepager : "boolean",
+			resizable : "boolean",
+			usePager : "boolean",
 			useRp : "boolean",
 			singleSelect : "boolean",
-			showcheckbox : "boolean",
-			searchitems : "json",
+			showCheckbox : "boolean",
+			searchItems : "json",
 			colModel : "json"
 		} ])
 	};
