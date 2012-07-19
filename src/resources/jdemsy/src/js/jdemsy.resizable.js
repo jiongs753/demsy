@@ -83,7 +83,7 @@
 				$this.unbind(".resizable");
 				opts = $.extend(state.options, options || {});
 			} else {
-				opts = $.extend({}, $.fn.resizable.defaults, $.fn.resizable.parseOptions(this), options || {});
+				opts = $.extend({}, defaults, parseOptions(this), options || {});
 				$.data(this, "resizable", {
 					options : opts
 				});
@@ -204,7 +204,7 @@
 			});
 		}
 	};
-	$.fn.resizable.parseOptions = function(target) {
+	function parseOptions(target) {
 		var $target = $(target);
 		return $.extend({}, jDemsy.parseOptions(target, [ "handles", {
 			minWidth : "number",
@@ -215,8 +215,8 @@
 		} ]), {
 			disabled : ($target.attr("disabled") ? true : undefined)
 		});
-	};
-	$.fn.resizable.defaults = {
+	}
+	var defaults = {
 		disabled : false,
 		handles : "n, e, s, w, ne, se, sw, nw, all",
 		minWidth : 10,

@@ -52,8 +52,8 @@
 			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.tabs.js" />
 			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.datepicker.js" />
 			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.dialog.js" />
+			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.flexigrid.js" />
 			<!--
-			<fileset dir="${JS_SRC_DIR}" includes="jdemsy.datagrid.js" />
 			-->
 		</concat>
 		<echo message="合并JS文件：${JDEMSY_JS_ALL} 成功！" />
@@ -65,8 +65,8 @@
 			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.tabs.css" />
 			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.datepicker.css" />
 			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.dialog.css" />
+			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.flexigrid.css" />
 			<!--
-			<fileset dir="${CSS_SRC_DIR}" includes="jdemsy.datagrid.css" />
 			-->
 		</concat>
 		<copy toDir="${CSS_DIST_DIR}">

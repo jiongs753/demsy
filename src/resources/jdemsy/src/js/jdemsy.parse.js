@@ -19,13 +19,13 @@
 						if ($ui[plugin]) {
 							$ui[plugin]();
 
-							jDemsy.log("{1}. (id = {2})", time1, plugin, this.id);
+							jDemsy.log("jdemsy parse: {1}. (id = {2})", time1, plugin, this.id);
 						}
 					}
 				}
 			});
 
-			jDemsy.log("plugins.length = {1}", time0, $uis.length);
+			jDemsy.log("jdemsy parse: plugins end. (size = {1})", time0, $uis.length);
 		},
 		/*
 		 * 解析目标元素属性选项：[ "attr1","attr2", { bAttr1 : "boolean", nAttr1 :

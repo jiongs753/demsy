@@ -1,4 +1,4 @@
-(function($) {
+(function($, jDemsy) {
 	function init(target) {
 		var options = $.data(target, "droppable").options;
 		$(target).addClass("droppable").bind("_dragenter", function(e, source) {
@@ -24,16 +24,16 @@
 			} else {
 				init(this);
 				$.data(this, "droppable", {
-					options : $.extend({}, $.fn.droppable.defaults, $.fn.droppable.parseOptions(this), options)
+					options : $.extend({}, defaults, parseOptions(this), options)
 				});
 			}
 		});
 	};
 	$.fn.droppable.methods = {};
-	$.fn.droppable.parseOptions = function(target) {
-		return $.extend({}, $.parser.parseOptions(target, [ "accept" ]));
-	};
-	$.fn.droppable.defaults = {
+	function parseOptions(target) {
+		return jDemsy.parseOptions(target, [ "accept" ]);
+	}
+	var defaults = {
 		accept : null,
 		onDragEnter : function(e, source) {
 		},
@@ -44,4 +44,4 @@
 		onDrop : function(e, source) {
 		}
 	};
-})(jQuery);
+})(jQuery, jDemsy);

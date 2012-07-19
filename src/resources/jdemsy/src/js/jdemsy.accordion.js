@@ -282,7 +282,7 @@
 
 	// 扩展jQuery对象支持 accordion
 	$.fn.accordion = function(options, data) {
-		options = $.extend({}, $.fn.accordion.defaults, $.fn.accordion.parseOptions(this), options);
+		options = $.extend({}, defaults, parseOptions(this), options);
 
 		var args = Array.prototype.slice.call(arguments, 1);
 
@@ -308,14 +308,14 @@
 
 		});
 	}
-	$.fn.accordion.parseOptions = function($container) {
+	function parseOptions($container) {
 		return jDemsy.parseOptions($container, [ {
 			autoHeight : "boolean",
 			fillSpace : "boolean",
 			alwaysOpen : "boolean"
 		} ]);
-	};
-	$.fn.accordion.defaults = {
+	}
+	var defaults = {
 		selectedClass : "accordion-selected",
 		hoverClass : "accordion-hover",
 		header : ".accordion-header",

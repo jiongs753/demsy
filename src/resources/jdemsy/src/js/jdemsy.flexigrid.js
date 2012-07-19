@@ -129,7 +129,7 @@
 
 					$(this.colCopy).css({
 						position : 'absolute',
-						float : 'left',
+						'float' : 'left',
 						display : 'none',
 						textAlign : obj.align
 					});
@@ -696,7 +696,7 @@
 						if (colOption.hide)
 							$td.hide();
 						$td.html($tddiv);// .removeAttr('width'); // wrap
-						
+
 						if (colOption.isch) {
 							$td.addClass("chboxtd");
 							$(":checkbox", $td).addClass("itemchk");
@@ -976,7 +976,7 @@
 		var colOptions = grid.colOptions = {};
 		var $thList = $('thead tr:first th', grid.hTable).each(function(colIndex) {
 			var $th = $(this);
-			var colOption = $.fn.flexigrid.parseColOptions($th);
+			var colOption = parseColOptions($th);
 			colOptions[colIndex] = colOption;
 
 			var $thdiv = $("<div>" + $th.html() + "</div>").css({
@@ -1109,7 +1109,8 @@
 		 * 处理Grid内容
 		 */
 		grid.bDiv.className = 'bDiv';
-		$table.before(grid.bDiv).removeAttr('width');;
+		$table.before(grid.bDiv).removeAttr('width');
+		;
 		$(grid.bDiv).css({
 			height : (options.height == 'auto') ? 'auto' : options.height + "px"
 		}).scroll(function(e) {
@@ -1130,52 +1131,52 @@
 		/*
 		 * 处理表头拉伸
 		 */
-		//if (options.colResizable) {
-			var cdcol = $('thead tr:first th:first', grid.hTable).get(0);
-			grid.cDrag.className = 'cDrag';
-			grid.cdpad = 0;
+		// if (options.colResizable) {
+		var cdcol = $('thead tr:first th:first', grid.hTable).get(0);
+		grid.cDrag.className = 'cDrag';
+		grid.cdpad = 0;
 
-			grid.cdpad += (isNaN(parseInt($('div', cdcol).css('borderLeftWidth'))) ? 0 : parseInt($('div', cdcol).css('borderLeftWidth')));
-			grid.cdpad += (isNaN(parseInt($('div', cdcol).css('borderRightWidth'))) ? 0 : parseInt($('div', cdcol).css('borderRightWidth')));
-			grid.cdpad += (isNaN(parseInt($('div', cdcol).css('paddingLeft'))) ? 0 : parseInt($('div', cdcol).css('paddingLeft')));
-			grid.cdpad += (isNaN(parseInt($('div', cdcol).css('paddingRight'))) ? 0 : parseInt($('div', cdcol).css('paddingRight')));
-			grid.cdpad += (isNaN(parseInt($(cdcol).css('borderLeftWidth'))) ? 0 : parseInt($(cdcol).css('borderLeftWidth')));
-			grid.cdpad += (isNaN(parseInt($(cdcol).css('borderRightWidth'))) ? 0 : parseInt($(cdcol).css('borderRightWidth')));
-			grid.cdpad += (isNaN(parseInt($(cdcol).css('paddingLeft'))) ? 0 : parseInt($(cdcol).css('paddingLeft')));
-			grid.cdpad += (isNaN(parseInt($(cdcol).css('paddingRight'))) ? 0 : parseInt($(cdcol).css('paddingRight')));
+		grid.cdpad += (isNaN(parseInt($('div', cdcol).css('borderLeftWidth'))) ? 0 : parseInt($('div', cdcol).css('borderLeftWidth')));
+		grid.cdpad += (isNaN(parseInt($('div', cdcol).css('borderRightWidth'))) ? 0 : parseInt($('div', cdcol).css('borderRightWidth')));
+		grid.cdpad += (isNaN(parseInt($('div', cdcol).css('paddingLeft'))) ? 0 : parseInt($('div', cdcol).css('paddingLeft')));
+		grid.cdpad += (isNaN(parseInt($('div', cdcol).css('paddingRight'))) ? 0 : parseInt($('div', cdcol).css('paddingRight')));
+		grid.cdpad += (isNaN(parseInt($(cdcol).css('borderLeftWidth'))) ? 0 : parseInt($(cdcol).css('borderLeftWidth')));
+		grid.cdpad += (isNaN(parseInt($(cdcol).css('borderRightWidth'))) ? 0 : parseInt($(cdcol).css('borderRightWidth')));
+		grid.cdpad += (isNaN(parseInt($(cdcol).css('paddingLeft'))) ? 0 : parseInt($(cdcol).css('paddingLeft')));
+		grid.cdpad += (isNaN(parseInt($(cdcol).css('paddingRight'))) ? 0 : parseInt($(cdcol).css('paddingRight')));
 
-			$(grid.bDiv).before(grid.cDrag);
+		$(grid.bDiv).before(grid.cDrag);
 
-			var cdheight = $(grid.bDiv).height();
-			var hdheight = $(grid.hDiv).height();
+		var cdheight = $(grid.bDiv).height();
+		var hdheight = $(grid.hDiv).height();
 
-			$(grid.cDrag).css({
-				top : -hdheight + 'px'
+		$(grid.cDrag).css({
+			top : -hdheight + 'px'
+		});
+
+		// 为表头的每一列创建一个div用来左右拉伸列，即调整列宽度
+		$thList.each(function() {
+			var cgDiv = document.createElement('div');
+			$(grid.cDrag).append(cgDiv);
+			if (!options.cgwidth)
+				options.cgwidth = $(cgDiv).width();
+			$(cgDiv).css({
+				height : cdheight + hdheight
+			}).mousedown(function(e) {
+				grid.dragStart('colresize', e, this);
 			});
-
-			// 为表头的每一列创建一个div用来左右拉伸列，即调整列宽度
-			$thList.each(function() {
-				var cgDiv = document.createElement('div');
-				$(grid.cDrag).append(cgDiv);
-				if (!options.cgwidth)
-					options.cgwidth = $(cgDiv).width();
-				$(cgDiv).css({
-					height : cdheight + hdheight
-				}).mousedown(function(e) {
-					grid.dragStart('colresize', e, this);
+			if ($.browser.msie && $.browser.version < 7.0) {
+				grid.fixHeight($(grid.gDiv).height());
+				$(cgDiv).hover(function() {
+					grid.fixHeight();
+					$(this).addClass('dragging');
+				}, function() {
+					if (!grid.colresize)
+						$(this).removeClass('dragging');
 				});
-				if ($.browser.msie && $.browser.version < 7.0) {
-					grid.fixHeight($(grid.gDiv).height());
-					$(cgDiv).hover(function() {
-						grid.fixHeight();
-						$(this).addClass('dragging');
-					}, function() {
-						if (!grid.colresize)
-							$(this).removeClass('dragging');
-					});
-				}
-			});
-		//}
+			}
+		});
+		// }
 
 		var time4 = new Date().getTime();
 		/*
@@ -1600,11 +1601,11 @@
 	$.fn.flexigrid = function(options) {
 
 		return this.each(function() {
-			$.addFlex(this, $.extend({}, $.fn.flexigrid.defaults, $.fn.flexigrid.parseOptions($(this)), options));
+			$.addFlex(this, $.extend({}, defaults, parseOptions($(this)), options));
 		});
 
 	}; // end flexigrid
-	$.fn.flexigrid.defaults = {
+	var defaults = {
 		height : 300, // flexigrid插件的高度，单位为px
 		width : 'auto', // 宽度值，auto表示根据每列的宽度自动计算
 		striped : true, // 是否显示斑纹效果，默认是奇偶交互的形式
@@ -1648,8 +1649,7 @@
 		gridClass : "jdemsy-grid",
 		onRowChecked : false
 	};
-
-	$.fn.flexigrid.parseColOptions = function($container) {
+	function parseColOptions($container) {
 		return jDemsy.parseOptions($container, [ "align",// 对齐方式
 		"abbr",// 排序字段
 		{
@@ -1657,8 +1657,8 @@
 			hide : "boolean",// 是否隐藏
 			isch : "boolean"// 是否是checkbox多选列
 		} ])
-	};
-	$.fn.flexigrid.parseOptions = function($container) {
+	}
+	function parseOptions($container) {
 		return jDemsy.parseOptions($container, [ "url", "gridClass", "title", {
 			height : "number",
 			width : "number",
@@ -1678,5 +1678,5 @@
 			searchItems : "json",
 			colModel : "json"
 		} ])
-	};
+	}
 })(jQuery, jDemsy);

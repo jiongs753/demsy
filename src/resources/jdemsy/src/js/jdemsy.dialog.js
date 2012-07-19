@@ -1,14 +1,17 @@
+/**
+ * dialog
+ */
 (function($, jDemsy) {
 	jDemsy.dialog = {
 		currentDialog : null,
 		zIndex : 42,
-		/*
+		/**
 		 * 获取当前窗口
 		 */
 		getCurrent : function() {
 			return this.currentDialog;
 		},
-		/*
+		/**
 		 * 重新加载窗口内容
 		 */
 		reload : function(url, opts) {
@@ -25,23 +28,23 @@
 					type : "POST",
 					url : url,
 					data : options.data,
-					callback : function(response) {
+					success : function(response) {
 						$(":button.close", $dialog).click(function() {
 							self.close($dialog);
 							return false;
 						});
-						if ($.isFunction(options.callback))
-							options.callback(response);
+						if ($.isFunction(options.success))
+							options.success(response);
 					}
 				});
 			}
 		},
-		/*
+		/**
 		 * 打开一个窗口
 		 */
 		open : function(url, dialogId, title, opts) {
 			var self = this;
-			var options = $.extend({}, self.defaults, opts);
+			var options = $.extend({}, defaults, opts);
 			var $dialog = $("body").data(dialogId);
 
 			if ($dialog) {// 重复打开一个窗口
@@ -55,10 +58,12 @@
 					self.switchDialog($dialog);
 					var $content = $dialog.find(".dialogContent");
 					$content.jdGet(url, {}, function() {
-						$("button.close", $dialog).click(function() {
+						$(":button.close", $dialog).click(function() {
 							self.close($dialog);
 							return false;
 						});
+						if ($.isFunction(options.success))
+							options.success(response);
 					});
 				}
 
@@ -85,34 +90,32 @@
 				// if (options.resizable)
 				// $dialog.resizable();
 				if (options.draggable)
-					$dialog.draggable({
-						handle : dialogHeader
-					});
+					$dialog.dialogDrag();
 				$("a.close", $dialog).click(function(event) {
 					self.close($dialog);
 					return false;
-				});
+				}).attr("title", jDemsy.nls.close);
 				if (options.maxable) {
 					$("a.maximize", $dialog).show().click(function(event) {
 						self.switchDialog($dialog);
 						self.maxsize($dialog);
-						$dialog.draggable("destroy");// .resizable("destroy");
+						$dialog.dialogDrag("destroy");// .resizable("destroy");
 						return false;
-					});
+					}).attr("title", jDemsy.nls.maximize);
 				} else {
 					$("a.maximize", $dialog).hide();
 				}
 				$("a.restore", $dialog).click(function(event) {
 					self.restore($dialog);
-					$dialog.draggable();// .resizable();
+					$dialog.dialogDrag();// .resizable();
 					return false;
-				});
+				}).attr("title", jDemsy.nls.restore);
 				// 取消最小化窗口功能
 				// if (options.minable) {
 				// $("a.minimize", $dialog).show().click(function(event) {
 				// self.minimize($dialog);
 				// return false;
-				// });
+				// }).attr("title", jDemsy.nls.minimize);
 				// } else {
 				// $("a.minimize", $dialog).hide();
 				// }
@@ -127,7 +130,7 @@
 				if (options.max) {
 					self.switchDialog($dialog);
 					self.maxsize($dialog);
-					$dialog.draggable("destroy");// .resizable("destroy");
+					$dialog.dialogDrag("destroy");// .resizable("destroy");
 				}
 				$("body").data(dialogId, $dialog);
 				self.currentDialog = $dialog;
@@ -135,7 +138,7 @@
 				// load data
 				var $content = $(".dialogContent", $dialog);
 				$content.jdGet(url, {}, function() {
-					$("button.close", $dialog).click(function() {
+					$(":button.close", $dialog).click(function() {
 						self.close($dialog);
 						return false;
 					});
@@ -171,14 +174,14 @@
 		getShadow : function() {
 			var $shadow = $("#dialogShadow");
 			if ($shadow.length == 0) {
-				$shadow = $(this.defaults.shadow).appendTo($("body"));
+				$shadow = $(defaults.shadow).appendTo($("body"));
 			}
 			return $shadow;
 		},
 		getBackground : function() {
 			var background = $("#dialogBackground");
 			if (background.length == 0) {
-				background = $(this.defaults.background).appendTo($("body"));
+				background = $(defaults.background).appendTo($("body"));
 			}
 			return background;
 		},
@@ -201,7 +204,7 @@
 			});
 		},
 		_init : function($dialog, opts) {
-			var options = $.extend({}, this.defaults, opts);
+			var options = $.extend({}, defaults, opts);
 			var height = options.height > options.minHeight ? options.height : options.minHeight;
 			var width = options.width > options.minWidth ? options.width : options.minWidth;
 			if (isNaN($dialog.height()) || $dialog.height() < height) {
@@ -412,6 +415,80 @@
 		}
 	};
 
+	jDemsy.dialogDrag = {
+		_init : function($dialog) {
+			var $proxy = $("#dialogProxy");
+			if ($proxy.length == 0) {
+				$proxy = $(defaults.template).attr("id", "dialogProxy").addClass("dialogProxy");
+				$("body").append($proxy);
+			}
+			$("h1", $proxy).html($(".dialogHeader h1", $dialog).text());
+			return $proxy;
+		},
+		start : function($dialog, event) {
+			var $proxy = this._init($dialog);
+			$proxy.css({
+				left : $dialog.css("left"),
+				top : $dialog.css("top"),
+				height : $dialog.css("height"),
+				width : $dialog.css("width"),
+				zIndex : parseInt($dialog.css("zIndex")) + 1
+			}).show();
+			$("div.dialogContent", $proxy).css("height", $("div.dialogContent", $dialog).css("height"));
+			$proxy.data("dialog", $dialog);
+			$dialog.css({
+				left : "-10000px",
+				top : "-10000px"
+			});
+			$("#dialogShadow").hide();
+			$proxy.draggable({
+				handle : ".dialogHeader",
+				onStopDrag : this.stop,
+				event : event
+			});
+			event.type = "mousedown";
+			$.data($proxy[0], "draggable").handle.trigger(event);
+
+			return false;
+		},
+		stop : function() {
+			var sh = $(arguments[0].data.target);
+			var $dialog = sh.data("dialog");
+			$dialog.css({
+				left : sh.css("left"),
+				top : sh.css("top")
+			});
+			jDemsy.dialog.attachShadow($dialog);
+			sh.hide();
+		}
+	}
+	$.fn.dialogDrag = function(options) {
+		if (typeof options == 'string') {
+			if (options == 'destroy')
+				return this.each(function() {
+					var dialog = this;
+					$("div.dialogHeader", dialog).unbind("mousedown");
+				});
+		}
+		return this.each(function() {
+			var dialog = $(this);
+			var header = $("div.dialogHeader", dialog).mousedown(function(e) {
+				jDemsy.dialog.switchDialog(dialog);
+				// dialog.data("task", true);
+				// setTimeout(function() {
+				// if (dialog.data("task"))
+				jDemsy.dialogDrag.start(dialog, e);
+				// }, 100);
+				return false;
+			}).mouseup(function(e) {
+				// dialog.data("task", false);
+				return false;
+			}).css("cursor", "move");
+			$("a", header).mousedown(function(event) {
+				event.stopPropagation();
+			});
+		});
+	};
 	$.fn.dialogbutton = function(options) {
 		return this.each(function() {
 			$(this).click(function(event) {
@@ -421,13 +498,13 @@
 				var rel = $this.attr("rel") || "_blank";
 				var title = $this.attr("title") || $this.text();
 
-				jDemsy.dialog.open(url, rel, title, $.extend({}, $.fn.dialogbutton.parseOptions(this), options));
+				jDemsy.dialog.open(url, rel, title, $.extend({}, parseOptions(this), options));
 
 				return false;
 			});
 		});
 	};
-	jDemsy.dialog.defaults = {
+	var defaults = {
 		height : 300,
 		width : 580,
 		minHeight : 40,
@@ -445,10 +522,10 @@
 				<div class="dialogHeader" onselectstart="return false;" oncopy="return false;" onpaste="return false;" oncut="return false;">\
 					<div class="dialogHeader_r">\
 						<div class="dialogHeader_c">\
-							<a class="close" href="#close">关闭</a>\
-							<a class="maximize" href="#maximize">最大化</a>\
-							<a class="restore" href="#restore">恢复</a>\
-							<a class="minimize" style="display:none;" href="#minimize">最小化</a>\
+							<a class="close" href="#close"></a>\
+							<a class="maximize" href="#maximize"></a>\
+							<a class="restore" href="#restore"></a>\
+							<a class="minimize" style="display:none;" href="#minimize"></a>\
 							<h1></h1>\
 						</div>\
 					</div>\
@@ -476,7 +553,7 @@
 			</div>',
 		background : '<div id="dialogBackground" class="dialogBackground"></div>'
 	};
-	$.fn.dialogbutton.parseOptions = function($container) {
+	function parseOptions($container) {
 		return jDemsy.parseOptions($container, [ "param", {
 			height : "number",
 			width : "number",
@@ -489,5 +566,5 @@
 			maxable : "boolean",
 			fresh : "boolean"
 		} ])
-	};
+	}
 })(jQuery, jDemsy);

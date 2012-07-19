@@ -229,3 +229,5 @@
 	left: 0;
 	z-index: 900;
 }
+
+.dialogProxy { opacity:0.8; filter:alpha(opacity=80);}

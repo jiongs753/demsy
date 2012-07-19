@@ -132,7 +132,7 @@
 			}
 		}
 
-		jDemsy.log("创建提示框", beginTime);
+		jDemsy.log("make alerts.", beginTime);
 	}
 
 	/*

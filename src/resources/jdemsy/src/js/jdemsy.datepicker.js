@@ -337,7 +337,7 @@
 	 * 定义datepicker jquery对象
 	 */
 	$.fn.datepicker = function(options) {
-		options = $.extend({}, $.fn.datepicker.defaults, $.fn.datepicker.parseOptions(this), options);
+		options = $.extend({}, defaults, parseOptions(this), options);
 		var setting = {
 			template : '\
 				<div id="datepicker">\
@@ -352,8 +352,8 @@
 							</table>\
 						</div>\
 						<div class="body">\
-							<dl class="weeks"><dt>日</dt><dt>一</dt><dt>二</dt><dt>三</dt><dt>四</dt><dt>五</dt><dt>六</dt></dl>\
-							<dl class="days">日期列表选项</dl>\
+							<dl class="weeks"><dt></dt><dt></dt><dt></dt><dt></dt><dt></dt><dt></dt><dt></dt></dl>\
+							<dl class="days"></dl>\
 							<div style="clear:both;height:0;line-height:0"></div>\
 							<div class="menu">\
 								<ul class="menu-hh">\
@@ -423,8 +423,8 @@
 									<td><ul><li class="time-up">&and;</li><li class="time-down">&or;</li></ul></td>\
 								</tr>\
 							</table>\
-							<button type="button" class="clear">清空</button>\
-							<button type="button" class="confirm">确定</button>\
+							<button type="button" class="clear"></button>\
+							<button type="button" class="confirm"></button>\
 						<div>\
 					</div>\
 				</div>',
@@ -647,11 +647,11 @@
 
 				$(setting.close$).click(function() {
 					closeDatePicker();
-				});
+				}).attr("title", jDemsy.nls.close);
 				$(setting.clear$).click(function() {
 					$this.val("");
 					closeDatePicker();
-				});
+				}).html(jDemsy.nls.clear);
 				$(setting.confirm$).click(function() {
 					var $dd = $(setting.days$).find("dd.selected");
 					var date = datepicker.changeDay($dd.html(), $dd.attr("chMonth"));
@@ -664,7 +664,7 @@
 
 					$this.val(datepicker.formatDate(date));
 					closeDatePicker();
-				});
+				}).html(jDemsy.nls.confirm);
 				$(document).bind("click", closeDatePicker);
 				return false;
 			});
@@ -676,14 +676,14 @@
 		});
 
 	}
-	$.fn.datepicker.parseOptions = function($container) {
+	function parseOptions($container) {
 		return jDemsy.parseOptions($container, [ "pattern", {
 			"yearstart" : "number",
 			"yearend" : "number"
 		} ])
-	};
+	}
 
-	$.fn.datepicker.defaults = {
+	var defaults = {
 		pattern : 'yyyy-MM-dd',
 		yearstart : -10,
 		yearend : 10

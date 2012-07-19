@@ -188,7 +188,7 @@
 				state.handle.unbind(".draggable");
 				opts = $.extend(state.options, options);
 			} else {
-				opts = $.extend({}, $.fn.draggable.defaults, $.fn.draggable.parseOptions(this), options || {});
+				opts = $.extend({}, defaults, parseOptions(this), options || {});
 			}
 			if (opts.disabled == true) {
 				$(this).css("cursor", "default");
@@ -293,7 +293,7 @@
 			});
 		}
 	};
-	$.fn.draggable.parseOptions = function(source) {
+	function parseOptions(source) {
 		var t = $(source);
 		return $.extend({}, jDemsy.parseOptions(source, [ "cursor", "handle", "axis", {
 			"revert" : "boolean",
@@ -303,8 +303,9 @@
 		} ]), {
 			disabled : (t.attr("disabled") ? true : undefined)
 		});
-	};
-	$.fn.draggable.defaults = {
+	}
+	;
+	var defaults = {
 		proxy : null,
 		revert : false,
 		cursor : "move",

@@ -43,8 +43,7 @@
 		// width);
 		// },
 		/**
-		 * 调试:
-		 * 第1个参数为日志模版，如果有更多参数，则第2个参数必需是执行代码的开始时间，第3个参数开始才用于填充日志占位符(日志模版中的占位符为{number}，花括号中的数字从1开始)。
+		 * 调试: 第1个参数为日志模版，如果有更多参数，则第2个参数必需是执行代码的开始时间，第3个参数开始才用于填充日志占位符(日志模版中的占位符为{number}，花括号中的数字从1开始)。
 		 */
 		log : function(msg) {
 			if (this._debug) {
@@ -56,7 +55,7 @@
 				if (arguments.length > 1) {
 					args = Array.prototype.slice.call(arguments, 1);
 					args[0] = new Date().getTime() - args[0];
-					print((msg + " - 耗时：{0}").format(args));
+					print((msg + " - elapse：{0}").format(args));
 				} else {
 					print(msg);
 				}
@@ -86,7 +85,6 @@
 				else
 					return str;
 			} catch (e) {
-				alert(e);
 				return {};
 			}
 		},
@@ -157,9 +155,10 @@
 					}
 					// 返回值是“HTML内容”：将其作为元素的HTML内容
 					else {
-						$this.html(responseText);// .jdSetup();
-						if ($.isFunction(options.callback))
-							options.callback(response);
+						$this.html(responseText);
+						jDemsy.parse($this);
+						if ($.isFunction(options.success))
+							options.success(response);
 					}
 				},
 				error : jDemsy.doAjaxError
@@ -168,22 +167,22 @@
 		/**
 		 * 发送GET请求到指定的URL地址加载内容，该方法是demsyAjax的简化用法
 		 */
-		jdGet : function(url, data, callback) {
+		jdGet : function(url, data, success) {
 			this.jdLoad({
 				url : url,
 				data : data,
-				callback : callback
+				success : success
 			});
 		},
 		/**
 		 * 发送POST请求到指定的URL地址加载内容，该方法是demsyAjax的简化用法
 		 */
-		jdPost : function(url, data, callback) {
+		jdPost : function(url, data, success) {
 			this.jdLoad({
 				url : url,
 				type : "POST",
 				data : data,
-				callback : callback
+				success : success
 			});
 		},
 		/**

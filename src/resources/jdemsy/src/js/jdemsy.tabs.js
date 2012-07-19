@@ -206,7 +206,7 @@
 
 			opts.onSelect.call(panel, tabAttr.title);
 		}).each(function() {
-			$.data(this, 'tabs.tab', $.fn.tabs.parseTabOptions($(this)));
+			$.data(this, 'tabs.tab', parseTabOptions($(this)));
 		});
 
 		// 不支持关闭tab
@@ -404,7 +404,7 @@
 				// state.options = $.extend(state.options, options);
 				// } else {
 				$.data(this, 'tabs', {
-					options : $.extend({}, $.fn.tabs.defaults, $.fn.tabs.parseOptions(this), options)
+					options : $.extend({}, defaults, parseOptions(this), options)
 				});
 				setProperties($this);
 				setSize($this);
@@ -413,20 +413,20 @@
 
 		});
 	};
-	$.fn.tabs.parseOptions = function($container) {
-		return $.extend({}, jDemsy.parseOptions($container, [ "width", "height", {
+	function parseOptions($container) {
+		return jDemsy.parseOptions($container, [ "width", "height", {
 			fit : "boolean",
 			border : "boolean",
 			plain : "boolean"
-		} ]));
-	};
-	$.fn.tabs.parseTabOptions = function($tab) {
+		} ]);
+	}
+	function parseTabOptions($tab) {
 		return jDemsy.parseOptions($tab, [ "href", {
 			selected : "boolean",
 			cache : "boolean"
 		} ])
-	};
-	$.fn.tabs.defaults = {
+	}
+	var defaults = {
 		width : 'auto',
 		height : 'auto',
 		idSeed : 0,
