@@ -1,11 +1,11 @@
 .dialogHeader,.dialogHeader_r,.dialogHeader_c,.dialogFooter,.dialogFooter_r,.dialogFooter_c
 	{
-	background: url(./images/dialog.png) no-repeat;
+	background: url(./images/dialog/dialog.png) no-repeat;
 }
 
 .dialogHeader h1,.dialogHeader .close,.dialogHeader .maximize,.dialogHeader .restore,.dialogHeader .minimize
 	{
-	background: url(./images/dialog_icon.png) no-repeat;
+	background: url(./images/dialog/dialog_icon.png) no-repeat;
 }
 
 .dialog {
@@ -140,39 +140,39 @@
 
 /* Shadow */
 .shadow_h_l {
-	background: url(./images/shadow/shadow_h_l.png) no-repeat;
+	background: url(./images/dialog/shadow_h_l.png) no-repeat;
 }
 
 .shadow_h_r {
-	background: url(./images/shadow/shadow_h_r.png) no-repeat;
+	background: url(./images/dialog/shadow_h_r.png) no-repeat;
 }
 
 .shadow_h_c {
-	background: url(./images/shadow/shadow_h_c.png) repeat-x;
+	background: url(./images/dialog/shadow_h_c.png) repeat-x;
 }
 
 .shadow_c_l {
-	background: url(./images/shadow/shadow_c_l.png) repeat-y;
+	background: url(./images/dialog/shadow_c_l.png) repeat-y;
 }
 
 .shadow_c_r {
-	background: url(./images/shadow/shadow_c_r.png) repeat-y;
+	background: url(./images/dialog/shadow_c_r.png) repeat-y;
 }
 
 .shadow_c_c {
-	background: url(./images/shadow/shadow_c_c.png) repeat;
+	background: url(./images/dialog/shadow_c_c.png) repeat;
 }
 
 .shadow_f_l {
-	background: url(./images/shadow/shadow_f_l.png) no-repeat;
+	background: url(./images/dialog/shadow_f_l.png) no-repeat;
 }
 
 .shadow_f_r {
-	background: url(./images/shadow/shadow_f_r.png) no-repeat;
+	background: url(./images/dialog/shadow_f_r.png) no-repeat;
 }
 
 .shadow_f_c {
-	background: url(./images/shadow/shadow_f_c.png) repeat-x;
+	background: url(./images/dialog/shadow_f_c.png) repeat-x;
 }
 
 .shadow {

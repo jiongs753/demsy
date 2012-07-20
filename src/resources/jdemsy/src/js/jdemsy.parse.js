@@ -28,8 +28,7 @@
 			jDemsy.log("jdemsy parse: plugins end. (size = {1})", time0, $uis.length);
 		},
 		/*
-		 * 解析目标元素属性选项：[ "attr1","attr2", { bAttr1 : "boolean", nAttr1 :
-		 * "number"}]
+		 * 解析目标元素属性选项：[ "attr1","attr2", { bAttr1 : "boolean", nAttr1 : "number"}]
 		 */
 		parseOptions : function(target, props) {
 			var $target = $(target);
@@ -60,13 +59,17 @@
 						for ( var name in pp) {
 							var _d = pp[name];
 							var v = $target.attr(name);
-							if (_d == "boolean") {
-								options[name] = v ? (v == "true") : undefined;
-							} else if (_d == "number") {
-								options[name] = v == "0" ? 0 : parseFloat(v) || undefined;
-							} else if (_d == "json") {
-								options[name] = v ? jDemsy.toJson(v) : undefined;
-							}
+							if (typeof v != "undefined")
+								if (_d == "boolean") {
+									if (v == "true" || v == true)
+										options[name] = true;
+									else if (v == "false" || v == false)
+										options[name] = false
+								} else if (_d == "number") {
+									options[name] = v == "0" ? 0 : parseFloat(v);
+								} else if (_d == "json") {
+									options[name] = jDemsy.toJson(v);
+								}
 						}
 					}
 				}
