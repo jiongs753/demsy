@@ -226,8 +226,8 @@
 							$('th:eq(' + this.dcolt + ')', this.hDiv).after(this.dcol);
 						}
 						this.switchCol(this.dcoln, this.dcolt);
-						$(this.cdropleft).remove();
-						$(this.cdropright).remove();
+						$(this.colDropLeft).remove();
+						$(this.colDropRight).remove();
 						this.rePosDrag();
 					}
 					this.dcol = null;
@@ -367,7 +367,7 @@
 								tbhtml.push("<td align='", this.align, "'");
 								var idx = $(this).attr('axis').substr(3);
 
-								if (options.sortname && options.sortname == $(this).attr('abbr')) {
+								if (options.sortName && options.sortName == $(this).attr('abbr')) {
 									tdclass = 'sorted';
 								}
 								if (this.hide) {
@@ -381,11 +381,11 @@
 								}
 								div.push("'>");
 								if (idx == "-1") { // checkbox
-									div.push("<input type='checkbox' id='chk_", row.id, "' class='itemchk' value='", row.id, "'/>");
+									div.push("<input type='checkbox' id='chk_", row.id, "' class='multiChkItem' value='", row.id, "'/>");
 									if (tdclass != "") {
-										tdclass += " chboxtd";
+										tdclass += " multiSelCol";
 									} else {
-										tdclass += "chboxtd";
+										tdclass += "multiSelCol";
 									}
 								} else {
 									var divInner = row.cell[idx] || "&nbsp;";
@@ -403,7 +403,6 @@
 							tbhtml.push("</tr>");
 						});
 					}
-
 				} else if (options.dataType == 'xml') {
 					i = 1;
 					$("rows row", data).each(function() {
@@ -432,7 +431,7 @@
 							var tddata = "";
 							var idx = $(this).attr('axis').substr(3);
 
-							if (options.sortname && options.sortname == $(this).attr('abbr')) {
+							if (options.sortName && options.sortName == $(this).attr('abbr')) {
 								tdclass = 'sorted';
 							}
 							var width = thsdivs[j].style.width;
@@ -445,11 +444,11 @@
 							div.push("'>");
 
 							if (idx == "-1") { // checkbox
-								div.push("<input type='checkbox' id='chk_", nid, "' class='itemchk' value='", nid, "'/>");
+								div.push("<input type='checkbox' id='chk_", nid, "' class='multiChkItem' value='", nid, "'/>");
 								if (tdclass != "") {
-									tdclass += " chboxtd";
+									tdclass += " multiSelCol";
 								} else {
-									tdclass += "chboxtd";
+									tdclass += "multiSelCol";
 								}
 							} else {
 								var divInner = arrdata[idx] || "&nbsp;";
@@ -479,13 +478,14 @@
 				if (options.onSuccess)
 					options.onSuccess();
 				if (options.hideOnSubmit)
-					$(grid.block).remove(); // $(table).show();
+					$(grid.block).remove();
+				$(table).show();
 				this.hDiv.scrollLeft = this.bDiv.scrollLeft;
 				if ($.browser.opera)
 					$(table).css('visibility', 'visible');
 
 			},
-			changeSort : function(th) { // change sortorder
+			changeSort : function(th) { // change sortOrder
 
 				if (this.loading)
 					return true;
@@ -493,21 +493,21 @@
 				$(grid.nDiv).hide();
 				$(grid.nBtn).hide();
 
-				if (options.sortname == $(th).attr('abbr')) {
-					if (options.sortorder == 'asc')
-						options.sortorder = 'desc';
+				if (options.sortName == $(th).attr('abbr')) {
+					if (options.sortOrder == 'asc')
+						options.sortOrder = 'desc';
 					else
-						options.sortorder = 'asc';
+						options.sortOrder = 'asc';
 				}
 
 				$(th).addClass('sorted').siblings().removeClass('sorted');
 				$('.sdesc', this.hDiv).removeClass('sdesc');
 				$('.sasc', this.hDiv).removeClass('sasc');
-				$('div', th).addClass('s' + options.sortorder);
-				options.sortname = $(th).attr('abbr');
+				$('div', th).addClass('s' + options.sortOrder);
+				options.sortName = $(th).attr('abbr');
 
 				if (options.onChangeSort)
-					options.onChangeSort(options.sortname, options.sortorder);
+					options.onChangeSort(options.sortName, options.sortOrder);
 				else
 					this.populate();
 
@@ -555,8 +555,8 @@
 					options.newp = 1;
 				if (options.page > options.pages)
 					options.page = options.pages;
-				// var param = {page:options.newp, rp: options.rp, sortname: options.sortname,
-				// sortorder: options.sortorder, query: options.query, qtype: options.qtype};
+				// var param = {page:options.newp, rp: options.rp, sortName: options.sortName,
+				// sortOrder: options.sortOrder, query: options.query, qtype: options.qtype};
 				var param = [ {
 					name : 'page',
 					value : options.newp
@@ -564,11 +564,11 @@
 					name : 'rp',
 					value : options.rp
 				}, {
-					name : 'sortname',
-					value : options.sortname
+					name : 'sortName',
+					value : options.sortName
 				}, {
-					name : 'sortorder',
-					value : options.sortorder
+					name : 'sortOrder',
+					value : options.sortOrder
 				}, {
 					name : 'query',
 					value : options.query
@@ -597,7 +597,11 @@
 								grid.hideLoading();
 							}
 						} else {
+							var time0 = new Date().getTime();
 							grid.addData(data);
+
+							jDemsy.log("加载FlexiGrid数据.", time0);
+
 						}
 					},
 					error : function(data) {
@@ -698,8 +702,8 @@
 						$td.html($tddiv);// .removeAttr('width'); // wrap
 
 						if (colOption.isch) {
-							$td.addClass("chboxtd");
-							$(":checkbox", $td).addClass("itemchk");
+							$td.addClass("multiSelCol");
+							$(":checkbox", $td).addClass("multiChkItem");
 						}
 
 						// var pid = false;
@@ -709,7 +713,7 @@
 						// if (th.process) {
 						// th.process($tddiv, pid);
 						// }
-						// $("input.itemchk", $tddiv).each(function() {
+						// $("input.multiChkItem", $tddiv).each(function() {
 						// $(this).click(function() {
 						// if (this.checked) {
 						// $tr.addClass("trSelected");
@@ -762,6 +766,16 @@
 					// if (options.singleSelect && !grid.multisel) {
 					$tr.siblings().removeClass('trSelected');
 					$tr.toggleClass('trSelected');
+					$("input.multiChkItem", table).each(function() {
+						this.checked = false;
+					});
+					$("input.multiChkItem", $tr).each(function() {
+						if ($tr.hasClass('trSelected')) {
+							this.checked = true;
+						} else {
+							this.checked = false;
+						}
+					});
 					// } else {
 					// $tr.toggleClass('trSelected');
 					// }
@@ -788,8 +802,8 @@
 					// }
 					// }, function() {
 				});
-				$("input.itemchk", $tr).each(function() {
-					$(this).click(function() {
+				$("input.multiChkItem", $tr).each(function() {
+					$(this).click(function(event) {
 						if (this.checked) {
 							$tr.addClass("trSelected");
 						} else {
@@ -798,6 +812,7 @@
 						if (options.onRowChecked) {
 							options.onRowChecked.call(this);
 						}
+						event.stopPropagation();
 					});
 				});
 				if (options.rowHandler) {
@@ -826,7 +841,7 @@
 						$(this).removeClass("trSelected");
 					}
 				});
-				$("input.itemchk", grid.bDiv).each(function() {
+				$("input.multiChkItem", grid.bDiv).each(function() {
 					this.checked = ischeck;
 					// Raise Event
 					if (options.onRowChecked) {
@@ -913,50 +928,51 @@
 
 		// 用 global div 容器将 table 包起来
 		var $table = $(table).before(grid.gDiv);
+		$table.addClass("bTable");
 		$(grid.gDiv).append(table);
 
 		// TODO: 创建工具栏
-		// if (options.buttons) {
-		// grid.tDiv = document.createElement('div');
-		// grid.tDiv.className = 'tDiv';
-		// var tDiv2 = document.createElement('div');
-		// tDiv2.className = 'tDiv2';
-		//
-		// for (i = 0; i < options.buttons.length; i++) {
-		// var btn = options.buttons[i];
-		// if (!btn.separator) {
-		// var btnDiv = document.createElement('div');
-		// btnDiv.className = 'fbutton';
-		// btnDiv.innerHTML = "<div><span>" + btn.displayname + "</span></div>";
-		// if (btn.title) {
-		// btnDiv.title = btn.title;
-		// }
-		// if (btn.bclass)
-		// $('span', btnDiv).addClass(btn.bclass);
-		// btnDiv.onpress = btn.onpress;
-		// btnDiv.name = btn.name;
-		// if (btn.onpress) {
-		// $(btnDiv).click(function() {
-		// this.onpress(this.name, grid.gDiv);
-		// });
-		// }
-		// $(tDiv2).append(btnDiv);
-		// if ($.browser.msie && $.browser.version < 7.0) {
-		// $(btnDiv).hover(function() {
-		// $(this).addClass('fbOver');
-		// }, function() {
-		// $(this).removeClass('fbOver');
-		// });
-		// }
-		//
-		// } else {
-		// $(tDiv2).append("<div class='btnseparator'></div>");
-		// }
-		// }
-		// $(grid.tDiv).append(tDiv2);
-		// $(grid.tDiv).append("<div style='clear:both'></div>");
-		// $(grid.gDiv).prepend(grid.tDiv);
-		// }
+		if (options.buttons) {
+			grid.tDiv = document.createElement('div');
+			grid.tDiv.className = 'tDiv';
+			var tDiv2 = document.createElement('div');
+			tDiv2.className = 'tDiv2';
+
+			for (i = 0; i < options.buttons.length; i++) {
+				var btn = options.buttons[i];
+				if (!btn.separator) {
+					var btnDiv = document.createElement('div');
+					btnDiv.className = 'fButton';
+					btnDiv.innerHTML = "<div><span>" + btn.displayname + "</span></div>";
+					if (btn.title) {
+						btnDiv.title = btn.title;
+					}
+					if (btn.bclass)
+						$('span', btnDiv).addClass(btn.bclass);
+					btnDiv.onpress = btn.onpress;
+					btnDiv.name = btn.name;
+					if (btn.onpress) {
+						$(btnDiv).click(function() {
+							this.onpress(this.name, grid.gDiv);
+						});
+					}
+					$(tDiv2).append(btnDiv);
+					if ($.browser.msie && $.browser.version < 7.0) {
+						$(btnDiv).hover(function() {
+							$(this).addClass('fbOver');
+						}, function() {
+							$(this).removeClass('fbOver');
+						});
+					}
+
+				} else {
+					$(tDiv2).append("<div class='btnSeparator'></div>");
+				}
+			}
+			$(grid.tDiv).append(tDiv2);
+			$(grid.tDiv).append("<div style='clear:both'></div>");
+			$(grid.gDiv).prepend(grid.tDiv);
+		}
 
 		var time1 = new Date().getTime();
 		/*
@@ -968,7 +984,7 @@
 		$('div', grid.hDiv).append(grid.hTable);
 		var thead = $("thead:first", table).get(0);
 		if (thead)
-			$(grid.hTable).append(thead);
+			$(grid.hTable).append(thead).addClass("hTable");
 		thead = null;
 
 		if (!options.colmodel)
@@ -1000,9 +1016,9 @@
 				});
 
 				// 如果数据是按当前列排序的，则在表头显示排序标记
-				if (colOption.abbr == options.sortname) {
+				if (colOption.abbr == options.sortName) {
 					$th.addClass('sorted');
-					$thdiv.addClass('s' + options.sortorder);
+					$thdiv.addClass('s' + options.sortOrder);
 				}
 			}
 
@@ -1024,11 +1040,11 @@
 							$th.addClass('thOver');
 
 						if (colOption.abbr) {
-							if (colOption.abbr != options.sortname)
-								$thdiv.addClass('s' + options.sortorder);
+							if (colOption.abbr != options.sortName)
+								$thdiv.addClass('s' + options.sortOrder);
 							else {
-								var dir = options.sortorder == 'asc' ? 'desc' : 'asc';
-								$thdiv.removeClass('s' + options.sortorder).addClass('s' + dir);
+								var dir = options.sortOrder == 'asc' ? 'desc' : 'asc';
+								$thdiv.removeClass('s' + options.sortOrder).addClass('s' + dir);
 							}
 						}
 					}
@@ -1038,9 +1054,9 @@
 							return false;
 
 						if (colIndex < grid.dcoln)
-							$th.append(grid.cdropleft);
+							$th.append(grid.colDropLeft);
 						else
-							$th.append(grid.cdropright);
+							$th.append(grid.colDropRight);
 
 						grid.dcolt = colIndex;
 
@@ -1080,24 +1096,24 @@
 						else
 							$nDiv.css('left', nl);
 
-						if ($(this).hasClass('sorted'))
-							$nBtn.addClass('srtd');
-						else
-							$nBtn.removeClass('srtd');
+						// if ($(this).hasClass('sorted'))
+						// $nBtn.addClass('srtd');
+						// else
+						// $nBtn.removeClass('srtd');
 
 					}
 
 				}, function() {
 					$th.removeClass('thOver');
-					if (colOption.abbr != options.sortname)
-						$thdiv.removeClass('s' + options.sortorder);
-					else if ($(this).attr('abbr') == options.sortname) {
-						var no = options.sortorder == 'asc' ? 'desc' : 'asc';
-						$thdiv.addClass('s' + options.sortorder).removeClass('s' + no);
+					if (colOption.abbr != options.sortName)
+						$thdiv.removeClass('s' + options.sortOrder);
+					else if ($(this).attr('abbr') == options.sortName) {
+						var no = options.sortOrder == 'asc' ? 'desc' : 'asc';
+						$thdiv.addClass('s' + options.sortOrder).removeClass('s' + no);
 					}
 					if (grid.colCopy) {
-						$(grid.cdropleft).remove();
-						$(grid.cdropright).remove();
+						$(grid.colDropLeft).remove();
+						$(grid.colDropRight).remove();
 						grid.dcolt = null;
 					}
 				}); // wrap header content
@@ -1118,7 +1134,7 @@
 		}).append(table);
 
 		if (options.height == 'auto') {
-			$table.addClass('autoht');
+			$table.addClass('autoHeight');
 		}
 		// 处理内容cell
 		if (options.url == false || options.url == "") {
@@ -1131,7 +1147,6 @@
 		/*
 		 * 处理表头拉伸
 		 */
-		// if (options.colResizable) {
 		var cdcol = $('thead tr:first th:first', grid.hTable).get(0);
 		grid.cDrag.className = 'cDrag';
 		grid.cdpad = 0;
@@ -1176,7 +1191,6 @@
 				});
 			}
 		});
-		// }
 
 		var time4 = new Date().getTime();
 		/*
@@ -1216,7 +1230,7 @@
 			grid.pDiv.className = 'pDiv';
 			grid.pDiv.innerHTML = '<div class="pDiv2"></div>';
 			$(grid.bDiv).after(grid.pDiv);
-			var html = '<div class="pGroup"><div class="pFirst pButton" title="转到第一页"><span></span></div><div class="pPrev pButton" title="转到上一页"><span></span></div> </div><div class="btnseparator"></div> <div class="pGroup"><span class="pcontrol">当前 <input type="text" size="1" value="1" /> ,总页数 <span> 1 </span></span></div><div class="btnseparator"></div><div class="pGroup"> <div class="pNext pButton" title="转到下一页"><span></span></div><div class="pLast pButton" title="转到最后一页"><span></span></div></div><div class="btnseparator"></div><div class="pGroup"> <div class="pReload pButton" title="刷新"><span></span></div> </div> <div class="btnseparator"></div><div class="pGroup"><span class="pPageStat"></span></div>';
+			var html = '<div class="pGroup"><div class="pFirst pButton" title="转到第一页"><span></span></div><div class="pPrev pButton" title="转到上一页"><span></span></div> </div><div class="btnSeparator"></div> <div class="pGroup"><span class="pcontrol">当前 <input type="text" size="1" value="1" /> ,总页数 <span> 1 </span></span></div><div class="btnSeparator"></div><div class="pGroup"> <div class="pNext pButton" title="转到下一页"><span></span></div><div class="pLast pButton" title="转到最后一页"><span></span></div></div><div class="btnSeparator"></div><div class="pGroup"> <div class="pReload pButton" title="刷新"><span></span></div> </div> <div class="btnSeparator"></div><div class="pGroup"><span class="pPageStat"></span></div>';
 			$('div', grid.pDiv).html(html);
 
 			$('.pReload', grid.pDiv).click(function() {
@@ -1255,7 +1269,7 @@
 					opt += "<option value='" + options.rpOptions[nx] + "' " + sel + " >" + options.rpOptions[nx] + "&nbsp;&nbsp;</option>";
 				}
 				;
-				$('.pDiv2', grid.pDiv).prepend("<div class='pGroup'>每页 <select name='rp'>" + opt + "</select>条</div> <div class='btnseparator'></div>");
+				$('.pDiv2', grid.pDiv).prepend("<div class='pGroup'>每页 <select name='rp'>" + opt + "</select>条</div> <div class='btnSeparator'></div>");
 				$('select', grid.pDiv).change(function() {
 					if (options.onRpChange)
 						options.onRpChange(+this.value);
@@ -1269,7 +1283,7 @@
 
 			// add search button
 			if (options.searchItems) {
-				$('.pDiv2', grid.pDiv).prepend("<div class='pGroup'> <div class='pSearch pButton'><span></span></div> </div>  <div class='btnseparator'></div>");
+				$('.pDiv2', grid.pDiv).prepend("<div class='pGroup'> <div class='pSearch pButton'><span></span></div> </div>  <div class='btnSeparator'></div>");
 				$('.pSearch', grid.pDiv).click(function() {
 					$(grid.sDiv).slideToggle('fast', function() {
 						$('.sDiv:visible input:first', grid.gDiv).trigger('focus');
@@ -1323,23 +1337,23 @@
 		 */
 		if (options.title) {
 			grid.mDiv.className = 'mDiv';
-			grid.mDiv.innerHTML = '<div class="ftitle">' + options.title + '</div>';
+			grid.mDiv.innerHTML = '<div class="title">' + options.title + '</div>';
 			$(grid.gDiv).prepend(grid.mDiv);
 			if (options.showTableToggleBtn) {
-				$(grid.mDiv).append('<div class="ptogtitle" title="Minimize/Maximize Table"><span></span></div>');
-				$('div.ptogtitle', grid.mDiv).click(function() {
-					$(grid.gDiv).toggleClass('hideBody');
-					$(this).toggleClass('vsble');
+				$(grid.mDiv).append('<div class="toggleTitle"><span></span></div>');
+				$('div.toggleTitle', grid.mDiv).click(function() {
+					$(grid.gDiv).toggleClass('hideGrid');
+					$(this).toggleClass('down');
 				});
 			}
 			// grid.rePosDrag();
 		}
 
 		// setup cdrops
-		grid.cdropleft = document.createElement('span');
-		grid.cdropleft.className = 'cdropleft';
-		grid.cdropright = document.createElement('span');
-		grid.cdropright.className = 'cdropright';
+		grid.colDropLeft = document.createElement('span');
+		grid.colDropLeft.className = 'colDropLeft';
+		grid.colDropRight = document.createElement('span');
+		grid.colDropRight.className = 'colDropRight';
 
 		var time7 = new Date().getTime();
 		/*
@@ -1391,18 +1405,18 @@
 				if (kcol.style.display == 'none')
 					chk = '';
 
-				$('tbody', grid.nDiv).append('<tr><td class="ndcol1"><input type="checkbox" ' + chk + ' class="togCol noborder" value="' + cn + '" /></td><td class="ndcol2">' + this.innerHTML + '</td></tr>');
+				$('tbody', grid.nDiv).append('<tr><td class="selectorCol1"><input type="checkbox" ' + chk + ' class="togCol noBorder" value="' + cn + '" /></td><td class="selectorCol2">' + this.innerHTML + '</td></tr>');
 				cn++;
 			});
 
 			if ($.browser.msie && $.browser.version < 7.0)
 				$('tr', grid.nDiv).hover(function() {
-					$(this).addClass('ndcolover');
+					$(this).addClass('ieColHover');
 				}, function() {
-					$(this).removeClass('ndcolover');
+					$(this).removeClass('ieColHover');
 				});
 
-			$('td.ndcol2', grid.nDiv).click(function() {
+			$('td.selectorCol2', grid.nDiv).click(function() {
 				if ($('input:checked', grid.nDiv).length <= options.minColToggle && $(this).prev().find('input')[0].checked)
 					return false;
 				return grid.toggleCol($(this).prev().find('input').val());
@@ -1465,9 +1479,9 @@
 			$('.hDiv,.bDiv,.mDiv,.pDiv,.vGrip,.tDiv, .sDiv', grid.gDiv).css({
 				width : '100%'
 			});
-			$(grid.gDiv).addClass('ie6');
-			if (options.width != 'auto')
-				$(grid.gDiv).addClass('ie6fullwidthbug');
+			// $(grid.gDiv).addClass('grid_ie6');
+			// if (options.width != 'auto')
+			// $(grid.gDiv).addClass('ie6fullwidthbug');
 		}
 
 		grid.rePosDrag();
@@ -1646,7 +1660,7 @@
 		rowHandler : false, // 是否启用行的扩展事情功能
 		rowbinddata : false,
 		extParam : {},
-		gridClass : "jdemsy-grid",
+		gridClass : "jdGrid",
 		onRowChecked : false
 	};
 	function parseColOptions($container) {

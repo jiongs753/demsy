@@ -1,14 +1,4 @@
-.jdemsy-grid table {
-	BORDER-COLLAPSE: collapse;
-	border: 0;
-	border-spacing: 0;
-}
-
-.jdemsy-grid table th,.jdemsy-grid table td {
-	padding: 0;
-}
-
-.jdemsy-grid {
+.jdGrid {
 	font-family: "微软雅黑", "宋体", Arial, sans-serif;
 	font-size: 12px;
 	position: relative;
@@ -17,11 +7,21 @@
 	color: #000;
 }
 
-.jdemsy-grid .gBlock {
+.jdGrid .hTable,.jdGrid .bTable {
+	BORDER-COLLAPSE: collapse;
+	border: 0;
+	border-spacing: 0;
+}
+
+.jdGrid .hTable th,.jdGrid .bTable td {
+	padding: 0;
+}
+
+.jdGrid .gBlock {
 	background: #E3E3E3 url('images/flexigrid/load-bg.png');
 }
 
-.jdemsy-grid .gBlock .loading {
+.jdGrid .gBlock .loading {
 	width: 100%;
 	height: 100%;
 	display: block;
@@ -29,17 +29,17 @@
 		center center;
 }
 
-.jdemsy-grid.hideBody {
+.hideGrid {
 	height: 25px !important;
 	border-bottom: 1px solid #99bbe8;
 }
-
+/*
 .ie6fullwidthbug {
 	border-right: 0px solid #ccc;
 	padding-right: 2px;
 }
-
-.jdemsy-grid div.nDiv {
+*/
+.jdGrid .nDiv {
 	background: #eee url(images/flexigrid/line.gif) repeat-y -1px top;
 	border: 1px solid #ccc;
 	border-top: 0px;
@@ -50,56 +50,55 @@
 	float: left;
 }
 
-.jdemsy-grid div.nDiv table {
+.jdGrid .nDiv table {
 	margin: 2px;
 }
 
-.jdemsy-grid div.hDivBox {
+.jdGrid .hDivBox {
 	float: left;
 	padding-right: 40px;
 }
 
-.jdemsy-grid div.bDiv table {
+.jdGrid .bDiv table {
 	margin-bottom: 1px;
 }
 
-.jdemsy-grid div.bDiv table.autoht {
+.jdGrid .bDiv table.autoHeight {
 	border-bottom: 0px;
 	margin-bottom: 0px;
 }
 
-.jdemsy-grid div.nDiv td {
+.jdGrid .nDiv td {
 	padding: 2px 3px;
 	border: 1px solid #eee;
 	cursor: default;
 }
 
-.jdemsy-grid div.nDiv tr:hover td,.jdemsy-grid div.nDiv tr.ndcolover td
-	{
+.jdGrid .nDiv tr:hover td,.jdGrid .nDiv tr.ieColHover td {
 	background: #d5effc url(images/flexigrid/hl.png) repeat-x top;
 	border: 1px solid #a8d8eb;
 }
 
-.jdemsy-grid div.nDiv td.ndcol1 {
+.jdGrid .nDiv td.selectorCol1 {
 	border-right: 1px solid #ccc;
 }
 
-.jdemsy-grid div.nDiv td.ndcol2 {
+.jdGrid .nDiv td.selectorCol2 {
 	border-left: 1px solid #fff;
 	padding-right: 10px;
 }
 
-.jdemsy-grid div.nDiv tr:hover td.ndcol1,.jdemsy-grid div.nDiv tr.ndcolover td.ndcol1
+.jdGrid .nDiv tr:hover td.selectorCol1,.jdGrid .nDiv tr.ieColHover td.selectorCol1
 	{
 	border-right: 1px solid #d2e3ec;
 }
 
-.jdemsy-grid div.nDiv tr:hover td.ndcol2,.jdemsy-grid div.nDiv tr.ndcolover td.ndcol2
+.jdGrid .nDiv tr:hover td.selectorCol2,.jdGrid .nDiv tr.ieColHover td.selectorCol2
 	{
 	border-left: 1px solid #eef8ff;
 }
 
-.jdemsy-grid div.nBtn {
+.jdGrid .nBtn {
 	position: absolute;
 	height: 25px;
 	width: 14px;
@@ -114,19 +113,19 @@
 	display: none;
 }
 
-.jdemsy-grid div.nBtn div {
+.jdGrid .nBtn div {
 	height: 25px;
 	width: 12px;
 	border-left: 1px solid #fff;
 	float: left;
 	background: url(images/flexigrid/ddn.png) no-repeat center;
 }
-
-.jdemsy-grid div.nBtn.srtd {
+/*
+.jdGrid .nBtn.srtd {
 	background: #e3f7ff url(images/flexigrid/gridth.gif) repeat-x bottom;
 }
-
-.jdemsy-grid div.mDiv {
+*/
+.jdGrid .mDiv {
 	background: url(images/flexigrid/headbg.gif) repeat-x left -1px;
 	border: 1px solid #77ABF2;
 	border-bottom: 0px;
@@ -137,19 +136,19 @@
 	position: relative;
 }
 
-.jdemsy-grid div.mDiv div {
+.jdGrid .mDiv div {
 	padding: 4px;
 	white-space: nowrap;
 }
 
-.jdemsy-grid div.mDiv div.ftitle {
+.jdGrid .mDiv .title {
 	background: url("images/flexigrid/grid.png") no-repeat left;
 	color: #15428b;
 	margin-left: 10px;
 	padding-left: 20px;
 }
 
-.jdemsy-grid div.mDiv div.ptogtitle {
+.jdGrid .mDiv .toggleTitle {
 	position: absolute;
 	top: 4px;
 	right: 3px;
@@ -161,12 +160,12 @@
 	cursor: pointer;
 }
 
-.jdemsy-grid div.mDiv div.ptogtitle:hover {
+.jdGrid .mDiv .toggleTitle:hover {
 	background-position: left -2px;
 	border-color: #99bbe8;
 }
 
-.jdemsy-grid div.mDiv div.ptogtitle span {
+.jdGrid .mDiv .toggleTitle span {
 	display: block;
 	border-left: 1px solid #eee;
 	border-top: 1px solid #fff;
@@ -176,11 +175,11 @@
 	background: url(images/flexigrid/uup.png) no-repeat center;
 }
 
-.jdemsy-grid div.mDiv div.ptogtitle.vsble span {
+.jdGrid .mDiv .toggleTitle.down span {
 	background: url(images/flexigrid/ddn.png) no-repeat center;
 }
-
-.jdemsy-grid div.tDiv /*toolbar*/ {
+/*toolbar*/
+.jdGrid .tDiv  {
 	background: #77ABF2 url(images/flexigrid/tbg.gif) repeat-x top;
 	position: relative;
 	height: 25px;
@@ -190,13 +189,14 @@
 	padding: 1px;
 }
 
-.jdemsy-grid div.tDiv2 {
+.jdGrid .tDiv2 {
 	float: left;
 	clear: both;
 	padding: 1px;
 }
 
-.jdemsy-grid div.sDiv /*toolbar*/ {
+/*search bar*/
+.jdGrid .sDiv  {
 	background: #fafafa url(images/flexigrid/page-bg.gif) repeat-x top;
 	position: relative;
 	border: 1px solid #77ABF2;
@@ -205,7 +205,7 @@
 	display: none;
 }
 
-.jdemsy-grid div.sDiv2 {
+.jdGrid .sDiv2 {
 	float: left;
 	clear: both;
 	padding: 5px;
@@ -213,16 +213,12 @@
 	width: 1024px;
 }
 
-.jdemsy-grid div.sDiv2 input,.jdemsy-grid div.sDiv2 select {
+.jdGrid .sDiv2 input,.jdGrid .sDiv2 select {
 	vertical-align: middle;
 	border: solid 1px #ccc;
 }
 
-.jdemsy-grid nobordercheckbox {
-	border: none;
-}
-
-.jdemsy-grid div.btnseparator {
+.jdGrid .btnSeparator {
 	float: left;
 	height: 22px;
 	border-left: 1px solid #77ABF2;
@@ -230,7 +226,7 @@
 	margin: 1px;
 }
 
-.jdemsy-grid div.fbutton {
+.jdGrid .fButton {
 	float: left;
 	display: block;
 	cursor: pointer;
@@ -238,52 +234,50 @@
 	height: 22px;
 }
 
-.jdemsy-grid div.fbutton div {
+.jdGrid .fButton div {
 	float: left;
 	padding: 2px 3px;
 }
 
-.jdemsy-grid div.fbutton span {
+.jdGrid .fButton span {
 	float: left;
 	display: block;
 }
 
-.jdemsy-grid div.fbutton:hover,.jdemsy-grid div.fbutton.fbOver {
+.jdGrid .fButton:hover,.jdGrid .fButton.fbOver {
 	border: #466094 1px solid;
 	padding: 0;
 	cursor: pointer;
 	background-color: #EDF1D5;
 }
 
-.jdemsy-grid div.fbutton:hover div,.jdemsy-grid div.fbutton.fbOver div {
+.jdGrid .fButton:hover div,.jdGrid .fButton.fbOver div {
 	padding: 1px 2px;
 	border-left: 1px solid #fff;
 	border-top: 1px solid #fff;
 	border-right: 1px solid #eee;
 	border-bottom: 1px solid #eee;
 }
-
-/* end toolbar*/
-.jdemsy-grid div.hDiv {
+.jdGrid .hDiv {
 	background: #e3f7ff url(images/flexigrid/gridth.gif) repeat-x left 2px;
 	position: relative;
 	border: 1px solid #77ABF2;
 	border-bottom-color: #ddd;
 	overflow: hidden;
 }
-
-.jdemsy-grid div.hDiv table { /*border-right: 1px solid #fff;*/
-	
+/*
+.jdGrid .hDiv table {
+	border-right: 1px solid #fff;
 }
-
-.jdemsy-grid div.cDrag {
+*/
+.jdGrid .cDrag {
 	float: left;
 	position: absolute;
 	z-index: 2;
 	overflow: visible;
 }
 
-.jdemsy-grid div.cDrag div {
+.jdGrid .cDrag div {
 	float: left;
 	background: none;
 	display: block;
@@ -293,23 +287,23 @@
 	cursor: e-resize;
 }
 
-.jdemsy-grid div.cDrag div:hover,.jdemsy-grid div.cDrag div.dragging {
+.jdGrid .cDrag div:hover,.jdGrid .cDrag .dragging {
 	background: url(images/flexigrid/line.gif) repeat-y 2px center;
 }
-
-.jdemsy-grid div.iDiv {
+/*editable layout*/
+/*
+.jdGrid .iDiv {
 	border: 1px solid #316ac5;
 	position: absolute;
 	overflow: visible;
 	background: none;
 }
 
-.jdemsy-grid div.iDiv input,.jdemsy-grid div.iDiv select,.jdemsy-grid div.iDiv textarea
-	{
+.jdGrid .iDiv input,.jdGrid .iDiv select,.jdGrid .iDiv textarea {
 	
 }
 
-.jdemsy-grid div.iDiv input.tb {
+.jdGrid .iDiv input.tb {
 	border: 0px;
 	padding: 0px;
 	width: 100%;
@@ -317,8 +311,8 @@
 	padding: 0px;
 	background: none;
 }
-
-.jdemsy-grid div.bDiv {
+*/
+.jdGrid .bDiv {
 	border: 1px solid #77ABF2;
 	/*border-bottom-color: #ccc;*/
 	border-top: 0px;
@@ -327,11 +321,11 @@
 	position: relative;
 }
 
-.jdemsy-grid div.bDiv table {
+.jdGrid .bDiv table {
 	border-bottom: 0px;
 }
 
-.jdemsy-grid div.hGrip {
+.jdGrid .hGrip {
 	position: absolute;
 	top: 0px;
 	right: 0px;
@@ -342,12 +336,12 @@
 	cursor: e-resize;
 }
 
-.jdemsy-grid div.hGrip:hover,.jdemsy-grid div.hGrip.hgOver {
+.jdGrid .hGrip:hover,.jdGrid .hGrip.hgOver {
 	border-right: 1px solid #999;
 	margin-right: 0px;
 }
 
-.jdemsy-grid div.vGrip {
+.jdGrid .vGrip {
 	height: 5px;
 	overflow: hidden;
 	position: relative;
@@ -358,7 +352,7 @@
 	cursor: n-resize;
 }
 
-.jdemsy-grid div.vGrip span {
+.jdGrid .vGrip span {
 	display: block;
 	margin: 1px auto;
 	width: 20px;
@@ -369,7 +363,7 @@
 	background: none;
 }
 
-.jdemsy-grid div.hDiv th /* common cell properties*/ {
+.jdGrid .hDiv th /* common cell properties*/ {
 	text-align: left;
 	border-right: solid 1px #ddd;
 	border-left: solid 1px #fff;
@@ -378,7 +372,7 @@
 	padding: 0px;
 }
 
-.jdemsy-grid div.bDiv td /* common cell properties*/ {
+.jdGrid .bDiv td /* common cell properties*/ {
 	text-align: left;
 	border-left: solid 1px #fff;
 	border-top: none;
@@ -390,106 +384,105 @@
 	background-color: #fff;
 }
 /*
-.jdemsy-grid div.bDiv td.chboxtd,
-.jdemsy-grid div.bDiv tr.trOver td.chboxtd,
-.jdemsy-grid div.bDiv tr:hover td.chboxtd
+.jdGrid .bDiv td.multiSelCol,
+.jdGrid .bDiv tr.trOver td.multiSelCol,
+.jdGrid .bDiv tr:hover td.multiSelCol
 {
     background:url(images/flexigrid/grid3-special-col-bg.gif) repeat-y;    
 }
-.jdemsy-grid div.bDiv tr.trSelected:hover td.chboxtd,
-.jdemsy-grid div.bDiv tr.trSelected.trOver td.chboxtd,
-.jdemsy-grid tr.trSelected td.chboxtd
+.jdGrid .bDiv tr.trSelected:hover td.multiSelCol,
+.jdGrid .bDiv tr.trSelected.trOver td.multiSelCol,
+.jdGrid tr.trSelected td.multiSelCol
 {
    background: #d5effc url(images/flexigrid/grid3-special-col-sel-bg.gif) repeat-y;
 }
 */
-.jdemsy-grid div.hDiv th div,.jdemsy-grid div.bDiv td div,div.colCopy div
+.jdGrid .hDiv th div,.jdGrid .bDiv td div,.colCopy div
 	/* common inner cell properties*/ {
 	padding: 4px;
 	border-left: none;
 }
 
-.jdemsy-grid div.hDiv th div {
+.jdGrid .hDiv th div {
 	font-weight: bold;
 	height: 17px;
 }
 
-.jdemsy-grid div.hDiv th.cth div {
+.jdGrid .hDiv th.cth div {
 	padding: 1px 4px 1px 4px;
 }
 
-.jdemsy-grid div.bDiv td.chboxtd div {
+.jdGrid .bDiv td.multiSelCol div {
 	padding: 1px 4px 1px 4px;
 }
 
-.jdemsy-grid div.hDiv th,div.colCopy {
+.jdGrid .hDiv th,.colCopy {
 	font-weight: normal;
 	cursor: default;
 	white-space: nowrap;
 	overflow: hidden;
 }
 
-.jdemsy-grid .itemchk {
+.jdGrid .multiChkItem {
 	border: none;
 }
 
-.jdemsy-grid .noborder {
+.jdGrid .noBorder {
 	border: none;
 }
 
-div.colCopy {
+.colCopy {
 	background: #e3f7ff url(images/flexigrid/gridth.gif) repeat-x bottom;
 	border: 1px solid #ccc;
 	border-bottom: 0px;
 	overflow: hidden;
 }
 
-.jdemsy-grid div.hDiv th.sorted {
+.jdGrid .hDiv th.sorted {
 	background: #e3f7ff url(images/flexigrid/gridth.gif) repeat-x bottom;
 	border-bottom: 0px solid #ccc;
 }
 
-.jdemsy-grid div.hDiv th.thOver {
+.jdGrid .hDiv th.thOver {
 	
 }
 
-.jdemsy-grid div.hDiv th.thOver div,.jdemsy-grid div.hDiv th.sorted.thOver div
-	{ /*border-bottom: 1px solid orange;*/
+.jdGrid .hDiv th.thOver div,.jdGrid .hDiv th.sorted.thOver div {
+	/*border-bottom: 1px solid orange;*/
 	padding-bottom: 4px;
 }
 
-.jdemsy-grid div.hDiv th.sorted div {
+.jdGrid .hDiv th.sorted div {
 	border-bottom: 0px solid #ccc;
 	padding-bottom: 4px;
 }
 
-.jdemsy-grid div.hDiv th.thMove {
+.jdGrid .hDiv th.thMove {
 	background: #fff;
 	color: #fff;
 }
 
-.jdemsy-grid div.hDiv th.sorted.thMove div {
-	/*border-bottom: 1px solid #fff;*/
+.jdGrid .hDiv th.sorted.thMove div { /*border-bottom: 1px solid #fff;*/
 	padding-bottom: 4px
 }
 
-.jdemsy-grid div.hDiv th.thMove div {
+.jdGrid .hDiv th.thMove div {
 	background: #fff !important;
 }
 
-.jdemsy-grid div.hDiv th div.sdesc {
+.jdGrid .hDiv th .sdesc {
 	background: url(images/flexigrid/sort_desc.gif) no-repeat center top;
 }
 
-.jdemsy-grid div.hDiv th div.sasc {
+.jdGrid .hDiv th .sasc {
 	background: url(images/flexigrid/sort_asc.gif) no-repeat center top;
 }
 
-.jdemsy-grid div.hDiv th div {
+.jdGrid .hDiv th div {
 	
 }
 
-.jdemsy-grid span.cdropleft {
+.jdGrid span.colDropLeft {
 	display: block;
 	background: url(images/flexigrid/prev.gif) no-repeat -4px center;
 	width: 24px;
@@ -500,7 +493,7 @@ div.colCopy {
 	z-index: 3;
 }
 
-.jdemsy-grid div.hDiv span.cdropright {
+.jdGrid .hDiv span.colDropRight {
 	display: block;
 	background: url(images/flexigrid/next.gif) no-repeat 12px center;
 	width: 24px;
@@ -511,39 +504,39 @@ div.colCopy {
 	margin-bottom: -24px;
 }
 
-.jdemsy-grid div.bDiv td div {
+.jdGrid .bDiv td div {
 	border-top: 0px solid #fff;
 	padding-bottom: 2px;
 }
 
-.jdemsy-grid tr td.sorted {
+.jdGrid tr td.sorted {
 	
 }
 
-.jdemsy-grid tr td.sorted div {
+.jdGrid tr td.sorted div {
 	
 }
 
-.jdemsy-grid tr.erow td {
+.jdGrid tr.erow td {
 	background: #F5FFEF;
 }
 
-.jdemsy-grid tr.erow td.sorted { /*background: #EEF6FF;*/
+.jdGrid tr.erow td.sorted { /*background: #EEF6FF;*/
 	
 }
 
-.jdemsy-grid tr.erow td.sorted div {
+.jdGrid tr.erow td.sorted div {
 	
 }
 
-.jdemsy-grid div.bDiv tr:hover td,.jdemsy-grid div.bDiv tr:hover td.sorted,.jdemsy-grid div.bDiv tr.trOver td.sorted,.jdemsy-grid div.bDiv tr.trOver td
+.jdGrid .bDiv tr:hover td,.jdGrid .bDiv tr:hover td.sorted,.jdGrid .bDiv tr.trOver td.sorted,.jdGrid .bDiv tr.trOver td
 	{
 	background: #FFFFBB;
 	border-left: 1px solid #eef8ff;
 	border-bottom: 1px dotted #a8d8eb;
 }
 
-.jdemsy-grid div.bDiv tr.trSelected:hover td,.jdemsy-grid div.bDiv tr.trSelected:hover td.sorted,.jdemsy-grid div.bDiv tr.trOver.trSelected td.sorted,.jdemsy-grid div.bDiv tr.trOver.trSelected td,.jdemsy-grid tr.trSelected td.sorted,.jdemsy-grid tr.trSelected td
+.jdGrid .bDiv tr.trSelected:hover td,.jdGrid .bDiv tr.trSelected:hover td.sorted,.jdGrid .bDiv tr.trOver.trSelected td.sorted,.jdGrid .bDiv tr.trOver.trSelected td,.jdGrid tr.trSelected td.sorted,.jdGrid tr.trSelected td
 	{
 	background: #7cc5e5; /* url(images/flexigrid/hl.png) repeat-x top;*/
 	border-right: 1px solid #b8d0d6;
@@ -552,42 +545,42 @@ div.colCopy {
 }
 
 /* novstripe adjustments */
-.jdemsy-grid.novstripe .bDiv table {
+.jdGrid.novstripe .bDiv table {
 	border-bottom: 1px solid #ccc;
 	border-right: 1px solid #ccc;
 }
 
-.jdemsy-grid.novstripe  div.bDiv td {
+.jdGrid.novstripe  .bDiv td {
 	border-right-color: #fff;
 }
 
-.jdemsy-grid.novstripe div.bDiv tr.erow td.sorted {
+.jdGrid.novstripe .bDiv tr.erow td.sorted {
 	border-right-color: #e3e3e3;
 }
 
-.jdemsy-grid.novstripe div.bDiv tr td.sorted {
+.jdGrid.novstripe .bDiv tr td.sorted {
 	border-right-color: #f3f3f3;
 }
 
-.jdemsy-grid.novstripe  div.bDiv tr.erow td {
+.jdGrid.novstripe  .bDiv tr.erow td {
 	border-right-color: #f7f7f7;
 	border-left-color: #f7f7f7;
 }
 
-.jdemsy-grid.novstripe div.bDiv tr.trSelected:hover td,.jdemsy-grid.novstripe div.bDiv tr.trSelected:hover td.sorted,.jdemsy-grid.novstripe div.bDiv tr.trOver.trSelected td.sorted,.jdemsy-grid.novstripe div.bDiv tr.trOver.trSelected td,.jdemsy-grid.novstripe tr.trSelected td.sorted,.jdemsy-grid.novstripe tr.trSelected td
+.jdGrid.novstripe .bDiv tr.trSelected:hover td,.jdGrid.novstripe .bDiv tr.trSelected:hover td.sorted,.jdGrid.novstripe .bDiv tr.trOver.trSelected td.sorted,.jdGrid.novstripe .bDiv tr.trOver.trSelected td,.jdGrid.novstripe tr.trSelected td.sorted,.jdGrid.novstripe tr.trSelected td
 	{
 	border-right: 1px solid #0066FF;
 	border-left: 1px solid #0066FF;
 }
 
-.jdemsy-grid.novstripe div.bDiv tr.trOver td,.jdemsy-grid.novstripe div.bDiv tr:hover td
+.jdGrid.novstripe .bDiv tr.trOver td,.jdGrid.novstripe .bDiv tr:hover td
 	{
 	border-left-color: #d9ebf5;
 	border-right-color: #d9ebf5;
 }
 
 /* end novstripe */
-.jdemsy-grid div.pDiv {
+.jdGrid .pDiv {
 	background: url(images/flexigrid/page-bg.gif) repeat-x;
 	/*padding-top: 3px;*/
 	border: 1px solid #77ABF2;
@@ -598,37 +591,37 @@ div.colCopy {
 	padding-left: 3px;
 }
 
-.jdemsy-grid div.pDiv div.pDiv2 {
+.jdGrid .pDiv .pDiv2 {
 	margin: 3px;
 	margin-left: -2px;
 	float: left;
 	width: 1024px;
 }
 
-div.pGroup {
+.pGroup {
 	float: left;
 	background: none;
 	height: 24px;
 	margin: 0px 5px;
 }
 
-div.pGroup select {
+.pGroup select {
 	width: 50px;
 }
 
-.jdemsy-grid div.pDiv .pPageStat,.jdemsy-grid div.pDiv .pcontrol {
+.jdGrid .pDiv .pPageStat,.jdGrid .pDiv .pcontrol {
 	position: relative;
 	top: 5px;
 	overflow: visible;
 }
 
-.jdemsy-grid div.pDiv input {
+.jdGrid .pDiv input {
 	vertical-align: text-top;
 	position: relative;
 	top: -5px;
 }
 
-.jdemsy-grid div.pDiv  div.pButton {
+.jdGrid .pDiv  .pButton {
 	float: left;
 	width: 22px;
 	height: 22px;
@@ -637,22 +630,21 @@ div.pGroup select {
 	overflow: hidden;
 }
 
-.jdemsy-grid div.pDiv  div.pButton:hover,.jdemsy-grid div.pDiv  div.pButton.pBtnOver
-	{
+.jdGrid .pDiv  .pButton:hover,.jdGrid .pDiv  .pButton.pBtnOver {
 	width: 20px;
 	height: 20px;
 	border: 1px solid #77ABF2;
 	cursor: pointer;
 }
 
-.jdemsy-grid div.pDiv  div.pButton span {
+.jdGrid .pDiv  .pButton span {
 	width: 20px;
 	height: 20px;
 	display: block;
 	float: left;
 }
 
-.jdemsy-grid div.pDiv  div.pButton:hover span,.jdemsy-grid div.pDiv  div.pButton.pBtnOver span
+.jdGrid .pDiv  .pButton:hover span,.jdGrid .pDiv  .pButton.pBtnOver span
 	{
 	width: 19px;
 	height: 19px;
@@ -660,36 +652,36 @@ div.pGroup select {
 	border-left: 1px solid #fff;
 }
 
-.jdemsy-grid .pSearch {
+.jdGrid .pSearch {
 	background: url(images/flexigrid/magnifier.png) no-repeat center;
 }
 
-.jdemsy-grid .pFirst {
+.jdGrid .pFirst {
 	background: url(images/flexigrid/first.gif) no-repeat center;
 }
 
-.jdemsy-grid .pPrev {
+.jdGrid .pPrev {
 	background: url(images/flexigrid/prev.gif) no-repeat center;
 }
 
-.jdemsy-grid .pNext {
+.jdGrid .pNext {
 	background: url(images/flexigrid/next.gif) no-repeat center;
 }
 
-.jdemsy-grid .pLast {
+.jdGrid .pLast {
 	background: url(images/flexigrid/last.gif) no-repeat center;
 }
 
-.jdemsy-grid .pReload {
-	background: url(images/flexigrid/load.gif) no-repeat center;
+.jdGrid .pReload {
+	background: url(images/flexigrid/load.png) no-repeat center;
 }
 
-.jdemsy-grid .pReload.loading {
+.jdGrid .pReload.loading {
 	background: url(images/flexigrid/load.gif) no-repeat center;
 }
 
 /* ie adjustments */
-.jdemsy-grid.ie div.hDiv th div,.jdemsy-grid.ie  div.bDiv td  div,div.colCopy.ie div
+.jdGrid.ie .hDiv th div,.jdGrid.ie  .bDiv td  div,.colCopy.ie div
 	/* common inner cell properties*/ {
 	overflow: hidden;
 }

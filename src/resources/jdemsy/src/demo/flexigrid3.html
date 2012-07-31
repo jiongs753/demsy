@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Flexigrid</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" type="text/css" href="../css/jdemsy.flexigrid.css" />
+
+<script type="text/javascript" src="../../js/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/jdemsy.all.js"></script>
+<script type="text/javascript" src="../js/jdemsy.flexigrid.js"></script>
+</head>
+<body>
+    <h2>Example 3</h2>
+    <table class="flexme3" style="display: none"></table>
+    
+    <div style="height: 50px;"></div>
+
+    <script type="text/javascript">
+					$(".flexme3").flexigrid({
+						showCheckbox: true,
+						url : 'flexigrid.data.js',
+						dataType : 'json',
+						colModel : [ {
+							display : '机构名称',
+							name : 'orgName',
+							width : 80,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : '客户号',
+							name : 'customID',
+							width : 120,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : '客户名称',
+							name : 'customName',
+							width : 200,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : '客户类型',
+							name : 'customType',
+							width : 100,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : '证件号码',
+							name : 'identityCode',
+							width : 150,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : '信用等级',
+							name : 'creditRating',
+							width : 80,
+							sortable : true,
+							align : 'center'
+						} , {
+							display : '所属行业',
+							name : 'industry',
+							width : 80,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : '建档日期',
+							name : 'createDate',
+							width : 80,
+							sortable : true,
+							align : 'left'
+						} ],
+						buttons : [ {
+							displayname : 'Add',
+							name : 'Add',
+							bclass : 'add',
+							onpress : test
+						}, {
+							displayname : 'Delete',
+							name : 'Delete',
+							bclass : 'delete',
+							onpress : test
+						}, {
+							separator : true
+						} ],
+						searchItems : [ {
+							display : '机构名称',
+							name : 'orgName'
+						}, {
+							display : '客户号',
+							name : 'customID',
+							isdefault : true
+						} ],
+						sortName : "orgName",
+						sortorder : "asc",
+						usePager : true,
+						title : '客户关系管理',
+						useRp : true,
+						rp : 15,
+						showTableToggleBtn : true,
+						width : 700,
+						height : 300
+					});
+
+					function test(com, grid) {
+						if (com == 'Delete') {
+							confirm('Delete ' + $('.trSelected', grid).length + ' items?')
+						} else if (com == 'Add') {
+							alert('Add New Item');
+						}
+					}
+				</script>
+</body>
+</html>

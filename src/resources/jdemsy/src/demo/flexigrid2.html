@@ -150,6 +150,8 @@
 
     <h2>Example 3</h2>
     <table class="flexme3" style="display: none"></table>
+    
+    <div style="height: 50px;"></div>
 
     <script type="text/javascript">
 					$('.flexme2').flexigrid({
@@ -163,36 +165,54 @@
 						url : 'flexigrid.data.xml',
 						dataType : 'xml',
 						colModel : [ {
-							display : 'ISO',
-							name : 'iso',
-							width : 40,
-							sortable : true,
-							align : 'center'
-						}, {
-							display : 'Name',
-							name : 'name',
-							width : 180,
+							display : '机构名称',
+							name : 'orgName',
+							width : 80,
 							sortable : true,
 							align : 'left'
 						}, {
-							display : 'Printable Name',
-							name : 'printable_name',
+							display : '客户号',
+							name : 'customID',
 							width : 120,
 							sortable : true,
 							align : 'left'
 						}, {
-							display : 'ISO3',
-							name : 'iso3',
-							width : 130,
+							display : '客户名称',
+							name : 'customName',
+							width : 200,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : '客户类型',
+							name : 'customType',
+							width : 100,
 							sortable : true,
 							align : 'left',
 							hide : true
 						}, {
-							display : 'Number Code',
-							name : 'numcode',
+							display : '证件号码',
+							name : 'identityCode',
+							width : 150,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : '信用等级',
+							name : 'creditRating',
 							width : 80,
 							sortable : true,
-							align : 'right'
+							align : 'center'
+						} , {
+							display : '所属行业',
+							name : 'industry',
+							width : 80,
+							sortable : true,
+							align : 'left'
+						}, {
+							display : '建档日期',
+							name : 'createDate',
+							width : 80,
+							sortable : true,
+							align : 'left'
 						} ],
 						buttons : [ {
 							displayname : 'Add',
@@ -215,10 +235,10 @@
 							name : 'name',
 							isdefault : true
 						} ],
-						sortname : "iso",
+						sortname : "orgName",
 						sortorder : "asc",
 						usepager : true,
-						title : 'Countries',
+						title : '客户关系管理',
 						useRp : true,
 						rp : 15,
 						showTableToggleBtn : true,
