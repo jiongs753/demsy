@@ -9,6 +9,7 @@ import com.kmetop.demsy.comlib.LibConst;
 import com.kmetop.demsy.comlib.eshop.IOrder;
 import com.kmetop.demsy.comlib.eshop.IOrderItem;
 import com.kmetop.demsy.lang.DemsyException;
+import com.kmetop.demsy.lang.Obj;
 import com.kmetop.demsy.orm.IOrm;
 import com.kmetop.demsy.orm.expr.Expr;
 import com.kmetop.demsy.plugins.BizPlugin;
@@ -40,7 +41,7 @@ public class OrderAdjustCast extends BizPlugin {
 			throw new DemsyException("不能给未下单的条目调整费用");
 		}
 		if (item.getOrder().getStatus() != IOrder.STATUS_WAIT_BUYER_PAY) {
-			throw new DemsyException("调整邮寄费失败：只能对“未付款”的订单调整邮寄费！\n【%s】订单状态: %s", item.getOrder(), IOrder.STATUS_TITLES[item.getOrder().getStatus()]);
+			throw new DemsyException("调整订单价格失败：只能对“未付款”的订单调整价格！\n【%s】订单状态: %s", item.getOrder(), IOrder.STATUS_TITLES[item.getOrder().getStatus()]);
 		}
 
 		Double price = item.getPrice();
@@ -49,16 +50,23 @@ public class OrderAdjustCast extends BizPlugin {
 
 		if (price == null)
 			throw new DemsyException("未知产品单价，无法计算");
-		if (discount == null)
-			discount = 10.0;
-		if (discount > 10)
-			discount = discount / 10;
-		if (discount > 10 || discount <= 0) {
-			throw new DemsyException("折扣数值非法，折扣必须在0-10之间");
-		}
 
-		double totalPrice = (price * amount) * discount / 10;
-		item.setSubtotal(totalPrice);
+		if (discount != null) {
+			if (discount > 10)
+				discount = discount / 10;
+			if (discount > 10 || discount <= 0) {
+				throw new DemsyException("折扣数值非法，折扣必须在0-10之间");
+			}
+
+			double totalPrice = (price * amount) * discount / 10;
+			item.setSubtotal(Double.parseDouble(Obj.format(totalPrice, "#.00")));// 保留两位小数
+		} else {
+			double sum = price * amount;
+			if (sum != item.getSubtotal()) {
+				discount = item.getSubtotal() / sum * 10;
+				item.setDiscount(discount);
+			}
+		}
 	}
 
 	@Override

@@ -63,4 +63,6 @@ public interface IOrderItem {
 	String getCode();
 
 	Long getId();
+
+	void setDiscount(Double discount);
 }

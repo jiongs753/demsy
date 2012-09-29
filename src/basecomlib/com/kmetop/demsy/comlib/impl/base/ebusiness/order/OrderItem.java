@@ -80,7 +80,7 @@ public class OrderItem extends BizComponent implements IOrderItem {
 	@BzFld(name = "折扣", mode = "*:N v:S bu:E")
 	protected Double discount;
 
-	@BzFld(name = "小计(元)", mode = "*:N v:S", pattern = "#,##0.00")
+	@BzFld(name = "小计(元)", mode = "*:N v:S bu:E", pattern = "#,##0.00")
 	protected double subtotal;
 
 	@Column(length = 64)
