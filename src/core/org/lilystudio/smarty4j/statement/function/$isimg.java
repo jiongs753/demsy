@@ -29,14 +29,14 @@ public class $isimg extends LineFunction {
 		if (values[3] != null)
 			if (values[2] == null || Str.isEmpty(values[2].toString())) {
 				if (values[1] == null)
-					v = (String) values[0];
+					v = values[0] == null ? "" : values[0].toString();
 				else
 					v = Obj.getValue(values[0], (String) values[1]);
 
 				context.set((String) values[3], Img.isImage(v));
 			} else {
 				if (values[1] == null)
-					v = (String) values[0];
+					v = values[0] == null ? "" : values[0].toString();
 				else
 					v = Obj.getStringValue(values[0], (String) values[1], (String) values[2]);
 
@@ -44,7 +44,7 @@ public class $isimg extends LineFunction {
 			}
 		else {
 			if (values[1] == null)
-				v = (String) values[0];
+				v = values[0] == null ? "" : values[0].toString();
 			else
 				v = Obj.getStringValue(values[0], (String) values[1], (String) values[2]);
 
