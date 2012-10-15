@@ -247,12 +247,15 @@ public abstract class Img {
 		return ratio;
 	}
 
-	public static boolean isImage(String fileExt) {
-		int dot = fileExt.lastIndexOf(".");
+	public static boolean isImage(String filepath) {
+		if (filepath == null)
+			return false;
+
+		int dot = filepath.lastIndexOf(".");
 		if (dot > -1) {
-			fileExt = fileExt.substring(dot + 1);
+			filepath = filepath.substring(dot + 1);
 		}
-		return isExtension(fileExt, IMAGEARRAY);
+		return isExtension(filepath, IMAGEARRAY);
 	}
 
 	public static boolean isExtension(String fileExt, String[] extensions) {
