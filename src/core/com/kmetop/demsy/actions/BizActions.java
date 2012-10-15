@@ -246,7 +246,9 @@ public class BizActions extends ModuleActions implements BizConst, MvcConst {
 	@At(URL_BZSYS_COMB_CATALOG_EXPR)
 	public UIWidgetModel<UIBizSystem, Object> systemCombFkExpr(String moduleParam, final String dataID) throws DemsyException {
 		UIWidgetModel<UIBizSystem, Object> ret = this.systemCombExpr(moduleParam, dataID);
-		ret.set("comboboxType", "c_expr");
+		
+		//授权模块BUG：注释下面一条代码
+		//ret.set("comboboxType", "c_expr");
 
 		return ret;
 	}
