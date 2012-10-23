@@ -46,8 +46,7 @@ public class SoftConfigManager {
 		cache.put(softID, config);
 
 		IOrm orm = Demsy.orm();
-		List<ISoftConfig> list = orm.query(Demsy.bizEngine.getStaticType(LibConst.BIZSYS_ADMIN_CONFIG),
-				Expr.eq(LibConst.F_SOFT_ID, softID));
+		List<ISoftConfig> list = orm.query(Demsy.bizEngine.getStaticType(LibConst.BIZSYS_ADMIN_CONFIG), Expr.eq(LibConst.F_SOFT_ID, softID));
 		for (ISoftConfig ele : list) {
 			config.map.put(ele.getCode(), ele);
 		}
@@ -214,5 +213,9 @@ public class SoftConfigManager {
 		}
 
 		return defaultValue;
+	}
+
+	public ISoftConfig getConfig(String key) {
+		return map.get(key);
 	}
 }

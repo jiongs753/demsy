@@ -7,7 +7,7 @@
             <table width="100%">
               <tr>
                 <td class="il">{if $item.obj != null}
-                    <div class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}未上架{/if}</div>
+                    <div class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}<!-- 未上架 -->{/if}</div>
                     <div class="buy">{if $item.obj.nowPrice != null}<input type="submit" value="" pid="{$item.obj.id}" title='{$item.title}' poldprice='{tostring bean=$item.obj prop="oldPrice" pattern="#,##0.00"}' pprice='{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}' pbalance='{tostring bean=$item.obj prop="balance" pattern="#,##0.00"}' style="cursor:pointer;" class="btnBuy" />{/if}</div>
                     {else}&nbsp;{/if}
                 </td>
@@ -25,7 +25,7 @@
             <table width="100%">
               <tr>
                 <td class="il">{if $item.obj != null}
-                    <div class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}未上架{/if}</div>
+                    <div class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}<!-- 未上架 -->{/if}</div>
                     <div class="buy">{if $item.obj.nowPrice != null}<input type="submit" value="" pid="{$item.obj.id}" title='{$item.title}' poldprice='{tostring bean=$item.obj prop="oldPrice" pattern="#,##0.00"}' pprice='{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}' pbalance='{tostring bean=$item.obj prop="balance" pattern="#,##0.00"}' style="cursor:pointer;" class="btnBuy" />{/if}</div>
                     {else}&nbsp;{/if}
                 </td>
@@ -45,7 +45,7 @@
             <table width="100%">
               <tr>
                 <td class="il">{if $item.obj != null}
-                    <div class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}未上架{/if}</div>
+                    <div class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}<!-- 未上架 -->{/if}</div>
                     <div class="buy">{if $item.obj.nowPrice != null}<input type="submit" value="" pid="{$item.obj.id}" title='{$item.title}' poldprice='{tostring bean=$item.obj prop="oldPrice" pattern="#,##0.00"}' pprice='{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}' pbalance='{tostring bean=$item.obj prop="balance" pattern="#,##0.00"}' style="cursor:pointer;" class="btnBuy" />{/if}</div>
                     {else}&nbsp;{/if}
                 </td>

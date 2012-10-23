@@ -27,14 +27,14 @@
                         <tr>
                             <td class="topLbl" nowrap>现&nbsp;&nbsp;&nbsp;&nbsp;价：</td>
                             <td class="topPrice"><input id="p_buy_unitprice" type="hidden" value="{$obj.nowPrice}" />
-                            {if $obj.nowPrice != null}{tostring bean=$obj prop="nowPrice" pattern="#,##0.00"}{else}未上架{/if}</td>
+                            {if $obj.nowPrice != null}{tostring bean=$obj prop="nowPrice" pattern="#,##0.00"}{else}<!-- 未上架 -->{/if}</td>
                             <td class="topLbl">编&nbsp;&nbsp;&nbsp;&nbsp;号：</td>
                             <td>{tostring bean=$obj prop="code"}</td>
                         </tr>
                         {else}
                         <tr>
                             <td class="topLbl" nowrap>正&nbsp;&nbsp;&nbsp;&nbsp;常：</td>
-                            <td class="topPrice">{if $obj.price != null}{tostring bean=$obj prop="price" pattern="#,##0.00"}{else}未上架{/if}</td>
+                            <td class="topPrice">{if $obj.price != null}{tostring bean=$obj prop="price" pattern="#,##0.00"}{else}<!-- 未上架 -->{/if}</td>
                             <td class="topLbl">编&nbsp;&nbsp;&nbsp;&nbsp;号：</td>
                             <td>{tostring bean=$obj prop="code"}</td>
                         </tr>
@@ -68,7 +68,11 @@
                                         <input type="submit" class="topBtn{if $obj.nowPrice!= null} btnAddToCart{/if}" value=""/>
                                     </form>
                                    {else}
+                                   {if $cfgDeniedSale != null}
+                                   <span class="topPrice">{$cfgDeniedSale.desc}</span>
+                                   {else}
                                    <span class="topPrice">产品未上架，暂不能购买!</span>
+                                   {/if}
                                    {/if}
                                 </div>
                                 <div class="dialog directbuy_dialog" style="position:absolute;display:none;">

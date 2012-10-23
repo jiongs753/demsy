@@ -24,7 +24,7 @@ import com.kmetop.demsy.orm.ann.Prop;
 @Entity
 @BzSys(name = "网站栏目设置", code = IWebContentCatalog.SYS_CODE, catalog = BIZCATA_WEB, orderby = ORDER_WEB_INFO_CATALOG, buildin = true//
 , actions = { @BzAct(name = "新增栏目", typeCode = TYPE_BZFORM_NEW, mode = "c")//
-		, @BzAct(name = "批量修改", typeCode = TYPE_BZFORM_EDIT_N, mode = "bu")//
+		, @BzAct(name = "调整上级栏目", typeCode = TYPE_BZFORM_EDIT_N, mode = "bu")//
 		, @BzAct(jsonData = "CommonBizAction.data.js") //
 }//
 , groups = { @BzGrp(name = "基本信息", code = "basic"//

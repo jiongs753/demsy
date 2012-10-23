@@ -8,7 +8,7 @@
               <tr><td class="ir">&nbsp;{import file="../a.st" href=$item.href target=$item.target title=$item.title name=$item.name}</td></tr>
               <tr>
                 <td class="il">{if $item.obj != null}
-                    <span class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}未上架{/if}</span>
+                    <span class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}<!-- 未上架 -->{/if}</span>
                     {if $item.obj.nowPrice != $item.obj.oldPrice}
                     <span class="oldprice">{if $item.obj.oldPrice != null}{tostring bean=$item.obj prop="oldPrice" pattern="#,##0.00"}{/if}</span>
                     {/if}
@@ -28,7 +28,7 @@
               <tr><td class="ir">&nbsp;{import file="../a.st" href=$item.href target=$item.target title=$item.title name=$item.name}</td></tr>
               <tr>
                 <td class="il">{if $item.obj != null}
-                    <span class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}未上架{/if}</span>
+                    <span class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}<!-- 未上架 -->{/if}</span>
                     {if $item.obj.nowPrice != $item.obj.oldPrice}
                     <span class="oldprice">{if $item.obj.oldPrice != null}{tostring bean=$item.obj prop="oldPrice" pattern="#,##0.00"}{/if}</span>
                     {/if}
@@ -50,7 +50,7 @@
               <tr><td class="ir">&nbsp;{import file="../a.st" href=$item.href target=$item.target title=$item.title name=$item.name}</td></tr>
               <tr>
                 <td class="il">{if $item.obj != null}
-                    <span class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}未上架{/if}</span>
+                    <span class="price">{if $item.obj.nowPrice != null}￥{tostring bean=$item.obj prop="nowPrice" pattern="#,##0.00"}{else}<!-- 未上架 -->{/if}</span>
                     {if $item.obj.nowPrice != $item.obj.oldPrice}
                     <span class="oldprice">{if $item.obj.oldPrice != null}{tostring bean=$item.obj prop="oldPrice" pattern="#,##0.00"}{/if}</span>
                     {/if}

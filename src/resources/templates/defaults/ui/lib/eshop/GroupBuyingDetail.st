@@ -22,7 +22,7 @@
                         <tr>
                             <td class="topLbl" nowrap>团&nbsp;&nbsp;&nbsp;&nbsp;购:</td>
                             <td class="topPrice"><input id="p_buy_unitprice" type="hidden" value="{$obj.price}" />
-                            {if $obj.price != null}{tostring bean=$obj prop="price" pattern="#,##0.00"}{else}未上架{/if}</td>
+                            {if $obj.price != null}{tostring bean=$obj prop="price" pattern="#,##0.00"}{else}<!-- 未上架 -->{/if}</td>
                             <td class="topLbl">编&nbsp;&nbsp;&nbsp;&nbsp;号:</td>
                             <td>{tostring bean=$obj prop="code"}</td>
                         </tr>

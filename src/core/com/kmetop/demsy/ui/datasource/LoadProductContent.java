@@ -23,9 +23,12 @@ public class LoadProductContent extends LoadDetailContent {
 
 	protected void init(UIBlockContext maker, Map context) {
 		super.init(maker, context);
-		context.put("cfgPostFee", SoftConfigManager.me().getEshopPostFee());
-		context.put("cfgNotPostFee", SoftConfigManager.me().getEshopNotPostFee());
-		context.put("cfgNotPostFeeDesc", SoftConfigManager.me().getEshopNotPostFeeDesc());
+		SoftConfigManager scm = SoftConfigManager.me();
+		context.put("cfgPostFee", scm.getEshopPostFee());
+		context.put("cfgNotPostFee", scm.getEshopNotPostFee());
+		context.put("cfgNotPostFeeDesc", scm.getEshopNotPostFeeDesc());
+		context.put("cfgDeniedSale", scm.getConfig("eshop.denied_sale"));//禁止销售
+		
 		// 联系地址
 		if (Demsy.me().login() != null) {
 			IOrm orm = Demsy.orm();
