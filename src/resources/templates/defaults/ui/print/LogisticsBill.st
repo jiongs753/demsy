@@ -143,9 +143,9 @@
 		    <tr>
 			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; height: 25px; width: 340px; text-align: left;">名称</th>
 			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: left; width: 100px;">编码</th>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right;">单价(元)</th>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right;">数量</th>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right;">金额(元)</th>
+			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;">单价(元)</th>
+			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;">数量</th>
+			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;">金额(元)</th>
 			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right;width: 10px;">&nbsp;</th>
 		    </tr>{foreach from=$order.items item="item" key="idx"}
 	        <tr>
