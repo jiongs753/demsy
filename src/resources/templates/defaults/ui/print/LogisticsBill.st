@@ -165,8 +165,13 @@
 				<!-- td style="padding: 2px 5px 2px 5px; font-size: 14px;" align="right">{tostring bean=$order prop="totalCost" pattern="#,##0.00"}</td -->
 				<td style="padding: 2px 5px 2px 5px; font-size: 14px;" align="right"></td>
 			</tr>
+            <tr>
+                <th style="padding: 2px 5px 2px 5px; border-top: 1px solid #000000; height:25px;" colspan=4>发货说明</th>
+            </tr>
 	    	<tr>
-		    	<th style="padding:2px;height: 25px;border-top: 1px solid #000000;text-align: center;" colspan=4>{tostring bean=$order.deliver prop="desc"}</th>
+		    	<td style="padding:2px; height:25px;border-top: 1px solid #000000;text-align: left;" colspan=4>
+                {tohtml bean=$order prop="note2"}
+                </td>
 	    	</tr>
 	    </table></div>{/foreach}
     </div>
@@ -239,7 +244,7 @@ $(function(){
     })
     var LODOP=null;
     var nextToken="{$nextToken}";
-
+    
     /**
      * 打印快递单 
      */

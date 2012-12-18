@@ -1,8 +1,9 @@
 package com.kmetop.demsy.comlib.impl.base.ebusiness.order;
 
-import static com.kmetop.demsy.biz.BizConst.*;
+import static com.kmetop.demsy.biz.BizConst.TYPE_BZFORM_EDIT;
 import static com.kmetop.demsy.biz.BizConst.TYPE_BZFORM_EXPORT_XLS;
 import static com.kmetop.demsy.biz.BizConst.TYPE_BZFORM_PRINT;
+import static com.kmetop.demsy.biz.BizConst.TYPE_BZ_DEL;
 
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import com.kmetop.demsy.comlib.biz.ann.BzAct;
 import com.kmetop.demsy.comlib.biz.ann.BzFld;
 import com.kmetop.demsy.comlib.biz.ann.BzGrp;
 import com.kmetop.demsy.comlib.biz.ann.BzSys;
+import com.kmetop.demsy.comlib.biz.field.RichText;
 import com.kmetop.demsy.comlib.eshop.ILogistics;
 import com.kmetop.demsy.comlib.eshop.IProductDeliver;
 import com.kmetop.demsy.comlib.eshop.IProductOperator;
@@ -27,9 +29,10 @@ import com.kmetop.demsy.lang.Str;
 @Entity
 @BzSys(name = "订单发货管理", code = ILogistics.SYS_CODE, orderby = 3,//
 actions = {
-		@BzAct(name = "发货", typeCode = TYPE_BZFORM_PRINT, mode = "p", template = "ui.print.LogisticsBill", params = "printNum eq 0", info = "订单发货成功", error = "订单发货失败", plugin = "com.kmetop.demsy.plugins.eshop.PrintLogisticsBill") //
+		@BzAct(name = "发货说明", typeCode = TYPE_BZFORM_EDIT, mode = "e2")//
+		, @BzAct(name = "发货打印", typeCode = TYPE_BZFORM_PRINT, mode = "p", template = "ui.print.LogisticsBill", params = "printNum eq 0", info = "订单发货成功", error = "订单发货失败", plugin = "com.kmetop.demsy.plugins.eshop.PrintLogisticsBill") //
+		, @BzAct(name = "订单详情", typeCode = TYPE_BZFORM_EDIT, mode = "v") //
 		, @BzAct(name = "转发", typeCode = TYPE_BZFORM_EDIT, mode = "e1")//
-		, @BzAct(name = "详情", typeCode = TYPE_BZFORM_EDIT, mode = "v") //
 		, @BzAct(name = "导出XLS", typeCode = TYPE_BZFORM_EXPORT_XLS, mode = "xls") //
 		, @BzAct(name = "永久删除", typeCode = TYPE_BZ_DEL, mode = "d") //
 },//
@@ -37,13 +40,13 @@ groups = { //
 @BzGrp(name = "基本信息", code = "basic",//
 fields = { @BzFld(property = "orderID", gridOrder = 1)//
 		, @BzFld(property = "orderDate", gridOrder = 6) //
-		, @BzFld(property = "deliver", gridOrder = 2)//
+		, @BzFld(property = "deliver")//
 		, @BzFld(property = "operator")//
-		, @BzFld(property = "subject", name = "邮寄地址", precision = 512, isTransient = true, mode = "*:N v:S", gridOrder = 3, privacy = true)//
+		, @BzFld(property = "subject", name = "邮寄地址", precision = 512, isTransient = true, mode = "*:N v:S", gridOrder = 2, privacy = true)//
 		, @BzFld(property = "itemsCatalog")//
 		, @BzFld(property = "itemsAmount")//
-		, @BzFld(property = "totalCost", gridOrder = 5)//
-		, @BzFld(property = "sendGoodsInfo", name = "快递信息", isTransient = true, mode = "*:N v:S", gridOrder = 7)//
+		, @BzFld(property = "totalCost", gridOrder = 4)//
+		, @BzFld(property = "sendGoodsInfo", name = "快递信息", isTransient = true, mode = "*:N v:S", gridOrder = 5)//
 		, @BzFld(property = "code", name = "快递单号", mode = "*:N v:S p:M")//
 		, @BzFld(property = "printNum")//
 		, @BzFld(property = "printDate") //
@@ -52,8 +55,9 @@ fields = { @BzFld(property = "orderID", gridOrder = 1)//
 		, @BzFld(property = "postcode")//
 		, @BzFld(property = "name", name = "收件人", mode = "*:N v:S", privacy = true)//
 		, @BzFld(property = "telcode", privacy = true) //
-		, @BzFld(property = "desc", mode = "*:N v:S", name = "商品清单", gridOrder = 4) //
-		, @BzFld(property = "note", gridOrder = 8) //
+		, @BzFld(property = "desc", mode = "*:N v:S", name = "商品清单", gridOrder = 3) //
+		, @BzFld(property = "note", gridOrder = 7) //
+		, @BzFld(property = "note2", gridOrder = 8) //
 }) }// end groups
 )
 public class Logistics extends BizComponent implements ILogistics {
@@ -107,8 +111,11 @@ public class Logistics extends BizComponent implements ILogistics {
 	@BzFld(name = "发货时间", mode = "*:N v:S", pattern = "yyyy-MM-dd HH:mm")
 	protected Date printDate;
 
-	@BzFld(name = "订单留言", mode = "*:N v:S")
+	@BzFld(name = "订单留言", mode = "*:N e2:S v:S")
 	protected String note;
+	
+	@BzFld(name = "发货说明", mode = "*:N e2:E v:S")
+	protected RichText note2;
 
 	public String getNote() {
 		return note;
@@ -262,5 +269,13 @@ public class Logistics extends BizComponent implements ILogistics {
 
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
+	}
+
+	public RichText getNote2() {
+		return note2;
+	}
+
+	public void setNote2(RichText sendGoodsNote) {
+		this.note2 = sendGoodsNote;
 	}
 }
