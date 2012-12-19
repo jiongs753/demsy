@@ -115,34 +115,34 @@
 	    	<tr>
 		    	<td rowspan=6 style="padding: 5px;"><img src='{thumbs src=$order.deliver.billImage width=320 height=180}' border=0 /></td>
 		    	<th style="padding:2px;height: 25px;">订单号：</th>
-		    	<td>{$order.orderID}</td>
+		    	<td colspan=4>{$order.orderID}</td>
 	    	</tr>
 	    	<tr>
 		    	<th style="padding:2px;height: 25px;">物流单号：</th>
-		    	<td class="express_no_label">{tostring bean=$order prop="code"}</td>
+		    	<td colspan=4 class="express_no_label">{tostring bean=$order prop="code"}</td>
 	    	</tr>
 	    	<tr>
 		    	<th style="padding:2px;height: 25px;">收货人姓名：</th>
-		    	<td>{$order.name}</td>
+		    	<td colspan=4>{$order.name}</td>
 	    	</tr>
 	    	<tr>
 		    	<th style="padding:2px;height: 25px;">收货人电话：</th>
-		    	<td>{$order.telcode}</td>
+		    	<td colspan=4>{$order.telcode}</td>
 	    	</tr>
 	    	<tr>
 		    	<th style="padding:2px;height: 25px;">收货人邮编：</th>
-		    	<td>{$order.postcode}</td>
+		    	<td colspan=4>{$order.postcode}</td>
 	    	</tr>
 	    	<tr>
 		    	<th style="padding:2px;height: 25px;">收货人地址：</th>
-		    	<td>{$order.address}</td>
+		    	<td colspan=4>{$order.address}</td>
 	    	</tr>
 	    	<tr>
 		    	<td style="padding:2px; border-bottom: 1px solid #000000;height: 25px;" colspan=6></td>
 	    	</tr>
 		    <tr>
 			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; height: 25px; width: 340px; text-align: left;">名称</th>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: left; width: 100px;">编码</th>
+			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: left; width: 60px;">编码</th>
 			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;">单价(元)</th>
 			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;">数量</th>
 			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;">金额(元)</th>
