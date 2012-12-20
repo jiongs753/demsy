@@ -141,29 +141,31 @@
 		    	<td style="padding:2px; border-bottom: 1px solid #000000;height: 25px;" colspan=6></td>
 	    	</tr>
 		    <tr>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; height: 25px; width: 340px; text-align: left;">名称</th>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: left; width: 60px;">编码</th>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;">单价(元)</th>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;">数量</th>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;">金额(元)</th>
-			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right;width: 10px;">&nbsp;</th>
+			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; height: 25px; text-align: left; width: 340px;">名称</th>
+			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: left; width: 100px;">编码</th>
+                <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000;">&nbsp;</th>
+			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;" align="right">单价(元)</th>
+			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;" align="right">数量</th>
+			    <th style="padding:2px 5px 2px 5px; border-bottom: 1px solid #000000; text-align: right; width: 60px;" align="right">金额(元)</th>
 		    </tr>{foreach from=$order.items item="item" key="idx"}
 	        <tr>
-				<td style="padding: 2px 5px 2px 5px; height:25px;">{tostring bean=$item prop="name"}</td>
-				<td style="padding: 2px 5px 2px 5px; white-space: nowrap;">{tostring bean=$item prop="code"}</td>
-				<td style="padding: 2px 5px 2px 5px; font-size: 14px;" align="right">{tostring bean=$item prop="price" pattern="#,##0.00"}</td>
-				<td style="padding: 2px 5px 2px 5px; font-size: 14px;" align="right">{tostring bean=$item prop="amount"}</td>
-				<td style="padding: 2px 5px 2px 5px; font-size: 14px;" align="right">{tostring bean=$item prop="subtotal" pattern="#,##0.00"}</td>
-				<td style="padding: 2px 5px 2px 5px; font-size: 14px;" align="right"></td>
+				<td style="padding: 2px 5px 2px 5px; height:25px; text-align: left; width: 340px;">{tostring bean=$item prop="name"}</td>
+				<td style="padding: 2px 5px 2px 5px; font-size: 14px; text-align: left; width: 100px;white-space: nowrap;">{tostring bean=$item prop="code"}</td>
+                <td style="padding: 2px 5px 2px 5px; font-size: 14px;">&nbsp;</td>
+				<td style="padding: 2px 5px 2px 5px; font-size: 14px; text-align: right; width: 60px;" align="right">{tostring bean=$item prop="price" pattern="#,##0.00"}</td>
+				<td style="padding: 2px 5px 2px 5px; font-size: 14px; text-align: right; width: 60px;" align="right">{tostring bean=$item prop="amount"}</td>
+				<td style="padding: 2px 5px 2px 5px; font-size: 14px; text-align: right; width: 60px;" align="right">{tostring bean=$item prop="subtotal" pattern="#,##0.00"}</td>
 			</tr>{/foreach}
 	    	<tr>
 		    	<td style="padding:2px;height: 25px;border-bottom: 1px solid #000000;" colspan=6></td>
 	    	</tr>
 	        <tr>
-				<th style="padding: 2px 5px 2px 5px; height:25px;" colspan=3>合计：</th>
-				<td style="padding: 2px 5px 2px 5px; font-size: 14px;" align="right">{tostring bean=$order prop="itemsAmount"}</td>
-				<td style="padding: 2px 5px 2px 5px; font-size: 14px;" align="right">{tostring bean=$order prop="totalCost" pattern="#,##0.00"}</td>
-				<td style="padding: 2px 5px 2px 5px; font-size: 14px;" align="right"></td>
+				<th style="padding: 2px 5px 2px 5px; height:25px;">合计：</th>
+                <td style="padding: 2px 5px 2px 5px; font-size: 14px; text-align: left; width: 100px;">&nbsp;</td>
+                <td style="padding: 2px 5px 2px 5px; font-size: 14px;">&nbsp;</td>
+                <td style="padding: 2px 5px 2px 5px; font-size: 14px; text-align: right; width: 60px;" align="right">&nbsp;</td>
+				<td style="padding: 2px 5px 2px 5px; font-size: 14px; text-align: right; width: 60px;" align="right">{tostring bean=$order prop="itemsAmount"}</td>
+				<td style="padding: 2px 5px 2px 5px; font-size: 14px; text-align: right; width: 60px;" align="right">{tostring bean=$order prop="totalCost" pattern="#,##0.00"}</td>
 			</tr>
             <tr>
                 <th style="padding: 2px 5px 2px 5px; border-top: 1px solid #000000; height:25px;" colspan=6>发货说明</th>
