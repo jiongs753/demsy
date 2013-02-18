@@ -25,15 +25,15 @@ import com.kmetop.demsy.comlib.web.IActivityEntry;
 		, @BzAct(name = "兑奖", typeCode = TYPE_BZ_EXEC_SYNC, mode = "bu1", plugin = "com.kmetop.demsy.plugins.activity.StockGuessPrize") //
 		, @BzAct(name = "领奖", typeCode = TYPE_BZFORM_EDIT_N, mode = "bu") //
 }//
-, groups = { @BzGrp(name = "竞猜信息", code = "basic"//
+, groups = { @BzGrp(name = "其他信息", code = "basic"//
 , fields = { @BzFld(property = "catalog") //
 		, @BzFld(property = "catalog.name", isTransient = true, mode = "*:N v:S", name = "活动名称") //
-		, @BzFld(property = "guessValue", gridOrder = 4) //
 		, @BzFld(property = "created", mode = "*:N v:S", pattern = "yyyy-MM-dd HH:mm:ss", name = "竞猜时间") //
 		, @BzFld(property = "createdBy", mode = "*:N v:S", name = "竞猜帐号") //
 		, @BzFld(property = "createdIP") //
-}), @BzGrp(name = "联系方式", code = "contact"//
-, fields = { @BzFld(property = "username", gridOrder = 1) //
+}), @BzGrp(name = "竞猜信息", code = "contact"//
+, fields = { @BzFld(property = "guessValue", gridOrder = 4) //
+		, @BzFld(property = "username", gridOrder = 1) //
 		, @BzFld(property = "sex", privacy = true) //
 		, @BzFld(property = "tel", privacy = true, gridOrder = 2) //
 		, @BzFld(property = "postcode") //

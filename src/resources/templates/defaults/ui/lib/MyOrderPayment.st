@@ -34,25 +34,25 @@
 			<td><input type="radio" name="pay_bank" id="ICBCB2C" value="ICBCB2C" /><label title="中国工商银行" for="ICBCB2C"><img src="{$contextPath}/themes2/images/banks/ICBC_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="CMB" value="CMB" /><label title="招商银行" for="CMB"><img src="{$contextPath}/themes2/images/banks/CMB_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="CCB" value="CCB" /><label title="中国建设银行" for="CCB"><img src="{$contextPath}/themes2/images/banks/CCB_OUT.gif" border="0" /> </label></td>
-			<td><input type="radio" name="pay_bank" id="BOCB2C" value="BOCB2C"><label title="中国银行" for="BOCB2C"><img src="{$contextPath}/themes2/images/banks/BOC_OUT.gif" border="0" /> </label></td>
+			<td><input type="radio" name="pay_bank" id="BOCB2C" value="BOCB2C" /><label title="中国银行" for="BOCB2C"><img src="{$contextPath}/themes2/images/banks/BOC_OUT.gif" border="0" /> </label></td>
 		</tr>
 		<tr>
 			<td><input type="radio" name="pay_bank" id="ABC" value="ABC" /><label title="中国农业银行" for="ABC"><img src="{$contextPath}/themes2/images/banks/ABC_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="COMM" value="COMM" /><label title="交通银行" for="COMM"><img src="{$contextPath}/themes2/images/banks/COMM_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="SPDB" value="SPDB" /><label title="浦发银行" for="SPDB"><img src="{$contextPath}/themes2/images/banks/SPDB_OUT.gif" border="0" /> </label></td>
-			<td><input type="radio" name="pay_bank" id="GDB" value="GDB"><label title="广发银行" for="GDB"><img src="{$contextPath}/themes2/images/banks/gb1.gif" border="0" /> </label></td>
+			<td><input type="radio" name="pay_bank" id="GDB" value="GDB" /><label title="广发银行" for="GDB"><img src="{$contextPath}/themes2/images/banks/gb1.gif" border="0" /> </label></td>
 		</tr>
 		<tr>
 			<td><input type="radio" name="pay_bank" id="CITIC" value="CITIC" /><label title="中信银行" for="CITIC"><img src="{$contextPath}/themes2/images/banks/CITIC_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="CEBBANK" value="CEBBANK" /><label title="光大银行" for="CEBBANK"><img src="{$contextPath}/themes2/images/banks/CEB_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="CIB" value="CIB" /><label title="兴业银行" for="CIB"><img src="{$contextPath}/themes2/images/banks/CIB_OUT.gif" border="0" /> </label></td>
-			<td><input type="radio" name="pay_bank" id="SDB" value="SDB"><label title="深圳发展银行" for="SDB"><img src="{$contextPath}/themes2/images/banks/SDB_OUT.gif" border="0" /> </label></td>
+			<td><input type="radio" name="pay_bank" id="SDB" value="SDB" /><label title="深圳发展银行" for="SDB"><img src="{$contextPath}/themes2/images/banks/SDB_OUT.gif" border="0" /> </label></td>
 		</tr>
 		<tr>
 			<td><input type="radio" name="pay_bank" id="CMBC" value="CMBC" /><label title="民生银行" for="CMBC"><img src="{$contextPath}/themes2/images/banks/CMBC_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="HZCBB2C" value="HZCBB2C" /><label title="杭州银行" for="HZCBB2C"><img src="{$contextPath}/themes2/images/banks/HZCB_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="SHBANK" value="SHBANK" /><label title="上海银行" for="SHBANK"><img src="{$contextPath}/themes2/images/banks/SHBANK_OUT.gif" border="0" /> </label></td>
-			<td><input type="radio" name="pay_bank" id="NBBANK" value="NBBANK "><label title="宁波银行" for="NBBANK"><img src="{$contextPath}/themes2/images/banks/NBBANK_OUT.gif" border="0" /> </label></td>
+			<td><input type="radio" name="pay_bank" id="NBBANK" value="NBBANK" /><label title="宁波银行" for="NBBANK"><img src="{$contextPath}/themes2/images/banks/NBBANK_OUT.gif" border="0" /> </label></td>
 		</tr>
 		<tr>
 			<td><input type="radio" name="pay_bank" id="SPABANK" value="SPABANK" /><label title="平安银行" for="SPABANK"><img src="{$contextPath}/themes2/images/banks/SPABANK_OUT.gif" border="0" /> </label></td>
@@ -68,7 +68,7 @@
 		</tr>
         <tr>
             <td><input type="radio" name="pay_bank" id="more" value="1" /><label title="支付宝即时到帐，可以选择更多付款方式" for="more"><img src="{$contextPath}/themes2/images/banks/pay1.gif" border="0" /> </label></td>
-            <td><input type="radio" name="pay_bank" id="dbjy" value="0"><label title="支付宝担保交易付款，先收货后付款，可以选择更多付款方式" for="dbjy"><img src="{$contextPath}/themes2/images/banks/pay2.gif" border="0" /> </label></td>
+            <td><input type="radio" name="pay_bank" id="dbjy" value="0" /><label title="支付宝担保交易付款，先收货后付款，可以选择更多付款方式" for="dbjy"><img src="{$contextPath}/themes2/images/banks/pay2.gif" border="0" /> </label></td>
         </tr>
         <tr>
             <td class="ui-btns" colspan=4><div class="ui-btn"><input type="submit" class="btnNextStep ui-btn" title="下一步：使用选定的网银或支付宝付款，卖家发货。" value="下一步" /></div></td>

@@ -45,18 +45,18 @@ fields = { @BzFld(property = "catalog", gridOrder = 1)//
 		, @BzFld(name = "产品编码", property = "code", mode = "c:E e:E v:S *:N")//
 		, @BzFld(property = "operator")//
 		, @BzFld(property = "storage")//
-		, @BzFld(property = "image", gridOrder = 3)//
+		, @BzFld(property = "image")//
 		, @BzFld(property = "spec") //
 		, @BzFld(property = "recommend") //
-		, @BzFld(property = "onlineDate") //
+		, @BzFld(property = "onlineDate", gridOrder = 3) //
 		, @BzFld(property = "oldPrice", gridOrder = 4)//
 		, @BzFld(property = "price", gridOrder = 5)//
 		, @BzFld(property = "allowBuy")//
 		, @BzFld(property = "saleNum", gridOrder = 6)//
-		, @BzFld(property = "stockNum") //
-		, @BzFld(property = "keywords", gridOrder = 7) //
+		, @BzFld(property = "stockNum", gridOrder = 7) //
+		, @BzFld(property = "keywords") //
 		, @BzFld(name = "产品说明", property = "desc", mode = "c:E e:E v:S *:N") //
-		, @BzFld(name = "人工顺序", property = "orderby", uiTemplate = "ui.widget.field.Spinner", mode = "v:S *:N") //
+		, @BzFld(name = "人工顺序", property = "orderby", uiTemplate = "ui.widget.field.Spinner", mode = "v:S *:N", gridOrder = 8) //
 }), @BzGrp(name = "产品详情", code = "content",//
 fields = { @BzFld(property = "content") //
 }), @BzGrp(name = "产品特征", code = "attributes",//

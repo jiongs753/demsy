@@ -51,31 +51,31 @@
 	<table width="100%" class="bankstable">
 		<caption class="title">请选择您的付款方式：</caption>
 		<tr>
-			<td><input type="radio" name="pay_bank" id="directPay" value="directPay" checked><label for="directPay"><img src="{$contextPath}/themes2/images/banks/alipay_1.gif" border="0" /> </label></td>
+			<td><input type="radio" name="pay_bank" id="directPay" value="directPay" checked /><label for="directPay"><img src="{$contextPath}/themes2/images/banks/alipay_1.gif" border="0" /> </label></td>
 		</tr>
 		<tr>
 			<td><input type="radio" name="pay_bank" id="ICBCB2C" value="ICBCB2C" /><label for="ICBCB2C"><img src="{$contextPath}/themes2/images/banks/ICBC_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="CMB" value="CMB" /><label for="CMB"><img src="{$contextPath}/themes2/images/banks/CMB_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="CCB" value="CCB" /><label for="CCB"><img src="{$contextPath}/themes2/images/banks/CCB_OUT.gif" border="0" /> </label></td>
-			<td><input type="radio" name="pay_bank" id="BOCB2C" value="BOCB2C"><label for="BOCB2C"><img src="{$contextPath}/themes2/images/banks/BOC_OUT.gif" border="0" /> </label></td>
+			<td><input type="radio" name="pay_bank" id="BOCB2C" value="BOCB2C" /><label for="BOCB2C"><img src="{$contextPath}/themes2/images/banks/BOC_OUT.gif" border="0" /> </label></td>
 		</tr>
 		<tr>
 			<td><input type="radio" name="pay_bank" id="ABC" value="ABC" /><label for="ABC"><img src="{$contextPath}/themes2/images/banks/ABC_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="COMM" value="COMM" /><label for="COMM"><img src="{$contextPath}/themes2/images/banks/COMM_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="SPDB" value="SPDB" /><label for="SPDB"><img src="{$contextPath}/themes2/images/banks/SPDB_OUT.gif" border="0" /> </label></td>
-			<td><input type="radio" name="pay_bank" id="GDB" value="GDB"><label for="GDB"><img src="{$contextPath}/themes2/images/banks/GDB_OUT.gif" border="0" /> </label></td>
+			<td><input type="radio" name="pay_bank" id="GDB" value="GDB" /><label for="GDB"><img src="{$contextPath}/themes2/images/banks/GDB_OUT.gif" border="0" /> </label></td>
 		</tr>
 		<tr>
 			<td><input type="radio" name="pay_bank" id="CITIC" value="CITIC" /><label for="CITIC"><img src="{$contextPath}/themes2/images/banks/CITIC_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="CEBBANK" value="CEBBANK" /><label for="CEBBANK"><img src="{$contextPath}/themes2/images/banks/CEB_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="CIB" value="CIB" /><label for="CIB"><img src="{$contextPath}/themes2/images/banks/CIB_OUT.gif" border="0" /> </label></td>
-			<td><input type="radio" name="pay_bank" id="SDB" value="SDB"><label for="SDB"><img src="{$contextPath}/themes2/images/banks/SDB_OUT.gif" border="0" /> </label></td>
+			<td><input type="radio" name="pay_bank" id="SDB" value="SDB" /><label for="SDB"><img src="{$contextPath}/themes2/images/banks/SDB_OUT.gif" border="0" /> </label></td>
 		</tr>
 		<tr>
 			<td><input type="radio" name="pay_bank" id="CMBC" value="CMBC" /><label for="CMBC"><img src="{$contextPath}/themes2/images/banks/CMBC_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="HZCBB2C" value="HZCBB2C" /><label for="HZCBB2C"><img src="{$contextPath}/themes2/images/banks/HZCB_OUT.gif" border="0" /> </label></td>
 			<td><input type="radio" name="pay_bank" id="SHBANK" value="SHBANK" /><label for="SHBANK"><img src="{$contextPath}/themes2/images/banks/SHBANK_OUT.gif" border="0" /> </label></td>
-			<td><input type="radio" name="pay_bank" id="NBBANK" value="NBBANK "><label for="NBBANK"><img src="{$contextPath}/themes2/images/banks/NBBANK_OUT.gif" border="0" /> </label></td>
+			<td><input type="radio" name="pay_bank" id="NBBANK" value="NBBANK" /><label for="NBBANK"><img src="{$contextPath}/themes2/images/banks/NBBANK_OUT.gif" border="0" /> </label></td>
 		</tr>
 		<tr>
 			<td><input type="radio" name="pay_bank" id="SPABANK" value="SPABANK" /><label for="SPABANK"><img src="{$contextPath}/themes2/images/banks/SPABANK_OUT.gif" border="0" /> </label></td>

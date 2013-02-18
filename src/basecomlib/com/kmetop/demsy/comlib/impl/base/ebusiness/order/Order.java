@@ -21,8 +21,8 @@ import com.kmetop.demsy.lang.Str;
 @Entity
 @BzSys(name = "订单信息管理", code = IOrder.SYS_CODE, orderby = 1,//
 actions = { @BzAct(name = "付款", typeCode = TYPE_BZFORM_EDIT, mode = "e2", plugin = "com.kmetop.demsy.plugins.eshop.OrderBuyerPayed")//
-		,@BzAct(name = "退款", typeCode = TYPE_BZFORM_EDIT, mode = "e3", plugin = "com.kmetop.demsy.plugins.eshop.OrderRefund")//
-		,@BzAct(name = "删除", typeCode = TYPE_BZ_DEL, mode = "d", plugin = "com.kmetop.demsy.plugins.eshop.OrderDelete")//
+		, @BzAct(name = "退款", typeCode = TYPE_BZFORM_EDIT, mode = "e3", plugin = "com.kmetop.demsy.plugins.eshop.OrderRefund")//
+		, @BzAct(name = "删除", typeCode = TYPE_BZ_DEL, mode = "d", plugin = "com.kmetop.demsy.plugins.eshop.OrderDelete")//
 		// , @BzAct(name = "发货处理", typeCode = TYPE_BZ_EDIT, mode = "e1", plugin
 		// = "com.kmetop.demsy.plugins.eshop.OrderSended")//
 		// , @BzAct(name = "调整费用", typeCode = TYPE_BZ_EDIT_N, mode = "bu",
@@ -78,8 +78,7 @@ public class Order extends BizComponent implements IOrder {
 		paytypeMap.put("CCB", "中国建设银行");
 		paytypeMap.put("BOCB2C", "中国银行");
 		paytypeMap.put("ABC", "中国农业银行");
-		paytypeMap.put("中国农业银行", "");
-		paytypeMap.put("CCB", "交通银行");
+		paytypeMap.put("COMM", "交通银行");
 		paytypeMap.put("SPDB", "浦发银行");
 		paytypeMap.put("GDB", "广发银行");
 		paytypeMap.put("CITIC", "中信银行");
@@ -227,10 +226,13 @@ public class Order extends BizComponent implements IOrder {
 	}
 
 	public String getPayInfo() {
+		if (paytype == null)
+			paytype = "";
+
 		if (!Str.isEmpty(tradeID))
-			return new StringBuffer().append(paytypeMap.get(paytype)).append("(").append(tradeID).append(")").toString();
+			return new StringBuffer().append(paytypeMap.get(paytype.trim())).append("(").append(tradeID).append(")").toString();
 		else if (!Str.isEmpty(paytype))
-			return paytypeMap.get(paytype);
+			return paytypeMap.get(paytype.trim());
 
 		return "";
 	}

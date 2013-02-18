@@ -468,7 +468,7 @@ public class OrderActions extends ModuleActions implements BizConst, MvcConst {
 			// 已经发货的物流单数量
 			int lnoNum = Str.toArray(order.getLogisticsID()).length;
 			// 担保交易
-			if (order.getPaytype().equals(IOrder.PAYTYPE_DB)) {
+			if (IOrder.PAYTYPE_DB.equals(order.getPaytype())) {
 				if (order.getStatus() < STATUS_WAIT_BUYER_CONFIRM_GOODS// 订单状态为未发货
 						&& lnoNum >= lnum// 物流单发货完毕
 				) {
@@ -641,7 +641,8 @@ public class OrderActions extends ModuleActions implements BizConst, MvcConst {
 					sParaTemp.put("payment", "bankPay");
 					sParaTemp.put("defaultbank", payment.equals("1") ? "" : payment);
 				}
-				order.setPaytype(payment);// 支付方式：支付宝
+				if (!Str.isEmpty(payment))
+					order.setPaytype(payment);// 支付方式：支付宝
 				order.setNote(note);
 
 				orm.save(order, Expr.fieldRexpr("paytype$|note$", false));
