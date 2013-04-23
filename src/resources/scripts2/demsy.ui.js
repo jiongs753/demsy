@@ -295,7 +295,7 @@ var pngfix = function() {
 						}
 						setTimeout(function() {
 							_rolls(_current);
-						}, 100);
+						}, 5000);
 					}
 					;
 					if (options.action == "slifade") {
@@ -1239,12 +1239,12 @@ var WebUI = function(options) {
 			// process : true,
 			direct : "left",
 			custom : function(b, c) {
-				$("p", c).fadeOut();
-				$("p", c).slideDown();
+				//$("p", c).fadeOut();
+				//$("p", c).slideDown();
 			},
 			done : function(b, c, t) {
-				$("p", c).fadeTo(500, .7).hide();
-				c.first().find("p").slideDown();
+				//$("p", c).fadeTo(500, .7).hide();
+				//c.first().find("p").slideDown();
 			}
 		});
 		$(".marquee").marquee();
