@@ -48,10 +48,10 @@ fields = { @BzFld(property = "catalog", gridOrder = 1)//
 		, @BzFld(property = "image")//
 		, @BzFld(property = "spec") //
 		, @BzFld(property = "recommend") //
-		, @BzFld(property = "onlineDate", gridOrder = 3) //
+		, @BzFld(property = "onlineDate") //
 		, @BzFld(property = "oldPrice", gridOrder = 4)//
 		, @BzFld(property = "price", gridOrder = 5)//
-		, @BzFld(property = "allowBuy")//
+		, @BzFld(property = "allowBuy", gridOrder = 3)//
 		, @BzFld(property = "saleNum", gridOrder = 6)//
 		, @BzFld(property = "stockNum", gridOrder = 7) //
 		, @BzFld(property = "keywords") //
@@ -127,7 +127,7 @@ public class Product extends BizComponent implements IProduct {
 	@BzFld(name = "产品现价", mode = "c:E e:E e1:E v:S *:N", pattern = "#,##0.00")
 	protected Double price;
 
-	@BzFld(name = "网购许可", mode = "c:E e:E e1:E bu4:E v:S *:N", disabledNavi = true, options = "1:允许网购,0:禁止网购")
+	@BzFld(name = "产品状态", mode = "c:E e:E e1:E bu4:E v:S *:N", options = "1:允许网购,0:禁止网购,2:已下架")
 	protected byte allowBuy;
 
 	@BzFld(name = "库存数量", mode = "c:E e:E e1:E v:S *:N")

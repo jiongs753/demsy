@@ -30,9 +30,10 @@ import com.kmetop.demsy.orm.ann.Prop;
 , groups = { @BzGrp(name = "基本信息", code = "basic"//
 , fields = {
 //
-		@BzFld(property = "parent", gridOrder = 2) //
+		@BzFld(property = "parent", gridOrder = 3) //
 		, @BzFld(name = "栏目名称", property = "name", mode = "c:M e:M", tostring = true, gridOrder = 1)//
-		, @BzFld(property = "type", gridOrder = 3) //
+		, @BzFld(name = "栏目编码", property = "code", mode = "c:M e:M", gridOrder = 2) //
+		, @BzFld(property = "type", gridOrder = 4) //
 		, @BzFld(property = "refrence") //
 		, @BzFld(property = "infoType") //
 		, @BzFld(property = "infoRequiredImage") //

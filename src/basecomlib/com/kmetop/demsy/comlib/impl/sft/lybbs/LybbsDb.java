@@ -46,6 +46,7 @@ import com.kmetop.demsy.lang.Cls;
 		, @BzFld(property = "desc") //
 		, @BzFld(property = "topicnumber", gridOrder = 5)//
 		, @BzFld(property = "replynumber", gridOrder = 6) //
+		, @BzFld(property = "orderby", gridOrder = 6) //
 })
 // , @BzGrp(name = "定时状态", code = "timestatus"//
 // , fields = {
@@ -139,6 +140,7 @@ public class LybbsDb implements IBbsForum {
 	@BzFld(name = "分", options = "0,5,10,15,20,25,30,35,40,45,50,55", disabledNavi = true)
 	protected byte timetominute;
 
+	@BzFld(name = "显示顺序", mode = "*:N v:S c:M e:M")
 	protected Integer orderby;
 
 	@Override

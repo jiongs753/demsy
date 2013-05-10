@@ -1,5 +1,10 @@
 package com.kmetop.demsy.actions;
 
+import static com.kmetop.demsy.comlib.LibConst.F_CATALOG;
+import static com.kmetop.demsy.comlib.LibConst.F_CODE;
+import static com.kmetop.demsy.comlib.LibConst.F_NAME;
+import static com.kmetop.demsy.comlib.LibConst.F_SOFT_ID;
+import static com.kmetop.demsy.comlib.LibConst.F_UPDATED;
 import static com.kmetop.demsy.mvc.MvcConst.VW_BIZ;
 
 import java.io.File;
@@ -24,6 +29,7 @@ import com.kmetop.demsy.lang.DemsyException;
 import com.kmetop.demsy.lang.Http;
 import com.kmetop.demsy.lang.Img;
 import com.kmetop.demsy.lang.Obj;
+import com.kmetop.demsy.lang.Str;
 import com.kmetop.demsy.mvc.MvcConst;
 import com.kmetop.demsy.mvc.nutz.DemsyAdaptor;
 import com.kmetop.demsy.orm.IOrm;
@@ -31,25 +37,135 @@ import com.kmetop.demsy.orm.Pager;
 import com.kmetop.demsy.orm.expr.CndExpr;
 import com.kmetop.demsy.orm.expr.Expr;
 
+import domis.json.JSON;
+import domis.utils.HttpUtil;
+
+/**
+ * 智能终端设备（APP）请求处理器：
+ * 
+ * @author yongshan.ji
+ * 
+ */
 @Ok(VW_BIZ)
 @Fail(VW_BIZ)
 @AdaptBy(type = DemsyAdaptor.class)
-public class IPhoneActions extends ModuleActions implements BizConst, MvcConst {
+public class AppActions extends ModuleActions implements BizConst, MvcConst {
 
+	/**
+	 * 获取JSON格式的网站信息分页列表。
+	 * <P>
+	 * HTTP参数：
+	 * <UL>
+	 * <LI>catalog: 栏目编号，路径参数中没有指定栏目编号时生效。
+	 * <LI>keywords: 查询关键字
+	 * <LI>pageIndex: 页索引，默认值为0。
+	 * <LI>pageSize: 每页记录数，默认值为20。
+	 * </UL>
+	 * <p>
+	 * 如：http://www.yourdomain.com/app/jsonWebInfoList/zxtj?q=Demsy&pi=0&ps=20
+	 * 
+	 * @param cataCode
+	 *            网站栏目编号（网站栏目：用来对网站信息进行分类）
+	 */
+	@At("/app/jsonWebInfoList/*")
+	public void jsonWebInfoList(String cataCode) {
+		/*
+		 * 获取DEMSY环境信息
+		 */
+		Demsy ctx = Demsy.me();
+		IOrm orm = Demsy.orm();
+		Long softID = ctx.getSoft().getId();
+
+		/*
+		 * 获取HTTP参数
+		 */
+		if (Str.isEmpty(cataCode)) {
+			cataCode = ctx.param("catalog", String.class, "");
+		}
+		String keywords = ctx.param("keywords", String.class, "");
+		int pageIndex = ctx.param("pageIndex", Integer.class, 0);
+		int pageSize = ctx.param("pageSize", Integer.class, 20);
+
+		/*
+		 * 查询网站栏目
+		 */
+		Class webCataType = Demsy.bizEngine.getType(IWebContentCatalog.SYS_CODE);
+		List<IWebContent> result = null;
+		if (!Str.isEmpty(cataCode)) {
+			List webCataList = Demsy.orm().query(webCataType, Expr.eq(F_SOFT_ID, softID).and(Expr.eq("infoEnabledSearch", 1)));// .and(Expr.eq(F_CODE,
+																							// cataCode)));
+
+			/*
+			 * 查询网站信息
+			 */
+			CndExpr webInfoExpr = Expr.eq(F_SOFT_ID, softID)// 软件标识
+					.and(Expr.in(F_CATALOG, webCataList))// 所属栏目
+					.and(Expr.isNull("refrence"))// 推荐的信息除外
+					.and(Expr.notNull("image"))// 信息中包含图片
+					.and(Expr.ne("image", ""))//
+					// .and(Expr.notNull("content"))// 内容非空
+					.and(Expr.eq("status", 1));// 已发布的信息
+			if (!Str.isEmpty(keywords)) {
+				webInfoExpr.and(Expr.contains(F_NAME, keywords));
+			}
+			webInfoExpr.addDesc(F_UPDATED);// 排序
+
+			Class webInfoType = Demsy.bizEngine.getType(IWebContent.SYS_CODE);
+			Pager pager = Pager.make(webInfoType, pageSize, pageIndex, webInfoExpr);
+			result = orm.query(pager);
+		}
+
+		/**
+		 * 生成JSON文本
+		 */
+		StringBuffer json = new StringBuffer();
+		json.append("{");
+		json.append("\"data\":[");
+		int len = result == null ? 0 : result.size();
+		for (int i = 0; i < len; i++) {
+			if (i > 0)
+				json.append(",");
+
+			IWebContent info = result.get(i);
+			json.append("{");
+			json.append("\"id\":\"").append(info.getInfoID()).append("\"");
+			json.append(",\"title\":").append(JSON.toJson(info.getName()));
+			String srcImage = info.getInfoImage();
+			if (!Str.isEmpty(srcImage))
+				json.append(",\"image\":").append(JSON.toJson(this.zoomImage(srcImage, 75, 75, true)));
+			json.append(",\"summary\":").append(JSON.toJson(info.getInfoDesc()));
+			json.append(",\"updated\":").append(JSON.toJson(info.getInfoDate()));
+			json.append("}");
+		}
+		json.append("]");
+		json.append("}");
+
+		/**
+		 * 数据JSON文本到终端
+		 */
+		try {
+			HttpUtil.writeJson(ctx.response(), json.toString());
+		} catch (IOException e) {
+			log.error("输出JSON到APP终端出错！", e);
+		}
+	}
+
+	// =================================================================================================================
+	//
+	// =================================================================================================================
 	/**
 	 * 输出新闻列表（.plist 格式的XML内容）到iPhone设备
 	 * 
 	 * @throws DemsyException
 	 */
-	@At("/ui/iphone/plistWebInfo/*")
+	// @At("/ui/iphone/plistWebInfo/*")
 	public void plistWebInfo(int imageWidth, int imageHeight, int pageIndex) {
 		// IBizManager bizManager = getBizManager(IWebInfo.SYS_CODE);
 		IOrm orm = Demsy.orm();
 
 		// 获取支持检索的网站栏目
 		Class webInfoCatalogType = Demsy.bizEngine.getType(IWebContentCatalog.SYS_CODE);
-		List webInfoCatalogList = Demsy.orm().query(webInfoCatalogType,
-				Expr.eq(LibConst.F_SOFT_ID, Demsy.me().getSoft().getId()).and(Expr.eq("infoEnabledSearch", 1)));
+		List webInfoCatalogList = Demsy.orm().query(webInfoCatalogType, Expr.eq(LibConst.F_SOFT_ID, Demsy.me().getSoft().getId()).and(Expr.eq("infoEnabledSearch", 1)));
 
 		CndExpr expr = Expr.eq(LibConst.F_SOFT_ID, Demsy.me().getSoft().getId())
 		// 软件标识
@@ -89,8 +205,7 @@ public class IPhoneActions extends ModuleActions implements BizConst, MvcConst {
 			// image
 			xml.append("<key>image</key>");
 			String srcImage = info.getInfoImage();
-			xml.append("<string><![CDATA[").append(this.zoomImage(srcImage, imageWidth, imageHeight, true))
-					.append("]]></string>");
+			xml.append("<string><![CDATA[").append(this.zoomImage(srcImage, imageWidth, imageHeight, true)).append("]]></string>");
 
 			// title
 			xml.append("<key>title</key>");
@@ -121,7 +236,7 @@ public class IPhoneActions extends ModuleActions implements BizConst, MvcConst {
 	 * @param id
 	 *            新闻对象ID
 	 */
-	@At("/ui/iphone/detailWebInfo/*")
+	// @At("/ui/iphone/detailWebInfo/*")
 	public void detailWebInfo(Long id) throws DemsyException {
 		Class type = Demsy.bizEngine.getType(IWebContent.SYS_CODE);
 		IOrm orm = Demsy.orm();
@@ -148,7 +263,7 @@ public class IPhoneActions extends ModuleActions implements BizConst, MvcConst {
 	 * 
 	 * @throws DemsyException
 	 */
-	@At("/ui/iphone/plistProduct/*")
+	// @At("/ui/iphone/plistProduct/*")
 	public void plistProduct(int imageWidth, int imageHeight, int pageIndex) {
 		IOrm orm = Demsy.orm();
 
@@ -185,8 +300,7 @@ public class IPhoneActions extends ModuleActions implements BizConst, MvcConst {
 			if (info.getImage() != null) {
 				srcImage = info.getImage().toString();
 			}
-			xml.append("<string><![CDATA[").append(this.zoomImage(srcImage, imageWidth, imageHeight, true))
-					.append("]]></string>");
+			xml.append("<string><![CDATA[").append(this.zoomImage(srcImage, imageWidth, imageHeight, true)).append("]]></string>");
 
 			// title
 			xml.append("<key>title</key>");
@@ -222,7 +336,7 @@ public class IPhoneActions extends ModuleActions implements BizConst, MvcConst {
 	 * @param id
 	 *            产品对象ID
 	 */
-	@At("/ui/iphone/detailProduct/*")
+	// @At("/ui/iphone/detailProduct/*")
 	public void htmlWebInfo(Long id) throws DemsyException {
 		Class type = Demsy.bizEngine.getType(IProduct.SYS_CODE);
 		IOrm orm = Demsy.orm();
@@ -245,7 +359,7 @@ public class IPhoneActions extends ModuleActions implements BizConst, MvcConst {
 	 * 
 	 * @throws DemsyException
 	 */
-	@At("/ui/iphone/plistBbs/*")
+	// @At("/ui/iphone/plistBbs/*")
 	public void plistBbs(int pageIndex) {
 		IOrm orm = Demsy.orm();
 
@@ -297,7 +411,7 @@ public class IPhoneActions extends ModuleActions implements BizConst, MvcConst {
 	 * 
 	 * @throws DemsyException
 	 */
-	@At("/ui/iphone/plistBbsReply/*")
+	// @At("/ui/iphone/plistBbsReply/*")
 	public void plistBbsReply(int topicID, int pageIndex) {
 		IOrm orm = Demsy.orm();
 

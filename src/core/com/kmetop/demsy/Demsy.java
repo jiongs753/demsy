@@ -37,7 +37,7 @@ import org.nutz.trans.Trans;
 import com.handsome.ip.IPSeeker;
 import com.kmetop.demsy.actions.BizActions;
 import com.kmetop.demsy.actions.ConfigActions;
-import com.kmetop.demsy.actions.IPhoneActions;
+import com.kmetop.demsy.actions.AppActions;
 import com.kmetop.demsy.actions.IndexActions;
 import com.kmetop.demsy.actions.OrderActions;
 import com.kmetop.demsy.actions.SecurityActions;
@@ -159,7 +159,7 @@ import com.kmetop.demsy.security.SecurityException;
 		, IndexActions.class//
 		, UiActions.class//
 		, OrderActions.class//
-		, IPhoneActions.class //
+		, AppActions.class //
 })
 @UrlMappingBy("com.kmetop.demsy.mvc.nutz.DemsyUrlMappingImpl")
 @ChainBy(args = { "com/kmetop/demsy/mvc/nutz/demsy-chains.js" })
