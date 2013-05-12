@@ -3,7 +3,8 @@ package com.kmetop.demsy.comlib.biz.field;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.kmetop.demsy.comlib.entity.IBizComponent;
+import soom.entity.IBizComponent;
+
 import com.kmetop.demsy.lang.DemsyException;
 import com.kmetop.demsy.lang.JSON;
 import com.kmetop.demsy.lang.Str;

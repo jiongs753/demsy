@@ -1,6 +1,6 @@
-package domis.log.impl;
+package soom.log.impl;
 
-import domis.log.Log;
+import soom.log.Log;
 
 public abstract class AbstractLog implements Log {
 

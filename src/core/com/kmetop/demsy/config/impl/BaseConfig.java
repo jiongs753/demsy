@@ -13,7 +13,8 @@ import java.util.Properties;
 
 import org.nutz.lang.stream.StringInputStream;
 
-import com.kmetop.demsy.comlib.entity.IDynamic;
+import soom.entity.IDataOptions;
+
 import com.kmetop.demsy.config.IConfig;
 import com.kmetop.demsy.lang.Files;
 import com.kmetop.demsy.lang.Str;
@@ -21,7 +22,8 @@ import com.kmetop.demsy.lang.Ex;
 import com.kmetop.demsy.log.Log;
 import com.kmetop.demsy.log.Logs;
 
-public abstract class BaseConfig implements IConfig, IDynamic {
+
+public abstract class BaseConfig implements IConfig, IDataOptions {
 	protected Log log = Logs.getLog(this.getClass());
 
 	public static final String FILE_EXT = ".properties";
@@ -107,7 +109,7 @@ public abstract class BaseConfig implements IConfig, IDynamic {
 	}
 
 	@Override
-	public Map getDynaProp() {
+	public Map getDataOptions() {
 		return properties;
 	}
 

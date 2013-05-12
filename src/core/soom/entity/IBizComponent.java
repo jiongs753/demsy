@@ -1,18 +1,16 @@
-package com.kmetop.demsy.comlib.entity;
+package soom.entity;
 
 import java.util.Date;
 
 /**
- * <b>组件:</b>
+ * <b>业务组件:</b>
  * 
  * @author yongshan.ji
  */
-public interface IBizComponent extends IDynamic {
+public interface IBizComponent extends IDataOptions {
 	Long getId();
 
 	void setId(Long id);
-
-	String getEntityGuid();
 
 	Long getSoftID();
 
@@ -43,6 +41,8 @@ public interface IBizComponent extends IDynamic {
 	String getUpdatedBy();
 
 	void setUpdatedBy(String updatedBy);
+
+	String getEntityGuid();
 
 	boolean isDisabled();
 

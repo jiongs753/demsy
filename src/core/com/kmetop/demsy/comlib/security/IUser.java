@@ -2,8 +2,9 @@ package com.kmetop.demsy.comlib.security;
 
 import java.util.Date;
 
+import soom.entity.IBizComponent;
+
 import com.kmetop.demsy.comlib.biz.field.Upload;
-import com.kmetop.demsy.comlib.entity.IBizComponent;
 
 /**
  * <b> 用户: </b> 使用DEMSY系统功能的人。

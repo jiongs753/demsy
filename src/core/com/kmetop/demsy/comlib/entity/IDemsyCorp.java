@@ -1,5 +1,7 @@
 package com.kmetop.demsy.comlib.entity;
 
+import soom.entity.IBizComponent;
+
 
 /**
  * DEMSY企业： 使用DEMSY软件的主体。

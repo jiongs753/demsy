@@ -5,8 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.kmetop.demsy.comlib.entity.IDynamic;
+import soom.entity.IDataOptions;
+
 import com.kmetop.demsy.lang.Str;
+
 
 /**
  * 页面板块数据：描述页面板块展现的运行时数据模型，包括运行时生成的链接、标题图片等等。
@@ -14,7 +16,7 @@ import com.kmetop.demsy.lang.Str;
  * @author jiongs753
  * 
  */
-public class UIBlockDataModel implements IDynamic {
+public class UIBlockDataModel implements IDataOptions {
 
 	private List<UIBlockDataModel> items;
 	// 链接地址
@@ -158,7 +160,7 @@ public class UIBlockDataModel implements IDynamic {
 	}
 
 	@Override
-	public Map getDynaProp() {
+	public Map getDataOptions() {
 		return dynaProps;
 	}
 

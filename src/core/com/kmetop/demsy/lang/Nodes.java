@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import com.kmetop.demsy.comlib.entity.IDynamic;
+import soom.entity.IDataOptions;
+
 import com.kmetop.demsy.util.sort.SortUtils;
 
-public final class Nodes implements IDynamic {
+
+public final class Nodes implements IDataOptions {
 	private Map<String, Node> nodeMap;
 
 	private List<Node> children;
@@ -175,7 +177,7 @@ public final class Nodes implements IDynamic {
 	}
 
 	@Override
-	public Properties getDynaProp() {
+	public Properties getDataOptions() {
 		return dynamicProps;
 	}
 
@@ -225,7 +227,7 @@ public final class Nodes implements IDynamic {
 		}
 	}
 
-	public static final class Node implements IDynamic {
+	public static final class Node implements IDataOptions {
 		private List<Node> children = new ArrayList();
 
 		private Node parent;
@@ -382,7 +384,7 @@ public final class Nodes implements IDynamic {
 			this.parent = parent;
 		}
 
-		public Map getDynaProp() {
+		public Map getDataOptions() {
 			return dynamicProps;
 		}
 

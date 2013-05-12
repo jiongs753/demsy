@@ -6,11 +6,13 @@ import java.util.Properties;
 import javax.persistence.Column;
 import javax.persistence.Transient;
 
-import com.kmetop.demsy.comlib.entity.IDynamic;
+import soom.entity.IDataOptions;
+
 import com.kmetop.demsy.lang.Ex;
 import com.kmetop.demsy.lang.Props;
 
-public abstract class DynaEntity extends BizEntity implements IDynamic {
+
+public abstract class DynaEntity extends BizEntity implements IDataOptions {
 
 	@Column(name = "_status_value")
 	protected Integer maskValue;
@@ -42,7 +44,7 @@ public abstract class DynaEntity extends BizEntity implements IDynamic {
 	}
 
 	@Override
-	public Properties getDynaProp() {
+	public Properties getDataOptions() {
 		if (dynamicProps == null) {
 			try {
 				dynamicProps = Props.toProps(this.dynamicPropString);
@@ -63,14 +65,14 @@ public abstract class DynaEntity extends BizEntity implements IDynamic {
 	}
 
 	public String get(String key) {
-		return (String) getDynaProp().get(key);
+		return (String) getDataOptions().get(key);
 	}
 
 	public void set(String key, Object value) {
 		if (value == null)
-			getDynaProp().remove(key);
+			getDataOptions().remove(key);
 		else
-			getDynaProp().put(key, value);
+			getDataOptions().put(key, value);
 
 		try {
 			this.dynamicPropString = Props.toString(dynamicProps);

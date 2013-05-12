@@ -1,12 +1,13 @@
-package domis.log.impl;
+package soom.log.impl;
 
 import org.slf4j.LoggerFactory;
+
+import soom.log.Log;
+import soom.log.LogAdapter;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.LoggingEvent;
-import domis.log.Log;
-import domis.log.LogAdapter;
 
 public class LogbackLogAdapter implements LogAdapter {
 	public static final String LOGBACK_CLASS_NAME = "ch.qos.logback.classic.Logger";

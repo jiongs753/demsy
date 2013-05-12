@@ -1,10 +1,11 @@
-package domis.log.impl;
+package soom.log.impl;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import domis.log.Log;
-import domis.log.LogAdapter;
+import soom.log.Log;
+import soom.log.LogAdapter;
+
 
 /**
  * JDK Logger的适配器。

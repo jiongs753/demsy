@@ -1,4 +1,4 @@
-package domis.orm;
+package soom.orm;
 
 /**
  * 对象关系数据库映射接口：用于管理和查询数据库数据表，包括：

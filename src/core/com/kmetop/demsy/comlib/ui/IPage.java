@@ -1,7 +1,8 @@
 package com.kmetop.demsy.comlib.ui;
 
+import soom.entity.IBizComponent;
+
 import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
-import com.kmetop.demsy.comlib.entity.IBizComponent;
 
 public interface IPage extends IBizComponent {
 	public static final int USAGE_TPL = 0;

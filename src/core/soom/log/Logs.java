@@ -1,9 +1,9 @@
-package domis.log;
+package soom.log;
 
-import domis.log.impl.JdkLogAdapter;
-import domis.log.impl.Log4jLogAdapter;
-import domis.log.impl.LogbackLogAdapter;
-import domis.log.impl.SystemLogAdapter;
+import soom.log.impl.JdkLogAdapter;
+import soom.log.impl.Log4jLogAdapter;
+import soom.log.impl.LogbackLogAdapter;
+import soom.log.impl.SystemLogAdapter;
 
 public class Logs {
 

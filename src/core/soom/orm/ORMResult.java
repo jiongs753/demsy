@@ -1,4 +1,4 @@
-package domis.orm;
+package soom.orm;
 
 import java.util.List;
 
@@ -27,5 +27,5 @@ public class ORMResult<T> {
 	/**
 	 * 查询到的数据库记录
 	 */
-	protected List<T> rows;
+	protected List<T> data;
 }

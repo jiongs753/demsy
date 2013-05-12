@@ -15,9 +15,11 @@ import org.nutz.lang.inject.Injecting;
 import org.nutz.mvc.adaptor.ParamConvertor;
 import org.nutz.mvc.adaptor.Params;
 
-import com.kmetop.demsy.comlib.entity.IDynamic;
+import soom.entity.IDataOptions;
+
 import com.kmetop.demsy.lang.Cls;
 import com.kmetop.demsy.lang.Obj;
+
 
 public class ObjcetNaviNode {
 	private static final char separator = '.';
@@ -150,15 +152,15 @@ public class ObjcetNaviNode {
 					} catch (Throwable e1) {
 					}
 					if (m == null) {
-						if (obj instanceof IDynamic && values != null && values.length > 0) {
-							((IDynamic) obj).set(key, values[0]);
+						if (obj instanceof IDataOptions && values != null && values.length > 0) {
+							((IDataOptions) obj).set(key, values[0]);
 						}
 					} else {
 						throw e;
 					}
 				} catch (Throwable e) {
-					if (obj instanceof IDynamic && values != null && values.length > 0) {
-						((IDynamic) obj).set(key, values[0]);
+					if (obj instanceof IDataOptions && values != null && values.length > 0) {
+						((IDataOptions) obj).set(key, values[0]);
 					}
 				}
 				continue;
@@ -185,8 +187,8 @@ public class ObjcetNaviNode {
 					in.inject(obj, onn.inject(fieldMirror, next, fieldMode));
 				}
 			} catch (Throwable e) {
-				if (obj instanceof IDynamic) {
-					onn.injectDynamic((IDynamic) obj, key);
+				if (obj instanceof IDataOptions) {
+					onn.injectDynamic((IDataOptions) obj, key);
 				}
 				continue;
 			}
@@ -194,7 +196,7 @@ public class ObjcetNaviNode {
 		return obj;
 	}
 
-	private Object injectDynamic(IDynamic obj, String path) {
+	private Object injectDynamic(IDataOptions obj, String path) {
 		for (Entry<String, ObjcetNaviNode> entry : child.entrySet()) {
 			ObjcetNaviNode onn = entry.getValue();
 			String[] value = onn.getValue();

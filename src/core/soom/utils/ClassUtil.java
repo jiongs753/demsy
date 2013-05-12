@@ -1,4 +1,4 @@
-package domis.utils;
+package soom.utils;
 
 import java.util.Date;
 

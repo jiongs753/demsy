@@ -1,8 +1,9 @@
 package com.kmetop.demsy.comlib.web;
 
+import soom.entity.IBizComponent;
+
 import com.kmetop.demsy.comlib.biz.IRuntimeConfigable;
 import com.kmetop.demsy.comlib.biz.field.Upload;
-import com.kmetop.demsy.comlib.entity.IBizComponent;
 
 /**
  * 网站栏目

@@ -4,7 +4,8 @@ import javax.persistence.Column;
 
 import org.nutz.lang.Strings;
 
-import com.kmetop.demsy.comlib.entity.IBizComponent;
+import soom.entity.IBizComponent;
+
 
 public abstract class BizComponent extends DynaEntity implements IBizComponent {
 

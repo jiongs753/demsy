@@ -1,10 +1,11 @@
-package domis.json.nutz;
+package soom.json.nutz;
 
 import java.io.Writer;
 
 import org.nutz.json.Json;
 
-import domis.json.JSON.JSONApi;
+import soom.json.JSON.JSONApi;
+
 
 public class JSONNutzImpl implements JSONApi {
 

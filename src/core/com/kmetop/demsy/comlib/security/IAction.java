@@ -1,7 +1,8 @@
 package com.kmetop.demsy.comlib.security;
 
+import soom.entity.IBizComponent;
+
 import com.kmetop.demsy.comlib.biz.field.Upload;
-import com.kmetop.demsy.comlib.entity.IBizComponent;
 
 /**
  * <b>模块操作：</b>功能模块的操作部分，最小的模块功能点。

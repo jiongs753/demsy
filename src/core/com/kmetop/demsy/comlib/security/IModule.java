@@ -1,7 +1,8 @@
 package com.kmetop.demsy.comlib.security;
 
+import soom.entity.IBizComponent;
+
 import com.kmetop.demsy.comlib.biz.field.Upload;
-import com.kmetop.demsy.comlib.entity.IBizComponent;
 import com.kmetop.demsy.comlib.entity.ITreeEntity;
 import com.kmetop.demsy.config.IDataSource;
 

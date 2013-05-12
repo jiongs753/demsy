@@ -1,4 +1,4 @@
-package domis.log;
+package soom.log;
 
 public interface Log {
 

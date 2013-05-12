@@ -1,4 +1,4 @@
-package domis.utils;
+package soom.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,8 +9,9 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
-import domis.log.Log;
-import domis.log.Logs;
+import soom.log.Log;
+import soom.log.Logs;
+
 
 public abstract class HttpUtil {
 	private static Log log = Logs.getLog(HttpUtil.class);

@@ -1,11 +1,12 @@
-package domis.log.impl;
+package soom.log.impl;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import domis.log.Log;
-import domis.log.LogAdapter;
+import soom.log.Log;
+import soom.log.LogAdapter;
+
 
 public class Log4jLogAdapter implements LogAdapter {
 

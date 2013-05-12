@@ -1,7 +1,7 @@
-package domis.log.impl;
+package soom.log.impl;
 
-import domis.log.Log;
-import domis.log.LogAdapter;
+import soom.log.Log;
+import soom.log.LogAdapter;
 
 public class SystemLogAdapter implements LogAdapter {
 

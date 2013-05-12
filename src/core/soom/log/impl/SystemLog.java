@@ -1,4 +1,4 @@
-package domis.log.impl;
+package soom.log.impl;
 
 public class SystemLog extends AbstractLog {
 

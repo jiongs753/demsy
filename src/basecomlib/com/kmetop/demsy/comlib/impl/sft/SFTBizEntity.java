@@ -12,12 +12,14 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import soom.entity.IDataOptions;
+
 import com.kmetop.demsy.comlib.entity.IBizEntity;
-import com.kmetop.demsy.comlib.entity.IDynamic;
 import com.kmetop.demsy.lang.Cls;
 import com.kmetop.demsy.lang.Props;
 
-public abstract class SFTBizEntity implements IDynamic, IBizEntity {
+
+public abstract class SFTBizEntity implements IDataOptions, IBizEntity {
 	@Id
 	@Column(name = "_id")
 	@GeneratedValue(generator = "SftIdGen", strategy = GenerationType.TABLE)
@@ -136,7 +138,7 @@ public abstract class SFTBizEntity implements IDynamic, IBizEntity {
 	}
 
 	@Override
-	public Properties getDynaProp() {
+	public Properties getDataOptions() {
 		if (dynaProp == null) {
 			try {
 				dynaProp = Props.toProps(this.dynamicPropertiesText);
@@ -147,7 +149,7 @@ public abstract class SFTBizEntity implements IDynamic, IBizEntity {
 	}
 
 	public String get(String key) {
-		return (String) getDynaProp().get(key);
+		return (String) getDataOptions().get(key);
 	}
 
 	public boolean is(byte index) {
@@ -208,7 +210,7 @@ public abstract class SFTBizEntity implements IDynamic, IBizEntity {
 	}
 
 	public void set(String key, Object value) {
-		getDynaProp().put(key, value);
+		getDataOptions().put(key, value);
 		try {
 			this.dynamicPropertiesText = Props.toString(dynaProp);
 		} catch (IOException e) {

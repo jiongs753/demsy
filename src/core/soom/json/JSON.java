@@ -1,8 +1,9 @@
-package domis.json;
+package soom.json;
 
 import java.io.Writer;
 
-import domis.json.nutz.JSONNutzImpl;
+import soom.json.nutz.JSONNutzImpl;
+
 
 /**
  * JSON工具类

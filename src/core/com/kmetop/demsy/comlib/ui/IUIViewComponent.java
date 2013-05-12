@@ -1,7 +1,8 @@
 package com.kmetop.demsy.comlib.ui;
 
+import soom.entity.IBizComponent;
+
 import com.kmetop.demsy.comlib.biz.field.Upload;
-import com.kmetop.demsy.comlib.entity.IBizComponent;
 
 /**
  * 视图组件库：描述可供使用的视图组件

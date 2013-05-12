@@ -16,6 +16,9 @@ import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Fail;
 import org.nutz.mvc.annotation.Ok;
 
+import soom.json.JSON;
+import soom.utils.HttpUtil;
+
 import com.kmetop.demsy.Demsy;
 import com.kmetop.demsy.biz.BizConst;
 import com.kmetop.demsy.comlib.LibConst;
@@ -37,8 +40,6 @@ import com.kmetop.demsy.orm.Pager;
 import com.kmetop.demsy.orm.expr.CndExpr;
 import com.kmetop.demsy.orm.expr.Expr;
 
-import domis.json.JSON;
-import domis.utils.HttpUtil;
 
 /**
  * 智能终端设备（APP）请求处理器：

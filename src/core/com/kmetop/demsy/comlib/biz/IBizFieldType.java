@@ -1,6 +1,6 @@
 package com.kmetop.demsy.comlib.biz;
 
-import com.kmetop.demsy.comlib.entity.IBizComponent;
+import soom.entity.IBizComponent;
 
 public interface IBizFieldType extends IBizComponent {
 	public boolean isBoolean();

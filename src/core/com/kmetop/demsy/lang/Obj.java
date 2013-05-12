@@ -30,12 +30,14 @@ import java.util.Map;
 
 import org.nutz.lang.Mirror;
 
+import soom.entity.IDataOptions;
+
 import com.kmetop.demsy.Demsy;
 import com.kmetop.demsy.comlib.LibConst;
 import com.kmetop.demsy.comlib.entity.IBizEntity;
-import com.kmetop.demsy.comlib.entity.IDynamic;
 import com.kmetop.demsy.orm.expr.Expr;
 import com.kmetop.demsy.orm.mapping.EnMapping;
+
 
 public abstract class Obj {
 
@@ -561,8 +563,8 @@ public abstract class Obj {
 				}
 			} catch (Throwable e) {
 				try {
-					if (obj instanceof IDynamic) {
-						return (T) ((IDynamic) obj).get(path);
+					if (obj instanceof IDataOptions) {
+						return (T) ((IDataOptions) obj).get(path);
 					}
 				} catch (Throwable iglore) {
 				}
@@ -577,8 +579,8 @@ public abstract class Obj {
 				return (T) Mirror.me(obj).getValue(obj, path);
 			} catch (Throwable e) {
 				try {
-					if (obj instanceof IDynamic) {
-						return (T) ((IDynamic) obj).get(path);
+					if (obj instanceof IDataOptions) {
+						return (T) ((IDataOptions) obj).get(path);
 					}
 				} catch (Throwable iglore) {
 				}

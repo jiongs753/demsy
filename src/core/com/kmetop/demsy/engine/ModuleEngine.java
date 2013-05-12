@@ -23,6 +23,8 @@ import java.util.Map;
 
 import org.nutz.dao.Sqls;
 
+import soom.entity.IBizComponent;
+
 import com.kmetop.demsy.Demsy;
 import com.kmetop.demsy.comlib.IModuleEngine;
 import com.kmetop.demsy.comlib.LibConst;
@@ -31,7 +33,6 @@ import com.kmetop.demsy.comlib.biz.IBizField;
 import com.kmetop.demsy.comlib.biz.IBizSystem;
 import com.kmetop.demsy.comlib.biz.field.Upload;
 import com.kmetop.demsy.comlib.entity.IBizEntity;
-import com.kmetop.demsy.comlib.entity.IBizComponent;
 import com.kmetop.demsy.comlib.entity.IDemsyCorp;
 import com.kmetop.demsy.comlib.entity.IDemsySoft;
 import com.kmetop.demsy.comlib.entity.ISoftConfig;

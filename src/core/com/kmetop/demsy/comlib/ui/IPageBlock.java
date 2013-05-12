@@ -1,9 +1,10 @@
 package com.kmetop.demsy.comlib.ui;
 
+import soom.entity.IBizComponent;
+
 import com.kmetop.demsy.comlib.biz.field.CssPosition;
 import com.kmetop.demsy.comlib.biz.field.Dataset;
 import com.kmetop.demsy.comlib.biz.field.FakeSubSystem;
-import com.kmetop.demsy.comlib.entity.IBizComponent;
 
 public interface IPageBlock extends IBizComponent {
 	public static final byte TYPE_LIB = 0;// 展现构件库
